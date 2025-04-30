@@ -1,12 +1,12 @@
 # Lisää tämä bigquery_utils.py tiedoston alkuun muiden importien kanssa:
-from vertex_ai_utils import generate_sql_from_natural_language, PROJECT_ID
+from utils.vertex_ai_utils import generate_sql_from_natural_language, PROJECT_ID
 # Tiedostossa: bigquery_utils.py
 
 from google.cloud import bigquery
 import pandas as pd
 import re
 # Tuodaan funktio ja projektitunnus toisesta tiedostosta
-from vertex_ai_utils import generate_sql_from_natural_language, PROJECT_ID
+from utils.vertex_ai_utils import generate_sql_from_natural_language, PROJECT_ID
 
 # --- Alustus ---
 # Käytetään samaa projektitunnusta kuin vertex_ai_utils.py:ssä

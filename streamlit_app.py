@@ -24,7 +24,7 @@ def execute_sql_query(sql_query: str):
 
 def main():
     st.title("Budjettihaukka")
-    st.write("Budjettihaukka on avoimen lähdekoodin web-sovellus, jonka tarkoituksena on tuoda talouspolitiikkaan liittyvä tieto helposti saataville, analysoitavaksi ja visualisoitavaksi. Sovelluksen käyttäjä voi esittää kysymyksiä luonnollisella kielellä, ja tekoälyn avulla saa kansantaloudelliseen optimaalisuuteen ja empiiriseen taloustutkimukseen perustuvia analyyseja. Tulokset voidaan näyttää taulukkoina, dynaamisina visualisointeina sekä analyyttisinä raportteina.\n\nProjektin pitkän aikavälin tavoite on tukea kansalaisia, tutkijoita ja toimittajia tarjoamalla tietopohjainen, helppokäyttöinen työkalu poliittisten ja taloudellisten päätösten arviointiin")
+    st.write("Budjettihaukka on avoimen lähdekoodin web-sovellus, jonka tarkoituksena on tuoda talouspolitiikkaan liittyvä tieto helposti saataville, analysoitavaksi ja visualisoitavaksi. Sovelluksen käyttäjä voi esittää kysymyksiä luonnollisella kielellä, ja tekoälyn avulla saa kansantaloudelliseen optimaalisuuteen ja empiiriseen taloustutkimukseen perustubia analyyseja. Tulokset voidaan näyttää taulukkoina, dynaamisina visualisointeina sekä analyyttisinä raportteina.")
 
     # Input for natural language question
     question = st.text_area("Enter your question:", "")
