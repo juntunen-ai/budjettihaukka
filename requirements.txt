@@ -1,0 +1,6 @@
+streamlit
+pandas
+matplotlib
+google-cloud-bigquery
+google-cloud-aiplatform
+firebase-admin
