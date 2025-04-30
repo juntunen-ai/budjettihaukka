@@ -3,6 +3,9 @@ from utils.vertex_ai_utils import generate_sql_from_natural_language
 from google.cloud import bigquery
 import re
 import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
+import random
 
 def execute_sql_query(sql_query: str):
     """
@@ -63,6 +66,188 @@ def sanitize_sql_query(sql_query: str) -> str:
     
     return sql_query
 
+def generate_sample_budget_data():
+    """
+    Generoi esimerkkidataa budjettidatasta visualisoinnin testaamiseen.
+    
+    Returns:
+        pd.DataFrame: Esimerkkibudjettidataa
+    """
+    # Luodaan esimerkki kategoriat
+    categories = [
+        'Puolustusministeriö', 
+        'Opetusministeriö', 
+        'Sosiaali- ja terveysministeriö',
+        'Liikenne- ja viestintäministeriö',
+        'Valtiovarainministeriö',
+        'Ympäristöministeriö'
+    ]
+    
+    # Luodaan vuodet
+    years = list(range(2018, 2025))
+    
+    # Alustetaan data lista
+    data = []
+    
+    # Luodaan jokaiselle kategorialle ja vuodelle dataa
+    for category in categories:
+        base_amount = random.randint(100, 1000) * 1000000  # Perusmäärä miljoonissa
+        
+        for year in years:
+            # Lisätään hieman satunnaisuutta, mutta pidetään trendi
+            yearly_change = random.uniform(-0.1, 0.2)  # -10% to +20% vuosimuutos
+            amount = base_amount * (1 + yearly_change)
+            
+            # Lisätään vuosineljännes data
+            for quarter in range(1, 5):
+                quarterly_amount = amount / 4 * (1 + random.uniform(-0.05, 0.05))
+                
+                data.append({
+                    'Vuosi': year,
+                    'Vuosineljännes': quarter,
+                    'Ministeriö': category,
+                    'Määräraha_EUR': round(quarterly_amount, 2),
+                    'Päivämäärä': f"{year}-{quarter*3:02d}-01"
+                })
+                
+        # Lisätään vaihtelua perusmäärään seuraavaa kategoriaa varten
+        base_amount = base_amount * (1 + random.uniform(-0.3, 0.3))
+    
+    # Luodaan DataFrame
+    df = pd.DataFrame(data)
+    
+    # Muunnetaan päivämäärä-sarake datetime-tyyppiseksi
+    df['Päivämäärä'] = pd.to_datetime(df['Päivämäärä'])
+    
+    return df
+
+def visualize_data(df, title="Budjettidata visualisointi"):
+    """
+    Visualisoi budjettidata monipuolisesti.
+    
+    Parameters:
+        df (pd.DataFrame): Visualisoitava dataframe
+        title (str): Visualisoinnin otsikko
+    """
+    st.subheader(title)
+    
+    # Tarkistetaan, onko dataframessa sarakkeita
+    if df.empty or len(df.columns) == 0:
+        st.warning("Ei dataa visualisoitavaksi.")
+        return
+    
+    # Sarakkeet joita voi visualisoida
+    numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
+    categorical_cols = df.select_dtypes(include=['object', 'category']).columns.tolist()
+    date_cols = [col for col in df.columns if pd.api.types.is_datetime64_any_dtype(df[col])]
+    
+    if not numeric_cols:
+        st.warning("Ei numeerista dataa visualisoitavaksi.")
+        return
+    
+    # Visualisointivaihtoehdot
+    viz_options = st.radio(
+        "Valitse visualisoinnin tyyppi:",
+        ["Aikasarja", "Kategoriavertailu", "Ministeriöiden määrärahat vuosittain", "Vuosittainen kehitys"],
+        index=0
+    )
+    
+    if viz_options == "Aikasarja" and date_cols:
+        # Aikasarjan visualisointi
+        st.subheader("Määrärahojen kehitys ajan funktiona")
+        
+        # Mahdollisuus valita ministeriö
+        if 'Ministeriö' in df.columns:
+            ministries = df['Ministeriö'].unique().tolist()
+            selected_ministries = st.multiselect(
+                "Valitse ministeriöt:",
+                ministries,
+                default=ministries[:3] if len(ministries) > 3 else ministries
+            )
+            
+            filtered_df = df[df['Ministeriö'].isin(selected_ministries)]
+        else:
+            filtered_df = df
+        
+        # Aikasarjan visualisointi
+        if not filtered_df.empty:
+            # Ryhmittely päivämäärän mukaan ja summataan määrärahat
+            if 'Määräraha_EUR' in filtered_df.columns and date_cols:
+                date_col = date_cols[0]
+                
+                # Ryhmittele päivämäärän ja ministeriön mukaan
+                if 'Ministeriö' in filtered_df.columns:
+                    chart_data = filtered_df.pivot_table(
+                        index=date_col, 
+                        columns='Ministeriö', 
+                        values='Määräraha_EUR',
+                        aggfunc='sum'
+                    )
+                else:
+                    chart_data = filtered_df.groupby(date_col)['Määräraha_EUR'].sum()
+                
+                st.line_chart(chart_data)
+    
+    elif viz_options == "Kategoriavertailu" and 'Ministeriö' in df.columns and numeric_cols:
+        st.subheader("Määrärahat ministeriöittäin")
+        
+        # Valitse vuosi jos mahdollista
+        if 'Vuosi' in df.columns:
+            years = sorted(df['Vuosi'].unique().tolist())
+            selected_year = st.selectbox("Valitse vuosi:", years, index=len(years)-1)
+            filtered_df = df[df['Vuosi'] == selected_year]
+        else:
+            filtered_df = df
+        
+        # Ryhmittele ministeriöittäin
+        if 'Määräraha_EUR' in filtered_df.columns:
+            chart_data = filtered_df.groupby('Ministeriö')['Määräraha_EUR'].sum().sort_values(ascending=False)
+            st.bar_chart(chart_data)
+    
+    elif viz_options == "Ministeriöiden määrärahat vuosittain" and 'Ministeriö' in df.columns and 'Vuosi' in df.columns:
+        st.subheader("Ministeriöiden määrärahat vuosittain")
+        
+        # Valitse ministeriö
+        ministries = df['Ministeriö'].unique().tolist()
+        selected_ministry = st.selectbox("Valitse ministeriö:", ministries)
+        
+        filtered_df = df[df['Ministeriö'] == selected_ministry]
+        
+        # Ryhmittele vuosittain
+        if 'Määräraha_EUR' in filtered_df.columns:
+            chart_data = filtered_df.groupby('Vuosi')['Määräraha_EUR'].sum()
+            
+            # Laske muutosprosentti edellisestä vuodesta
+            chart_data_pct = chart_data.pct_change() * 100
+            
+            # Näytä määrärahat
+            st.subheader(f"{selected_ministry} - Määrärahat vuosittain")
+            st.line_chart(chart_data)
+            
+            # Näytä muutosprosentit
+            st.subheader(f"{selected_ministry} - Määrärahojen vuosimuutos (%)")
+            st.bar_chart(chart_data_pct.iloc[1:])  # Poistetaan ensimmäinen arvo (NaN)
+    
+    elif viz_options == "Vuosittainen kehitys" and 'Vuosi' in df.columns:
+        st.subheader("Määrärahojen kehitys vuosittain")
+        
+        # Ryhmittele vuosittain ja ministeriöittäin
+        if 'Määräraha_EUR' in df.columns:
+            pivot_data = df.pivot_table(
+                index='Vuosi',
+                columns='Ministeriö' if 'Ministeriö' in df.columns else None,
+                values='Määräraha_EUR',
+                aggfunc='sum'
+            )
+            
+            # Näytä absoluuttiset summat
+            st.line_chart(pivot_data)
+            
+            # Näytä prosentuaalinen jakauma
+            st.subheader("Määrärahojen suhteellinen jakauma vuosittain")
+            relative_data = pivot_data.div(pivot_data.sum(axis=1), axis=0) * 100
+            st.area_chart(relative_data)
+
 def main():
     st.set_page_config(page_title="Budjettihaukka", layout="wide")
     st.title("Budjettihaukka")
@@ -70,7 +255,36 @@ def main():
 
     # Lisätään diagnostiikkatila kehittäjille
     debug_mode = st.sidebar.checkbox("Kehittäjätila", value=False)
-
+    
+    # Lisätään visualisoinnin testaustila
+    test_visualization = st.sidebar.checkbox("Testaa visualisointia", value=False)
+    
+    if test_visualization:
+        st.header("Visualisoinnin testaus")
+        st.write("Tämä tila käyttää generoitua esimerkkidataa visualisoinnin testaamiseen.")
+        
+        # Generoidaan esimerkkidata
+        sample_data = generate_sample_budget_data()
+        
+        # Näytetään esimerkkidata
+        st.subheader("Esimerkkidata")
+        st.dataframe(sample_data.head(10), use_container_width=True)
+        
+        # Visualisoidaan data
+        visualize_data(sample_data)
+        
+        # Tarjotaan CSV-latausmahdollisuus
+        csv = sample_data.to_csv(index=False)
+        st.download_button(
+            label="Lataa esimerkkidata CSV-tiedostona",
+            data=csv,
+            file_name="budjettihaukka_esimerkkidata.csv",
+            mime="text/csv"
+        )
+        
+        return  # Palataan tästä, jos testataan visualisointia
+    
+    # Normaalin sovelluksen kulku tästä eteenpäin
     # Input for natural language question
     question = st.text_area("Kirjoita kysymyksesi:", placeholder="Esim. Mitkä olivat puolustusministeriön menot vuonna 2023?", height=100)
 
@@ -121,26 +335,8 @@ def main():
                         mime="text/csv"
                     )
                     
-                    # Visualisointiosuus
-                    st.subheader("Visualisointi")
-                    
-                    # Tunnistetaan numeeriset sarakkeet
-                    numeric_cols = results.select_dtypes(include=['float64', 'int64']).columns.tolist()
-                    date_cols = [col for col in results.columns if 'date' in col.lower() or 'vuosi' in col.lower()]
-                    
-                    if numeric_cols and len(results) > 1:
-                        # Jos on aikasarake, käytetään sitä x-akselina
-                        if date_cols:
-                            x_column = date_cols[0]
-                            for y_column in numeric_cols:
-                                st.subheader(f"{y_column} ajan funktiona")
-                                chart_data = results.set_index(x_column)[y_column]
-                                st.line_chart(chart_data)
-                        # Muuten näytetään kaikki numeeriset sarakkeet
-                        else:
-                            st.line_chart(results[numeric_cols])
-                    else:
-                        st.warning("Ei tarpeeksi numeerista dataa visualisointia varten.")
+                    # Visualisoi tulokset
+                    visualize_data(results, title="Kyselyn tulokset visualisoituna")
                 else:
                     st.warning("Kysely ei palauttanut tuloksia. Kokeile muokata kysymystäsi.")
             
