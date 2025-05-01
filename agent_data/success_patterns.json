@@ -1,0 +1,102 @@
+{
+  "has_order_by": {
+    "count": 12,
+    "examples": [
+      {
+        "id": "0418628cab5f37a4d49bdecd9eebe8bd",
+        "question": "Mitkä ovat budjetin pääluokat?\n",
+        "sql_query": "SELECT DISTINCT\n  PaaluokkaOsasto_sNimi AS Paaluokka\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nORDER BY\n  Paaluokka;"
+      },
+      {
+        "id": "4f093e391999fd35084418652c10475c",
+        "question": "kuinka paljon opetusmenoista on leikattu 2020-2024?",
+        "sql_query": "SELECT\n  `Vuosi`,\n  SUM(`Voimassaoleva_talousarvio`) AS Opetusmenot_Euroa_Voimassaoleva_TA\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Hallinnonala` = 'Opetus- ja kulttuuriministeriö' -- Rajataan Opetus- ja kulttuuriministeriön hallinnonalaan\n  AND `Vuosi` BETWEEN 2020 AND 2024 -- Rajataan tarkastelujakso vuosille 2020-2024\nGROUP BY\n  `Vuosi`\nORDER BY\n  `Vuosi`;"
+      },
+      {
+        "id": "14e51319802ab54722d43d7f979351e2",
+        "question": "Mitkä ovat euromääräisesti budjetin suurimmat momentit?",
+        "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Voimassaoleva_talousarvio`) AS `Budjetoitu_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Momentti_sNimi` IS NOT NULL\n  AND `Voimassaoleva_talousarvio` IS NOT NULL\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Budjetoitu_Summa` DESC\nLIMIT 10 -- Voit muuttaa LIMIT-arvoa näyttääksesi enemmän tai vähemmän rivejä"
+      },
+      {
+        "id": "771cb2be2a02058a025303f1e698915f",
+        "question": "mitkä olivat suurimmat menot vuonna 2024 euromääräisesti?",
+        "sql_query": "SELECT\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`,\n  -- Oletetaan, että 'Voimassaoleva_talousarvio' kuvaa koko vuoden budjetoitua menoa momentille\n  -- ja se voi toistua kuukausittain. MAX() ottaa tämän arvon kerran per momentti.\n  -- Jos 'Nettokertymä_ko_vuodelta' kuvaa toteutunutta menoa paremmin, käytä sitä ja SUM()-funktiota.\n  MAX(`Voimassaoleva_talousarvio`) AS Suurin_Budjetoitu_Meno_EUR\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2024\nGROUP BY\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`\nORDER BY\n  Suurin_Budjetoitu_Meno_EUR DESC\nLIMIT 10; -- Rajataan tulokset 10 suurimpaan"
+      },
+      {
+        "id": "314f025e3b280ec5079e6cc5539b472a",
+        "question": "Voisitko visualisoida suurimmat tuloerät vuonna 2023?",
+        "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Nettokertymä_ko_vuodelta`) AS `Vuoden_2023_Tulo_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2023\n  AND `Nettokertymä_ko_vuodelta` > 0 -- Oletetaan, että positiivinen nettokertymä vastaa tuloja\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Vuoden_2023_Tulo_Summa` DESC\nLIMIT 10 -- Rajoitetaan tulokset 10 suurimpaan tuloerään visualisointia varten"
+      }
+    ]
+  },
+  "has_group_by": {
+    "count": 10,
+    "examples": [
+      {
+        "id": "4f093e391999fd35084418652c10475c",
+        "question": "kuinka paljon opetusmenoista on leikattu 2020-2024?",
+        "sql_query": "SELECT\n  `Vuosi`,\n  SUM(`Voimassaoleva_talousarvio`) AS Opetusmenot_Euroa_Voimassaoleva_TA\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Hallinnonala` = 'Opetus- ja kulttuuriministeriö' -- Rajataan Opetus- ja kulttuuriministeriön hallinnonalaan\n  AND `Vuosi` BETWEEN 2020 AND 2024 -- Rajataan tarkastelujakso vuosille 2020-2024\nGROUP BY\n  `Vuosi`\nORDER BY\n  `Vuosi`;"
+      },
+      {
+        "id": "14e51319802ab54722d43d7f979351e2",
+        "question": "Mitkä ovat euromääräisesti budjetin suurimmat momentit?",
+        "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Voimassaoleva_talousarvio`) AS `Budjetoitu_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Momentti_sNimi` IS NOT NULL\n  AND `Voimassaoleva_talousarvio` IS NOT NULL\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Budjetoitu_Summa` DESC\nLIMIT 10 -- Voit muuttaa LIMIT-arvoa näyttääksesi enemmän tai vähemmän rivejä"
+      },
+      {
+        "id": "771cb2be2a02058a025303f1e698915f",
+        "question": "mitkä olivat suurimmat menot vuonna 2024 euromääräisesti?",
+        "sql_query": "SELECT\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`,\n  -- Oletetaan, että 'Voimassaoleva_talousarvio' kuvaa koko vuoden budjetoitua menoa momentille\n  -- ja se voi toistua kuukausittain. MAX() ottaa tämän arvon kerran per momentti.\n  -- Jos 'Nettokertymä_ko_vuodelta' kuvaa toteutunutta menoa paremmin, käytä sitä ja SUM()-funktiota.\n  MAX(`Voimassaoleva_talousarvio`) AS Suurin_Budjetoitu_Meno_EUR\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2024\nGROUP BY\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`\nORDER BY\n  Suurin_Budjetoitu_Meno_EUR DESC\nLIMIT 10; -- Rajataan tulokset 10 suurimpaan"
+      },
+      {
+        "id": "314f025e3b280ec5079e6cc5539b472a",
+        "question": "Voisitko visualisoida suurimmat tuloerät vuonna 2023?",
+        "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Nettokertymä_ko_vuodelta`) AS `Vuoden_2023_Tulo_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2023\n  AND `Nettokertymä_ko_vuodelta` > 0 -- Oletetaan, että positiivinen nettokertymä vastaa tuloja\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Vuoden_2023_Tulo_Summa` DESC\nLIMIT 10 -- Rajoitetaan tulokset 10 suurimpaan tuloerään visualisointia varten"
+      }
+    ]
+  },
+  "has_where": {
+    "count": 10,
+    "examples": [
+      {
+        "id": "4f093e391999fd35084418652c10475c",
+        "question": "kuinka paljon opetusmenoista on leikattu 2020-2024?",
+        "sql_query": "SELECT\n  `Vuosi`,\n  SUM(`Voimassaoleva_talousarvio`) AS Opetusmenot_Euroa_Voimassaoleva_TA\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Hallinnonala` = 'Opetus- ja kulttuuriministeriö' -- Rajataan Opetus- ja kulttuuriministeriön hallinnonalaan\n  AND `Vuosi` BETWEEN 2020 AND 2024 -- Rajataan tarkastelujakso vuosille 2020-2024\nGROUP BY\n  `Vuosi`\nORDER BY\n  `Vuosi`;"
+      },
+      {
+        "id": "14e51319802ab54722d43d7f979351e2",
+        "question": "Mitkä ovat euromääräisesti budjetin suurimmat momentit?",
+        "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Voimassaoleva_talousarvio`) AS `Budjetoitu_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Momentti_sNimi` IS NOT NULL\n  AND `Voimassaoleva_talousarvio` IS NOT NULL\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Budjetoitu_Summa` DESC\nLIMIT 10 -- Voit muuttaa LIMIT-arvoa näyttääksesi enemmän tai vähemmän rivejä"
+      },
+      {
+        "id": "771cb2be2a02058a025303f1e698915f",
+        "question": "mitkä olivat suurimmat menot vuonna 2024 euromääräisesti?",
+        "sql_query": "SELECT\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`,\n  -- Oletetaan, että 'Voimassaoleva_talousarvio' kuvaa koko vuoden budjetoitua menoa momentille\n  -- ja se voi toistua kuukausittain. MAX() ottaa tämän arvon kerran per momentti.\n  -- Jos 'Nettokertymä_ko_vuodelta' kuvaa toteutunutta menoa paremmin, käytä sitä ja SUM()-funktiota.\n  MAX(`Voimassaoleva_talousarvio`) AS Suurin_Budjetoitu_Meno_EUR\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2024\nGROUP BY\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`\nORDER BY\n  Suurin_Budjetoitu_Meno_EUR DESC\nLIMIT 10; -- Rajataan tulokset 10 suurimpaan"
+      },
+      {
+        "id": "314f025e3b280ec5079e6cc5539b472a",
+        "question": "Voisitko visualisoida suurimmat tuloerät vuonna 2023?",
+        "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Nettokertymä_ko_vuodelta`) AS `Vuoden_2023_Tulo_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2023\n  AND `Nettokertymä_ko_vuodelta` > 0 -- Oletetaan, että positiivinen nettokertymä vastaa tuloja\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Vuoden_2023_Tulo_Summa` DESC\nLIMIT 10 -- Rajoitetaan tulokset 10 suurimpaan tuloerään visualisointia varten"
+      }
+    ]
+  },
+  "has_limit": {
+    "count": 7,
+    "examples": [
+      {
+        "id": "14e51319802ab54722d43d7f979351e2",
+        "question": "Mitkä ovat euromääräisesti budjetin suurimmat momentit?",
+        "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Voimassaoleva_talousarvio`) AS `Budjetoitu_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Momentti_sNimi` IS NOT NULL\n  AND `Voimassaoleva_talousarvio` IS NOT NULL\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Budjetoitu_Summa` DESC\nLIMIT 10 -- Voit muuttaa LIMIT-arvoa näyttääksesi enemmän tai vähemmän rivejä"
+      },
+      {
+        "id": "771cb2be2a02058a025303f1e698915f",
+        "question": "mitkä olivat suurimmat menot vuonna 2024 euromääräisesti?",
+        "sql_query": "SELECT\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`,\n  -- Oletetaan, että 'Voimassaoleva_talousarvio' kuvaa koko vuoden budjetoitua menoa momentille\n  -- ja se voi toistua kuukausittain. MAX() ottaa tämän arvon kerran per momentti.\n  -- Jos 'Nettokertymä_ko_vuodelta' kuvaa toteutunutta menoa paremmin, käytä sitä ja SUM()-funktiota.\n  MAX(`Voimassaoleva_talousarvio`) AS Suurin_Budjetoitu_Meno_EUR\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2024\nGROUP BY\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`\nORDER BY\n  Suurin_Budjetoitu_Meno_EUR DESC\nLIMIT 10; -- Rajataan tulokset 10 suurimpaan"
+      },
+      {
+        "id": "314f025e3b280ec5079e6cc5539b472a",
+        "question": "Voisitko visualisoida suurimmat tuloerät vuonna 2023?",
+        "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Nettokertymä_ko_vuodelta`) AS `Vuoden_2023_Tulo_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2023\n  AND `Nettokertymä_ko_vuodelta` > 0 -- Oletetaan, että positiivinen nettokertymä vastaa tuloja\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Vuoden_2023_Tulo_Summa` DESC\nLIMIT 10 -- Rajoitetaan tulokset 10 suurimpaan tuloerään visualisointia varten"
+      }
+    ]
+  }
+}

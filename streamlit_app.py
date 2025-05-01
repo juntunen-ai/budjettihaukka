@@ -345,5 +345,9 @@ def main():
                 if debug_mode:
                     st.exception(e)
 
+    # Alatunnisteen näyttäminen
+    st.markdown("---")
+    st.markdown("Budjettihaukka | Powered by LangGraph & Vertex AI © 2025")
+
 if __name__ == "__main__":
     main()

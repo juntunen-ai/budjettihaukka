@@ -1,0 +1,97 @@
+[
+  {
+    "id": "0418628cab5f37a4d49bdecd9eebe8bd",
+    "timestamp": "2025-05-02T00:20:12.413388",
+    "question": "Mitkä ovat budjetin pääluokat?\n",
+    "sql_query": "SELECT DISTINCT\n  PaaluokkaOsasto_sNimi AS Paaluokka\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nORDER BY\n  Paaluokka;",
+    "final_answer": "Tässä ovat budjetin pääluokat analyysin perusteella:\n\n*   Eduskunta\n*   Korkotulot, osakkeiden myyntitulot ja voiton tuloutukset\n*   Lainat\n*   Liikenne- ja viestintäministeriön hallinnonala\n*   Maa- ja metsätalousministeriön hallinnonala\n*   Oikeusministeriön hallinnonala\n*   Opetus- ja kulttuuriministeriön hallinnonala\n*   Puolustusministeriön hallinnonala\n*   Sekalaiset tulot\n*   Sisäministeriön hallinnonala\n*   Sosiaali- ja terveysministeriön hallinnonala\n*   Tasavallan presidentti\n*   Työ- ja elinkeinoministeriön hallinnonala\n*   Ulkoministeriön hallinnonala\n*   Valtioneuvoston kanslia\n*   Valtiovarainministeriön hallinnonala\n*   Verot ja veronluonteiset tulot",
+    "execution_steps": [
+      "Question analyzed and analysis plan created",
+      "SQL-kysely generoitu",
+      "SQL-kysely suoritettu onnistuneesti",
+      "Data analysoitu",
+      "Lopullinen vastaus muotoiltu"
+    ],
+    "success": true,
+    "feedback": {
+      "thumbs_up": true,
+      "timestamp": "2025-05-02T00:20:12.413365"
+    }
+  },
+  {
+    "id": "4f093e391999fd35084418652c10475c",
+    "timestamp": "2025-05-02T00:24:23.696392",
+    "question": "kuinka paljon opetusmenoista on leikattu 2020-2024?",
+    "sql_query": "SELECT\n  `Vuosi`,\n  SUM(`Voimassaoleva_talousarvio`) AS OpetusJaKulttuuriministerion_Budjetti\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Hallinnonala` = 'Opetus- ja kulttuuriministeriö'\n  AND `Vuosi` BETWEEN 2020 AND 2024\nGROUP BY\n  `Vuosi`\nORDER BY\n  `Vuosi`",
+    "final_answer": "Selvä, tässä on analyysin pohjalta muotoiltu vastaus:\n\nKysyit opetusmenoihin tehdyistä leikkauksista vuosina 2020–2024.\n\nValitettavasti käytettävissä olevista tiedoista (tietokantahaku ja verkkohaut) ei löytynyt Opetus- ja kulttuuriministeriön budjettilukuja tälle ajanjaksolle.\n\nTämän vuoksi en voi analysoida menojen kehitystä enkä vastata kysymykseesi siitä, onko menoja leikattu ja kuinka paljon.",
+    "execution_steps": [
+      "Question analyzed and analysis plan created",
+      "SQL-kysely generoitu",
+      "SQL-kysely suoritettu onnistuneesti",
+      "Data analysoitu",
+      "Lopullinen vastaus muotoiltu"
+    ],
+    "success": true,
+    "feedback": {
+      "thumbs_up": false,
+      "timestamp": "2025-05-02T00:24:23.696370"
+    }
+  },
+  {
+    "id": "14e51319802ab54722d43d7f979351e2",
+    "timestamp": "2025-05-02T00:25:57.932194",
+    "question": "Mitkä ovat euromääräisesti budjetin suurimmat momentit?",
+    "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Voimassaoleva_talousarvio`) AS `Budjetoitu_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Momentti_sNimi` IS NOT NULL\n  AND `Voimassaoleva_talousarvio` IS NOT NULL\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Budjetoitu_Summa` DESC\nLIMIT 10 -- Voit muuttaa LIMIT-arvoa näyttääksesi enemmän tai vähemmän rivejä",
+    "final_answer": "Tässä ovat budjetin euromääräisesti suurimmat momentit analyysin perusteella:\n\n1.  **Hyvinvointialueiden ja HUS-yhtymän sosiaali- ja terveydenhuolto:** 94,5 miljardia euroa\n2.  **Valtionosuus kunnille peruspalvelujen järjestämiseen:** 59,2 miljardia euroa\n3.  **Eläkkeet:** 51,3 miljardia euroa\n4.  **Valtion osuus kansaneläkelain ja eräiden muiden lakien mukaisista menoista:** 30,9 miljardia euroa\n5.  **Maksut Euroopan unionille:** 22,1 miljardia euroa\n\n**Johtopäätös:** Budjetin suurimmat menoerät kohdistuvat selvästi sosiaali- ja terveydenhuollon rahoitukseen hyvinvointialueille, kuntien peruspalveluihin ja eläkkeisiin. Nämä kolme momenttia muodostavat huomattavan osan kokonaismenoista.",
+    "execution_steps": [
+      "Question analyzed and analysis plan created",
+      "SQL-kysely generoitu",
+      "SQL-kysely suoritettu onnistuneesti",
+      "Data analysoitu",
+      "Lopullinen vastaus muotoiltu"
+    ],
+    "success": true,
+    "feedback": {
+      "thumbs_up": true,
+      "timestamp": "2025-05-02T00:25:57.932169"
+    }
+  },
+  {
+    "id": "771cb2be2a02058a025303f1e698915f",
+    "timestamp": "2025-05-02T00:27:24.425171",
+    "question": "mitkä olivat suurimmat menot vuonna 2024 euromääräisesti?",
+    "sql_query": "SELECT\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`,\n  -- Oletetaan, että 'Voimassaoleva_talousarvio' kuvaa koko vuoden budjetoitua menoa momentille\n  -- ja se voi toistua kuukausittain. MAX() ottaa tämän arvon kerran per momentti.\n  -- Jos 'Nettokertymä_ko_vuodelta' kuvaa toteutunutta menoa paremmin, käytä sitä ja SUM()-funktiota.\n  MAX(`Voimassaoleva_talousarvio`) AS Suurin_Budjetoitu_Meno_EUR\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2024\nGROUP BY\n  `Hallinnonala`,\n  `PaaluokkaOsasto_sNimi`,\n  `Luku_sNimi`,\n  `Momentti_sNimi`\nORDER BY\n  Suurin_Budjetoitu_Meno_EUR DESC\nLIMIT 10; -- Rajataan tulokset 10 suurimpaan",
+    "final_answer": "Tässä ovat vuoden 2024 suurimmat budjetoidut menot euromääräisesti analyysin perusteella:\n\n1.  **Suurin menoerä:** Hyvinvointialueiden ja HUS-yhtymän sosiaali- ja terveydenhuollon rahoitus, **24,6 miljardia euroa**. Tämä kuuluu Valtiovarainministeriön hallinnonalalle.\n2.  **Toiseksi suurin:** Eläkkeet ja korvaukset (erityisesti momentti \"Eläkkeet\"), **5,6 miljardia euroa**. Tämä kuuluu myös Valtiovarainministeriön hallinnonalalle.\n3.  **Kolmanneksi suurin:** Valtion osuus kansaneläkelain ja eräiden muiden lakien mukaisista menoista, **4,1 miljardia euroa**. Tämä kuuluu Sosiaali- ja terveysministeriön hallinnonalalle.\n4.  **Neljänneksi suurin:** Valtionosuus kunnille peruspalvelujen järjestämiseen, **2,5 miljardia euroa**. Tämä kuuluu Valtiovarainministeriön hallinnonalalle.\n5.  **Viidenneksi suurin:** Valtion osuus sairausvakuutuslaista johtuvista menoista, **2,3 miljardia euroa**. Tämä kuuluu Sosiaali- ja terveysministeriön hallinnonalalle.\n\n**Johtopäätös:** Selvästi suurin yksittäinen menoerä vuonna 2024 on hyvinvointialueiden rahoitus. Myös eläkkeisiin, kuntien valtionosuuksiin ja sairausvakuutusmenoihin kohdistuu merkittäviä valtion menoja. Valtiovarainministeriön sekä Sosiaali- ja terveysministeriön hallinnonalat hallinnoivat suurimpia budjetoituja menoeriä.",
+    "execution_steps": [
+      "Question analyzed and analysis plan created",
+      "SQL-kysely generoitu",
+      "SQL-kysely suoritettu onnistuneesti",
+      "Data analysoitu",
+      "Lopullinen vastaus muotoiltu"
+    ],
+    "success": true,
+    "feedback": {
+      "thumbs_up": true,
+      "timestamp": "2025-05-02T00:27:24.425149"
+    }
+  },
+  {
+    "id": "314f025e3b280ec5079e6cc5539b472a",
+    "timestamp": "2025-05-02T00:32:46.911283",
+    "question": "Voisitko visualisoida suurimmat tuloerät vuonna 2023?",
+    "sql_query": "SELECT\n  `Tiliryhma_sNimi` AS Tuloera,\n  SUM(`Nettokertymä`) AS Kokonaistulo\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2023\n  AND `Nettokertymä` > 0 -- Oletetaan, että positiiviset nettokertymät edustavat tuloja\nGROUP BY\n  `Tiliryhma_sNimi`\nORDER BY\n  Kokonaistulo DESC\nLIMIT 10; -- Rajoitetaan tulokset 10 suurimpaan tuloerään",
+    "final_answer": "Ok, tässä on yhteenveto suurimmista eristä vuodelta 2023 analyysin perusteella:\n\nAnalyysin perusteella vuoden 2023 suurimmat kirjaukset 'Tuloerä'-sarakkeessa ovat seuraavat. **Huomaa:** Nimikkeiden (\"Siirtotalouden kulut\", \"Henkilöstökulut\" jne.) perusteella data näyttää kuvaavan *menoeriä*, ei tuloja, vaikka sarake on nimetty 'Kokonaistulo'.\n\n**Tärkeimmät löydökset:**\n\n1.  **Siirtotalouden kulut:** Ylivoimaisesti suurin erä, noin **128,0 miljardia euroa**.\n2.  **LYHYTAIKAINEN:** Toiseksi suurin, noin **87,7 miljardia euroa** (tämän erän tarkka sisältö ei selviä nimestä).\n3.  **TEKNISET TILIT:** Kolmanneksi suurin, noin **35,9 miljardia euroa** (myös tämän sisältö jää epäselväksi).\n4.  **Henkilöstökulut:** Noin **11,5 miljardia euroa**.\n5.  **Palvelujen ostot:** Noin **9,3 miljardia euroa**.\n\nMuita merkittäviä eriä olivat Muut kulut (~4,3 mrd €), Rahoituskulut (~3,1 mrd €) ja Suoritetut arvonlisäverot (~3,0 mrd €).\n\n**Johtopäätös:** Data osoittaa, että 'Siirtotalouden kulut' muodostivat suurimman yksittäisen (näennäisesti meno-) erän vuonna 2023 annetussa aineistossa, jota seurasivat merkittävinä erinä 'LYHYTAIKAINEN' ja 'TEKNISET TILIT'.",
+    "execution_steps": [
+      "Question analyzed and analysis plan created",
+      "SQL-kysely generoitu",
+      "SQL-kysely suoritettu onnistuneesti",
+      "Data analysoitu",
+      "Lopullinen vastaus muotoiltu"
+    ],
+    "success": true,
+    "feedback": {
+      "thumbs_up": true,
+      "timestamp": "2025-05-02T00:32:46.911257"
+    }
+  }
+]

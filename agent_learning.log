@@ -1,0 +1,904 @@
+2025-05-01 22:46:17,731 - __main__ - INFO - Streamlit application started
+2025-05-01 22:46:17,820 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 22:48:35,785 - __main__ - INFO - Streamlit application started
+2025-05-01 22:48:35,786 - __main__ - INFO - Streamlit application started
+2025-05-01 22:48:35,967 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 22:49:49,381 - __main__ - INFO - Streamlit application started
+2025-05-01 22:49:49,467 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 22:51:41,550 - __main__ - INFO - Streamlit application started
+2025-05-01 22:51:41,638 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 22:53:00,837 - __main__ - INFO - Streamlit application started
+2025-05-01 22:53:00,922 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 22:53:00,931 - __main__ - INFO - Initializing Learning System
+2025-05-01 22:54:02,184 - __main__ - INFO - Streamlit application started
+2025-05-01 22:54:02,319 - __main__ - INFO - Streamlit application started
+2025-05-01 22:54:04,847 - __main__ - INFO - Starting analysis for question: paljonko opetusministeriöllä oli budjetti vuonna 2023
+
+2025-05-01 22:54:06,036 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 22:54:10,221 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 22:54:14,396 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 22:54:18,583 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 8.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 22:54:26,770 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 10.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 22:54:36,956 - __main__ - ERROR - Analysis error: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+]
+2025-05-01 23:01:37,346 - __main__ - INFO - Streamlit application started
+2025-05-01 23:01:37,431 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:01:37,440 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:02:01,717 - __main__ - INFO - Streamlit application started
+2025-05-01 23:02:08,585 - __main__ - INFO - Streamlit application started
+2025-05-01 23:02:11,122 - __main__ - INFO - Starting analysis for question: Paljonko opetusministeriöllä oli määrärahoja vuonna 2023?
+2025-05-01 23:02:12,334 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:02:17,099 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:02:21,296 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:02:25,481 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 8.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:02:33,656 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 10.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:02:43,846 - __main__ - ERROR - Analysis error: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+]
+2025-05-01 23:14:08,404 - __main__ - INFO - Streamlit application started
+2025-05-01 23:14:08,490 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:14:08,499 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:14:41,565 - __main__ - INFO - Streamlit application started
+2025-05-01 23:14:46,290 - __main__ - INFO - Streamlit application started
+2025-05-01 23:14:48,824 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+2025-05-01 23:14:50,034 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:14:54,219 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:14:58,400 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:15:02,576 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 8.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:15:10,756 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 10.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:15:20,973 - __main__ - ERROR - Analysis error: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+]
+2025-05-01 23:17:18,864 - __main__ - INFO - Streamlit application started
+2025-05-01 23:17:18,951 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:17:18,960 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:17:33,079 - __main__ - INFO - Streamlit application started
+2025-05-01 23:17:40,186 - __main__ - INFO - Streamlit application started
+2025-05-01 23:17:42,723 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+2025-05-01 23:17:43,910 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:17:48,615 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:17:52,793 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 4.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:17:56,980 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 8.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:18:05,160 - langchain_google_vertexai._retry - WARNING - Retrying langchain_google_vertexai.chat_models._completion_with_retry.<locals>._completion_with_retry_inner in 10.0 seconds as it raised PermissionDenied: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+].
+2025-05-01 23:18:15,335 - __main__ - ERROR - Analysis error: 403 Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Vertex AI API"
+}
+metadata {
+  key: "containerInfo"
+  value: "your-project-id"
+}
+metadata {
+  key: "consumer"
+  value: "projects/your-project-id"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+, locale: "en-US"
+message: "Vertex AI API has not been used in project your-project-id before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/aiplatform.googleapis.com/overview?project=your-project-id"
+}
+]
+2025-05-01 23:21:18,114 - __main__ - INFO - Streamlit application started
+2025-05-01 23:21:18,200 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:21:18,209 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:21:34,000 - __main__ - INFO - Streamlit application started
+2025-05-01 23:21:37,875 - __main__ - INFO - Streamlit application started
+2025-05-01 23:21:40,416 - __main__ - INFO - Starting analysis for question: MItkä ovat budjetin pääluokat?
+
+2025-05-01 23:21:48,490 - __main__ - ERROR - Analysis error: Invalid json output: Selvitetään ensin, mitä saraketta käyttäjän pyytämät tiedot ("budjetin pääluokat") vastaavat taulun rakenteessa.
+
+Taulussa on sarake nimeltä `PaaluokkaOsasto_sNimi`, joka vaikuttaa sisältävän pääluokkien nimet.
+
+Tiedon hakemiseksi tarvitsemme siis tämän sarakkeen uniikit arvot.
+
+**SQL-kysely:**
+
+```sql
+SELECT DISTINCT PaaluokkaOsasto_sNimi
+FROM data;
+```
+
+Tämä kysely palauttaa listan kaikista taulussa esiintyvistä ainutlaatuisista budjetin pääluokkien nimistä.
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/OUTPUT_PARSING_FAILURE 
+2025-05-01 23:26:35,335 - __main__ - INFO - Streamlit application started
+2025-05-01 23:26:35,422 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:26:35,430 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:26:48,572 - __main__ - INFO - Streamlit application started
+2025-05-01 23:26:48,708 - __main__ - INFO - Streamlit application started
+2025-05-01 23:26:51,236 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+
+2025-05-01 23:27:05,422 - __main__ - ERROR - Analysis error: 'ChatPromptValue' object has no attribute 'content'
+2025-05-01 23:29:06,404 - __main__ - INFO - Streamlit application started
+2025-05-01 23:29:06,488 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:29:06,496 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:29:24,552 - __main__ - INFO - Streamlit application started
+2025-05-01 23:29:24,689 - __main__ - INFO - Streamlit application started
+2025-05-01 23:29:27,215 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+
+2025-05-01 23:29:40,867 - __main__ - ERROR - Analysis error: 'ChatPromptValue' object has no attribute 'content'
+2025-05-01 23:31:53,883 - __main__ - INFO - Streamlit application started
+2025-05-01 23:31:53,970 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:31:53,978 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:32:05,116 - __main__ - INFO - Streamlit application started
+2025-05-01 23:32:05,249 - __main__ - INFO - Streamlit application started
+2025-05-01 23:32:07,777 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+
+2025-05-01 23:32:23,040 - __main__ - ERROR - Analysis error: 'ChatPromptValue' object has no attribute 'content'
+2025-05-01 23:34:44,204 - __main__ - INFO - Streamlit application started
+2025-05-01 23:34:44,291 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:34:44,299 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:35:01,010 - __main__ - INFO - Streamlit application started
+2025-05-01 23:35:01,154 - __main__ - INFO - Streamlit application started
+2025-05-01 23:35:03,687 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+
+2025-05-01 23:35:17,045 - __main__ - ERROR - Analysis error: 'ChatPromptValue' object has no attribute 'content'
+2025-05-01 23:36:21,888 - __main__ - INFO - Streamlit application started
+2025-05-01 23:36:21,977 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:36:21,986 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:36:35,967 - __main__ - INFO - Streamlit application started
+2025-05-01 23:36:38,637 - __main__ - INFO - Streamlit application started
+2025-05-01 23:36:41,171 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+2025-05-01 23:37:03,180 - __main__ - ERROR - Analysis error: 'ChatPromptValue' object has no attribute 'content'
+2025-05-01 23:39:41,749 - __main__ - INFO - Streamlit application started
+2025-05-01 23:39:41,837 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:39:41,845 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:39:56,452 - __main__ - INFO - Streamlit application started
+2025-05-01 23:39:56,586 - __main__ - INFO - Streamlit application started
+2025-05-01 23:39:59,103 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+
+2025-05-01 23:40:16,291 - __main__ - ERROR - Analysis error: 'ChatPromptValue' object has no attribute 'content'
+2025-05-01 23:44:40,139 - __main__ - INFO - Streamlit application started
+2025-05-01 23:44:40,226 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:44:40,234 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:44:55,065 - __main__ - INFO - Streamlit application started
+2025-05-01 23:44:56,657 - __main__ - INFO - Streamlit application started
+2025-05-01 23:44:59,185 - __main__ - INFO - Starting analysis for question: mitkä ovat budjetin pääluokat?
+2025-05-01 23:45:12,046 - __main__ - ERROR - Analysis error: 'ChatPromptValue' object has no attribute 'content'
+2025-05-01 23:51:10,117 - __main__ - INFO - Streamlit application started
+2025-05-01 23:51:10,204 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:51:10,212 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:51:26,664 - __main__ - INFO - Streamlit application started
+2025-05-01 23:51:26,795 - __main__ - INFO - Streamlit application started
+2025-05-01 23:51:29,320 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat
+2025-05-01 23:52:02,960 - __main__ - ERROR - Analysis error: Object of type DataFrame is not JSON serializable
+2025-05-01 23:58:17,554 - __main__ - INFO - Streamlit application started
+2025-05-01 23:58:17,640 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-01 23:58:17,649 - __main__ - INFO - Initializing Learning System
+2025-05-01 23:58:27,908 - __main__ - INFO - Streamlit application started
+2025-05-01 23:58:28,046 - __main__ - INFO - Streamlit application started
+2025-05-01 23:58:30,570 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+
+2025-05-01 23:59:11,013 - __main__ - ERROR - Analysis error: Invalid json output: Ei tarvita.
+
+**Perustelu:**
+
+SQL-kyselyn tulokset sisältävät kattavan listan budjetin pääluokista (`Paaluokan_Nimi`) ja niiden tunnuksista (`Paaluokan_Tunnus`). Lista kattaa sekä tulo- että menopuolen pääluokat (esim. verotulot, ministeriöiden hallinnonalat). Nämä tiedot vastaavat suoraan alkuperäiseen kysymykseen "Mitkä ovat budjetin pääluokat?". Lisätietojen haku verkosta ei ole tarpeen tämän kysymyksen vastaamiseksi annettujen tietojen perusteella.
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/OUTPUT_PARSING_FAILURE 
+2025-05-01 23:59:38,458 - __main__ - INFO - Streamlit application started
+2025-05-01 23:59:40,926 - __main__ - INFO - Streamlit application started
+2025-05-01 23:59:43,101 - __main__ - INFO - Streamlit application started
+2025-05-01 23:59:44,581 - __main__ - INFO - Streamlit application started
+2025-05-01 23:59:47,113 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+
+2025-05-02 00:00:19,387 - __main__ - ERROR - Analysis error: Invalid json output: Ei tarvita lisätietoja verkosta.
+
+**Analyysi:**
+
+1.  **Kysymys:** Kysymys koskee budjetin pääluokkia.
+2.  **SQL-tulokset:** Tulokset sisältävät listan nimikkeitä sarakkeessa "Paaluokka". Lista sisältää 17 eri pääluokkaa, jotka kattavat ministeriöiden hallinnonalat, erilaiset tulolajit (verot, korot, sekalaiset tulot), lainat sekä valtion ylimmät elimet (eduskunta, tasavallan presidentti).
+3.  **Vastaavuus:** SQL-tulokset vastaavat suoraan kysymykseen luettelemalla budjetin pääluokat sellaisina kuin ne ovat tietokannassa. Annettu data antaa kattavan listan näistä luokista.
+4.  **Johtopäätös:** Koska SQL-kysely palautti täydellisen listan pääluokista tietokannan mukaan, lisätietojen haku verkosta ei ole tarpeen kysymykseen vastaamiseksi annettujen tietojen pohjalta.
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/OUTPUT_PARSING_FAILURE 
+2025-05-02 00:02:22,600 - __main__ - INFO - Streamlit application started
+2025-05-02 00:02:22,688 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-02 00:02:22,697 - __main__ - INFO - Initializing Learning System
+2025-05-02 00:02:40,938 - __main__ - INFO - Streamlit application started
+2025-05-02 00:02:41,079 - __main__ - INFO - Streamlit application started
+2025-05-02 00:02:43,599 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+2025-05-02 00:03:11,551 - __main__ - ERROR - Analysis error: 'analyze_data'
+2025-05-02 00:07:43,913 - __main__ - INFO - Streamlit application started
+2025-05-02 00:07:44,001 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-02 00:07:44,011 - __main__ - INFO - Initializing Learning System
+2025-05-02 00:07:56,542 - __main__ - INFO - Streamlit application started
+2025-05-02 00:07:56,677 - __main__ - INFO - Streamlit application started
+2025-05-02 00:07:59,207 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+2025-05-02 00:08:15,167 - __main__ - ERROR - Analysis error: 'analyze_data'
+2025-05-02 00:11:15,322 - __main__ - INFO - Streamlit application started
+2025-05-02 00:11:15,408 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-02 00:11:15,417 - __main__ - INFO - Initializing Learning System
+2025-05-02 00:11:48,192 - __main__ - INFO - Streamlit application started
+2025-05-02 00:11:48,278 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-02 00:11:48,287 - __main__ - INFO - Initializing Learning System
+2025-05-02 00:12:03,196 - __main__ - INFO - Streamlit application started
+2025-05-02 00:12:03,329 - __main__ - INFO - Streamlit application started
+2025-05-02 00:12:05,860 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+2025-05-02 00:12:31,170 - __main__ - ERROR - Analysis error: 'analyze_data'
+2025-05-02 00:17:10,966 - __main__ - INFO - Streamlit application started
+2025-05-02 00:17:11,053 - __main__ - INFO - Initializing Budget Analysis Agent
+2025-05-02 00:17:11,060 - __main__ - INFO - Initializing Learning System
+2025-05-02 00:17:27,198 - __main__ - INFO - Streamlit application started
+2025-05-02 00:17:27,332 - __main__ - INFO - Streamlit application started
+2025-05-02 00:17:29,861 - __main__ - INFO - Starting analysis for question: Mitkä ovat budjetin pääluokat?
+
+2025-05-02 00:17:58,535 - __main__ - INFO - Analysis completed with interaction_id: 0418628cab5f37a4d49bdecd9eebe8bd
+2025-05-02 00:20:12,401 - __main__ - INFO - Streamlit application started
+2025-05-02 00:20:56,312 - __main__ - INFO - Streamlit application started
+2025-05-02 00:20:56,459 - __main__ - INFO - Streamlit application started
+2025-05-02 00:20:58,991 - __main__ - INFO - Starting analysis for question: kuinka paljon opetusmenoista on leikattu 2020-2024?
+2025-05-02 00:21:47,095 - __main__ - INFO - Analysis completed with interaction_id: 4f093e391999fd35084418652c10475c
+2025-05-02 00:23:20,120 - __main__ - INFO - Streamlit application started
+2025-05-02 00:23:20,322 - __main__ - INFO - Streamlit application started
+2025-05-02 00:23:22,857 - __main__ - INFO - Starting analysis for question: kuinka paljon opetusmenoista on leikattu 2020-2024?
+2025-05-02 00:24:18,655 - __main__ - INFO - Analysis completed with interaction_id: 4f093e391999fd35084418652c10475c
+2025-05-02 00:24:23,686 - __main__ - INFO - Streamlit application started
+2025-05-02 00:24:48,084 - __main__ - INFO - Streamlit application started
+2025-05-02 00:24:48,235 - __main__ - INFO - Streamlit application started
+2025-05-02 00:24:50,764 - __main__ - INFO - Starting analysis for question: Mitkä ovat euromääräisesti budjetin suurimmat momentit?
+2025-05-02 00:25:30,850 - __main__ - INFO - Analysis completed with interaction_id: 14e51319802ab54722d43d7f979351e2
+2025-05-02 00:25:57,918 - __main__ - INFO - Streamlit application started
+2025-05-02 00:26:26,768 - __main__ - INFO - Streamlit application started
+2025-05-02 00:26:26,943 - __main__ - INFO - Streamlit application started
+2025-05-02 00:26:29,468 - __main__ - INFO - Starting analysis for question: mitkä olivat suurimmat menot vuonna 2024 euromääräisesti?
+2025-05-02 00:27:12,224 - __main__ - INFO - Analysis completed with interaction_id: 771cb2be2a02058a025303f1e698915f
+2025-05-02 00:27:24,413 - __main__ - INFO - Streamlit application started
+2025-05-02 00:27:43,632 - __main__ - INFO - Streamlit application started
+2025-05-02 00:27:43,792 - __main__ - INFO - Streamlit application started
+2025-05-02 00:28:05,218 - __main__ - INFO - Streamlit application started
+2025-05-02 00:28:05,479 - __main__ - INFO - Streamlit application started
+2025-05-02 00:28:08,009 - __main__ - INFO - Starting analysis for question: Voisitko visualisoida suurimmat tuloerät vuonna 2023?
+2025-05-02 00:29:06,711 - __main__ - INFO - Analysis completed with interaction_id: 314f025e3b280ec5079e6cc5539b472a
+2025-05-02 00:31:08,158 - __main__ - INFO - Streamlit application started
+2025-05-02 00:31:08,315 - __main__ - INFO - Streamlit application started
+2025-05-02 00:31:10,842 - __main__ - INFO - Starting analysis for question: Voisitko visualisoida suurimmat tuloerät vuonna 2023?
+2025-05-02 00:32:10,006 - __main__ - INFO - Analysis completed with interaction_id: 314f025e3b280ec5079e6cc5539b472a
+2025-05-02 00:32:46,897 - __main__ - INFO - Streamlit application started
