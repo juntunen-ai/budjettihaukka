@@ -12,6 +12,9 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+# Define the current version of the application
+__version__ = "v0.0.5"
+
 # Example usage of logger
 logger.info("Application started")
 
