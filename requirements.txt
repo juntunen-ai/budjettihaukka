@@ -1,7 +1,8 @@
-streamlit
-pandas
-matplotlib
-google-cloud-bigquery
-google-cloud-aiplatform
-firebase-admin
-db-dtypes
+# Updated requirements for Budjettihaukka
+streamlit>=1.20.0
+pandas>=1.5.0
+matplotlib>=3.6.0
+google-cloud-bigquery>=3.10.0
+google-cloud-aiplatform>=1.30.0
+firebase-admin>=6.0.0
+db-dtypes>=1.0.0
