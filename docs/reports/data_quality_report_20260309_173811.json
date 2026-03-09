@@ -1,0 +1,68 @@
+{
+  "generated_at_utc": "2026-03-09T17:38:21.085758+00:00",
+  "project": "valtion-budjetti-data",
+  "dataset": "valtiodata_ingest_tmp_20260308",
+  "table_ref": "valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_raw",
+  "table_mode": "raw",
+  "summary": {
+    "row_count": 7418485,
+    "distinct_rows": 7418485,
+    "rows_with_issues": 0,
+    "issue_row_ratio": 0.0,
+    "min_period": "1998-01-01",
+    "max_period": "2025-12-01",
+    "freshness_days": 128,
+    "freshness_status": "FAIL"
+  },
+  "checks": [
+    {
+      "name": "invalid_year_parse",
+      "status": "PASS",
+      "description": "Vuosi ei parsennu INT64-arvoksi.",
+      "failed_count": 0,
+      "failed_ratio": 0.0
+    },
+    {
+      "name": "invalid_month_parse",
+      "status": "PASS",
+      "description": "Kk ei parsennu tai ei ole välillä 1-12.",
+      "failed_count": 0,
+      "failed_ratio": 0.0
+    },
+    {
+      "name": "missing_hallinnonala",
+      "status": "PASS",
+      "description": "Hallinnonala puuttuu.",
+      "failed_count": 14177,
+      "failed_ratio": 0.0019110370918051327
+    },
+    {
+      "name": "missing_momentti",
+      "status": "PASS",
+      "description": "Momentti tunnus ja nimi puuttuvat molemmat.",
+      "failed_count": 3819,
+      "failed_ratio": 0.0005147951367428795
+    },
+    {
+      "name": "invalid_nettokertyma_parse",
+      "status": "PASS",
+      "description": "Nettokertymä ei parsennu NUMERIC-arvoksi.",
+      "failed_count": 0,
+      "failed_ratio": 0.0
+    },
+    {
+      "name": "duplicate_natural_keys",
+      "status": "WARN",
+      "description": "Duplikaatit laajalla tapahtuma-avaimella (organisaatio + momentti + tili).",
+      "failed_count": 28817,
+      "failed_ratio": 0.003884485848525676
+    },
+    {
+      "name": "missing_months_before_latest_year",
+      "status": "WARN",
+      "description": "Puuttuvia kuukausia ennen viimeisintä vuotta.",
+      "failed_count": 2,
+      "failed_ratio": 2.695968246885988e-07
+    }
+  ]
+}

@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "a581cf89cb59e6fd7e34f6f976da4352",
+    "timestamp": "2026-03-07T17:09:35.852056",
+    "question": "Kuinka monta riviä taulussa on?",
+    "sql_query": "",
+    "final_answer": "❌ Ei saatu SQL-kyselyä tekoälyltä.",
+    "execution_steps": [
+      "Fallback NL->SQL pipeline"
+    ],
+    "success": false,
+    "feedback": {}
+  }
+]

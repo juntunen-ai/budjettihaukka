@@ -1,12 +1,7 @@
 {
   "has_order_by": {
-    "count": 12,
+    "count": 13,
     "examples": [
-      {
-        "id": "0418628cab5f37a4d49bdecd9eebe8bd",
-        "question": "Mitkä ovat budjetin pääluokat?\n",
-        "sql_query": "SELECT DISTINCT\n  PaaluokkaOsasto_sNimi AS Paaluokka\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nORDER BY\n  Paaluokka;"
-      },
       {
         "id": "4f093e391999fd35084418652c10475c",
         "question": "kuinka paljon opetusmenoista on leikattu 2020-2024?",
@@ -26,11 +21,16 @@
         "id": "314f025e3b280ec5079e6cc5539b472a",
         "question": "Voisitko visualisoida suurimmat tuloerät vuonna 2023?",
         "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Nettokertymä_ko_vuodelta`) AS `Vuoden_2023_Tulo_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2023\n  AND `Nettokertymä_ko_vuodelta` > 0 -- Oletetaan, että positiivinen nettokertymä vastaa tuloja\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Vuoden_2023_Tulo_Summa` DESC\nLIMIT 10 -- Rajoitetaan tulokset 10 suurimpaan tuloerään visualisointia varten"
+      },
+      {
+        "id": "28c32b5ef9c59b16395f5b529723b277",
+        "question": "Mikä on nettokertymän summa vuonna 2024?",
+        "sql_query": "SELECT vuosi, kk, hallinnonala, SUM(nettokertyma) AS nettokertyma_sum FROM budjettidata_demo WHERE vuosi = 2024 GROUP BY vuosi, kk, hallinnonala ORDER BY vuosi DESC, kk DESC, nettokertyma_sum DESC LIMIT 200"
       }
     ]
   },
   "has_group_by": {
-    "count": 10,
+    "count": 11,
     "examples": [
       {
         "id": "4f093e391999fd35084418652c10475c",
@@ -51,17 +51,17 @@
         "id": "314f025e3b280ec5079e6cc5539b472a",
         "question": "Voisitko visualisoida suurimmat tuloerät vuonna 2023?",
         "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Nettokertymä_ko_vuodelta`) AS `Vuoden_2023_Tulo_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2023\n  AND `Nettokertymä_ko_vuodelta` > 0 -- Oletetaan, että positiivinen nettokertymä vastaa tuloja\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Vuoden_2023_Tulo_Summa` DESC\nLIMIT 10 -- Rajoitetaan tulokset 10 suurimpaan tuloerään visualisointia varten"
+      },
+      {
+        "id": "28c32b5ef9c59b16395f5b529723b277",
+        "question": "Mikä on nettokertymän summa vuonna 2024?",
+        "sql_query": "SELECT vuosi, kk, hallinnonala, SUM(nettokertyma) AS nettokertyma_sum FROM budjettidata_demo WHERE vuosi = 2024 GROUP BY vuosi, kk, hallinnonala ORDER BY vuosi DESC, kk DESC, nettokertyma_sum DESC LIMIT 200"
       }
     ]
   },
   "has_where": {
-    "count": 10,
+    "count": 12,
     "examples": [
-      {
-        "id": "4f093e391999fd35084418652c10475c",
-        "question": "kuinka paljon opetusmenoista on leikattu 2020-2024?",
-        "sql_query": "SELECT\n  `Vuosi`,\n  SUM(`Voimassaoleva_talousarvio`) AS Opetusmenot_Euroa_Voimassaoleva_TA\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Hallinnonala` = 'Opetus- ja kulttuuriministeriö' -- Rajataan Opetus- ja kulttuuriministeriön hallinnonalaan\n  AND `Vuosi` BETWEEN 2020 AND 2024 -- Rajataan tarkastelujakso vuosille 2020-2024\nGROUP BY\n  `Vuosi`\nORDER BY\n  `Vuosi`;"
-      },
       {
         "id": "14e51319802ab54722d43d7f979351e2",
         "question": "Mitkä ovat euromääräisesti budjetin suurimmat momentit?",
@@ -76,11 +76,21 @@
         "id": "314f025e3b280ec5079e6cc5539b472a",
         "question": "Voisitko visualisoida suurimmat tuloerät vuonna 2023?",
         "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Nettokertymä_ko_vuodelta`) AS `Vuoden_2023_Tulo_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2023\n  AND `Nettokertymä_ko_vuodelta` > 0 -- Oletetaan, että positiivinen nettokertymä vastaa tuloja\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Vuoden_2023_Tulo_Summa` DESC\nLIMIT 10 -- Rajoitetaan tulokset 10 suurimpaan tuloerään visualisointia varten"
+      },
+      {
+        "id": "28c32b5ef9c59b16395f5b529723b277",
+        "question": "Mikä on nettokertymän summa vuonna 2024?",
+        "sql_query": "SELECT vuosi, kk, hallinnonala, SUM(nettokertyma) AS nettokertyma_sum FROM budjettidata_demo WHERE vuosi = 2024 GROUP BY vuosi, kk, hallinnonala ORDER BY vuosi DESC, kk DESC, nettokertyma_sum DESC LIMIT 200"
+      },
+      {
+        "id": "56989f2a9e75d0c037290d82cd50b69f",
+        "question": "Montako riviä datassa on vuonna 2024?",
+        "sql_query": "SELECT COUNT(*) AS rows_count FROM budjettidata_demo WHERE vuosi = 2024"
       }
     ]
   },
   "has_limit": {
-    "count": 7,
+    "count": 8,
     "examples": [
       {
         "id": "14e51319802ab54722d43d7f979351e2",
@@ -96,6 +106,11 @@
         "id": "314f025e3b280ec5079e6cc5539b472a",
         "question": "Voisitko visualisoida suurimmat tuloerät vuonna 2023?",
         "sql_query": "SELECT\n  `Momentti_sNimi`,\n  SUM(`Nettokertymä_ko_vuodelta`) AS `Vuoden_2023_Tulo_Summa`\nFROM\n  `valtion-budjetti-data.valtiodata.budjettidata`\nWHERE\n  `Vuosi` = 2023\n  AND `Nettokertymä_ko_vuodelta` > 0 -- Oletetaan, että positiivinen nettokertymä vastaa tuloja\nGROUP BY\n  `Momentti_sNimi`\nORDER BY\n  `Vuoden_2023_Tulo_Summa` DESC\nLIMIT 10 -- Rajoitetaan tulokset 10 suurimpaan tuloerään visualisointia varten"
+      },
+      {
+        "id": "28c32b5ef9c59b16395f5b529723b277",
+        "question": "Mikä on nettokertymän summa vuonna 2024?",
+        "sql_query": "SELECT vuosi, kk, hallinnonala, SUM(nettokertyma) AS nettokertyma_sum FROM budjettidata_demo WHERE vuosi = 2024 GROUP BY vuosi, kk, hallinnonala ORDER BY vuosi DESC, kk DESC, nettokertyma_sum DESC LIMIT 200"
       }
     ]
   }

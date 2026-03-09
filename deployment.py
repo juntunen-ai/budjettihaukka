@@ -14,9 +14,10 @@ from pydantic import BaseModel
 import uvicorn
 from datetime import datetime
 
-# Tuodaan agenttikoodi
-from langgraph_data_analysis import BudgetAnalysisAgent
-from my_langgraph_learning import AgentLearningSystem
+# Tuodaan oppimiskoodi
+from config import settings
+from langgraph_learning import AgentLearningSystem
+from utils.bigquery_utils import process_natural_language_query
 
 # Määritellään lokitus
 logging.basicConfig(
@@ -28,9 +29,6 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger("budget_analysis_api")
-
-# Asetetaan Google Application Credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/harrijuntunen/budjettihaukka/gcp-creds.json"
 
 # Luodaan FastAPI-sovellus
 app = FastAPI(
@@ -69,9 +67,21 @@ class AnalysisResponse(BaseModel):
     execution_steps: Optional[List[str]] = None
     timestamp: str
 
-# Alustetaan agentti globaalisti
-budget_agent = BudgetAnalysisAgent()
 learning_system = AgentLearningSystem()
+budget_agent = None
+agent_init_error = None
+
+if settings.llm_provider == "aistudio":
+    agent_init_error = "AI Studio mode active: LangGraph Vertex-agent disabled"
+    logger.info(agent_init_error)
+else:
+    try:
+        from langgraph_data_analysis import BudgetAnalysisAgent
+
+        budget_agent = BudgetAnalysisAgent()
+    except Exception as e:
+        agent_init_error = str(e)
+        logger.warning("BudgetAnalysisAgentin alustus epäonnistui käynnistyksessä: %s", e)
 
 # Historia suoritetuista analyyseistä
 analysis_history = []
@@ -84,6 +94,21 @@ def record_interaction(question: str, result: Dict, feedback: Optional[Dict] = N
         logger.info(f"Vuorovaikutus tallennettu: {interaction_id}")
     except Exception as e:
         logger.error(f"Virhe vuorovaikutuksen tallennuksessa: {e}")
+
+
+def _run_fallback_pipeline(question: str) -> Dict[str, Any]:
+    fallback = process_natural_language_query(question)
+    answer = fallback.get("explanation", "")
+    df = fallback.get("results_df")
+    if df is not None and not df.empty:
+        answer = f"{answer}\n\nTulosten esikatselu:\n{df.head(5).to_string(index=False)}"
+
+    return {
+        "answer": answer,
+        "sql_query": fallback.get("sql_query", ""),
+        "execution_steps": ["Fallback NL->SQL pipeline"],
+        "error_message": fallback.get("error"),
+    }
 
 # API-reitit
 @app.get("/")
@@ -111,8 +136,21 @@ async def analyze_budget(request: AnalysisRequest, background_tasks: BackgroundT
     logger.info(f"Analyysiä pyydetty kysymyksellä: {request.question}")
     
     try:
-        # Suorita analyysi agentilla
-        result = budget_agent.analyze(request.question)
+        if budget_agent is None:
+            logger.warning(
+                "LangGraph-agentti ei ole käytettävissä, käytetään fallback-putkea. Virhe: %s",
+                agent_init_error,
+            )
+            result = _run_fallback_pipeline(request.question)
+        else:
+            try:
+                result = budget_agent.analyze(request.question)
+            except Exception as e:
+                logger.warning(
+                    "LangGraph-agentti epäonnistui, käytetään fallback-putkea. Virhe: %s",
+                    e,
+                )
+                result = _run_fallback_pipeline(request.question)
         
         # Luo vastaus
         timestamp = datetime.now().isoformat()
@@ -144,6 +182,8 @@ async def analyze_budget(request: AnalysisRequest, background_tasks: BackgroundT
         logger.info(f"Analyysi valmis: {interaction_id}")
         return response
         
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Virhe analyysissä: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Analyysi epäonnistui: {str(e)}")

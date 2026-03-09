@@ -93,5 +93,41 @@
       "thumbs_up": true,
       "timestamp": "2025-05-02T00:32:46.911257"
     }
+  },
+  {
+    "id": "a581cf89cb59e6fd7e34f6f976da4352",
+    "timestamp": "2026-03-07T17:09:35.852056",
+    "question": "Kuinka monta riviä taulussa on?",
+    "sql_query": "",
+    "final_answer": "❌ Ei saatu SQL-kyselyä tekoälyltä.",
+    "execution_steps": [
+      "Fallback NL->SQL pipeline"
+    ],
+    "success": false,
+    "feedback": {}
+  },
+  {
+    "id": "28c32b5ef9c59b16395f5b529723b277",
+    "timestamp": "2026-03-07T21:46:58.614386",
+    "question": "Mikä on nettokertymän summa vuonna 2024?",
+    "sql_query": "SELECT vuosi, kk, hallinnonala, SUM(nettokertyma) AS nettokertyma_sum FROM budjettidata_demo WHERE vuosi = 2024 GROUP BY vuosi, kk, hallinnonala ORDER BY vuosi DESC, kk DESC, nettokertyma_sum DESC LIMIT 200",
+    "final_answer": "✅ Kysely onnistui ja palautti 178 riviä dataa.\n\nTulosten esikatselu:\n vuosi  kk                                 hallinnonala  nettokertyma_sum\n  2024  12 Sosiaali- ja terveysministeriön hallinnonala      882957177.96\n  2024  12  Maa- ja metsätalousministeriön hallinnonala      875692545.04\n  2024  12            Puolustusministeriön hallinnonala      596992906.65\n  2024  12 Opetus- ja kulttuuriministeriön hallinnonala      536068743.15\n  2024  12    Työ- ja elinkeinoministeriön hallinnonala      449840986.35",
+    "execution_steps": [
+      "Fallback NL->SQL pipeline"
+    ],
+    "success": true,
+    "feedback": {}
+  },
+  {
+    "id": "56989f2a9e75d0c037290d82cd50b69f",
+    "timestamp": "2026-03-07T21:48:49.886888",
+    "question": "Montako riviä datassa on vuonna 2024?",
+    "sql_query": "SELECT COUNT(*) AS rows_count FROM budjettidata_demo WHERE vuosi = 2024",
+    "final_answer": "✅ Kysely onnistui ja palautti 1 riviä dataa.\n\nTulosten esikatselu:\n rows_count\n     155021",
+    "execution_steps": [
+      "Fallback NL->SQL pipeline"
+    ],
+    "success": true,
+    "feedback": {}
   }
 ]

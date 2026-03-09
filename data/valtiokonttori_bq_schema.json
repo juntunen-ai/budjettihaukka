@@ -1,0 +1,197 @@
+[
+  {
+    "name": "Vuosi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Kk",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Ha_Tunnus",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Hallinnonala",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Tv_Tunnus",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Kirjanpitoyksikkö",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "PaaluokkaOsasto_TunnusP",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "PaaluokkaOsasto_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Luku_TunnusP",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Luku_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Momentti_TunnusP",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Momentti_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "TakpT_TunnusP",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "TakpT_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "TakpTr_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "TakpMrL_Tunnus",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "TakpMrL_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "TakpT_Netto",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Tililuokka_Tunnus",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Tililuokka_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Ylatiliryhma_Tunnus",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Ylatiliryhma_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Tiliryhma_Tunnus",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Tiliryhma_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Tililaji_Tunnus",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Tililaji_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "LkpT_Tunnus",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "LkpT_sNimi",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Alkuperäinen_talousarvio",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Lisätalousarvio",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Voimassaoleva_talousarvio",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Käytettävissä",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Alkusaldo",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Nettokertymä_ko_vuodelta",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "NettoKertymaAikVuosSiirrt",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Nettokertymä",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "Loppusaldo",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "JakamatonDb",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "JakamatonKr",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  }
+]

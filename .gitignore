@@ -1,1 +1,8 @@
 gcp-creds.json
+__pycache__/
+*.py[cod]
+*.log
+.env
+.env.local
+.venv/
+data/**/*.csv

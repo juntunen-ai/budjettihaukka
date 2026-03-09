@@ -1,6 +1,7 @@
 # langgraph_data_analysis.py
 
 import os
+from functools import lru_cache
 from typing import Dict, List, TypedDict, Annotated, Sequence, Any
 import json
 import pandas as pd
@@ -22,17 +23,23 @@ from pydantic import BaseModel, Field
 # BigQuery tuonnit
 from google.cloud import bigquery
 from google.cloud.exceptions import GoogleCloudError
+import vertexai
+
+from config import settings
 
 # Määritellään projektiasetukset
-PROJECT_ID = "valtion-budjetti-data"
-DATASET = "valtiodata"
-TABLE = "budjettidata"
+PROJECT_ID = settings.project_id
+DATASET = settings.dataset
+TABLE = settings.table
 
-import vertexai
-vertexai.init(project="valtion-budjetti-data")
+vertexai.init(project=PROJECT_ID, location=settings.location)
 
 # Määritellään LLM
-llm = VertexAI(model_name="gemini-2.5-pro-preview-03-25")
+llm = VertexAI(
+    model_name=settings.gemini_model,
+    project=PROJECT_ID,
+    location=settings.location,
+)
 
 # Määritellään tilan rakenne
 class GraphState(TypedDict):
@@ -107,13 +114,20 @@ def execute_sql_query(query):
     except Exception as e:
         return {"error": f"Kyselyn suorittaminen epäonnistui: {str(e)}"}
 
-# Työkalu verkkohaun suorittamiseen
-os.environ["TAVILY_API_KEY"] = "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"
-search_tool = TavilySearchResults()  # It will automatically use the environment variable
+@lru_cache(maxsize=1)
+def _get_search_tool():
+    api_key = settings.tavily_api_key
+    if not api_key:
+        return None
+    os.environ.setdefault("TAVILY_API_KEY", api_key)
+    return TavilySearchResults()
 
 def search_web(query):
     """Suorittaa verkkohakun."""
     try:
+        search_tool = _get_search_tool()
+        if search_tool is None:
+            return {"error": "TAVILY_API_KEY puuttuu ympäristömuuttujista."}
         search_results = search_tool.invoke(query)
         return search_results
     except Exception as e:
