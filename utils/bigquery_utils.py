@@ -472,6 +472,166 @@ def _build_bigquery_fallback_sql(question: str) -> str:
     )
 
 
+def _choose_budget_moment_value_column(df: pd.DataFrame) -> str | None:
+    for candidate in (
+        "kasvu_eur",
+        "nettokertyma_sum",
+        "loppuvuosi_sum",
+        "muutos_eur",
+        "alkuvuosi_sum",
+        "nettokertyma",
+        "metric",
+        "value",
+    ):
+        if candidate in df.columns:
+            return candidate
+    return None
+
+
+def _build_budget_moment_evidence_from_results(results_df: pd.DataFrame, limit: int = 30) -> pd.DataFrame:
+    if results_df is None or results_df.empty:
+        return pd.DataFrame()
+
+    work = results_df.copy()
+    group_cols: list[str] = []
+    for column in ("momentti_tunnusp", "momentti_snimi", "alamomentti_tunnus", "alamomentti_snimi"):
+        if column not in work.columns:
+            continue
+        values = work[column].fillna("").astype(str).str.strip()
+        if (values != "").any():
+            work[column] = values.replace("", pd.NA)
+            group_cols.append(column)
+
+    if not group_cols:
+        return pd.DataFrame()
+
+    value_col = _choose_budget_moment_value_column(work)
+    if value_col:
+        work[value_col] = pd.to_numeric(work[value_col], errors="coerce")
+        grouped = (
+            work[group_cols + [value_col]]
+            .dropna(subset=[value_col], how="all")
+            .groupby(group_cols, dropna=False, as_index=False)[value_col]
+            .sum()
+            .rename(columns={value_col: "nettokertyma_sum"})
+        )
+    else:
+        grouped = work[group_cols].drop_duplicates().copy()
+        grouped["nettokertyma_sum"] = pd.NA
+
+    if grouped.empty:
+        return pd.DataFrame()
+
+    sort_key = pd.to_numeric(grouped["nettokertyma_sum"], errors="coerce").abs().fillna(-1)
+    grouped = grouped.assign(_sort_key=sort_key).sort_values("_sort_key", ascending=False).drop(columns="_sort_key")
+    return grouped.head(max(1, min(int(limit), 100))).reset_index(drop=True)
+
+
+def _budget_moment_year_bounds(question: str, analysis_spec: AnalysisSpec | None) -> tuple[int, int]:
+    if isinstance(analysis_spec, AnalysisSpec):
+        return _normalize_year_bounds(analysis_spec.time_from, analysis_spec.time_to)
+    return _with_default_year_bounds(*_effective_year_bounds((question or "").lower()))
+
+
+def _build_bigquery_budget_moment_evidence_sql(
+    question: str,
+    analysis_spec: AnalysisSpec | None = None,
+    limit: int = 30,
+) -> str:
+    year_from, year_to = _budget_moment_year_bounds(question, analysis_spec)
+    text = (question or "").lower()
+    where_parts = [
+        f"SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to}",
+        "COALESCE(NULLIF(`Momentti_TunnusP`, ''), NULLIF(`Momentti_sNimi`, '')) IS NOT NULL",
+    ]
+    if _is_defense_query(text):
+        where_parts.append("LOWER(`Hallinnonala`) LIKE '%puolustus%'")
+    topic_clause = _build_topic_where_clause(text, "bigquery")
+    if topic_clause:
+        where_parts.append(topic_clause)
+    where_clause = f" WHERE {' AND '.join(where_parts)}"
+    row_limit = max(1, min(int(limit), 100))
+    return (
+        "SELECT "
+        "  NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
+        "  NULLIF(`Momentti_sNimi`, '') AS momentti_snimi, "
+        "  NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus, "
+        "  NULLIF(`TakpMrL_sNimi`, '') AS alamomentti_snimi, "
+        "  SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum, "
+        "  COUNT(DISTINCT SAFE_CAST(`Vuosi` AS INT64)) AS vuosia "
+        f"FROM `{settings.full_table_id}`{where_clause} "
+        "GROUP BY momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi "
+        "ORDER BY ABS(nettokertyma_sum) DESC, momentti_tunnusp, alamomentti_tunnus "
+        f"LIMIT {row_limit}"
+    )
+
+
+def _build_demo_budget_moment_evidence_sql(
+    question: str,
+    analysis_spec: AnalysisSpec | None = None,
+    limit: int = 30,
+) -> str:
+    year_from, year_to = _budget_moment_year_bounds(question, analysis_spec)
+    text = (question or "").lower()
+    table = get_demo_table_name()
+    where_parts = [
+        f"vuosi BETWEEN {year_from} AND {year_to}",
+        "COALESCE(NULLIF(momentti_tunnusp, ''), NULLIF(momentti_snimi, '')) IS NOT NULL",
+    ]
+    if _is_defense_query(text):
+        where_parts.append("LOWER(hallinnonala) LIKE '%puolustus%'")
+    topic_clause = _build_topic_where_clause(text, "demo")
+    if topic_clause:
+        where_parts.append(topic_clause)
+    where_clause = f" WHERE {' AND '.join(where_parts)}"
+    row_limit = max(1, min(int(limit), 100))
+    return (
+        "SELECT "
+        "  NULLIF(momentti_tunnusp, '') AS momentti_tunnusp, "
+        "  NULLIF(momentti_snimi, '') AS momentti_snimi, "
+        "  NULL AS alamomentti_tunnus, "
+        "  NULL AS alamomentti_snimi, "
+        "  SUM(CAST(nettokertyma AS REAL)) AS nettokertyma_sum, "
+        "  COUNT(DISTINCT vuosi) AS vuosia "
+        f"FROM {table}{where_clause} "
+        "GROUP BY momentti_tunnusp, momentti_snimi "
+        "ORDER BY ABS(nettokertyma_sum) DESC, momentti_tunnusp "
+        f"LIMIT {row_limit}"
+    )
+
+
+def get_budget_moment_evidence(
+    question: str,
+    results_df: pd.DataFrame | None = None,
+    analysis_spec: AnalysisSpec | None = None,
+    limit: int = 30,
+) -> dict[str, Any]:
+    direct_df = _build_budget_moment_evidence_from_results(
+        results_df if isinstance(results_df, pd.DataFrame) else pd.DataFrame(),
+        limit=limit,
+    )
+    if not direct_df.empty:
+        return {
+            "evidence_df": direct_df,
+            "source": "results_df",
+            "sql": None,
+            "error": None,
+        }
+
+    sql = (
+        _build_demo_budget_moment_evidence_sql(question, analysis_spec, limit)
+        if settings.use_google_sheets_demo
+        else _build_bigquery_budget_moment_evidence_sql(question, analysis_spec, limit)
+    )
+    execution = _execute_with_auto_repair(sql, max_repair_attempts=1)
+    return {
+        "evidence_df": execution.get("results_df") if isinstance(execution.get("results_df"), pd.DataFrame) else pd.DataFrame(),
+        "source": "supplemental_query",
+        "sql": execution.get("sql"),
+        "error": execution.get("error"),
+    }
+
+
 @lru_cache(maxsize=1)
 def _get_bq_client():
     if settings.use_google_sheets_demo:

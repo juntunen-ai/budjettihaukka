@@ -16,6 +16,255 @@ import altair as alt
 import pandas as pd
 import random
 
+EURO_DISPLAY_SCALE = 1_000_000.0
+EURO_DISPLAY_UNIT = "milj. €"
+DISPLAY_FONT_BODY = "Open Sans"
+DISPLAY_FONT_HEADING = "Raleway"
+CHART_BG = "#fff3b6"
+CHART_BG_SOFT = "#fde992"
+CHART_INK = "#111111"
+CHART_GRID = "#11111122"
+
+
+def apply_custom_theme() -> None:
+    st.markdown(
+        """
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Raleway:wght@300;400;700;800&display=swap');
+
+        :root {
+          --bh-yellow: #f6d84f;
+          --bh-yellow-soft: #fde992;
+          --bh-yellow-card: #fff3b6;
+          --bh-border: #111111;
+          --bh-text: #111111;
+        }
+
+        .stApp,
+        [data-testid="stAppViewContainer"],
+        [data-testid="stHeader"] {
+          background: var(--bh-yellow);
+          color: var(--bh-text);
+          font-family: 'Open Sans', sans-serif !important;
+        }
+
+        [data-testid="stSidebar"],
+        [data-testid="stSidebarNav"],
+        [data-testid="collapsedControl"] {
+          display: none !important;
+        }
+
+        [data-testid="stToolbar"] {
+          right: 0.75rem;
+        }
+
+        .block-container {
+          padding-top: 2rem;
+          padding-bottom: 3rem;
+          max-width: 1160px;
+        }
+
+        h1, h2, h3, h4, h5, h6,
+        p, label, div, span, li,
+        .stMarkdown, .stCaption, .stMetric, .stAlert {
+          color: var(--bh-text) !important;
+        }
+
+        h1 {
+          font-family: 'Raleway', sans-serif !important;
+          font-weight: 700 !important;
+          text-transform: uppercase;
+          letter-spacing: -0.04em;
+        }
+
+        .bh-hero-title {
+          text-align: center;
+          font-size: clamp(3.4rem, 7vw, 5.6rem);
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: -0.05em;
+          line-height: 0.92;
+          margin: 0.35rem 0 1.1rem 0;
+          color: #111111;
+          font-family: 'Raleway', sans-serif !important;
+        }
+
+        h2, h3, h4 {
+          font-family: 'Raleway', sans-serif !important;
+          font-weight: 700 !important;
+          letter-spacing: -0.03em;
+        }
+
+        p, label, li, .stMarkdown, .stCaption, .stMetric, .stAlert, .stDataFrame {
+          font-family: 'Open Sans', sans-serif !important;
+          font-weight: 400 !important;
+        }
+
+        [data-testid="stTextArea"] label p {
+          font-family: 'Raleway', sans-serif !important;
+          text-transform: uppercase;
+          font-weight: 800 !important;
+          letter-spacing: 0.04em;
+        }
+
+        [data-testid="stTextArea"] textarea,
+        [data-testid="stSelectbox"] div[data-baseweb="select"],
+        [data-testid="stRadio"] label,
+        [data-testid="stDataFrame"],
+        [data-testid="stMetric"],
+        [data-testid="stVerticalBlock"] > div:has(> [data-testid="stMetric"]) {
+          font-family: 'Open Sans', sans-serif !important;
+          color: var(--bh-text) !important;
+        }
+
+        [data-testid="stTextArea"] textarea {
+          background: #fff9d6 !important;
+          border: 2px solid var(--bh-border) !important;
+          border-radius: 14px !important;
+        }
+
+        div[data-testid="stButton"] > button {
+          font-family: 'Raleway', sans-serif !important;
+          background: #f6d84f !important;
+          color: #111111 !important;
+          border: 2px solid #111111 !important;
+          border-radius: 999px !important;
+          font-weight: 700 !important;
+        }
+
+        div[data-testid="stButton"] > button:hover {
+          background: #fde992 !important;
+          color: #111111 !important;
+          border-color: #111111 !important;
+        }
+
+        div[data-testid="stDownloadButton"] > button {
+          font-family: 'Raleway', sans-serif !important;
+          background: #111111 !important;
+          color: #f8e36c !important;
+          border: 2px solid #111111 !important;
+          border-radius: 999px !important;
+          font-weight: 700 !important;
+        }
+
+        div[data-testid="stDownloadButton"] > button:hover {
+          background: #2a2a2a !important;
+          color: #fff2a8 !important;
+        }
+
+        [data-testid="stMetric"],
+        [data-testid="stAlert"],
+        [data-testid="stDataFrame"] {
+          background: var(--bh-yellow-card);
+          border: 2px solid var(--bh-border);
+          border-radius: 18px;
+          padding: 0.5rem;
+        }
+
+        [data-testid="stVegaLiteChart"] {
+          background: var(--bh-yellow-card);
+          border: 2px solid var(--bh-border);
+          border-radius: 18px;
+          padding: 0.9rem 0.9rem 0.4rem 0.9rem;
+          overflow: hidden;
+        }
+
+        hr {
+          border-color: #111111 !important;
+        }
+
+        .bh-footer-logo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1.5rem;
+          width: 100%;
+          margin: 2.5rem auto 0.5rem auto;
+          flex-wrap: wrap;
+        }
+
+        .bh-footer-link {
+          display: inline-block;
+          text-decoration: none !important;
+          color: inherit !important;
+        }
+
+        .bh-footer-shell {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .bh-footer-campaign {
+          text-align: center;
+          font-size: clamp(1.3rem, 3vw, 2.6rem);
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          color: #111111;
+          margin-top: 1.5rem;
+          font-family: 'Raleway', sans-serif !important;
+        }
+
+        .bh-footer-logo-text {
+          font-size: clamp(2.2rem, 6vw, 7rem);
+          line-height: 0.95;
+          font-weight: 300;
+          letter-spacing: -0.04em;
+          color: #1b1b1b;
+          text-transform: none;
+          font-family: 'Raleway', sans-serif !important;
+        }
+
+        .bh-social-links {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin: 0.1rem auto 0.7rem auto;
+        }
+
+        .bh-social-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.55rem;
+          padding: 0.6rem 0.95rem;
+          border: 2px solid #111111;
+          border-radius: 999px;
+          background: #fff3b6;
+          color: #111111 !important;
+          text-decoration: none !important;
+          font-weight: 700;
+          font-size: 0.98rem;
+          line-height: 1;
+          transition: transform 120ms ease, background 120ms ease;
+          font-family: 'Raleway', sans-serif !important;
+        }
+
+        .bh-social-link:hover {
+          background: #fde992;
+          transform: translateY(-1px);
+        }
+
+        .bh-social-icon {
+          width: 1rem;
+          height: 1rem;
+          display: inline-block;
+          flex: 0 0 auto;
+        }
+
+        @media (max-width: 900px) {
+          .bh-footer-logo {
+            gap: 1rem;
+          }
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def _format_bytes(num_bytes):
     if not num_bytes:
         return "0 B"
@@ -59,8 +308,50 @@ def render_banner_ad(slot_id: str, fallback_label: str) -> None:
 
     st.markdown(
         f"""
-        <div style="border:1px dashed #999;padding:12px;border-radius:8px;text-align:center;color:#666;font-size:0.9rem;">
+        <div style="border:2px solid #111;padding:12px;border-radius:14px;text-align:center;color:#111;background:#fff3b6;font-size:0.9rem;font-weight:600;">
           {settings.ad_placeholder_text} ({fallback_label})
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_footer_logo() -> None:
+    st.markdown(
+        """
+        <div class="bh-footer-shell">
+          <div class="bh-footer-campaign">#RohkeuttaPriorisoida</div>
+          <a class="bh-footer-link" href="https://liberaalipuolue.fi/rohkeuttapriorisoida/" target="_blank" rel="noopener noreferrer" aria-label="Avaa Rohkeutta priorisoida -sivu">
+            <div class="bh-footer-logo" aria-label="liberaalipuolue.fi logo">
+              <div class="bh-footer-logo-text">liberaalipuolue.fi</div>
+            </div>
+          </a>
+          <div class="bh-social-links" aria-label="Liberaalipuolueen sosiaalinen media">
+            <a class="bh-social-link" href="https://www.facebook.com/liberaalipuolue/" target="_blank" rel="noopener noreferrer" aria-label="Liberaalipuolue Facebookissa">
+              <svg class="bh-social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.3v2.4H8v3.2h2.7V21h2.8z"/>
+              </svg>
+              Facebook
+            </a>
+            <a class="bh-social-link" href="https://instagram.com/liberaalipuolue/" target="_blank" rel="noopener noreferrer" aria-label="Liberaalipuolue Instagramissa">
+              <svg class="bh-social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm0 2.2A1.8 1.8 0 0 0 5.2 7v10c0 1 .8 1.8 1.8 1.8h10c1 0 1.8-.8 1.8-1.8V7c0-1-.8-1.8-1.8-1.8H7zm5 2.3A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2.2A2.3 2.3 0 1 0 14.3 12 2.3 2.3 0 0 0 12 9.7zm4.8-3.3a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"/>
+              </svg>
+              Instagram
+            </a>
+            <a class="bh-social-link" href="https://twitter.com/liberaalipuolue/" target="_blank" rel="noopener noreferrer" aria-label="Liberaalipuolue X:ssä">
+              <svg class="bh-social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M18.9 3H22l-6.8 7.8L23 21h-6.2l-4.9-6.4L6.4 21H3.3l7.3-8.3L2 3h6.3l4.4 5.8L18.9 3zm-1.1 16h1.7L7.3 4.9H5.5L17.8 19z"/>
+              </svg>
+              X
+            </a>
+            <a class="bh-social-link" href="https://liberaalipuolue.fi/chat/" target="_blank" rel="noopener noreferrer" aria-label="Liberaalipuolue Discordissa">
+              <svg class="bh-social-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M20.3 4.4A16.7 16.7 0 0 0 16.2 3l-.2.4c1.5.4 2.2.9 3 1.4-2.6-1.2-5.5-1.8-8.4-1.8-2.9 0-5.8.6-8.4 1.8.8-.5 1.5-1 3-1.4L5 3A16.7 16.7 0 0 0 .9 4.4C-1 7.2-1.5 9.8-1.3 12.4A16.9 16.9 0 0 0 4 15l.7-1.1c-1-.3-1.9-.7-2.8-1.3.2.1.5.3.7.4 2.3 1.1 4.8 1.6 7.4 1.6 2.6 0 5.1-.5 7.4-1.6.2-.1.5-.2.7-.4-.9.6-1.8 1-2.8 1.3l.7 1.1a16.9 16.9 0 0 0 5.3-2.6c.3-3-.5-5.6-1.7-8zM8 11.8c-.8 0-1.5-.8-1.5-1.7 0-.9.6-1.7 1.5-1.7.8 0 1.5.8 1.5 1.7 0 .9-.7 1.7-1.5 1.7zm8 0c-.8 0-1.5-.8-1.5-1.7 0-.9.6-1.7 1.5-1.7.8 0 1.5.8 1.5 1.7 0 .9-.7 1.7-1.5 1.7z"/>
+              </svg>
+              Discord
+            </a>
+          </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -144,8 +435,54 @@ def render_insight_cards(df: pd.DataFrame) -> None:
         if not grouped.empty:
             top_row = grouped.sort_values(net_col, ascending=False).iloc[0]
             st.caption(
-                f"Suurin nettokertymä tuloksessa: {top_row[hallinnonala_col]} ({top_row[net_col]:,.2f})".replace(",", " ")
+                f"Suurin nettokertymä tuloksessa: {top_row[hallinnonala_col]} "
+                f"({_format_euro_millions(top_row[net_col])} {EURO_DISPLAY_UNIT})"
             )
+
+
+def render_budget_moment_evidence(
+    question: str,
+    results_df: pd.DataFrame,
+    analysis_spec: AnalysisSpec | None = None,
+    limit: int = 30,
+) -> None:
+    st.subheader("Käytetyt budjettimomentit")
+    evidence = bigquery_utils.get_budget_moment_evidence(
+        question=question,
+        results_df=results_df,
+        analysis_spec=analysis_spec if isinstance(analysis_spec, AnalysisSpec) else None,
+        limit=limit,
+    )
+    evidence_df = evidence.get("evidence_df")
+    if not isinstance(evidence_df, pd.DataFrame) or evidence_df.empty:
+        st.warning("Budjettimomentteja ei voitu tunnistaa tästä vastauksesta.")
+        return
+
+    if evidence.get("source") == "results_df":
+        st.caption("Momentit tunnistettiin suoraan tulosaineistosta, jota visualisoinnit käyttävät.")
+    else:
+        st.caption(
+            f"Visualisoinnin momentit haettiin erillisellä tukikyselyllä samasta rajauksesta. "
+            f"Näytetään enintään {min(limit, len(evidence_df))} suurinta momenttia."
+        )
+
+    display_columns = [
+        column
+        for column in (
+            "momentti_tunnusp",
+            "momentti_snimi",
+            "alamomentti_tunnus",
+            "alamomentti_snimi",
+            "nettokertyma_sum",
+            "vuosia",
+        )
+        if column in evidence_df.columns
+    ]
+    if not display_columns:
+        st.warning("Budjettimomentteihin liittyviä sarakkeita ei löytynyt näytettäväksi.")
+        return
+
+    st.dataframe(_format_results_for_display(evidence_df[display_columns]), width="stretch")
 
 
 def _format_year_range(year_from: int | None, year_to: int | None) -> str:
@@ -178,18 +515,6 @@ def render_scope_cards(spec: AnalysisSpec) -> None:
 
 def render_interpretation_block(question: str) -> tuple[AnalysisSpec, dict[str, str], bool, list[str]]:
     spec = infer_analysis_spec(question)
-    st.markdown("**Tulkinta ennen ajoa**")
-    st.caption(renderable_summary(spec))
-    render_scope_cards(spec)
-
-    if spec.assumptions:
-        assumptions = " | ".join(spec.assumptions)
-        st.caption(f"Oletukset: {assumptions}")
-
-    coverage = coverage_notice(spec)
-    if coverage:
-        st.caption(f"Huomio: {coverage}")
-
     required_clarification = bool(spec.clarifications) and spec.confidence < settings.clarification_required_confidence
     selections: dict[str, str] = {}
     missing_required: list[str] = []
@@ -304,17 +629,7 @@ def _numeric_from_any(values) -> pd.Series:
 
 
 def _choose_euro_scale(values) -> tuple[float, str]:
-    numeric = _numeric_from_any(values).dropna()
-    if numeric.empty:
-        return 1.0, "€"
-    max_abs = numeric.abs().max()
-    if max_abs >= 1_000_000_000:
-        return 1_000_000_000.0, "mrd €"
-    if max_abs >= 1_000_000:
-        return 1_000_000.0, "milj. €"
-    if max_abs >= 1_000:
-        return 1_000.0, "t€"
-    return 1.0, "€"
+    return EURO_DISPLAY_SCALE, EURO_DISPLAY_UNIT
 
 
 def _year_index_as_str(index) -> pd.Index:
@@ -333,6 +648,88 @@ def _format_number(value, decimals: int = 2, suffix: str = "") -> str:
         return ""
     rendered = f"{float(value):,.{decimals}f}".replace(",", " ")
     return f"{rendered}{suffix}"
+
+
+def _format_display_number(value, decimals: int = 2) -> str:
+    if pd.isna(value):
+        return ""
+    number = float(value)
+    rounded = round(number)
+    use_decimals = 0 if abs(number - rounded) < 0.005 else decimals
+    return f"{number:,.{use_decimals}f}".replace(",", " ")
+
+
+def _format_euro_millions(value, decimals: int = 2, suffix: str = "") -> str:
+    if pd.isna(value):
+        return ""
+    value_in_millions = float(value) / EURO_DISPLAY_SCALE
+    return f"{_format_display_number(value_in_millions, decimals)}{suffix}"
+
+
+def _vega_space_grouping_expr() -> str:
+    return "replace(format(datum.value, ',.2~f'), ',', ' ')"
+
+
+def _altair_axis(label_expr: str | None = None) -> alt.Axis:
+    axis_kwargs = dict(
+        labelColor=CHART_INK,
+        titleColor=CHART_INK,
+        domainColor=CHART_INK,
+        tickColor=CHART_INK,
+        gridColor=CHART_GRID,
+        gridOpacity=1,
+        labelFont=DISPLAY_FONT_BODY,
+        titleFont=DISPLAY_FONT_HEADING,
+        labelFontSize=13,
+        titleFontSize=16,
+        titleFontWeight="bold",
+    )
+    if label_expr is not None:
+        axis_kwargs["labelExpr"] = label_expr
+    return alt.Axis(**axis_kwargs)
+
+
+def _style_altair_chart(chart: alt.Chart, height: int | None = None) -> alt.Chart:
+    if height is not None:
+        chart = chart.properties(height=height)
+    return (
+        chart.properties(background=CHART_BG)
+        .configure_view(stroke=CHART_INK, strokeWidth=2, fill=CHART_BG)
+        .configure_axis(
+            labelColor=CHART_INK,
+            titleColor=CHART_INK,
+            domainColor=CHART_INK,
+            tickColor=CHART_INK,
+            gridColor=CHART_GRID,
+            labelFont=DISPLAY_FONT_BODY,
+            titleFont=DISPLAY_FONT_HEADING,
+            labelFontSize=13,
+            titleFontSize=16,
+            titleFontWeight="bold",
+        )
+        .configure_legend(
+            orient="bottom",
+            labelColor=CHART_INK,
+            titleColor=CHART_INK,
+            labelFont=DISPLAY_FONT_BODY,
+            titleFont=DISPLAY_FONT_HEADING,
+            symbolStrokeColor=CHART_INK,
+            symbolFillColor=CHART_INK,
+        )
+        .configure_title(
+            color=CHART_INK,
+            font=DISPLAY_FONT_HEADING,
+            fontSize=18,
+            fontWeight="bold",
+            anchor="start",
+        )
+        .configure_header(
+            labelColor=CHART_INK,
+            titleColor=CHART_INK,
+            labelFont=DISPLAY_FONT_BODY,
+            titleFont=DISPLAY_FONT_HEADING,
+        )
+    )
 
 
 def _truncate_label(value: str, max_len: int = 60) -> str:
@@ -439,6 +836,42 @@ def _build_time_axis(df: pd.DataFrame, date_col: str | None, year_col: str | Non
     return None
 
 
+def _looks_like_euro_column(column_name: str) -> bool:
+    name = (column_name or "").lower()
+    return any(
+        token in name
+        for token in (
+            "nettokertyma",
+            "nettokertymä",
+            "sum",
+            "maararaha",
+            "määräraha",
+            "muutos_eur",
+            "kasvu_eur",
+            "alkuvuosi",
+            "loppuvuosi",
+        )
+    )
+
+
+def _looks_like_pct_column(column_name: str) -> bool:
+    name = (column_name or "").lower()
+    return "pct" in name or "%" in name
+
+
+def _format_results_for_display(df: pd.DataFrame) -> pd.DataFrame:
+    display_df = df.copy()
+    for column in display_df.columns:
+        if _looks_like_pct_column(column):
+            display_df[column] = _to_numeric_series(display_df[column]).map(lambda x: _format_number(x, 2, " %"))
+            continue
+        if _looks_like_euro_column(column):
+            display_df[column] = _to_numeric_series(display_df[column]).map(
+                lambda x: f"{_format_euro_millions(x)} {EURO_DISPLAY_UNIT}"
+            )
+    return display_df
+
+
 def _render_top_growth_template(
     work: pd.DataFrame,
     spec: AnalysisSpec,
@@ -490,29 +923,36 @@ def _render_top_growth_template(
     ranked["label_short"] = ranked["label"].apply(_truncate_label)
 
     unit = "%"
-    tooltip_format = ",.2f"
     ranked["plot_metric"] = ranked["metric"]
+    ranked["metric_label"] = ranked["metric"].map(lambda x: _format_number(x, 2))
     if metric_col != growth_pct_col:
         scale, unit = _choose_euro_scale(ranked["metric"])
         ranked["plot_metric"] = ranked["metric"] / scale
+        ranked["metric_label"] = ranked["metric"].map(_format_euro_millions)
 
     st.markdown(f"**{_title_with_scope('Eniten kasvaneet kategoriat', spec)}**")
     st.caption(f"X-akseli: kasvu ({unit}) | Y-akseli: kategoria")
 
     top_chart = (
         alt.Chart(ranked)
-        .mark_bar(color="#1565c0")
+        .mark_bar(color=CHART_INK, stroke=CHART_INK, strokeWidth=1.2, cornerRadiusEnd=2)
         .encode(
             y=alt.Y("label_short:N", sort="-x", title=""),
-            x=alt.X("plot_metric:Q", title=f"Kasvu ({unit})"),
+            x=alt.X(
+                "plot_metric:Q",
+                title=f"Kasvu ({unit})",
+                axis=_altair_axis(_vega_space_grouping_expr()),
+            ),
             tooltip=[
                 alt.Tooltip("label:N", title="Kategoria"),
-                alt.Tooltip("metric:Q", title="Kasvu", format=tooltip_format),
+                alt.Tooltip("metric_label:N", title=f"Kasvu ({unit})"),
             ],
         )
-        .properties(height=max(280, min(700, 28 * len(ranked))))
     )
-    st.altair_chart(top_chart, use_container_width=True)
+    st.altair_chart(
+        _style_altair_chart(top_chart, height=max(280, min(700, 28 * len(ranked)))),
+        use_container_width=True,
+    )
 
     detail_cols = [
         col
@@ -532,7 +972,9 @@ def _render_top_growth_template(
         details = work[detail_cols].copy()
         for euro_col in ("alkuvuosi_sum", "loppuvuosi_sum", "kasvu_eur"):
             if euro_col in details.columns:
-                details[euro_col] = _to_numeric_series(details[euro_col]).map(lambda x: _format_number(x, 2))
+                details[euro_col] = _to_numeric_series(details[euro_col]).map(
+                    lambda x: f"{_format_euro_millions(x)} {EURO_DISPLAY_UNIT}"
+                )
         if "kasvu_pct" in details.columns:
             details["kasvu_pct"] = _to_numeric_series(details["kasvu_pct"]).map(lambda x: _format_number(x, 2, " %"))
         st.markdown("**Kasvutaulukko**")
@@ -561,21 +1003,30 @@ def _render_trend_template(
         chart_df = series.reset_index(name="summa")
         chart_df["summa_scaled"] = chart_df["summa"] / scale
         chart_df["vuosi"] = chart_df[year_col].astype(int).astype(str)
+        chart_df["summa_label"] = chart_df["summa"].map(_format_euro_millions)
         st.markdown(f"**{_title_with_scope('Trendikuva', spec)}**")
         st.caption(f"X-akseli: vuosi | Y-akseli: summa ({unit})")
         trend_chart = (
             alt.Chart(chart_df)
-            .mark_line(point=True, color="#1565c0")
+            .mark_line(
+                point=alt.OverlayMarkDef(color=CHART_INK, filled=True, fill=CHART_INK, size=68),
+                color=CHART_INK,
+                strokeWidth=3,
+            )
             .encode(
-                x=alt.X("vuosi:N", title="Vuosi"),
-                y=alt.Y("summa_scaled:Q", title=f"Summa ({unit})"),
+                x=alt.X("vuosi:N", title="Vuosi", axis=_altair_axis()),
+                y=alt.Y(
+                    "summa_scaled:Q",
+                    title=f"Summa ({unit})",
+                    axis=_altair_axis(_vega_space_grouping_expr()),
+                ),
                 tooltip=[
                     alt.Tooltip("vuosi:N", title="Vuosi"),
-                    alt.Tooltip("summa:Q", title="Summa", format=",.2f"),
+                    alt.Tooltip("summa_label:N", title=f"Summa ({unit})"),
                 ],
             )
         )
-        st.altair_chart(trend_chart, use_container_width=True)
+        st.altair_chart(_style_altair_chart(trend_chart), use_container_width=True)
         return True
 
     if "_time_axis" not in work.columns:
@@ -590,21 +1041,30 @@ def _render_trend_template(
     scale, unit = _choose_euro_scale(series)
     chart_df = series.reset_index(name="summa")
     chart_df["summa_scaled"] = chart_df["summa"] / scale
+    chart_df["summa_label"] = chart_df["summa"].map(_format_euro_millions)
     st.markdown(f"**{_title_with_scope('Trendikuva', spec)}**")
     st.caption(f"X-akseli: aika | Y-akseli: summa ({unit})")
     trend_chart = (
         alt.Chart(chart_df)
-        .mark_line(point=True, color="#1565c0")
+        .mark_line(
+            point=alt.OverlayMarkDef(color=CHART_INK, filled=True, fill=CHART_INK, size=60),
+            color=CHART_INK,
+            strokeWidth=3,
+        )
         .encode(
-            x=alt.X("_time_axis:T", title="Aika"),
-            y=alt.Y("summa_scaled:Q", title=f"Summa ({unit})"),
+            x=alt.X("_time_axis:T", title="Aika", axis=_altair_axis()),
+            y=alt.Y(
+                "summa_scaled:Q",
+                title=f"Summa ({unit})",
+                axis=_altair_axis(_vega_space_grouping_expr()),
+            ),
             tooltip=[
                 alt.Tooltip("_time_axis:T", title="Aika"),
-                alt.Tooltip("summa:Q", title="Summa", format=",.2f"),
+                alt.Tooltip("summa_label:N", title=f"Summa ({unit})"),
             ],
         )
     )
-    st.altair_chart(trend_chart, use_container_width=True)
+    st.altair_chart(_style_altair_chart(trend_chart), use_container_width=True)
     return True
 
 
@@ -639,9 +1099,11 @@ def _render_growth_template(
         if growth_col == growth_pct_col:
             unit = "%"
             scaled = growth_series
+            labels = growth_series.map(lambda x: _format_number(x, 2, " %"))
         else:
             scale, unit = _choose_euro_scale(growth_series)
             scaled = growth_series / scale
+            labels = growth_series.map(_format_euro_millions)
     else:
         if not value_col:
             return False
@@ -656,25 +1118,28 @@ def _render_growth_template(
             return False
         unit = "%"
         scaled = growth_series
+        labels = growth_series.map(lambda x: _format_number(x, 2, " %"))
 
     chart_df = scaled.reset_index(name="value")
     chart_df["vuosi"] = chart_df[year_col].astype(int).astype(str)
+    chart_df["value_label"] = list(labels.values)
+    value_axis = _altair_axis(_vega_space_grouping_expr()) if unit != "%" else _altair_axis()
 
     st.markdown(f"**{_title_with_scope('Kasvu vuositasolla', spec)}**")
     st.caption(f"X-akseli: vuosi | Y-akseli: kasvu ({unit})")
     growth_chart = (
         alt.Chart(chart_df)
-        .mark_bar(color="#1976d2")
+        .mark_bar(color=CHART_INK, stroke=CHART_INK, strokeWidth=1.2, cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
         .encode(
-            x=alt.X("vuosi:N", title="Vuosi"),
-            y=alt.Y("value:Q", title=f"Kasvu ({unit})"),
+            x=alt.X("vuosi:N", title="Vuosi", axis=_altair_axis()),
+            y=alt.Y("value:Q", title=f"Kasvu ({unit})", axis=value_axis),
             tooltip=[
                 alt.Tooltip("vuosi:N", title="Vuosi"),
-                alt.Tooltip("value:Q", title="Kasvu", format=",.2f"),
+                alt.Tooltip("value_label:N", title=f"Kasvu ({unit})"),
             ],
         )
     )
-    st.altair_chart(growth_chart, use_container_width=True)
+    st.altair_chart(_style_altair_chart(growth_chart), use_container_width=True)
     return True
 
 
@@ -696,16 +1161,37 @@ def _render_composition_template(
     if comp_df[category_col].nunique() < 2 or comp_df[category_col].nunique() > 10:
         return False
 
-    pivot = comp_df.pivot_table(index=year_col, columns=category_col, values=value_col, aggfunc="sum").sort_index()
-    if pivot.empty:
+    grouped = (
+        comp_df.groupby([year_col, category_col], as_index=False)[value_col]
+        .sum()
+        .sort_values([year_col, value_col], ascending=[True, False])
+    )
+    if grouped.empty:
         return False
-    scale, unit = _choose_euro_scale(pivot)
-    pivot = pivot / scale
-    pivot.index = _year_index_as_str(pivot.index)
+    scale, unit = _choose_euro_scale(grouped[value_col])
+    grouped["value_scaled"] = grouped[value_col] / scale
+    grouped["vuosi"] = _to_numeric_series(grouped[year_col]).astype("Int64").astype(str)
+    grouped["category"] = grouped[category_col].astype(str)
+    grouped["value_label"] = grouped[value_col].map(_format_euro_millions)
 
     st.markdown(f"**{_title_with_scope('Rakenteen kehitys', spec)}**")
-    st.caption(f"X-akseli: vuosi | Y-akseli: summa ({unit}) | Väri: kategoria")
-    st.area_chart(pivot)
+    st.caption(f"X-akseli: vuosi | Y-akseli: summa ({unit}) | Viivakuvio: kategoria")
+    composition_chart = (
+        alt.Chart(grouped)
+        .mark_line(point=alt.OverlayMarkDef(color=CHART_INK, filled=True, fill=CHART_BG_SOFT, stroke=CHART_INK, size=52), color=CHART_INK, strokeWidth=2.4)
+        .encode(
+            x=alt.X("vuosi:N", title="Vuosi", axis=_altair_axis()),
+            y=alt.Y("value_scaled:Q", title=f"Summa ({unit})", axis=_altair_axis(_vega_space_grouping_expr())),
+            detail=alt.Detail("category:N"),
+            strokeDash=alt.StrokeDash("category:N", title="Kategoria"),
+            tooltip=[
+                alt.Tooltip("vuosi:N", title="Vuosi"),
+                alt.Tooltip("category:N", title="Kategoria"),
+                alt.Tooltip("value_label:N", title=f"Summa ({unit})"),
+            ],
+        )
+    )
+    st.altair_chart(_style_altair_chart(composition_chart), use_container_width=True)
     return True
 
 
@@ -726,14 +1212,36 @@ def _render_seasonality_template(
     if season_df.empty or season_df[month_col].nunique() < 6:
         return False
 
-    heat = season_df.pivot_table(index=year_col, columns=month_col, values=value_col, aggfunc="sum").sort_index()
+    heat = (
+        season_df.groupby([year_col, month_col], as_index=False)[value_col]
+        .sum()
+        .sort_values([year_col, month_col])
+    )
     if heat.empty:
         return False
-    scale, unit = _choose_euro_scale(heat)
-    heat = heat / scale
+    scale, unit = _choose_euro_scale(heat[value_col])
+    heat["value_scaled"] = heat[value_col] / scale
+    heat["vuosi"] = _to_numeric_series(heat[year_col]).astype("Int64").astype(str)
+    heat["kk"] = _to_numeric_series(heat[month_col]).astype("Int64")
+    heat["value_label"] = heat[value_col].map(_format_euro_millions)
     st.markdown(f"**{_title_with_scope('Kausivaihtelu (vuosi x kuukausi)', spec)}**")
-    st.caption(f"Taulukon yksikkö: {unit}")
-    st.dataframe(heat.style.format("{:,.2f}").background_gradient(cmap="Blues"), width="stretch")
+    st.caption(f"X-akseli: kuukausi | Y-akseli: vuosi | Intensiivisyys: summa ({unit})")
+    seasonality_chart = (
+        alt.Chart(heat)
+        .mark_rect(stroke=CHART_INK, strokeWidth=1)
+        .encode(
+            x=alt.X("kk:O", title="Kuukausi", axis=_altair_axis()),
+            y=alt.Y("vuosi:N", title="Vuosi", axis=_altair_axis()),
+            color=alt.value(CHART_INK),
+            opacity=alt.Opacity("value_scaled:Q", legend=None, scale=alt.Scale(range=[0.12, 1.0])),
+            tooltip=[
+                alt.Tooltip("vuosi:N", title="Vuosi"),
+                alt.Tooltip("kk:O", title="Kuukausi"),
+                alt.Tooltip("value_label:N", title=f"Summa ({unit})"),
+            ],
+        )
+    )
+    st.altair_chart(_style_altair_chart(seasonality_chart), use_container_width=True)
     return True
 
 
@@ -765,23 +1273,30 @@ def _render_top_categories_template(
     grouped["label_short"] = grouped["label"].apply(_truncate_label)
     scale, unit = _choose_euro_scale(grouped["value"])
     grouped["value_scaled"] = grouped["value"] / scale
+    grouped["value_label"] = grouped["value"].map(_format_euro_millions)
 
     st.markdown(f"**{_title_with_scope('Top kategoriat', spec)}**")
     st.caption(f"X-akseli: summa ({unit}) | Y-akseli: kategoria")
     chart = (
         alt.Chart(grouped)
-        .mark_bar(color="#1976d2")
+        .mark_bar(color=CHART_INK, stroke=CHART_INK, strokeWidth=1.2, cornerRadiusEnd=2)
         .encode(
             y=alt.Y("label_short:N", sort="-x", title=""),
-            x=alt.X("value_scaled:Q", title=f"Summa ({unit})"),
+            x=alt.X(
+                "value_scaled:Q",
+                title=f"Summa ({unit})",
+                axis=_altair_axis(_vega_space_grouping_expr()),
+            ),
             tooltip=[
                 alt.Tooltip("label:N", title="Kategoria"),
-                alt.Tooltip("value:Q", title="Summa", format=",.2f"),
+                alt.Tooltip("value_label:N", title=f"Summa ({unit})"),
             ],
         )
-        .properties(height=max(250, min(650, 28 * len(grouped))))
     )
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(
+        _style_altair_chart(chart, height=max(250, min(650, 28 * len(grouped)))),
+        use_container_width=True,
+    )
     return True
 
 
@@ -878,48 +1393,24 @@ def visualize_data(
     return rendered_templates
 
 def main():
-    st.set_page_config(page_title="Budjettihaukka", layout="wide")
-    st.title("Budjettihaukka")
-    st.write("Budjettihaukka on avoimen lähdekoodin web-sovellus, jonka tarkoituksena on tuoda talouspolitiikkaan liittyvä tieto helposti saataville, analysoitavaksi ja visualisoitavaksi. Sovelluksen käyttäjä voi esittää kysymyksiä luonnollisella kielellä, ja tekoälyn avulla saa kansantaloudelliseen optimaalisuuteen ja empiiriseen taloustutkimukseen perustuvia analyyseja. Tulokset voidaan näyttää taulukkoina, dynaamisina visualisointeina sekä analyyttisinä raportteina.")
-    render_banner_ad(settings.adsense_slot_top, "Yläbanneri")
-
-    # Lisätään diagnostiikkatila kehittäjille
-    debug_mode = st.sidebar.checkbox("Kehittäjätila", value=False)
-    source_label = "Google Sheets demo" if settings.use_google_sheets_demo else "BigQuery"
-    st.sidebar.caption(f"Tietolähde: {source_label}")
-    render_usage_meter()
-    
-    # Lisätään visualisoinnin testaustila
-    test_visualization = st.sidebar.checkbox("Testaa visualisointia", value=False)
-    
-    if test_visualization:
-        st.header("Visualisoinnin testaus")
-        st.write("Tämä tila käyttää generoitua esimerkkidataa visualisoinnin testaamiseen.")
-        
-        # Generoidaan esimerkkidata
-        sample_data = generate_sample_budget_data()
-        
-        # Näytetään esimerkkidata
-        st.subheader("Esimerkkidata")
-        st.dataframe(sample_data.head(10), width="stretch")
-        
-        # Visualisoidaan data
-        visualize_data(sample_data, question="testidata visualisointi")
-        
-        # Tarjotaan CSV-latausmahdollisuus
-        csv = sample_data.to_csv(index=False)
-        st.download_button(
-            label="Lataa esimerkkidata CSV-tiedostona",
-            data=csv,
-            file_name="budjettihaukka_esimerkkidata.csv",
-            mime="text/csv"
-        )
-        
-        return  # Palataan tästä, jos testataan visualisointia
+    st.set_page_config(page_title="Budjettihaukka", layout="wide", initial_sidebar_state="collapsed")
+    apply_custom_theme()
+    st.markdown('<div class="bh-hero-title">BUDJETTIHAUKKA</div>', unsafe_allow_html=True)
+    st.write(
+        "Budjettihaukka tekee julkisesta taloudesta läpinäkyvämpää ja päätöksenteosta ymmärrettävämpää. "
+        "Sen tavoitteena on auttaa näkemään, mihin yhteisiä varoja käytetään, miten priorisoinnit muuttuvat ja "
+        "mitä vaikutuksia niillä voi olla vapauden, vastuun ja tehokkuuden näkökulmasta. "
+        "Budjettihaukan tarkoituksena on tuoda talouspolitiikkaan liittyvä tieto helposti saataville, "
+        "analysoitavaksi ja visualisoitavaksi. Sovelluksen käyttäjä voi esittää kysymyksiä luonnollisella kielellä, "
+        "ja tekoälyn avulla saa kansantaloudelliseen optimaalisuuteen ja empiiriseen taloustutkimukseen perustuvia "
+        "analyyseja. Tulokset voidaan näyttää taulukkoina, dynaamisina visualisointeina sekä analyyttisinä "
+        "raportteina. Liberaalipuolue - vapaus valita"
+    )
+    debug_mode = False
     
     # Normaalin sovelluksen kulku tästä eteenpäin
     # Input for natural language question
-    question = st.text_area("Kirjoita kysymyksesi:", placeholder="Esim. Mitkä olivat puolustusministeriön menot vuonna 2023?", height=100)
+    question = st.text_area("KIRJOITA KYSYMYKSESI:", placeholder="Esim. Mitkä olivat puolustusministeriön menot vuonna 2023?", height=100)
     clarification_choices: dict[str, str] = {}
     interpreted_spec: AnalysisSpec | None = None
     clarification_required = False
@@ -927,7 +1418,10 @@ def main():
     if question.strip():
         interpreted_spec, clarification_choices, clarification_required, missing_required = render_interpretation_block(question)
 
-    if st.button("Hae tulokset"):
+    submit_clicked = st.button("Hae tulokset")
+    render_banner_ad(settings.adsense_slot_top, "Yläbanneri")
+
+    if submit_clicked:
         if not question.strip():
             st.warning("Ole hyvä ja kirjoita kysymys.")
             return
@@ -943,10 +1437,6 @@ def main():
 
         with st.spinner("Generoidaan SQL-kyselyä..."):
             try:
-                # Näytetään kysymys selkeästi
-                st.subheader("Esitetty kysymys:")
-                st.info(question)
-
                 if clarification_required and missing_required:
                     st.error("Valitse pakolliset tarkennukset ennen kyselyn ajoa.")
                     log_query_event(
@@ -969,9 +1459,6 @@ def main():
                     return
 
                 execution_question = apply_clarifications_to_question(question, clarification_choices)
-                if execution_question != question:
-                    st.caption("Käytettiin käyttäjän tarkenteita analyysin suorittamiseen.")
-
                 # Käsitellään kysymys yhdellä polulla (sisältää fallbackin).
                 result = bigquery_utils.process_natural_language_query(execution_question)
                 sql_query = result.get("sql_query", "")
@@ -983,8 +1470,6 @@ def main():
                 query_contract = result.get("query_contract")
                 query_plan = result.get("query_plan")
 
-                if explanation:
-                    st.caption(explanation)
                 if debug_mode and query_source:
                     st.caption(f"Kyselypolku: {query_source}" + (f" ({query_contract})" if query_contract else ""))
                 if debug_mode and query_plan:
@@ -1041,29 +1526,18 @@ def main():
 
                 rendered_templates: list[str] = []
                 if results is not None and not results.empty:
-                    render_query_cost_stats()
-                    if isinstance(analysis_spec, AnalysisSpec):
-                        render_scope_cards(analysis_spec)
-                    st.subheader("Kyselyn tulokset:")
-                    st.dataframe(results, width="stretch")
-                    render_insight_cards(results)
-                    
-                    # Tarjotaan CSV-latausmahdollisuus
-                    csv = results.to_csv(index=False)
-                    st.download_button(
-                        label="Lataa tulokset CSV-tiedostona",
-                        data=csv,
-                        file_name="budjettihaukka_tulokset.csv",
-                        mime="text/csv"
-                    )
-                    
                     # Visualisoi tulokset
                     rendered_templates = visualize_data(
                         results,
-                        title="Kyselyn tulokset visualisoituna",
+                        title="Kyselyjen tulokset visualisoituna",
                         question=execution_question,
                         analysis_spec=analysis_spec if isinstance(analysis_spec, AnalysisSpec) else None,
                         query_contract=query_contract,
+                    )
+                    render_budget_moment_evidence(
+                        question=execution_question,
+                        results_df=results,
+                        analysis_spec=analysis_spec if isinstance(analysis_spec, AnalysisSpec) else None,
                     )
                 else:
                     st.warning("Kysely ei palauttanut tuloksia. Kokeile muokata kysymystäsi.")
@@ -1110,9 +1584,9 @@ def main():
                     st.exception(e)
 
     # Alatunnisteen näyttäminen
-    render_banner_ad(settings.adsense_slot_bottom, "Alabanneri")
     st.markdown("---")
-    st.markdown("Budjettihaukka | Powered by LangGraph & Vertex AI © 2025")
+    render_footer_logo()
+    render_banner_ad(settings.adsense_slot_bottom, "Alabanneri")
 
 if __name__ == "__main__":
     main()
