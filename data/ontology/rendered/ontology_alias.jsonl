@@ -1,0 +1,76 @@
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "koulutus", "alias": "koulutus", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "koulutus", "alias": "koulutusmenot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "koulutus", "alias": "opetus", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "korkeakoulutus", "alias": "korkeakoulutus", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "korkeakoulutus", "alias": "korkeakoulut", "source": "manual", "alias_type": "colloquial", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "korkeakoulutus", "alias": "korkeakoulujen rahoitus", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "yliopistot", "alias": "yliopistot", "source": "finto_yso", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "yliopistot", "alias": "yliopisto", "source": "finto_yso", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "yliopistot", "alias": "university", "source": "manual", "alias_type": "english", "lang": "en"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "yliopistot", "alias": "university funding", "source": "manual", "alias_type": "english", "lang": "en"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ammattikorkeakoulut", "alias": "ammattikorkeakoulut", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ammattikorkeakoulut", "alias": "ammattikorkeakoulu", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ammattikorkeakoulut", "alias": "amk", "source": "manual", "alias_type": "colloquial", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ammatillinen_koulutus", "alias": "ammatillinen koulutus", "source": "finto_yso", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ammatillinen_koulutus", "alias": "ammattikoulutus", "source": "finto_yso", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ammatillinen_koulutus", "alias": "ammattiopetus", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ammatillinen_koulutus", "alias": "ammattikoulu", "source": "manual", "alias_type": "colloquial", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "opintotuki", "alias": "opintotuki", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "opintotuki", "alias": "opintoraha", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "opintotuki", "alias": "opiskelijoiden tuki", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "puolustus", "alias": "puolustus", "source": "finto_juho", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "puolustus", "alias": "puolustusmenot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "puolustus", "alias": "defence", "source": "manual", "alias_type": "english", "lang": "en"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "puolustus", "alias": "defense spending", "source": "manual", "alias_type": "english", "lang": "en"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "poliisi_ja_sisainen_turvallisuus", "alias": "poliisi", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "poliisi_ja_sisainen_turvallisuus", "alias": "sisäinen turvallisuus", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "poliisi_ja_sisainen_turvallisuus", "alias": "rajavartiolaitos", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "poliisi_ja_sisainen_turvallisuus", "alias": "pelastustoimi", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "sosiaali_ja_terveys", "alias": "sosiaali- ja terveys", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "sosiaali_ja_terveys", "alias": "sote", "source": "manual", "alias_type": "colloquial", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "sosiaali_ja_terveys", "alias": "sote-menot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "sosiaali_ja_terveys", "alias": "terveysmenot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "hyvinvointialueiden_rahoitus", "alias": "hyvinvointialueet", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "hyvinvointialueiden_rahoitus", "alias": "hyvinvointialueiden rahoitus", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "hyvinvointialueiden_rahoitus", "alias": "alueiden rahoitus", "source": "manual", "alias_type": "colloquial", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "sosiaaliturva", "alias": "sosiaaliturva", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "sosiaaliturva", "alias": "etuudet", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "sosiaaliturva", "alias": "tulonsiirrot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "asumistuki", "alias": "asumistuki", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "asumistuki", "alias": "asumistuen menot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "asumistuki", "alias": "asumistuen", "source": "manual", "alias_type": "inflected", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "asumistuki", "alias": "yleinen asumistuki", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "asumistuki", "alias": "housing allowance", "source": "manual", "alias_type": "english", "lang": "en"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "elakkeet", "alias": "eläkkeet", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "elakkeet", "alias": "eläkemenot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "elakkeet", "alias": "kansaneläkkeet", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "tyollisyys_ja_tyovoimapolitiikka", "alias": "työllisyys", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "tyollisyys_ja_tyovoimapolitiikka", "alias": "työvoimapolitiikka", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "tyollisyys_ja_tyovoimapolitiikka", "alias": "työvoimapalvelut", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "tyollisyys_ja_tyovoimapolitiikka", "alias": "te-palvelut", "source": "manual", "alias_type": "colloquial", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "kuntien_valtionosuudet", "alias": "kuntien valtionosuudet", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "kuntien_valtionosuudet", "alias": "valtionosuudet kunnille", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "kuntien_valtionosuudet", "alias": "kuntarahoitus", "source": "manual", "alias_type": "colloquial", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "liikenne_ja_infra", "alias": "liikenne", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "liikenne_ja_infra", "alias": "infra", "source": "manual", "alias_type": "colloquial", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "liikenne_ja_infra", "alias": "väylät", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "liikenne_ja_infra", "alias": "tie- ja ratahankkeet", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ymparisto_ja_ilmasto", "alias": "ympäristö", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ymparisto_ja_ilmasto", "alias": "ilmasto", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ymparisto_ja_ilmasto", "alias": "ilmastotoimet", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "ymparisto_ja_ilmasto", "alias": "ympäristömenot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "yritystuet", "alias": "yritystuet", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "yritystuet", "alias": "yritystuki", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "yritystuet", "alias": "yritysavustukset", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "yritystuet", "alias": "investointituet", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "tutkimus_ja_innovaatiot", "alias": "tutkimus", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "tutkimus_ja_innovaatiot", "alias": "innovaatiot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "tutkimus_ja_innovaatiot", "alias": "tki", "source": "manual", "alias_type": "colloquial", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "tutkimus_ja_innovaatiot", "alias": "tutkimusrahoitus", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "verotulot", "alias": "verotulot", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "verotulot", "alias": "verot", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "verotulot", "alias": "verokertymä", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "velka_ja_korkomenot", "alias": "velka", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "velka_ja_korkomenot", "alias": "korkomenot", "source": "manual", "alias_type": "pref", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "velka_ja_korkomenot", "alias": "velanhoito", "source": "manual", "alias_type": "alt", "lang": "fi"}
+{"ontology_id": "budjettihaukka", "ontology_version": 1, "concept_id": "velka_ja_korkomenot", "alias": "valtionvelka", "source": "manual", "alias_type": "alt", "lang": "fi"}

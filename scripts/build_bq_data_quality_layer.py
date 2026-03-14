@@ -29,6 +29,303 @@ def _numeric_expr(raw_col: str) -> str:
     )
 
 
+def _clean_text_expr(raw_col: str) -> str:
+    return f"NULLIF(REGEXP_REPLACE(TRIM({raw_col}), r'\\s+', ' '), '')"
+
+
+def _display_name_expr(expr: str) -> str:
+    collapsed = f"REGEXP_REPLACE(TRIM({expr}), r'\\s+', ' ')"
+    return (
+        "CASE "
+        f"WHEN {expr} IS NULL THEN NULL "
+        f"WHEN REGEXP_CONTAINS({collapsed}, r'[A-ZÅÄÖ]') AND {collapsed} = UPPER({collapsed}) "
+        f"THEN INITCAP(LOWER({collapsed})) "
+        f"ELSE {collapsed} "
+        "END"
+    )
+
+
+def _family_key_expr(expr: str) -> str:
+    return (
+        "CASE "
+        f"WHEN {expr} IS NULL THEN NULL "
+        f"WHEN LENGTH({expr}) >= 35 THEN SUBSTR(LOWER({expr}), 1, 35) "
+        f"ELSE LOWER({expr}) "
+        "END"
+    )
+
+
+def _hierarchy_level_specs() -> list[tuple[str, str, str, str]]:
+    return [
+        ("hallinnonala", "ha_tunnus", "hallinnonala", "hallinnonala"),
+        ("kirjanpitoyksikko", "tv_tunnus", "kirjanpitoyksikko", "kirjanpitoyksikko"),
+        ("paaluokkaosasto", "paaluokkaosasto_tunnusp", "paaluokkaosasto_snimi", "paaluokkaosasto"),
+        ("luku", "luku_tunnusp", "luku_snimi", "luku"),
+        ("momentti", "momentti_tunnusp", "momentti_snimi", "momentti"),
+        ("alamomentti", "alamomentti_tunnus", "alamomentti_snimi", "alamomentti"),
+    ]
+
+
+def _hierarchy_union_sql(curated_ref: str) -> str:
+    parts: list[str] = []
+    for level_name, code_col, name_col, prefix in _hierarchy_level_specs():
+        parts.append(
+            f"""
+SELECT
+  '{level_name}' AS level_name,
+  vuosi,
+  {code_col} AS code,
+  {name_col} AS alias_name,
+  {prefix}_display AS alias_display_name,
+  {prefix}_family_key AS alias_family_key
+FROM {curated_ref}
+WHERE {code_col} IS NOT NULL
+  AND {name_col} IS NOT NULL
+"""
+        )
+    return "\nUNION ALL\n".join(parts)
+
+
+def _hierarchy_helper_selects() -> list[str]:
+    helper_selects: list[str] = []
+    for _level_name, _code_col, name_col, prefix in _hierarchy_level_specs():
+        display_expr = _display_name_expr(name_col)
+        helper_selects.append(f"{display_expr} AS {prefix}_display")
+        helper_selects.append(f"{_family_key_expr(display_expr)} AS {prefix}_family_key")
+    return helper_selects
+
+
+def _build_hierarchy_mapping_sql(
+    project: str,
+    dataset: str,
+    curated_ref: str,
+    create_object: str,
+) -> str:
+    return f"""
+CREATE OR REPLACE {create_object} `{project}.{dataset}.dim_hierarchy_name_mapping` AS
+WITH hierarchy AS (
+  {_hierarchy_union_sql(curated_ref)}
+),
+normalized AS (
+  SELECT
+    level_name,
+    vuosi,
+    code,
+    alias_name,
+    alias_display_name,
+    alias_family_key
+  FROM hierarchy
+  WHERE code IS NOT NULL
+    AND alias_display_name IS NOT NULL
+),
+alias_ranges AS (
+  SELECT
+    level_name,
+    code,
+    ARRAY_TO_STRING(ARRAY_AGG(DISTINCT alias_name ORDER BY alias_name), ' | ') AS alias_name,
+    alias_display_name,
+    alias_family_key,
+    MIN(vuosi) AS valid_from_year,
+    MAX(vuosi) AS valid_to_year,
+    COUNT(*) AS row_count,
+    COUNT(DISTINCT vuosi) AS distinct_years
+  FROM normalized
+  GROUP BY level_name, code, alias_display_name, alias_family_key
+),
+family_canonical AS (
+  SELECT * EXCEPT(rn)
+  FROM (
+    SELECT
+      level_name,
+      code,
+      alias_family_key,
+      alias_display_name AS canonical_name,
+      ROW_NUMBER() OVER (
+        PARTITION BY level_name, code, alias_family_key
+        ORDER BY
+          SUM(row_count) DESC,
+          MAX(LENGTH(alias_display_name)) DESC,
+          MAX(valid_to_year) DESC,
+          alias_display_name DESC
+      ) AS rn
+    FROM alias_ranges
+    GROUP BY level_name, code, alias_family_key, alias_display_name
+  )
+  WHERE rn = 1
+),
+family_summary AS (
+  SELECT
+    level_name,
+    code,
+    COUNT(DISTINCT alias_family_key) AS family_key_count,
+    ARRAY_TO_STRING(ARRAY_AGG(DISTINCT canonical_name ORDER BY canonical_name), ' | ') AS family_names
+  FROM family_canonical
+  GROUP BY level_name, code
+),
+same_year_conflicts AS (
+  SELECT
+    level_name,
+    code,
+    COUNT(*) AS same_year_conflict_years,
+    ARRAY_TO_STRING(ARRAY_AGG(CAST(vuosi AS STRING) ORDER BY vuosi), ', ') AS conflict_years
+  FROM (
+    SELECT
+      level_name,
+      code,
+      vuosi
+    FROM normalized
+    GROUP BY level_name, code, vuosi
+    HAVING COUNT(DISTINCT alias_display_name) > 1
+  )
+  GROUP BY level_name, code
+)
+SELECT
+  alias_ranges.level_name,
+  alias_ranges.code,
+  family_canonical.canonical_name,
+  alias_ranges.alias_name,
+  alias_ranges.alias_display_name,
+  alias_ranges.alias_family_key,
+  alias_ranges.valid_from_year,
+  alias_ranges.valid_to_year,
+  alias_ranges.distinct_years,
+  alias_ranges.row_count,
+  CASE
+    WHEN alias_ranges.alias_display_name = family_canonical.canonical_name THEN 'canonical'
+    ELSE 'formatting_noise'
+  END AS alias_issue_category,
+  COALESCE(family_summary.family_key_count, 1) AS family_key_count,
+  COALESCE(family_summary.family_names, family_canonical.canonical_name) AS family_names,
+  COALESCE(same_year_conflicts.same_year_conflict_years, 0) AS same_year_conflict_years,
+  COALESCE(same_year_conflicts.same_year_conflict_years, 0) > 0 AS has_same_year_conflict,
+  same_year_conflicts.conflict_years
+FROM alias_ranges
+JOIN family_canonical
+  USING(level_name, code, alias_family_key)
+LEFT JOIN family_summary
+  USING(level_name, code)
+LEFT JOIN same_year_conflicts
+  USING(level_name, code)
+"""
+
+
+def _build_hierarchy_consistency_sql(
+    project: str,
+    dataset: str,
+    curated_ref: str,
+    create_object: str,
+) -> str:
+    return f"""
+CREATE OR REPLACE {create_object} `{project}.{dataset}.dq_hierarchy_consistency` AS
+WITH hierarchy AS (
+  {_hierarchy_union_sql(curated_ref)}
+),
+normalized AS (
+  SELECT
+    level_name,
+    vuosi,
+    code,
+    alias_name,
+    alias_display_name,
+    alias_family_key
+  FROM hierarchy
+  WHERE code IS NOT NULL
+    AND alias_display_name IS NOT NULL
+),
+mapping AS (
+  SELECT
+    level_name,
+    code,
+    canonical_name,
+    alias_name,
+    alias_display_name,
+    alias_family_key,
+    valid_from_year,
+    valid_to_year,
+    alias_issue_category,
+    family_key_count,
+    family_names
+  FROM `{project}.{dataset}.dim_hierarchy_name_mapping`
+),
+same_year_conflicts AS (
+  SELECT
+    normalized.level_name,
+    normalized.code,
+    canonical.canonical_name,
+    'same_year_conflict' AS issue_category,
+    normalized.vuosi AS affected_year,
+    CAST(NULL AS INT64) AS valid_from_year,
+    CAST(NULL AS INT64) AS valid_to_year,
+    ARRAY_TO_STRING(
+      ARRAY_AGG(DISTINCT normalized.alias_display_name ORDER BY normalized.alias_display_name),
+      ' | '
+    ) AS alias_name,
+    CAST(NULL AS STRING) AS alias_display_name,
+    COUNT(DISTINCT normalized.alias_display_name) AS alias_count,
+    COUNT(DISTINCT normalized.alias_family_key) AS family_key_count,
+    ARRAY_TO_STRING(
+      ARRAY_AGG(DISTINCT normalized.alias_name ORDER BY normalized.alias_name),
+      ' | '
+    ) AS details
+  FROM normalized
+  JOIN (
+    SELECT DISTINCT level_name, code, canonical_name
+    FROM mapping
+  ) AS canonical
+    USING(level_name, code)
+  GROUP BY
+    normalized.level_name,
+    normalized.code,
+    canonical.canonical_name,
+    normalized.vuosi
+  HAVING COUNT(DISTINCT normalized.alias_display_name) > 1
+),
+alias_issues AS (
+  SELECT
+    level_name,
+    code,
+    canonical_name,
+    alias_issue_category AS issue_category,
+    CAST(NULL AS INT64) AS affected_year,
+    valid_from_year,
+    valid_to_year,
+    alias_name,
+    alias_display_name,
+    CAST(NULL AS INT64) AS alias_count,
+    CAST(NULL AS INT64) AS family_key_count,
+    CONCAT('family=', alias_family_key) AS details
+  FROM mapping
+  WHERE alias_issue_category = 'formatting_noise'
+),
+historical_renames AS (
+  SELECT
+    level_name,
+    code,
+    canonical_name,
+    'historical_rename' AS issue_category,
+    CAST(NULL AS INT64) AS affected_year,
+    MIN(valid_from_year) AS valid_from_year,
+    MAX(valid_to_year) AS valid_to_year,
+    MAX(alias_name) AS alias_name,
+    canonical_name AS alias_display_name,
+    CAST(NULL AS INT64) AS alias_count,
+    MAX(family_key_count) AS family_key_count,
+    MAX(family_names) AS details
+  FROM mapping
+  WHERE family_key_count > 1
+  GROUP BY level_name, code, canonical_name
+)
+SELECT *
+FROM same_year_conflicts
+UNION ALL
+SELECT *
+FROM alias_issues
+UNION ALL
+SELECT *
+FROM historical_renames
+"""
+
+
 def _run_query(client: bigquery.Client, sql: str, label: str, dry_run: bool = False) -> None:
     logger.info("Running step: %s", label)
     if dry_run:
@@ -54,6 +351,7 @@ def build_curated_sql(
 ) -> str:
     table_ref = f"`{project}.{dataset}.{raw_table}`"
     target_ref = f"`{project}.{dataset}.{curated_table}`"
+    hierarchy_helper_selects = ",\n  ".join(_hierarchy_helper_selects())
     if build_mode == "table":
         header = (
             f"CREATE OR REPLACE TABLE {target_ref}\n"
@@ -155,7 +453,8 @@ SELECT
         COALESCE(CAST(nettokertyma AS STRING), '')
       )
     )
-  ) AS row_fingerprint
+  ) AS row_fingerprint,
+  {hierarchy_helper_selects}
 FROM typed
 WHERE vuosi IS NOT NULL
   AND kk IS NOT NULL
@@ -230,6 +529,20 @@ GROUP BY alamomentti_tunnus, alamomentti_snimi
 
     steps.append(
         (
+            "dim_hierarchy_name_mapping",
+            _build_hierarchy_mapping_sql(project, dataset, curated_ref, create_object),
+        )
+    )
+
+    steps.append(
+        (
+            "dq_hierarchy_consistency",
+            _build_hierarchy_consistency_sql(project, dataset, curated_ref, create_object),
+        )
+    )
+
+    steps.append(
+        (
             "topic_alias",
             f"""
 CREATE OR REPLACE {create_object} `{project}.{dataset}.dim_topic_alias` AS
@@ -252,48 +565,87 @@ SELECT * FROM UNNEST([
 
 
 def build_semantic_view_sql(project: str, dataset: str, curated_table: str, semantic_view: str) -> str:
+    join_clauses: list[str] = []
+    helper_columns: list[str] = []
+    canonical_expr_by_prefix: dict[str, str] = {}
+    for level_name, code_col, name_col, prefix in _hierarchy_level_specs():
+        alias = f"{prefix}_map"
+        canonical_expr = f"COALESCE({alias}.canonical_name, source.{prefix}_display, source.{name_col})"
+        canonical_expr_by_prefix[prefix] = canonical_expr
+        join_clauses.append(
+            f"""LEFT JOIN `{project}.{dataset}.dim_hierarchy_name_mapping` AS {alias}
+  ON {alias}.level_name = '{level_name}'
+ AND {alias}.code = source.{code_col}
+ AND {alias}.alias_display_name = source.{prefix}_display
+ AND source.vuosi BETWEEN {alias}.valid_from_year AND {alias}.valid_to_year"""
+        )
+        helper_columns.extend(
+            [
+                f"  source.{prefix}_display AS {prefix}_display,",
+                f"  source.{prefix}_family_key AS {prefix}_family_key,",
+                f"  {canonical_expr} AS {prefix}_canonical,",
+                (
+                    f"  COALESCE({alias}.alias_issue_category, 'canonical') "
+                    f"AS {prefix}_alias_issue_category,"
+                ),
+                (
+                    f"  COALESCE({alias}.has_same_year_conflict, FALSE) "
+                    f"AS {prefix}_has_same_year_conflict,"
+                ),
+            ]
+        )
+    helper_columns_sql = "\n".join(helper_columns)
+    joins_sql = "\n".join(join_clauses)
+    momentti_canonical_expr = canonical_expr_by_prefix["momentti"]
+    alamomentti_canonical_expr = canonical_expr_by_prefix["alamomentti"]
     return f"""
 CREATE OR REPLACE VIEW `{project}.{dataset}.{semantic_view}` AS
+WITH source AS (
+  SELECT *
+  FROM `{project}.{dataset}.{curated_table}`
+)
 SELECT
   -- Raw-compatible names for existing SQL contracts/fallbacks
-  vuosi AS `Vuosi`,
-  kk AS `Kk`,
-  ha_tunnus AS `Ha_Tunnus`,
-  hallinnonala AS `Hallinnonala`,
-  tv_tunnus AS `Tv_Tunnus`,
-  kirjanpitoyksikko AS `Kirjanpitoyksikkö`,
-  paaluokkaosasto_tunnusp AS `PaaluokkaOsasto_TunnusP`,
-  paaluokkaosasto_snimi AS `PaaluokkaOsasto_sNimi`,
-  luku_tunnusp AS `Luku_TunnusP`,
-  luku_snimi AS `Luku_sNimi`,
-  momentti_tunnusp AS `Momentti_TunnusP`,
-  momentti_snimi AS `Momentti_sNimi`,
-  alamomentti_tunnus AS `TakpMrL_Tunnus`,
-  alamomentti_snimi AS `TakpMrL_sNimi`,
-  alkuperainen_talousarvio AS `Alkuperäinen_talousarvio`,
-  lisatalousarvio AS `Lisätalousarvio`,
-  voimassaoleva_talousarvio AS `Voimassaoleva_talousarvio`,
-  kaytettavissa AS `Käytettävissä`,
-  alkusaldo AS `Alkusaldo`,
-  nettokertyma_ko_vuodelta AS `Nettokertymä_ko_vuodelta`,
-  nettokertyma AS `Nettokertymä`,
-  loppusaldo AS `Loppusaldo`,
+  source.vuosi AS `Vuosi`,
+  source.kk AS `Kk`,
+  source.ha_tunnus AS `Ha_Tunnus`,
+  source.hallinnonala AS `Hallinnonala`,
+  source.tv_tunnus AS `Tv_Tunnus`,
+  source.kirjanpitoyksikko AS `Kirjanpitoyksikkö`,
+  source.paaluokkaosasto_tunnusp AS `PaaluokkaOsasto_TunnusP`,
+  source.paaluokkaosasto_snimi AS `PaaluokkaOsasto_sNimi`,
+  source.luku_tunnusp AS `Luku_TunnusP`,
+  source.luku_snimi AS `Luku_sNimi`,
+  source.momentti_tunnusp AS `Momentti_TunnusP`,
+  source.momentti_snimi AS `Momentti_sNimi`,
+  source.alamomentti_tunnus AS `TakpMrL_Tunnus`,
+  source.alamomentti_snimi AS `TakpMrL_sNimi`,
+  source.alkuperainen_talousarvio AS `Alkuperäinen_talousarvio`,
+  source.lisatalousarvio AS `Lisätalousarvio`,
+  source.voimassaoleva_talousarvio AS `Voimassaoleva_talousarvio`,
+  source.kaytettavissa AS `Käytettävissä`,
+  source.alkusaldo AS `Alkusaldo`,
+  source.nettokertyma_ko_vuodelta AS `Nettokertymä_ko_vuodelta`,
+  source.nettokertyma AS `Nettokertymä`,
+  source.loppusaldo AS `Loppusaldo`,
 
   -- Semantic helper columns (named so they do not collide with case-insensitive raw names)
-  period_date,
-  kirjanpitoyksikko,
-  alamomentti_tunnus,
-  alamomentti_snimi,
-  nettokertyma,
-  nettokertyma_ko_vuodelta,
-  CONCAT(COALESCE(momentti_tunnusp, '?'), ' ', COALESCE(momentti_snimi, '')) AS momentti_label,
-  CONCAT(COALESCE(alamomentti_tunnus, '?'), ' ', COALESCE(alamomentti_snimi, '')) AS alamomentti_label,
-  quality_issue_count,
-  has_valid_nettokertyma,
-  row_fingerprint
-FROM `{project}.{dataset}.{curated_table}`
-WHERE is_valid_year
-  AND is_valid_month
+  source.period_date,
+  source.kirjanpitoyksikko,
+  source.alamomentti_tunnus,
+  source.alamomentti_snimi,
+  source.nettokertyma,
+  source.nettokertyma_ko_vuodelta,
+{helper_columns_sql}
+  CONCAT(COALESCE(source.momentti_tunnusp, '?'), ' ', COALESCE({momentti_canonical_expr}, '')) AS momentti_label,
+  CONCAT(COALESCE(source.alamomentti_tunnus, '?'), ' ', COALESCE({alamomentti_canonical_expr}, '')) AS alamomentti_label,
+  source.quality_issue_count,
+  source.has_valid_nettokertyma,
+  source.row_fingerprint
+FROM source
+{joins_sql}
+WHERE source.is_valid_year
+  AND source.is_valid_month
 """
 
 

@@ -12,6 +12,10 @@ CONTRACT_TEMPLATE_MAP = {
     "yoy_change": ["trend", "growth"],
 }
 
+BQ_HALLINNONALA_EXPR = "COALESCE(NULLIF(hallinnonala_canonical, ''), `Hallinnonala`)"
+BQ_MOMENTTI_EXPR = "COALESCE(NULLIF(momentti_canonical, ''), NULLIF(`Momentti_sNimi`, ''))"
+BQ_ALAMOMENTTI_EXPR = "COALESCE(NULLIF(alamomentti_canonical, ''), NULLIF(`TakpMrL_sNimi`, ''))"
+
 
 def _effective_years(spec: AnalysisSpec) -> tuple[int, int]:
     if spec.time_from is None or spec.time_to is None:
@@ -44,19 +48,30 @@ def _top_limit(spec: AnalysisSpec, default_limit: int = 100) -> int:
     return max(1, min(spec.ranking_n * 10, 300))
 
 
-def _sql_top_growth_moment(spec: AnalysisSpec, table_id: str) -> str:
+def _compose_where(*clauses: str | None) -> str:
+    parts = [clause.strip() for clause in clauses if clause and clause.strip()]
+    if not parts:
+        return ""
+    return " WHERE " + " AND ".join(parts)
+
+
+def _sql_top_growth_moment(spec: AnalysisSpec, table_id: str, extra_where: str | None = None) -> str:
     year_from, year_to = _effective_years(spec)
     limit_n = _top_limit(spec)
     order_expr = _order_expression(spec)
+    where_clause = _compose_where(
+        f"SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to}",
+        extra_where,
+    )
     return (
         "WITH yearly AS ("
         "  SELECT "
         "    SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
         "    NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
-        "    NULLIF(`Momentti_sNimi`, '') AS momentti_snimi, "
+        f"    {BQ_MOMENTTI_EXPR} AS momentti_snimi, "
         "    SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
         f"  FROM `{table_id}` "
-        f"  WHERE SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to} "
+        f"  {where_clause} "
         "  GROUP BY vuosi, momentti_tunnusp, momentti_snimi"
         "), "
         "start_end AS ("
@@ -82,21 +97,25 @@ def _sql_top_growth_moment(spec: AnalysisSpec, table_id: str) -> str:
     )
 
 
-def _sql_top_growth_alamoment(spec: AnalysisSpec, table_id: str) -> str:
+def _sql_top_growth_alamoment(spec: AnalysisSpec, table_id: str, extra_where: str | None = None) -> str:
     year_from, year_to = _effective_years(spec)
     limit_n = _top_limit(spec)
     order_expr = _order_expression(spec)
+    where_clause = _compose_where(
+        f"SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to}",
+        extra_where,
+    )
     return (
         "WITH yearly AS ("
         "  SELECT "
         "    SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
         "    NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
-        "    NULLIF(`Momentti_sNimi`, '') AS momentti_snimi, "
+        f"    {BQ_MOMENTTI_EXPR} AS momentti_snimi, "
         "    NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus, "
-        "    NULLIF(`TakpMrL_sNimi`, '') AS alamomentti_snimi, "
+        f"    {BQ_ALAMOMENTTI_EXPR} AS alamomentti_snimi, "
         "    SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
         f"  FROM `{table_id}` "
-        f"  WHERE SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to} "
+        f"  {where_clause} "
         "  GROUP BY vuosi, momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi"
         "), "
         "start_end AS ("
@@ -126,30 +145,38 @@ def _sql_top_growth_alamoment(spec: AnalysisSpec, table_id: str) -> str:
     )
 
 
-def _sql_trend_by_hallinnonala(spec: AnalysisSpec, table_id: str) -> str:
+def _sql_trend_by_hallinnonala(spec: AnalysisSpec, table_id: str, extra_where: str | None = None) -> str:
     year_from, year_to = _effective_years(spec)
+    where_clause = _compose_where(
+        f"SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to}",
+        extra_where,
+    )
     return (
         "SELECT "
         "  SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
-        "  `Hallinnonala` AS hallinnonala, "
+        f"  {BQ_HALLINNONALA_EXPR} AS hallinnonala, "
         "  SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
         f"FROM `{table_id}` "
-        f"WHERE SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to} "
+        f"{where_clause} "
         "GROUP BY vuosi, hallinnonala "
         "ORDER BY vuosi ASC, nettokertyma_sum DESC "
         "LIMIT 500"
     )
 
 
-def _sql_yoy_change(spec: AnalysisSpec, table_id: str) -> str:
+def _sql_yoy_change(spec: AnalysisSpec, table_id: str, extra_where: str | None = None) -> str:
     year_from, year_to = _effective_years(spec)
+    where_clause = _compose_where(
+        f"SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to}",
+        extra_where,
+    )
     return (
         "WITH yearly AS ("
         "  SELECT "
         "    SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
         "    SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
         f"  FROM `{table_id}` "
-        f"  WHERE SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to} "
+        f"  {where_clause} "
         "  GROUP BY vuosi"
         ") "
         "SELECT "
@@ -163,16 +190,16 @@ def _sql_yoy_change(spec: AnalysisSpec, table_id: str) -> str:
     )
 
 
-def build_contract_sql(spec: AnalysisSpec, table_id: str) -> tuple[str | None, str | None]:
+def build_contract_sql(spec: AnalysisSpec, table_id: str, extra_where: str | None = None) -> tuple[str | None, str | None]:
     contract_name = choose_contract(spec)
     if contract_name == "top_growth_moment":
-        return _sql_top_growth_moment(spec, table_id), contract_name
+        return _sql_top_growth_moment(spec, table_id, extra_where=extra_where), contract_name
     if contract_name == "top_growth_alamoment":
-        return _sql_top_growth_alamoment(spec, table_id), contract_name
+        return _sql_top_growth_alamoment(spec, table_id, extra_where=extra_where), contract_name
     if contract_name == "trend_by_hallinnonala":
-        return _sql_trend_by_hallinnonala(spec, table_id), contract_name
+        return _sql_trend_by_hallinnonala(spec, table_id, extra_where=extra_where), contract_name
     if contract_name == "yoy_change":
-        return _sql_yoy_change(spec, table_id), contract_name
+        return _sql_yoy_change(spec, table_id, extra_where=extra_where), contract_name
     return None, None
 
 
@@ -233,7 +260,11 @@ def _empty_canonical_frame(df: pd.DataFrame) -> pd.DataFrame:
 def _canonical_top_growth_moment(df: pd.DataFrame, spec: AnalysisSpec) -> pd.DataFrame:
     out = _empty_canonical_frame(df)
     out["time"] = int(spec.time_to) if spec.time_to is not None else pd.NA
-    out["entity"] = _coalesce_text(df, ["momentti_snimi", "momentti_tunnusp"], "Tuntematon momentti")
+    out["entity"] = _coalesce_text(
+        df,
+        ["momentti_canonical", "momentti_snimi", "momentti_tunnusp"],
+        "Tuntematon momentti",
+    )
     if "kasvu_eur" in df.columns:
         out["delta"] = _to_numeric(df["kasvu_eur"])
     if "kasvu_pct" in df.columns:
@@ -247,8 +278,8 @@ def _canonical_top_growth_alamoment(df: pd.DataFrame, spec: AnalysisSpec) -> pd.
     out["time"] = int(spec.time_to) if spec.time_to is not None else pd.NA
     out["entity"] = _combine_entity_from_cols(
         df,
-        left_cols=["momentti_snimi", "momentti_tunnusp"],
-        right_cols=["alamomentti_snimi", "alamomentti_tunnus"],
+        left_cols=["momentti_canonical", "momentti_snimi", "momentti_tunnusp"],
+        right_cols=["alamomentti_canonical", "alamomentti_snimi", "alamomentti_tunnus"],
         fallback="Tuntematon momentti/alamomentti",
     )
     if "kasvu_eur" in df.columns:
@@ -263,7 +294,7 @@ def _canonical_trend_by_hallinnonala(df: pd.DataFrame) -> pd.DataFrame:
     out = _empty_canonical_frame(df)
     if "vuosi" in df.columns:
         out["time"] = _to_numeric(df["vuosi"]).astype("Int64")
-    out["entity"] = _coalesce_text(df, ["hallinnonala"], "Tuntematon hallinnonala")
+    out["entity"] = _coalesce_text(df, ["hallinnonala_canonical", "hallinnonala"], "Tuntematon hallinnonala")
     if "nettokertyma_sum" in df.columns:
         out["metric"] = _to_numeric(df["nettokertyma_sum"])
     out = out.sort_values(["entity", "time"], na_position="last").reset_index(drop=True)

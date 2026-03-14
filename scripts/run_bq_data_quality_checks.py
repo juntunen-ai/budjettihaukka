@@ -68,13 +68,17 @@ def _numeric_parse_expr(raw_col: str) -> str:
 
 
 def _detect_table_mode(columns: set[str]) -> str:
+    if {"quality_issue_count", "period_date", "row_fingerprint", "has_valid_nettokertyma"} <= columns:
+        if {"is_valid_year", "is_valid_month", "nettokertyma_raw"} <= columns:
+            return "curated"
+        return "semantic"
     if {"quality_issue_count", "period_date", "is_valid_year", "is_valid_month"} <= columns:
         return "curated"
     return "raw"
 
 
 def _summary_sql(table_ref: str, mode: str) -> str:
-    if mode == "curated":
+    if mode in {"curated", "semantic"}:
         return f"""
 SELECT
   COUNT(*) AS row_count,
@@ -155,6 +159,73 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
                     "  FROM bounds, UNNEST(GENERATE_ARRAY(min_year, max_year - 1)) AS y, UNNEST(GENERATE_ARRAY(1, 12)) AS m"
                     "), actual AS ("
                     f"  SELECT DISTINCT vuosi, kk FROM `{table_ref}`"
+                    ") "
+                    "SELECT COUNT(*) FROM expected e LEFT JOIN actual a USING (vuosi, kk) WHERE a.vuosi IS NULL"
+                ),
+                fail_count=12,
+                warn_count=0,
+            ),
+        ]
+
+    if mode == "semantic":
+        return [
+            DQCheck(
+                name="invalid_year_or_month",
+                description="Vuosi/kuukausi tulee olla validi analyysia varten semantic-view'ssa.",
+                sql=(
+                    "SELECT COUNTIF("
+                    "`Vuosi` IS NULL OR `Kk` IS NULL OR `Kk` NOT BETWEEN 1 AND 12"
+                    f") FROM `{table_ref}`"
+                ),
+                fail_count=0,
+            ),
+            DQCheck(
+                name="invalid_nettokertyma_parse",
+                description="Semantic-view sisältää rivejä, joilla nettokertymä ei ole validi upstream-parsinnan mukaan.",
+                sql=f"SELECT COUNTIF(NOT has_valid_nettokertyma) FROM `{table_ref}`",
+                fail_ratio=0.02,
+                warn_ratio=0.005,
+            ),
+            DQCheck(
+                name="missing_hallinnonala",
+                description="Hallinnonala puuttuu semantic-view'sta.",
+                sql=f"SELECT COUNTIF(COALESCE(`Hallinnonala`, '') = '') FROM `{table_ref}`",
+                fail_ratio=0.02,
+                warn_ratio=0.005,
+            ),
+            DQCheck(
+                name="missing_momentti",
+                description="Momentti tunnus ja nimi puuttuvat molemmat semantic-view'sta.",
+                sql=(
+                    "SELECT COUNTIF("
+                    "COALESCE(`Momentti_TunnusP`, '') = '' AND "
+                    "COALESCE(`Momentti_sNimi`, '') = ''"
+                    f") FROM `{table_ref}`"
+                ),
+                fail_ratio=0.15,
+                warn_ratio=0.05,
+            ),
+            DQCheck(
+                name="duplicate_row_fingerprint",
+                description="Täsmälleen samat semantic-rivit duplikaatteina.",
+                sql=(
+                    "WITH d AS ("
+                    f"  SELECT row_fingerprint, COUNT(*) c FROM `{table_ref}` GROUP BY row_fingerprint HAVING COUNT(*) > 1"
+                    ") SELECT COALESCE(SUM(c - 1), 0) FROM d"
+                ),
+                fail_count=0,
+            ),
+            DQCheck(
+                name="missing_months_before_latest_year",
+                description="Puuttuvia kuukausia ennen viimeisintä vuotta semantic-view'ssa.",
+                sql=(
+                    "WITH bounds AS ("
+                    f"  SELECT MIN(EXTRACT(YEAR FROM period_date)) AS min_year, MAX(EXTRACT(YEAR FROM period_date)) AS max_year FROM `{table_ref}`"
+                    "), expected AS ("
+                    "  SELECT y AS vuosi, m AS kk "
+                    "  FROM bounds, UNNEST(GENERATE_ARRAY(min_year, max_year - 1)) AS y, UNNEST(GENERATE_ARRAY(1, 12)) AS m"
+                    "), actual AS ("
+                    f"  SELECT DISTINCT EXTRACT(YEAR FROM period_date) AS vuosi, EXTRACT(MONTH FROM period_date) AS kk FROM `{table_ref}` WHERE period_date IS NOT NULL"
                     ") "
                     "SELECT COUNT(*) FROM expected e LEFT JOIN actual a USING (vuosi, kk) WHERE a.vuosi IS NULL"
                 ),
@@ -301,7 +372,7 @@ def main() -> int:
     min_period = str(summary_row.min_period) if summary_row.min_period else "-"
     max_period = str(summary_row.max_period) if summary_row.max_period else "-"
 
-    if mode == "curated":
+    if mode in {"curated", "semantic"}:
         freshness_sql = (
             f"SELECT COALESCE(DATE_DIFF(CURRENT_DATE(), MAX(period_date), DAY), 999999) FROM `{table_ref}`"
         )

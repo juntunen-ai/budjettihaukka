@@ -1,0 +1,61 @@
+{
+  "generated_at_utc": "2026-03-14T17:13:21.970219+00:00",
+  "project": "valtion-budjetti-data",
+  "dataset": "valtiodata_ingest_tmp_20260308",
+  "table_ref": "valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_semantic_v1",
+  "table_mode": "semantic",
+  "summary": {
+    "row_count": 7418485,
+    "distinct_rows": 7294003,
+    "rows_with_issues": 17990,
+    "issue_row_ratio": 0.002425023438073946,
+    "min_period": "1998-01-01",
+    "max_period": "2025-11-01",
+    "freshness_days": 133,
+    "freshness_status": "FAIL"
+  },
+  "checks": [
+    {
+      "name": "invalid_year_or_month",
+      "status": "PASS",
+      "description": "Vuosi/kuukausi tulee olla validi analyysia varten semantic-view'ssa.",
+      "failed_count": 0,
+      "failed_ratio": 0.0
+    },
+    {
+      "name": "invalid_nettokertyma_parse",
+      "status": "PASS",
+      "description": "Semantic-view sisältää rivejä, joilla nettokertymä ei ole validi upstream-parsinnan mukaan.",
+      "failed_count": 0,
+      "failed_ratio": 0.0
+    },
+    {
+      "name": "missing_hallinnonala",
+      "status": "PASS",
+      "description": "Hallinnonala puuttuu semantic-view'sta.",
+      "failed_count": 14177,
+      "failed_ratio": 0.0019110370918051327
+    },
+    {
+      "name": "missing_momentti",
+      "status": "PASS",
+      "description": "Momentti tunnus ja nimi puuttuvat molemmat semantic-view'sta.",
+      "failed_count": 3819,
+      "failed_ratio": 0.0005147951367428795
+    },
+    {
+      "name": "duplicate_row_fingerprint",
+      "status": "FAIL",
+      "description": "Täsmälleen samat semantic-rivit duplikaatteina.",
+      "failed_count": 124482,
+      "failed_ratio": 0.01677997596544308
+    },
+    {
+      "name": "missing_months_before_latest_year",
+      "status": "WARN",
+      "description": "Puuttuvia kuukausia ennen viimeisintä vuotta semantic-view'ssa.",
+      "failed_count": 2,
+      "failed_ratio": 2.695968246885988e-07
+    }
+  ]
+}

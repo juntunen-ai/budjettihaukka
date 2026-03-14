@@ -12,6 +12,7 @@ Pipeline:
 from __future__ import annotations
 
 import argparse
+import csv
 import io
 import json
 import logging
@@ -233,7 +234,7 @@ def ingest_files(
             if not text.strip():
                 df = pd.DataFrame(columns=normalized_columns)
             else:
-                df_raw = pd.read_csv(io.StringIO(text), dtype=str)
+                df_raw = pd.DataFrame(csv.DictReader(io.StringIO(text)))
                 df_raw.columns = [original_to_normalized.get(c, _normalize_name(c)) for c in df_raw.columns]
                 for col in normalized_columns:
                     if col not in df_raw.columns:

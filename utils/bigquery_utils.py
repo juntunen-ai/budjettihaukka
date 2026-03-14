@@ -13,6 +13,7 @@ from sqlglot import exp
 from config import settings
 from utils.analysis_spec_utils import AnalysisSpec, coverage_notice, infer_analysis_spec
 from utils.demo_data_utils import adapt_sql_to_demo_table, execute_demo_sql, get_demo_table_name
+from utils.ontology_utils import load_budget_ontology
 from utils.semantic_query_contracts import build_contract_sql
 from utils.vertex_ai_utils import PROJECT_ID, generate_query_plan_from_natural_language
 
@@ -25,10 +26,10 @@ last_execution_meta: dict[str, Any] = {}
 DATA_MIN_YEAR = 1998
 DATA_MAX_YEAR = 2025
 YEAR_BETWEEN_PATTERN = re.compile(
-    r"(?i)(SAFE_CAST\(\s*`?Vuosi`?\s+AS\s+INT64\s*\)\s+BETWEEN\s+)(\d{4})(\s+AND\s+)(\d{4})"
+    r"(?i)((?:SAFE_CAST\(\s*`?Vuosi`?\s+AS\s+INT64\s*\)|\bvuosi\b)\s+BETWEEN\s+)(\d{4})(\s+AND\s+)(\d{4})"
 )
 YEAR_EQUAL_PATTERN = re.compile(
-    r"(?i)(SAFE_CAST\(\s*`?Vuosi`?\s+AS\s+INT64\s*\)\s*=\s*)(\d{4})"
+    r"(?i)((?:SAFE_CAST\(\s*`?Vuosi`?\s+AS\s+INT64\s*\)|\bvuosi\b)\s*=\s*)(\d{4})"
 )
 LIMIT_PATTERN = re.compile(r"(?i)(\bLIMIT\s+)(\d+)")
 LOWER_SIGNATURE_PATTERN = re.compile(r"(?i)LOWER\(([^)]+)\)")
@@ -36,13 +37,92 @@ UNRECOGNIZED_NAME_PATTERN = re.compile(r"(?i)unrecognized name:\s*([A-Za-z_][A-Z
 
 REPAIR_UNKNOWN_NAME_MAP = {
     "hallinnonala": "`Hallinnonala`",
+    "hallinnonala_canonical": "`Hallinnonala`",
     "vuosi": "SAFE_CAST(`Vuosi` AS INT64)",
     "kk": "SAFE_CAST(`Kk` AS INT64)",
     "nettokertyma": "SAFE_CAST(`Nettokertymä` AS NUMERIC)",
+    "kirjanpitoyksikko_canonical": "`Kirjanpitoyksikkö`",
     "momentti_tunnusp": "NULLIF(`Momentti_TunnusP`, '')",
     "momentti_snimi": "NULLIF(`Momentti_sNimi`, '')",
+    "momentti_canonical": "NULLIF(`Momentti_sNimi`, '')",
     "alamomentti_tunnus": "NULLIF(`TakpMrL_Tunnus`, '')",
     "alamomentti_snimi": "NULLIF(`TakpMrL_sNimi`, '')",
+    "alamomentti_canonical": "NULLIF(`TakpMrL_sNimi`, '')",
+}
+
+BQ_HALLINNONALA_EXPR = "COALESCE(NULLIF(hallinnonala_canonical, ''), `Hallinnonala`)"
+# Kirjanpitoyksikköä käytetään tässä vain label-/fallback-kontekstissa.
+# Käytetään suoraan raakakenttää, jotta kysely ei riipu semantic-view'n
+# mahdollisista apusarake-eroista eri ympäristöissä.
+BQ_KIRJANPITOYKSIKKO_EXPR = "NULLIF(`Kirjanpitoyksikkö`, '')"
+BQ_MOMENTTI_EXPR = "COALESCE(NULLIF(momentti_canonical, ''), NULLIF(`Momentti_sNimi`, ''))"
+BQ_ALAMOMENTTI_EXPR = "COALESCE(NULLIF(alamomentti_canonical, ''), NULLIF(`TakpMrL_sNimi`, ''))"
+YEARLY_AGG_TABLE_ID = f"{settings.project_id}.{settings.dataset}.valtiontalous_yearly_agg_v1"
+ONTOLOGY_RULE_LEVEL_MAP = {
+    "hallinnonala": {
+        "canonical_expr": BQ_HALLINNONALA_EXPR,
+        "raw_expr": "NULLIF(`Hallinnonala`, '')",
+        "code_expr": "NULLIF(`Ha_Tunnus`, '')",
+    },
+    "kirjanpitoyksikko": {
+        "canonical_expr": BQ_KIRJANPITOYKSIKKO_EXPR,
+        "raw_expr": "NULLIF(`Kirjanpitoyksikkö`, '')",
+        "code_expr": "NULLIF(`Tv_Tunnus`, '')",
+    },
+    "momentti": {
+        "canonical_expr": BQ_MOMENTTI_EXPR,
+        "raw_expr": "NULLIF(`Momentti_sNimi`, '')",
+        "code_expr": "NULLIF(`Momentti_TunnusP`, '')",
+    },
+    "alamomentti": {
+        "canonical_expr": BQ_ALAMOMENTTI_EXPR,
+        "raw_expr": "NULLIF(`TakpMrL_sNimi`, '')",
+        "code_expr": "NULLIF(`TakpMrL_Tunnus`, '')",
+    },
+}
+ONTOLOGY_RULE_LEVEL_MAP_YEARLY_AGG = {
+    "hallinnonala": {
+        "canonical_expr": "NULLIF(hallinnonala, '')",
+        "raw_expr": "NULLIF(hallinnonala, '')",
+        "code_expr": "NULLIF(ha_tunnus, '')",
+    },
+    "kirjanpitoyksikko": {
+        "canonical_expr": "NULLIF(kirjanpitoyksikko, '')",
+        "raw_expr": "NULLIF(kirjanpitoyksikko, '')",
+        "code_expr": "NULLIF(tv_tunnus, '')",
+    },
+    "momentti": {
+        "canonical_expr": "NULLIF(momentti_snimi, '')",
+        "raw_expr": "NULLIF(momentti_snimi, '')",
+        "code_expr": "NULLIF(momentti_tunnusp, '')",
+    },
+    "alamomentti": {
+        "canonical_expr": "NULLIF(alamomentti_snimi, '')",
+        "raw_expr": "NULLIF(alamomentti_snimi, '')",
+        "code_expr": "NULLIF(alamomentti_tunnus, '')",
+    },
+}
+ONTOLOGY_RULE_LEVEL_MAP_DEMO = {
+    "hallinnonala": {
+        "canonical_expr": "NULLIF(hallinnonala, '')",
+        "raw_expr": "NULLIF(hallinnonala, '')",
+        "code_expr": "NULL",
+    },
+    "kirjanpitoyksikko": {
+        "canonical_expr": "NULLIF(kirjanpitoyksikko, '')",
+        "raw_expr": "NULLIF(kirjanpitoyksikko, '')",
+        "code_expr": "NULL",
+    },
+    "momentti": {
+        "canonical_expr": "NULLIF(momentti_snimi, '')",
+        "raw_expr": "NULLIF(momentti_snimi, '')",
+        "code_expr": "NULLIF(momentti_tunnusp, '')",
+    },
+    "alamomentti": {
+        "canonical_expr": "NULL",
+        "raw_expr": "NULL",
+        "code_expr": "NULL",
+    },
 }
 
 
@@ -213,15 +293,202 @@ def _is_higher_education_query(text: str) -> bool:
     return any(token in text for token in ("korkeakoulu", "yliopisto", "ammattikorkeakoulu"))
 
 
+def _has_month_intent(text: str) -> bool:
+    return any(token in text for token in ("kuukaus", "kk", "month", "kausivaihtelu", "season"))
+
+
+def _requires_population_denominator(text: str) -> bool:
+    return any(token in text for token in ("per capita", "asukasta kohti", "asukas", "per henkilö", "henkeä kohti"))
+
+
+def _sql_literal(value: str) -> str:
+    return "'" + str(value).replace("\\", "\\\\").replace("'", "\\'") + "'"
+
+
+def _ontology_membership_table_id() -> str:
+    return f"{settings.project_id}.{settings.dataset}.{settings.ontology_table_prefix}_membership_rule"
+
+
+@lru_cache(maxsize=1)
+def _load_runtime_ontology():
+    try:
+        return load_budget_ontology()
+    except Exception as exc:
+        logger.warning("Ontologian lataus epäonnistui paikallisesta YAML:stä: %s", exc)
+        return None
+
+
+def _local_ontology_membership_rules(concept_id: str) -> tuple[dict[str, Any], ...]:
+    ontology = _load_runtime_ontology()
+    if ontology is None:
+        return tuple()
+    concept = ontology.concepts_by_id().get(concept_id)
+    if not concept:
+        return tuple()
+
+    rows: list[dict[str, Any]] = []
+    for scope_name, scoped_rules in (("include", concept.include_rules), ("exclude", concept.exclude_rules)):
+        for idx, rule in enumerate(scoped_rules, start=1):
+            rows.append(
+                {
+                    "rule_scope": scope_name,
+                    "hierarchy_level": rule.hierarchy_level,
+                    "match_type": rule.match_type,
+                    "value": rule.value,
+                    "valid_from_year": rule.valid_from_year,
+                    "valid_to_year": rule.valid_to_year,
+                    "confidence": rule.confidence,
+                    "rule_id": f"{concept_id}_{scope_name}_{idx:02d}",
+                }
+            )
+    return tuple(rows)
+
+
+@lru_cache(maxsize=64)
+def _fetch_ontology_membership_rules(concept_id: str) -> tuple[dict[str, Any], ...]:
+    if not concept_id:
+        return tuple()
+
+    if settings.use_google_sheets_demo:
+        return _local_ontology_membership_rules(concept_id)
+
+    client = _get_bq_client()
+    if client is None:
+        return _local_ontology_membership_rules(concept_id)
+
+    sql = (
+        "SELECT rule_scope, hierarchy_level, match_type, value, valid_from_year, valid_to_year, confidence, rule_id "
+        f"FROM `{_ontology_membership_table_id()}` "
+        "WHERE concept_id = @concept_id "
+        "ORDER BY rule_scope, rule_id"
+    )
+    try:
+        job = client.query(
+            sql,
+            job_config=bigquery.QueryJobConfig(
+                query_parameters=[bigquery.ScalarQueryParameter("concept_id", "STRING", concept_id)]
+            ),
+        )
+        rows = [dict(row.items()) for row in job.result()]
+        if rows:
+            return tuple(rows)
+    except Exception as exc:
+        logger.warning("Ontologiasääntöjen haku BigQuerystä epäonnistui konseptille %s: %s", concept_id, exc)
+
+    return _local_ontology_membership_rules(concept_id)
+
+
+def _rule_year_window(
+    analysis_spec: AnalysisSpec | None,
+    valid_from_year: int | None,
+    valid_to_year: int | None,
+) -> tuple[int, int] | None:
+    start, end = DATA_MIN_YEAR, DATA_MAX_YEAR
+    if isinstance(analysis_spec, AnalysisSpec) and analysis_spec.time_from is not None and analysis_spec.time_to is not None:
+        start, end = _normalize_year_bounds(analysis_spec.time_from, analysis_spec.time_to)
+    if valid_from_year is not None:
+        start = max(start, int(valid_from_year))
+    if valid_to_year is not None:
+        end = min(end, int(valid_to_year))
+    if start > end:
+        return None
+    return start, end
+
+
+def _rule_match_predicate(
+    rule: dict[str, Any],
+    dialect: str,
+) -> str | None:
+    if dialect == "demo":
+        level_map = ONTOLOGY_RULE_LEVEL_MAP_DEMO
+    elif dialect == "yearly_agg":
+        level_map = ONTOLOGY_RULE_LEVEL_MAP_YEARLY_AGG
+    else:
+        level_map = ONTOLOGY_RULE_LEVEL_MAP
+    expressions = level_map.get(str(rule.get("hierarchy_level", "")).strip().lower())
+    if not expressions:
+        return None
+
+    canonical_expr = expressions["canonical_expr"]
+    raw_expr = expressions["raw_expr"]
+    code_expr = expressions["code_expr"]
+    match_type = str(rule.get("match_type", "")).strip().lower()
+    value = str(rule.get("value", "")).strip()
+    if not value:
+        return None
+
+    if match_type == "canonical_name_pattern" and canonical_expr != "NULL":
+        return f"LOWER(CAST({canonical_expr} AS STRING)) LIKE LOWER({_sql_literal(value)})"
+    if match_type == "canonical_exact" and canonical_expr != "NULL":
+        return f"LOWER(CAST({canonical_expr} AS STRING)) = LOWER({_sql_literal(value)})"
+    if match_type == "name_pattern" and raw_expr != "NULL":
+        return f"LOWER(CAST({raw_expr} AS STRING)) LIKE LOWER({_sql_literal(value)})"
+    if match_type == "exact_code" and code_expr != "NULL":
+        return f"CAST({code_expr} AS STRING) = {_sql_literal(value)}"
+    if match_type == "code_prefix" and code_expr != "NULL":
+        return f"CAST({code_expr} AS STRING) LIKE {_sql_literal(value + '%')}"
+    return None
+
+
+def _ontology_scope_clause(
+    analysis_spec: AnalysisSpec | None,
+    dialect: str = "bigquery",
+) -> str | None:
+    if not isinstance(analysis_spec, AnalysisSpec) or not analysis_spec.resolved_concept_id:
+        return None
+
+    rules = _fetch_ontology_membership_rules(analysis_spec.resolved_concept_id)
+    if not rules:
+        return None
+
+    include_predicates: list[str] = []
+    exclude_predicates: list[str] = []
+    for rule in rules:
+        year_window = _rule_year_window(
+            analysis_spec,
+            rule.get("valid_from_year"),
+            rule.get("valid_to_year"),
+        )
+        if year_window is None:
+            continue
+        base_predicate = _rule_match_predicate(rule, dialect=dialect)
+        if not base_predicate:
+            continue
+        if dialect == "demo":
+            year_predicate = f"(vuosi BETWEEN {year_window[0]} AND {year_window[1]})"
+        elif dialect == "yearly_agg":
+            year_predicate = f"(vuosi BETWEEN {year_window[0]} AND {year_window[1]})"
+        else:
+            year_predicate = f"(SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_window[0]} AND {year_window[1]})"
+        scoped_predicate = f"({year_predicate} AND {base_predicate})"
+        if str(rule.get("rule_scope", "")).strip().lower() == "exclude":
+            exclude_predicates.append(scoped_predicate)
+        else:
+            include_predicates.append(scoped_predicate)
+
+    if not include_predicates and not exclude_predicates:
+        return None
+
+    parts: list[str] = []
+    if include_predicates:
+        parts.append("(" + " OR ".join(include_predicates) + ")")
+    if exclude_predicates:
+        parts.append("NOT (" + " OR ".join(exclude_predicates) + ")")
+    if not parts:
+        return None
+    return "(" + " AND ".join(parts) + ")"
+
+
 def _build_topic_where_clause(text: str, dialect: str) -> str | None:
     if _is_higher_education_query(text):
         if dialect == "bigquery":
             return (
                 "("
-                "LOWER(`Hallinnonala`) LIKE '%opetus%' "
-                "OR LOWER(`Momentti_sNimi`) LIKE '%korkeakoul%' "
-                "OR LOWER(`Momentti_sNimi`) LIKE '%yliopist%' "
-                "OR LOWER(`Momentti_sNimi`) LIKE '%ammattikorkeakoul%'"
+                f"LOWER({BQ_HALLINNONALA_EXPR}) LIKE '%opetus%' "
+                f"OR LOWER({BQ_KIRJANPITOYKSIKKO_EXPR}) LIKE '%korkeakoul%' "
+                f"OR LOWER({BQ_MOMENTTI_EXPR}) LIKE '%korkeakoul%' "
+                f"OR LOWER({BQ_MOMENTTI_EXPR}) LIKE '%yliopist%' "
+                f"OR LOWER({BQ_MOMENTTI_EXPR}) LIKE '%ammattikorkeakoul%'"
                 ")"
             )
         return (
@@ -235,7 +502,8 @@ def _build_topic_where_clause(text: str, dialect: str) -> str | None:
     return None
 
 
-def _build_demo_fallback_sql(question: str) -> str:
+def _build_demo_fallback_sql(question: str, analysis_spec: AnalysisSpec | None = None) -> str:
+    spec = analysis_spec if isinstance(analysis_spec, AnalysisSpec) else infer_analysis_spec(question)
     table = get_demo_table_name()
     text = (question or "").lower()
     year_from, year_to = _with_default_year_bounds(*_effective_year_bounds(text))
@@ -246,38 +514,13 @@ def _build_demo_fallback_sql(question: str) -> str:
         where_parts.append(f"vuosi BETWEEN {year_from} AND {year_to}")
     if _is_defense_query(text):
         where_parts.append("LOWER(hallinnonala) LIKE '%puolustus%'")
-    topic_clause = _build_topic_where_clause(text, "demo")
+    topic_clause = _ontology_scope_clause(spec, "demo") or _build_topic_where_clause(text, "demo")
     if topic_clause:
         where_parts.append(topic_clause)
     where_clause = f" WHERE {' AND '.join(where_parts)}" if where_parts else ""
 
     if any(token in text for token in ("montako", "kuinka monta", "count", "lukum")):
         return f"SELECT COUNT(*) AS rows_count FROM {table}{where_clause} LIMIT 1"
-
-    if _is_growth_query(text) and _is_higher_education_query(text):
-        return (
-            "WITH yearly AS ("
-            f"  SELECT vuosi, momentti_tunnusp, momentti_snimi, SUM(CAST(nettokertyma AS REAL)) AS nettokertyma_sum FROM {table}{where_clause} "
-            "  GROUP BY vuosi, momentti_tunnusp, momentti_snimi"
-            "), ranked AS ("
-            "  SELECT *, ROW_NUMBER() OVER (PARTITION BY vuosi ORDER BY ABS(nettokertyma_sum) DESC) AS rnk "
-            "  FROM yearly"
-            ") "
-            "SELECT "
-            "  vuosi, "
-            "  momentti_tunnusp, "
-            "  momentti_snimi, "
-            "  nettokertyma_sum, "
-            "  nettokertyma_sum - LAG(nettokertyma_sum) OVER (PARTITION BY momentti_tunnusp, momentti_snimi ORDER BY vuosi) AS muutos_eur, "
-            "  CASE "
-            "    WHEN LAG(nettokertyma_sum) OVER (PARTITION BY momentti_tunnusp, momentti_snimi ORDER BY vuosi) IS NULL THEN NULL "
-            "    WHEN LAG(nettokertyma_sum) OVER (PARTITION BY momentti_tunnusp, momentti_snimi ORDER BY vuosi) = 0 THEN NULL "
-            "    ELSE ((nettokertyma_sum - LAG(nettokertyma_sum) OVER (PARTITION BY momentti_tunnusp, momentti_snimi ORDER BY vuosi)) / ABS(LAG(nettokertyma_sum) OVER (PARTITION BY momentti_tunnusp, momentti_snimi ORDER BY vuosi))) * 100 "
-            "  END AS muutos_pct "
-            "FROM ranked "
-            "WHERE rnk <= 12 "
-            "ORDER BY vuosi, ABS(nettokertyma_sum) DESC"
-        )
 
     if _is_growth_query(text):
         return (
@@ -325,9 +568,10 @@ def _build_demo_fallback_sql(question: str) -> str:
     )
 
 
-def _build_bigquery_fallback_sql(question: str) -> str:
+def _build_bigquery_fallback_sql(question: str, analysis_spec: AnalysisSpec | None = None) -> str:
     table = f"`{settings.full_table_id}`"
     text = (question or "").lower()
+    spec = analysis_spec if isinstance(analysis_spec, AnalysisSpec) else infer_analysis_spec(question)
     year_from, year_to = _with_default_year_bounds(*_effective_year_bounds(text))
     where_parts = []
     if year_from == year_to:
@@ -335,43 +579,14 @@ def _build_bigquery_fallback_sql(question: str) -> str:
     else:
         where_parts.append(f"SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to}")
     if _is_defense_query(text):
-        where_parts.append("LOWER(`Hallinnonala`) LIKE '%puolustus%'")
-    topic_clause = _build_topic_where_clause(text, "bigquery")
+        where_parts.append(f"LOWER({BQ_HALLINNONALA_EXPR}) LIKE '%puolustus%'")
+    topic_clause = _ontology_scope_clause(spec, "bigquery") or _build_topic_where_clause(text, "bigquery")
     if topic_clause:
         where_parts.append(topic_clause)
     where_clause = f" WHERE {' AND '.join(where_parts)}" if where_parts else ""
 
     if any(token in text for token in ("montako", "kuinka monta", "count", "lukum")):
         return f"SELECT COUNT(*) AS rows_count FROM {table}{where_clause} LIMIT 1"
-
-    if _is_growth_query(text) and _is_higher_education_query(text):
-        return (
-            "WITH yearly AS ("
-            "  SELECT "
-            "    SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
-            "    NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
-            "    NULLIF(`Momentti_sNimi`, '') AS momentti_snimi, "
-            "    SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
-            f"  FROM {table}{where_clause} "
-            "  GROUP BY vuosi, momentti_tunnusp, momentti_snimi"
-            "), ranked AS ("
-            "  SELECT *, ROW_NUMBER() OVER (PARTITION BY vuosi ORDER BY ABS(nettokertyma_sum) DESC) AS rnk "
-            "  FROM yearly"
-            ") "
-            "SELECT "
-            "  vuosi, "
-            "  momentti_tunnusp, "
-            "  momentti_snimi, "
-            "  nettokertyma_sum, "
-            "  nettokertyma_sum - LAG(nettokertyma_sum) OVER (PARTITION BY momentti_tunnusp, momentti_snimi ORDER BY vuosi) AS muutos_eur, "
-            "  SAFE_DIVIDE("
-            "    nettokertyma_sum - LAG(nettokertyma_sum) OVER (PARTITION BY momentti_tunnusp, momentti_snimi ORDER BY vuosi), "
-            "    ABS(LAG(nettokertyma_sum) OVER (PARTITION BY momentti_tunnusp, momentti_snimi ORDER BY vuosi))"
-            "  ) * 100 AS muutos_pct "
-            "FROM ranked "
-            "WHERE rnk <= 12 "
-            "ORDER BY vuosi, ABS(nettokertyma_sum) DESC"
-        )
 
     if _is_top_moment_growth_query(text):
         if year_from is None or year_to is None:
@@ -381,9 +596,9 @@ def _build_bigquery_fallback_sql(question: str) -> str:
             "  SELECT "
             "    SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
             "    NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
-            "    NULLIF(`Momentti_sNimi`, '') AS momentti_snimi, "
+            f"    {BQ_MOMENTTI_EXPR} AS momentti_snimi, "
             "    NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus, "
-            "    NULLIF(`TakpMrL_sNimi`, '') AS alamomentti_snimi, "
+            f"    {BQ_ALAMOMENTTI_EXPR} AS alamomentti_snimi, "
             "    SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
             f"  FROM {table} "
             f"  WHERE SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to} "
@@ -440,7 +655,7 @@ def _build_bigquery_fallback_sql(question: str) -> str:
             return (
                 "SELECT "
                 "SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
-                "`Hallinnonala` AS hallinnonala, "
+                f"{BQ_HALLINNONALA_EXPR} AS hallinnonala, "
                 "SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
                 f"FROM {table}{where_clause} "
                 "GROUP BY vuosi, hallinnonala "
@@ -451,7 +666,7 @@ def _build_bigquery_fallback_sql(question: str) -> str:
             "SELECT "
             "SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
             "SAFE_CAST(`Kk` AS INT64) AS kk, "
-            "`Hallinnonala` AS hallinnonala, "
+            f"{BQ_HALLINNONALA_EXPR} AS hallinnonala, "
             "SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
             f"FROM {table}{where_clause} "
             "GROUP BY vuosi, kk, hallinnonala "
@@ -463,11 +678,138 @@ def _build_bigquery_fallback_sql(question: str) -> str:
         "SELECT "
         "SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
         "SAFE_CAST(`Kk` AS INT64) AS kk, "
-        "`Hallinnonala` AS hallinnonala, "
-        "`Kirjanpitoyksikkö` AS kirjanpitoyksikko, "
+        f"{BQ_HALLINNONALA_EXPR} AS hallinnonala, "
+        f"{BQ_KIRJANPITOYKSIKKO_EXPR} AS kirjanpitoyksikko, "
         "SAFE_CAST(`Nettokertymä` AS NUMERIC) AS nettokertyma "
         f"FROM {table}{where_clause} "
         "ORDER BY vuosi DESC, kk DESC "
+        "LIMIT 200"
+    )
+
+
+@lru_cache(maxsize=1)
+def _yearly_agg_available() -> bool:
+    if settings.use_google_sheets_demo:
+        return False
+    client = _get_bq_client()
+    if client is None:
+        return False
+    try:
+        table = client.get_table(YEARLY_AGG_TABLE_ID)
+        return bool(int(getattr(table, "num_rows", 0) or 0) > 0)
+    except Exception as exc:
+        logger.warning("Vuosiaggregaattitaulu ei ole käytettävissä: %s", exc)
+        return False
+
+
+def _can_use_yearly_agg(question: str, analysis_spec: AnalysisSpec | None) -> bool:
+    if settings.use_google_sheets_demo or not _yearly_agg_available():
+        return False
+    text = (question or "").lower()
+    if _has_month_intent(text):
+        return False
+    if any(token in text for token in ("rivi", "viimeisimmät", "raakadata", "csv")):
+        return False
+    if not isinstance(analysis_spec, AnalysisSpec):
+        return False
+    return analysis_spec.intent in {"trend", "growth", "top_growth", "composition", "overview"}
+
+
+def _yearly_agg_where_clause(question: str, analysis_spec: AnalysisSpec) -> str:
+    text = (question or "").lower()
+    year_from, year_to = _with_default_year_bounds(analysis_spec.time_from, analysis_spec.time_to)
+    where_parts = [f"vuosi BETWEEN {year_from} AND {year_to}"]
+    if _is_defense_query(text):
+        where_parts.append("LOWER(hallinnonala) LIKE '%puolustus%'")
+    topic_clause = _ontology_scope_clause(analysis_spec, "yearly_agg")
+    if topic_clause:
+        where_parts.append(topic_clause)
+    return " WHERE " + " AND ".join(where_parts)
+
+
+def _build_yearly_agg_sql(question: str, analysis_spec: AnalysisSpec) -> str:
+    table = f"`{YEARLY_AGG_TABLE_ID}`"
+    text = (question or "").lower()
+    where_clause = _yearly_agg_where_clause(question, analysis_spec)
+    start_year, end_year = _with_default_year_bounds(analysis_spec.time_from, analysis_spec.time_to)
+
+    if any(token in text for token in ("montako", "kuinka monta", "count", "lukum")):
+        return f"SELECT COUNT(*) AS rows_count FROM {table}{where_clause} LIMIT 1"
+
+    if analysis_spec.intent == "top_growth":
+        if analysis_spec.entity_level in {"alamomentti", "molemmat"}:
+            return (
+                "WITH start_end AS ("
+                "  SELECT "
+                "    momentti_tunnusp, "
+                "    momentti_snimi, "
+                "    alamomentti_tunnus, "
+                "    alamomentti_snimi, "
+                f"    SUM(IF(vuosi = {start_year}, nettokertyma_sum, 0)) AS alkuvuosi_sum, "
+                f"    SUM(IF(vuosi = {end_year}, nettokertyma_sum, 0)) AS loppuvuosi_sum "
+                f"  FROM {table}{where_clause} "
+                "  GROUP BY momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi"
+                ") "
+                "SELECT "
+                "  momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi, "
+                "  alkuvuosi_sum, loppuvuosi_sum, "
+                "  loppuvuosi_sum - alkuvuosi_sum AS kasvu_eur, "
+                "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS kasvu_pct "
+                "FROM start_end "
+                "ORDER BY kasvu_eur DESC "
+                "LIMIT 100"
+            )
+        return (
+            "WITH start_end AS ("
+            "  SELECT "
+            "    momentti_tunnusp, "
+            "    momentti_snimi, "
+            f"    SUM(IF(vuosi = {start_year}, nettokertyma_sum, 0)) AS alkuvuosi_sum, "
+            f"    SUM(IF(vuosi = {end_year}, nettokertyma_sum, 0)) AS loppuvuosi_sum "
+            f"  FROM {table}{where_clause} "
+            "  GROUP BY momentti_tunnusp, momentti_snimi"
+            ") "
+            "SELECT "
+            "  momentti_tunnusp, momentti_snimi, "
+            "  alkuvuosi_sum, loppuvuosi_sum, "
+            "  loppuvuosi_sum - alkuvuosi_sum AS kasvu_eur, "
+            "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS kasvu_pct "
+            "FROM start_end "
+            "ORDER BY kasvu_eur DESC "
+            "LIMIT 100"
+        )
+
+    if analysis_spec.entity_level == "hallinnonala":
+        return (
+            "SELECT "
+            "  vuosi, hallinnonala, SUM(nettokertyma_sum) AS nettokertyma_sum "
+            f"FROM {table}{where_clause} "
+            "GROUP BY vuosi, hallinnonala "
+            "ORDER BY vuosi ASC, nettokertyma_sum DESC "
+            "LIMIT 500"
+        )
+
+    if analysis_spec.intent in {"growth", "trend", "overview", "composition"}:
+        return (
+            "WITH yearly AS ("
+            "  SELECT vuosi, SUM(nettokertyma_sum) AS nettokertyma_sum "
+            f"  FROM {table}{where_clause} "
+            "  GROUP BY vuosi"
+            ") "
+            "SELECT "
+            "  vuosi, "
+            "  nettokertyma_sum, "
+            "  nettokertyma_sum - LAG(nettokertyma_sum) OVER (ORDER BY vuosi) AS muutos_eur, "
+            "  SAFE_DIVIDE(nettokertyma_sum - LAG(nettokertyma_sum) OVER (ORDER BY vuosi), ABS(LAG(nettokertyma_sum) OVER (ORDER BY vuosi))) * 100 AS muutos_pct "
+            "FROM yearly "
+            "ORDER BY vuosi "
+            "LIMIT 400"
+        )
+
+    return (
+        "SELECT vuosi, hallinnonala, momentti_tunnusp, momentti_snimi, nettokertyma_sum "
+        f"FROM {table}{where_clause} "
+        "ORDER BY vuosi DESC, ABS(nettokertyma_sum) DESC "
         "LIMIT 200"
     )
 
@@ -488,11 +830,50 @@ def _choose_budget_moment_value_column(df: pd.DataFrame) -> str | None:
     return None
 
 
+def _collapse_budget_type_alamomentit(df: pd.DataFrame) -> pd.DataFrame:
+    if df is None or df.empty:
+        return pd.DataFrame() if df is None else df
+
+    if "alamomentti_tunnus" not in df.columns and "alamomentti_snimi" not in df.columns:
+        return df
+
+    work = df.copy()
+    code_series = (
+        work["alamomentti_tunnus"].fillna("").astype(str).str.strip().str.upper()
+        if "alamomentti_tunnus" in work.columns
+        else pd.Series("", index=work.index, dtype="object")
+    )
+    name_series = (
+        work["alamomentti_snimi"].fillna("").astype(str).str.strip().str.lower()
+        if "alamomentti_snimi" in work.columns
+        else pd.Series("", index=work.index, dtype="object")
+    )
+
+    budget_type_codes = {"A", "F", "T", "S2", "S3", "S5"}
+    budget_type_labels = {
+        "arviomääräraha",
+        "kiinteä määräraha",
+        "tuloarvio",
+        "siirtomääräraha 2 v",
+        "siirtomääräraha 3 v",
+        "siirtomääräraha 5 v",
+    }
+    metadata_mask = code_series.isin(budget_type_codes) | name_series.isin(budget_type_labels)
+    if not metadata_mask.any():
+        return work
+
+    if "alamomentti_tunnus" in work.columns:
+        work.loc[metadata_mask, "alamomentti_tunnus"] = pd.NA
+    if "alamomentti_snimi" in work.columns:
+        work.loc[metadata_mask, "alamomentti_snimi"] = pd.NA
+    return work
+
+
 def _build_budget_moment_evidence_from_results(results_df: pd.DataFrame, limit: int = 30) -> pd.DataFrame:
     if results_df is None or results_df.empty:
         return pd.DataFrame()
 
-    work = results_df.copy()
+    work = _collapse_budget_type_alamomentit(results_df)
     group_cols: list[str] = []
     for column in ("momentti_tunnusp", "momentti_snimi", "alamomentti_tunnus", "alamomentti_snimi"):
         if column not in work.columns:
@@ -538,6 +919,24 @@ def _build_bigquery_budget_moment_evidence_sql(
     analysis_spec: AnalysisSpec | None = None,
     limit: int = 30,
 ) -> str:
+    if isinstance(analysis_spec, AnalysisSpec) and _can_use_yearly_agg(question, analysis_spec):
+        year_from, year_to = _budget_moment_year_bounds(question, analysis_spec)
+        where_clause = _yearly_agg_where_clause(question, analysis_spec)
+        row_limit = max(1, min(int(limit), 100))
+        return (
+            "SELECT "
+            "  NULLIF(momentti_tunnusp, '') AS momentti_tunnusp, "
+            "  NULLIF(momentti_snimi, '') AS momentti_snimi, "
+            "  NULLIF(alamomentti_tunnus, '') AS alamomentti_tunnus, "
+            "  NULLIF(alamomentti_snimi, '') AS alamomentti_snimi, "
+            "  SUM(nettokertyma_sum) AS nettokertyma_sum, "
+            "  COUNT(DISTINCT vuosi) AS vuosia "
+            f"FROM `{YEARLY_AGG_TABLE_ID}`{where_clause} "
+            "GROUP BY momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi "
+            "ORDER BY ABS(nettokertyma_sum) DESC, momentti_tunnusp, alamomentti_tunnus "
+            f"LIMIT {row_limit}"
+        )
+
     year_from, year_to = _budget_moment_year_bounds(question, analysis_spec)
     text = (question or "").lower()
     where_parts = [
@@ -545,8 +944,8 @@ def _build_bigquery_budget_moment_evidence_sql(
         "COALESCE(NULLIF(`Momentti_TunnusP`, ''), NULLIF(`Momentti_sNimi`, '')) IS NOT NULL",
     ]
     if _is_defense_query(text):
-        where_parts.append("LOWER(`Hallinnonala`) LIKE '%puolustus%'")
-    topic_clause = _build_topic_where_clause(text, "bigquery")
+        where_parts.append(f"LOWER({BQ_HALLINNONALA_EXPR}) LIKE '%puolustus%'")
+    topic_clause = _ontology_scope_clause(analysis_spec, "bigquery") or _build_topic_where_clause(text, "bigquery")
     if topic_clause:
         where_parts.append(topic_clause)
     where_clause = f" WHERE {' AND '.join(where_parts)}"
@@ -554,9 +953,9 @@ def _build_bigquery_budget_moment_evidence_sql(
     return (
         "SELECT "
         "  NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
-        "  NULLIF(`Momentti_sNimi`, '') AS momentti_snimi, "
+        f"  {BQ_MOMENTTI_EXPR} AS momentti_snimi, "
         "  NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus, "
-        "  NULLIF(`TakpMrL_sNimi`, '') AS alamomentti_snimi, "
+        f"  {BQ_ALAMOMENTTI_EXPR} AS alamomentti_snimi, "
         "  SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum, "
         "  COUNT(DISTINCT SAFE_CAST(`Vuosi` AS INT64)) AS vuosia "
         f"FROM `{settings.full_table_id}`{where_clause} "
@@ -580,7 +979,7 @@ def _build_demo_budget_moment_evidence_sql(
     ]
     if _is_defense_query(text):
         where_parts.append("LOWER(hallinnonala) LIKE '%puolustus%'")
-    topic_clause = _build_topic_where_clause(text, "demo")
+    topic_clause = _ontology_scope_clause(analysis_spec, "demo") or _build_topic_where_clause(text, "demo")
     if topic_clause:
         where_parts.append(topic_clause)
     where_clause = f" WHERE {' AND '.join(where_parts)}"
@@ -624,8 +1023,10 @@ def get_budget_moment_evidence(
         else _build_bigquery_budget_moment_evidence_sql(question, analysis_spec, limit)
     )
     execution = _execute_with_auto_repair(sql, max_repair_attempts=1)
+    evidence_df = execution.get("results_df") if isinstance(execution.get("results_df"), pd.DataFrame) else pd.DataFrame()
+    evidence_df = _build_budget_moment_evidence_from_results(evidence_df, limit=limit)
     return {
-        "evidence_df": execution.get("results_df") if isinstance(execution.get("results_df"), pd.DataFrame) else pd.DataFrame(),
+        "evidence_df": evidence_df,
         "source": "supplemental_query",
         "sql": execution.get("sql"),
         "error": execution.get("error"),
@@ -754,12 +1155,14 @@ def enforce_sql_security(sql: str) -> tuple[str, str | None]:
 
     if not settings.use_google_sheets_demo:
         source_tables = _physical_source_tables(parsed)
-        allowed = _normalize_table_id(settings.full_table_id)
-        if source_tables != {allowed}:
+        allowed_tables = {_normalize_table_id(settings.full_table_id)}
+        if _yearly_agg_available():
+            allowed_tables.add(_normalize_table_id(YEARLY_AGG_TABLE_ID))
+        if source_tables - allowed_tables or len(source_tables) != 1:
             return (
                 "",
                 "SQL käyttää kiellettyä taulua tai useita tauluja. "
-                f"Sallittu lähde: `{settings.full_table_id}`.",
+                f"Sallitut lähteet: {', '.join(f'`{table}`' for table in sorted(allowed_tables))}.",
             )
 
     secured_sql, year_error = _enforce_year_bounds(sql)
@@ -1011,10 +1414,13 @@ def _execute_with_auto_repair(sql: str, max_repair_attempts: int) -> dict[str, A
     }
 
 
-def _deterministic_fallback_sql(question: str) -> str:
+def _deterministic_fallback_sql(question: str, analysis_spec: AnalysisSpec | None = None) -> str:
     if settings.use_google_sheets_demo:
-        return _build_demo_fallback_sql(question)
-    return _build_bigquery_fallback_sql(question)
+        return _build_demo_fallback_sql(question, analysis_spec=analysis_spec)
+    spec = analysis_spec if isinstance(analysis_spec, AnalysisSpec) else infer_analysis_spec(question)
+    if _can_use_yearly_agg(question, spec):
+        return _build_yearly_agg_sql(question, spec)
+    return _build_bigquery_fallback_sql(question, analysis_spec=spec)
 
 
 def process_natural_language_query(question: str) -> dict:
@@ -1024,6 +1430,21 @@ def process_natural_language_query(question: str) -> dict:
     logger.info("Käsitellään kysymys: %s", question)
     query_id = str(uuid.uuid4())
     analysis_spec = infer_analysis_spec(question)
+    if _requires_population_denominator((question or "").lower()):
+        return {
+            "query_id": query_id,
+            "sql_query": "",
+            "results_df": pd.DataFrame(),
+            "error": "Per capita / asukasta kohti -laskentaa ei voida tehdä ilman väestödataa, eikä sitä ole vielä kytketty tähän analyysipolkuun.",
+            "explanation": "❌ Kysymys vaatii väestödatan yhdistämisen. Nykyinen Budjettihaukka-analyysipolku tukee budjettisummaa, muutosta ja visualisointeja, mutta ei vielä per capita -normalisointia.",
+            "analysis_spec": analysis_spec,
+            "query_contract": None,
+            "query_source": "unsupported_metric",
+            "query_plan": None,
+            "query_retries": 0,
+            "dry_run_bytes": None,
+            "error_class": "unsupported_metric",
+        }
     query_contract = None
     query_source = "contract"
     query_plan = None
@@ -1042,12 +1463,22 @@ def process_natural_language_query(question: str) -> dict:
         query_plan = generate_query_plan_from_natural_language(question, fallback_plan=fallback_plan)
         analysis_spec = _merge_analysis_spec_with_query_plan(analysis_spec, query_plan)
 
-    if not settings.use_google_sheets_demo:
-        generated_sql, query_contract = build_contract_sql(analysis_spec, settings.full_table_id)
+    ontology_where = _ontology_scope_clause(analysis_spec, "bigquery") if not settings.use_google_sheets_demo else _ontology_scope_clause(analysis_spec, "demo")
+
+    if not settings.use_google_sheets_demo and _can_use_yearly_agg(question, analysis_spec):
+        generated_sql = _build_yearly_agg_sql(question, analysis_spec)
+        query_source = "yearly_agg"
+        query_contract = "yearly_agg"
+    elif not settings.use_google_sheets_demo:
+        generated_sql, query_contract = build_contract_sql(
+            analysis_spec,
+            settings.full_table_id,
+            extra_where=ontology_where,
+        )
 
     if not generated_sql:
         query_source = "fallback"
-        generated_sql = _deterministic_fallback_sql(question)
+        generated_sql = _deterministic_fallback_sql(question, analysis_spec=analysis_spec)
 
     if not generated_sql:
         return {
@@ -1071,7 +1502,7 @@ def process_natural_language_query(question: str) -> dict:
     executed_sql = execution.get("sql") or generated_sql
 
     if not execution.get("ok"):
-        fallback_sql = _deterministic_fallback_sql(question)
+        fallback_sql = _deterministic_fallback_sql(question, analysis_spec=analysis_spec)
         if fallback_sql and fallback_sql.strip() != generated_sql.strip():
             fallback_execution = _execute_with_auto_repair(
                 fallback_sql,

@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
+from functools import lru_cache
+
+from utils.ontology_utils import BudgetOntology, OntologyConcept, load_budget_ontology, resolve_concepts_for_question
 
 DATA_MIN_YEAR = 1998
 DATA_MAX_YEAR = 2025
@@ -29,6 +32,35 @@ class AnalysisSpec:
     confidence: float
     assumptions: list[str] = field(default_factory=list)
     clarifications: list[ClarificationField] = field(default_factory=list)
+    resolved_concept_id: str | None = None
+    resolved_concept_label: str | None = None
+    resolved_concept_ids: list[str] = field(default_factory=list)
+    ontology_match_score: float | None = None
+    ontology_risk_level: str | None = None
+    ontology_must_clarify: bool = False
+    ontology_matched_aliases: list[str] = field(default_factory=list)
+
+
+@lru_cache(maxsize=1)
+def _load_runtime_ontology() -> BudgetOntology | None:
+    try:
+        return load_budget_ontology()
+    except Exception:
+        return None
+
+
+def _ontology_concept_options(concept: OntologyConcept, ontology: BudgetOntology) -> tuple[str, ...]:
+    concept_map = ontology.concepts_by_id()
+    options: list[str] = []
+    for child_id in concept.narrower_concept_ids:
+        child = concept_map.get(child_id)
+        if child:
+            options.append(child.label_fi)
+    if len(options) >= 2:
+        options.append("Molemmat")
+    if options:
+        return tuple(dict.fromkeys(options))
+    return (concept.label_fi,)
 
 
 def _extract_years(text: str) -> list[int]:
@@ -128,6 +160,60 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
     assumptions: list[str] = []
     clarifications_candidates: list[ClarificationField] = []
     missing_key_dimensions = False
+    resolved_concept_id: str | None = None
+    resolved_concept_label: str | None = None
+    resolved_concept_ids: list[str] = []
+    ontology_match_score: float | None = None
+    ontology_risk_level: str | None = None
+    ontology_must_clarify = False
+    ontology_matched_aliases: list[str] = []
+
+    ontology = _load_runtime_ontology()
+    if ontology is not None:
+        resolved = resolve_concepts_for_question(question, ontology, limit=3)
+        if resolved:
+            top = resolved[0]
+            resolved_concept_id = top.concept_id
+            resolved_concept_label = top.label_fi
+            resolved_concept_ids = [item.concept_id for item in resolved]
+            ontology_match_score = top.score
+            ontology_risk_level = top.risk_level
+            ontology_must_clarify = top.must_clarify
+            ontology_matched_aliases = list(top.matched_aliases)
+
+            assumptions.append(
+                f"Ontologinen tulkinta: {top.label_fi}"
+                + (f" (osumat: {', '.join(top.matched_aliases)})" if top.matched_aliases else ".")
+            )
+
+            concept_map = ontology.concepts_by_id()
+            concept = concept_map.get(top.concept_id)
+            if concept and entity_level == "kokonais" and concept.default_entity_level != "kokonais":
+                entity_level = concept.default_entity_level
+                assumptions.append(f"Tarkastelutaso maadoitetaan ontologian perusteella tasolle {entity_level}.")
+                confidence -= 0.03
+
+            if len(resolved) > 1:
+                second = resolved[1]
+                if top.score - second.score < 0.75:
+                    assumptions.append(
+                        f"Läheinen vaihtoehtoinen tulkinta havaittiin: {second.label_fi}. "
+                        "Rajaus voi vaatia tarkennuksen."
+                    )
+                    confidence -= 0.08
+
+            if concept and (top.must_clarify or (top.risk_level == "high" and len(resolved) > 1)):
+                clarifications_candidates.append(
+                    ClarificationField(
+                        field="ontology_scope",
+                        question=concept.clarification_question
+                        or (concept.guardrails[0].clarification_question if concept.guardrails else "Tarkenna analyysin semanttinen rajaus."),
+                        options=_ontology_concept_options(concept, ontology),
+                        recommended="Molemmat" if "Molemmat" in _ontology_concept_options(concept, ontology) else _ontology_concept_options(concept, ontology)[0],
+                    )
+                )
+                missing_key_dimensions = True
+                confidence -= 0.18
 
     if growth_type == "unknown" and intent in {"growth", "top_growth"}:
         clarifications_candidates.append(
@@ -186,6 +272,13 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
         confidence=max(0.0, min(1.0, confidence)),
         assumptions=assumptions,
         clarifications=clarifications,
+        resolved_concept_id=resolved_concept_id,
+        resolved_concept_label=resolved_concept_label,
+        resolved_concept_ids=resolved_concept_ids,
+        ontology_match_score=ontology_match_score,
+        ontology_risk_level=ontology_risk_level,
+        ontology_must_clarify=ontology_must_clarify,
+        ontology_matched_aliases=ontology_matched_aliases,
     )
 
 
@@ -211,6 +304,10 @@ def apply_clarifications_to_question(question: str, selections: dict[str, str]) 
         elif level_val == "Hallinnonala":
             hints.append("taso hallinnonala")
 
+    scope_val = selections.get("ontology_scope", "")
+    if scope_val:
+        hints.append(f"rajaa käsite {scope_val.lower()}")
+
     if not hints:
         return question
     return f"{question}\nLisätarkenne: {', '.join(hints)}."
@@ -228,7 +325,8 @@ def renderable_summary(spec: AnalysisSpec) -> str:
     return (
         f"Intentti: {spec.intent} | Mittari: {spec.metric} | Taso: {spec.entity_level} | "
         f"Kasvu: {spec.growth_type} | Pyyntöaikaväli: {requested_txt} | Käytetty aikaväli: {effective_txt} | {rank_txt} | "
-        f"Luottamus: {spec.confidence:.0%}"
+        + (f"Konsepti: {spec.resolved_concept_label} | " if spec.resolved_concept_label else "")
+        + f"Luottamus: {spec.confidence:.0%}"
     )
 
 

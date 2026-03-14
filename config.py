@@ -82,6 +82,11 @@ class Settings:
     adsense_slot_top: str = os.getenv("BUDJETTIHAUKKA_ADSENSE_SLOT_TOP", "")
     adsense_slot_bottom: str = os.getenv("BUDJETTIHAUKKA_ADSENSE_SLOT_BOTTOM", "")
     ad_placeholder_text: str = os.getenv("BUDJETTIHAUKKA_AD_PLACEHOLDER_TEXT", "Mainospaikka")
+    ontology_path: str = os.getenv(
+        "BUDJETTIHAUKKA_ONTOLOGY_PATH",
+        "data/ontology/budjettihaukka_ontology.yaml",
+    )
+    ontology_table_prefix: str = os.getenv("BUDJETTIHAUKKA_ONTOLOGY_TABLE_PREFIX", "ontology")
 
     @property
     def full_table_id(self) -> str:

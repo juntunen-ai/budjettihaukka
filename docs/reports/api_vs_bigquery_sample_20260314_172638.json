@@ -1,0 +1,1053 @@
+{
+  "generated_at_utc": "2026-03-14T17:26:38.037297+00:00",
+  "table_ref": "valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_semantic_v1",
+  "method": "stratified_random_sample_by_period",
+  "seed": 20260314,
+  "period_results": [
+    {
+      "period": "2001-05",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2001/5/budjettitalous_2001_5.csv",
+      "full_row_compare": {
+        "api_rows": 33952,
+        "bq_rows": 33952,
+        "api_sum_eur": -667006468.75,
+        "bq_sum_eur": -667006468.75,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 15,
+          "bq_groups": 15,
+          "joined_groups": 15,
+          "equal_sum_groups": 15,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 117,
+          "bq_groups": 117,
+          "joined_groups": 117,
+          "equal_sum_groups": 117,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 23,
+          "bq_groups": 23,
+          "joined_groups": 23,
+          "equal_sum_groups": 23,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 178,
+          "bq_groups": 178,
+          "joined_groups": 178,
+          "equal_sum_groups": 178,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 525,
+          "bq_groups": 525,
+          "joined_groups": 525,
+          "equal_sum_groups": 525,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2002-07",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2002/7/budjettitalous_2002_7.csv",
+      "full_row_compare": {
+        "api_rows": 29876,
+        "bq_rows": 29876,
+        "api_sum_eur": 143203544.29,
+        "bq_sum_eur": 143203544.29,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 16,
+          "bq_groups": 16,
+          "joined_groups": 16,
+          "equal_sum_groups": 16,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 121,
+          "bq_groups": 121,
+          "joined_groups": 121,
+          "equal_sum_groups": 121,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 23,
+          "bq_groups": 23,
+          "joined_groups": 23,
+          "equal_sum_groups": 23,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 176,
+          "bq_groups": 176,
+          "joined_groups": 176,
+          "equal_sum_groups": 176,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 512,
+          "bq_groups": 512,
+          "joined_groups": 512,
+          "equal_sum_groups": 512,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2002-09",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2002/9/budjettitalous_2002_9.csv",
+      "full_row_compare": {
+        "api_rows": 32129,
+        "bq_rows": 32129,
+        "api_sum_eur": 654319443.7,
+        "bq_sum_eur": 654319443.7,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 15,
+          "bq_groups": 15,
+          "joined_groups": 15,
+          "equal_sum_groups": 15,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 118,
+          "bq_groups": 118,
+          "joined_groups": 118,
+          "equal_sum_groups": 118,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 23,
+          "bq_groups": 23,
+          "joined_groups": 23,
+          "equal_sum_groups": 23,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 169,
+          "bq_groups": 169,
+          "joined_groups": 169,
+          "equal_sum_groups": 169,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 508,
+          "bq_groups": 508,
+          "joined_groups": 508,
+          "equal_sum_groups": 508,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2006-02",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2006/2/budjettitalous_2006_2.csv",
+      "full_row_compare": {
+        "api_rows": 27211,
+        "bq_rows": 27211,
+        "api_sum_eur": -502391402.64,
+        "bq_sum_eur": -502391402.64,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 15,
+          "bq_groups": 15,
+          "joined_groups": 15,
+          "equal_sum_groups": 15,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 101,
+          "bq_groups": 101,
+          "joined_groups": 101,
+          "equal_sum_groups": 101,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 21,
+          "bq_groups": 21,
+          "joined_groups": 21,
+          "equal_sum_groups": 21,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 175,
+          "bq_groups": 175,
+          "joined_groups": 175,
+          "equal_sum_groups": 175,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 499,
+          "bq_groups": 499,
+          "joined_groups": 499,
+          "equal_sum_groups": 499,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2007-02",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2007/2/budjettitalous_2007_2.csv",
+      "full_row_compare": {
+        "api_rows": 22573,
+        "bq_rows": 22573,
+        "api_sum_eur": -458261012.05,
+        "bq_sum_eur": -458261012.05,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 16,
+          "bq_groups": 16,
+          "joined_groups": 16,
+          "equal_sum_groups": 16,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 89,
+          "bq_groups": 89,
+          "joined_groups": 89,
+          "equal_sum_groups": 89,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 23,
+          "bq_groups": 23,
+          "joined_groups": 23,
+          "equal_sum_groups": 23,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 175,
+          "bq_groups": 175,
+          "joined_groups": 175,
+          "equal_sum_groups": 175,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 519,
+          "bq_groups": 519,
+          "joined_groups": 519,
+          "equal_sum_groups": 519,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2010-01",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2010/1/budjettitalous_2010_1.csv",
+      "full_row_compare": {
+        "api_rows": 14443,
+        "bq_rows": 0,
+        "api_sum_eur": 2997238982.36,
+        "bq_sum_eur": 0.0,
+        "row_multiset_exact_match": false,
+        "rows_only_in_api": 14443,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 14443
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 15,
+          "bq_groups": 0,
+          "joined_groups": 15,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 0.06666666666666667,
+          "groups_only_in_api": 14,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 5418424538.18,
+          "max_abs_diff_eur": 2455654902.83
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 68,
+          "bq_groups": 0,
+          "joined_groups": 68,
+          "equal_sum_groups": 4,
+          "equal_sum_ratio": 0.058823529411764705,
+          "groups_only_in_api": 64,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 8040279137.82,
+          "max_abs_diff_eur": 2438754061.45
+        },
+        "paaluokkaosasto": {
+          "api_groups": 22,
+          "bq_groups": 0,
+          "joined_groups": 22,
+          "equal_sum_groups": 0,
+          "equal_sum_ratio": 0.0,
+          "groups_only_in_api": 22,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 10179740226.54,
+          "max_abs_diff_eur": 2547351868.48
+        },
+        "luku": {
+          "api_groups": 135,
+          "bq_groups": 0,
+          "joined_groups": 135,
+          "equal_sum_groups": 15,
+          "equal_sum_ratio": 0.1111111111111111,
+          "groups_only_in_api": 120,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 10196879820.06,
+          "max_abs_diff_eur": 1729078867.61
+        },
+        "momentti": {
+          "api_groups": 614,
+          "bq_groups": 0,
+          "joined_groups": 614,
+          "equal_sum_groups": 182,
+          "equal_sum_ratio": 0.2964169381107492,
+          "groups_only_in_api": 432,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 10200041045.64,
+          "max_abs_diff_eur": 1678576000.0
+        },
+        "alamomentti": {
+          "api_groups": 2,
+          "bq_groups": 0,
+          "joined_groups": 2,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 0.5,
+          "groups_only_in_api": 1,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 2997238982.36,
+          "max_abs_diff_eur": 2997238982.36
+        }
+      }
+    },
+    {
+      "period": "2011-07",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2011/7/budjettitalous_2011_7.csv",
+      "full_row_compare": {
+        "api_rows": 14665,
+        "bq_rows": 14665,
+        "api_sum_eur": 544204442.34,
+        "bq_sum_eur": 544204442.34,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 15,
+          "bq_groups": 15,
+          "joined_groups": 15,
+          "equal_sum_groups": 15,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 66,
+          "bq_groups": 66,
+          "joined_groups": 66,
+          "equal_sum_groups": 66,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 21,
+          "bq_groups": 21,
+          "joined_groups": 21,
+          "equal_sum_groups": 21,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 120,
+          "bq_groups": 120,
+          "joined_groups": 120,
+          "equal_sum_groups": 120,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 446,
+          "bq_groups": 446,
+          "joined_groups": 446,
+          "equal_sum_groups": 446,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2015-09",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2015/9/budjettitalous_2015_9.csv",
+      "full_row_compare": {
+        "api_rows": 13165,
+        "bq_rows": 13165,
+        "api_sum_eur": 182726284.14,
+        "bq_sum_eur": 182726284.14,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 15,
+          "bq_groups": 15,
+          "joined_groups": 15,
+          "equal_sum_groups": 15,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 63,
+          "bq_groups": 63,
+          "joined_groups": 63,
+          "equal_sum_groups": 63,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 22,
+          "bq_groups": 22,
+          "joined_groups": 22,
+          "equal_sum_groups": 22,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 118,
+          "bq_groups": 118,
+          "joined_groups": 118,
+          "equal_sum_groups": 118,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 469,
+          "bq_groups": 469,
+          "joined_groups": 469,
+          "equal_sum_groups": 469,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2019-11",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2019/11/budjettitalous_2019_11.csv",
+      "full_row_compare": {
+        "api_rows": 15946,
+        "bq_rows": 15946,
+        "api_sum_eur": -119478441.38,
+        "bq_sum_eur": -119478441.38,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 15,
+          "bq_groups": 15,
+          "joined_groups": 15,
+          "equal_sum_groups": 15,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 66,
+          "bq_groups": 66,
+          "joined_groups": 66,
+          "equal_sum_groups": 66,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 21,
+          "bq_groups": 21,
+          "joined_groups": 21,
+          "equal_sum_groups": 21,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 113,
+          "bq_groups": 113,
+          "joined_groups": 113,
+          "equal_sum_groups": 113,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 424,
+          "bq_groups": 424,
+          "joined_groups": 424,
+          "equal_sum_groups": 424,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2020-11",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2020/11/budjettitalous_2020_11.csv",
+      "full_row_compare": {
+        "api_rows": 15057,
+        "bq_rows": 15057,
+        "api_sum_eur": 1300081605.11,
+        "bq_sum_eur": 1300081605.11,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 15,
+          "bq_groups": 15,
+          "joined_groups": 15,
+          "equal_sum_groups": 15,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 66,
+          "bq_groups": 66,
+          "joined_groups": 66,
+          "equal_sum_groups": 66,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 21,
+          "bq_groups": 21,
+          "joined_groups": 21,
+          "equal_sum_groups": 21,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 119,
+          "bq_groups": 119,
+          "joined_groups": 119,
+          "equal_sum_groups": 119,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 460,
+          "bq_groups": 460,
+          "joined_groups": 460,
+          "equal_sum_groups": 460,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2024-03",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2024/3/budjettitalous_2024_3.csv",
+      "full_row_compare": {
+        "api_rows": 15168,
+        "bq_rows": 15168,
+        "api_sum_eur": 922794161.67,
+        "bq_sum_eur": 922794161.67,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 14,
+          "bq_groups": 14,
+          "joined_groups": 14,
+          "equal_sum_groups": 14,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 64,
+          "bq_groups": 64,
+          "joined_groups": 64,
+          "equal_sum_groups": 64,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 22,
+          "bq_groups": 22,
+          "joined_groups": 22,
+          "equal_sum_groups": 22,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 108,
+          "bq_groups": 108,
+          "joined_groups": 108,
+          "equal_sum_groups": 108,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 458,
+          "bq_groups": 458,
+          "joined_groups": 458,
+          "equal_sum_groups": 458,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    },
+    {
+      "period": "2024-09",
+      "source_url": "https://tkdpprodjrpstacc02.blob.core.windows.net/valtiontalous/budjettitalous/2024/9/budjettitalous_2024_9.csv",
+      "full_row_compare": {
+        "api_rows": 15327,
+        "bq_rows": 15327,
+        "api_sum_eur": 3500300831.29,
+        "bq_sum_eur": 3500300831.29,
+        "row_multiset_exact_match": true,
+        "rows_only_in_api": 0,
+        "rows_only_in_bigquery": 0,
+        "row_delta_total": 0
+      },
+      "levels": {
+        "hallinnonala": {
+          "api_groups": 14,
+          "bq_groups": 14,
+          "joined_groups": 14,
+          "equal_sum_groups": 14,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "kirjanpitoyksikko": {
+          "api_groups": 64,
+          "bq_groups": 64,
+          "joined_groups": 64,
+          "equal_sum_groups": 64,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "paaluokkaosasto": {
+          "api_groups": 22,
+          "bq_groups": 22,
+          "joined_groups": 22,
+          "equal_sum_groups": 22,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "luku": {
+          "api_groups": 110,
+          "bq_groups": 110,
+          "joined_groups": 110,
+          "equal_sum_groups": 110,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "momentti": {
+          "api_groups": 454,
+          "bq_groups": 454,
+          "joined_groups": 454,
+          "equal_sum_groups": 454,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        },
+        "alamomentti": {
+          "api_groups": 1,
+          "bq_groups": 1,
+          "joined_groups": 1,
+          "equal_sum_groups": 1,
+          "equal_sum_ratio": 1.0,
+          "groups_only_in_api": 0,
+          "groups_only_in_bigquery": 0,
+          "total_abs_diff_eur": 0.0,
+          "max_abs_diff_eur": 0.0
+        }
+      }
+    }
+  ],
+  "aggregate": {
+    "sample_periods": 12,
+    "full_row_exact_match_periods": 11,
+    "full_row_exact_match_ratio": 0.9166666666666666,
+    "levels": {
+      "hallinnonala": {
+        "equal_sum_groups": 166,
+        "joined_groups": 180,
+        "equal_sum_ratio": 0.9222222222222223,
+        "groups_only_in_api": 14,
+        "groups_only_in_bigquery": 0,
+        "total_abs_diff_eur": 5418424538.18,
+        "max_abs_diff_eur": 2455654902.83
+      },
+      "kirjanpitoyksikko": {
+        "equal_sum_groups": 939,
+        "joined_groups": 1003,
+        "equal_sum_ratio": 0.9361914257228315,
+        "groups_only_in_api": 64,
+        "groups_only_in_bigquery": 0,
+        "total_abs_diff_eur": 8040279137.82,
+        "max_abs_diff_eur": 2438754061.45
+      },
+      "paaluokkaosasto": {
+        "equal_sum_groups": 242,
+        "joined_groups": 264,
+        "equal_sum_ratio": 0.9166666666666666,
+        "groups_only_in_api": 22,
+        "groups_only_in_bigquery": 0,
+        "total_abs_diff_eur": 10179740226.54,
+        "max_abs_diff_eur": 2547351868.48
+      },
+      "luku": {
+        "equal_sum_groups": 1576,
+        "joined_groups": 1696,
+        "equal_sum_ratio": 0.9292452830188679,
+        "groups_only_in_api": 120,
+        "groups_only_in_bigquery": 0,
+        "total_abs_diff_eur": 10196879820.06,
+        "max_abs_diff_eur": 1729078867.61
+      },
+      "momentti": {
+        "equal_sum_groups": 5456,
+        "joined_groups": 5888,
+        "equal_sum_ratio": 0.9266304347826086,
+        "groups_only_in_api": 432,
+        "groups_only_in_bigquery": 0,
+        "total_abs_diff_eur": 10200041045.64,
+        "max_abs_diff_eur": 1678576000.0
+      },
+      "alamomentti": {
+        "equal_sum_groups": 12,
+        "joined_groups": 13,
+        "equal_sum_ratio": 0.9230769230769231,
+        "groups_only_in_api": 1,
+        "groups_only_in_bigquery": 0,
+        "total_abs_diff_eur": 2997238982.36,
+        "max_abs_diff_eur": 2997238982.36
+      }
+    }
+  }
+}
