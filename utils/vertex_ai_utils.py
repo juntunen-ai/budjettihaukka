@@ -1,5 +1,8 @@
 import logging
 import os
+import json
+import re
+from typing import Any
 
 import vertexai
 from google.cloud import bigquery
@@ -14,6 +17,11 @@ logger = logging.getLogger(__name__)
 PROJECT_ID = settings.project_id
 LOCATION = settings.location
 TABLE_ID = settings.demo_sql_table if settings.use_google_sheets_demo else settings.full_table_id
+
+ALLOWED_INTENTS = {"overview", "trend", "growth", "top_growth", "composition", "seasonality"}
+ALLOWED_ENTITY_LEVELS = {"kokonais", "hallinnonala", "momentti", "alamomentti", "molemmat"}
+ALLOWED_GROWTH_TYPES = {"absolute", "pct"}
+ALLOWED_METRICS = {"nettokertyma"}
 
 
 def _get_model() -> GenerativeModel:
@@ -52,6 +60,115 @@ def _generate_sql_with_vertex(prompt: str) -> str:
     )
     response = model.generate_content(prompt, generation_config=generation_config)
     return response.text.strip()
+
+
+def _strip_code_fence(text: str) -> str:
+    value = (text or "").strip()
+    if value.startswith("```"):
+        value = re.sub(r"^```(?:json|sql)?\s*", "", value, flags=re.IGNORECASE)
+        value = re.sub(r"\s*```$", "", value)
+    return value.strip()
+
+
+def _extract_json_object(text: str) -> dict[str, Any] | None:
+    cleaned = _strip_code_fence(text)
+    if not cleaned:
+        return None
+    try:
+        parsed = json.loads(cleaned)
+        return parsed if isinstance(parsed, dict) else None
+    except Exception:
+        pass
+
+    # Fallback: poimi ensimmäinen {...} lohko.
+    start = cleaned.find("{")
+    end = cleaned.rfind("}")
+    if start < 0 or end <= start:
+        return None
+    try:
+        parsed = json.loads(cleaned[start : end + 1])
+        return parsed if isinstance(parsed, dict) else None
+    except Exception:
+        return None
+
+
+def _sanitize_query_plan(raw: dict[str, Any]) -> dict[str, Any] | None:
+    if not isinstance(raw, dict):
+        return None
+
+    plan: dict[str, Any] = {}
+    intent = str(raw.get("intent", "")).strip().lower()
+    metric = str(raw.get("metric", "")).strip().lower()
+    entity_level = str(raw.get("entity_level", "")).strip().lower()
+    growth_type = str(raw.get("growth_type", "")).strip().lower()
+
+    if intent in ALLOWED_INTENTS:
+        plan["intent"] = intent
+    if metric in ALLOWED_METRICS:
+        plan["metric"] = metric
+    if entity_level in ALLOWED_ENTITY_LEVELS:
+        plan["entity_level"] = entity_level
+    if growth_type in ALLOWED_GROWTH_TYPES:
+        plan["growth_type"] = growth_type
+
+    for key in ("time_from", "time_to", "ranking_n"):
+        value = raw.get(key)
+        if value is None or value == "":
+            continue
+        try:
+            plan[key] = int(value)
+        except Exception:
+            continue
+
+    return plan or None
+
+
+def generate_query_plan_from_natural_language(
+    question: str,
+    fallback_plan: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """Generate a structured QueryPlan JSON. Returns None on failure."""
+    if not question or not question.strip():
+        return None
+
+    fallback = fallback_plan or {}
+    prompt = f"""Muodosta kysymyksestä yksi JSON-objekti nimeltä QueryPlan.
+
+Palauta VAIN JSON. Ei markdownia, ei selityksiä.
+
+Sallitut arvot:
+- intent: {sorted(ALLOWED_INTENTS)}
+- metric: {sorted(ALLOWED_METRICS)}
+- entity_level: {sorted(ALLOWED_ENTITY_LEVELS)}
+- growth_type: {sorted(ALLOWED_GROWTH_TYPES)}
+
+Kentät:
+{{
+  "intent": "overview|trend|growth|top_growth|composition|seasonality",
+  "metric": "nettokertyma",
+  "entity_level": "kokonais|hallinnonala|momentti|alamomentti|molemmat",
+  "growth_type": "absolute|pct",
+  "time_from": 1998,
+  "time_to": 2024,
+  "ranking_n": 10
+}}
+
+Jos kenttä ei ole pääteltävissä, käytä fallback-arvoja:
+{json.dumps(fallback, ensure_ascii=False)}
+
+Kysymys:
+{question}
+"""
+    try:
+        if settings.llm_provider == "aistudio":
+            raw_text = _generate_sql_with_aistudio(prompt)
+        else:
+            raw_text = _generate_sql_with_vertex(prompt)
+        parsed = _extract_json_object(raw_text)
+        return _sanitize_query_plan(parsed or {})
+    except Exception as e:
+        logger.error("Error generating QueryPlan JSON: %s", e)
+        return None
 
 
 def _get_schema_context() -> str:

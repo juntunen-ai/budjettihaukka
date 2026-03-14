@@ -27,6 +27,16 @@ def _env_int(name: str, default: int) -> int:
         return default
 
 
+def _env_float(name: str, default: float) -> float:
+    raw = os.getenv(name)
+    if raw is None or raw.strip() == "":
+        return default
+    try:
+        return float(raw)
+    except ValueError:
+        return default
+
+
 def _env_bool(name: str, default: bool = False) -> bool:
     raw = os.getenv(name)
     if raw is None:
@@ -51,10 +61,21 @@ class Settings:
     demo_sheet_id_2023: str = os.getenv("BUDJETTIHAUKKA_DEMO_SHEET_ID_2023", "")
     demo_sheet_id_2024: str = os.getenv("BUDJETTIHAUKKA_DEMO_SHEET_ID_2024", "")
     gemini_model: str = os.getenv("BUDJETTIHAUKKA_GEMINI_MODEL", "gemini-2.5-pro-preview-03-25")
+    enable_llm_query_plan: bool = _env_bool("BUDJETTIHAUKKA_ENABLE_LLM_QUERY_PLAN", False)
     gemini_api_key: str | None = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     google_application_credentials: str | None = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
     tavily_api_key: str | None = os.getenv("TAVILY_API_KEY")
     max_query_bytes: int = _env_int("BUDJETTIHAUKKA_MAX_QUERY_BYTES", 1_000_000_000)
+    sql_max_limit: int = _env_int("BUDJETTIHAUKKA_SQL_MAX_LIMIT", 1000)
+    bq_auto_repair_attempts: int = _env_int("BUDJETTIHAUKKA_BQ_AUTO_REPAIR_ATTEMPTS", 2)
+    clarification_required_confidence: float = _env_float(
+        "BUDJETTIHAUKKA_CLARIFICATION_REQUIRED_CONFIDENCE",
+        0.75,
+    )
+    observability_log_path: str = os.getenv(
+        "BUDJETTIHAUKKA_OBSERVABILITY_LOG_PATH",
+        "agent_data/query_observability.jsonl",
+    )
     free_queries_per_session: int = _env_int("BUDJETTIHAUKKA_FREE_QUERIES_PER_SESSION", 25)
     show_ads: bool = _env_bool("BUDJETTIHAUKKA_SHOW_ADS", True)
     adsense_client_id: str = os.getenv("BUDJETTIHAUKKA_ADSENSE_CLIENT_ID", "")

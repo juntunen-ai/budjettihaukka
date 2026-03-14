@@ -71,7 +71,21 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
     time_from, time_to = _normalize_time_bounds(years)
     ranking_n = _extract_top_n(text)
 
-    has_growth = any(token in text for token in ("kasv", "muutos", "muuttu", "yoy", "vuosimuutos"))
+    has_growth = any(
+        token in text
+        for token in (
+            "kasv",
+            "muutos",
+            "mutos",
+            "muuttu",
+            "nous",
+            "nousi",
+            "noussut",
+            "laski",
+            "yoy",
+            "vuosimuutos",
+        )
+    )
     has_top = any(token in text for token in ("top", "eniten", "suurin", "suur", "absoluutt"))
     has_trend = any(token in text for token in ("trend", "aikasarja", "kehitty", "kehitys", "pitkaaik"))
     has_composition = any(token in text for token in ("jakauma", "osuus", "osuu", "raken", "rakenn"))

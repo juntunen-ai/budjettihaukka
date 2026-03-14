@@ -9,7 +9,12 @@ Projektin pitkän aikavälin tavoite on tukea kansalaisia, tutkijoita ja toimitt
 ## 🔍 Tärkeimmät ominaisuudet
 
 - 💬 Luonnollisen kielen kyselyt (esim. "Paljonko koulutukseen budjetoitiin vuonna 2023?")
-- 🔁 Automaattinen SQL-generointi Google Vertex AI:n avulla
+- 🔁 Contract-first NL→QueryPlan→SQL -ketju (deterministinen SQL ilman vapaata LLM-SQL:ää)
+- 🛡️ SQL-turvaportti ennen BigQuery-ajoa (`SELECT/WITH`, taulu-whitelist, aikarajaus, LIMIT-katto, `sqlglot`-lint)
+- 🔧 Auto-repair-loop BigQuery-virheille (1-2 korjausyritystä + deterministinen fallback-contract)
+- 🧭 Contract-pohjainen visualisointi vakioskeemalla (`time`, `entity`, `metric`, `delta`, `pct`)
+- ❓ Pakollinen tarkennus matalalla luottamuksella ennen ajoa
+- 📈 Observability + SLO-seuranta (`query_success`, `chart_render_success`, `clarification_rate`)
 - 📊 Dynaamiset visualisoinnit Streamlit-käyttöliittymässä
 - 📚 Datan lähteenä mm. `www.tutkihallintoa.fi`, BigQuery (tässä vaiheessa. Tarkoitus on lisätä **luotettavaa** dataa ajan myötä)
 
@@ -53,7 +58,12 @@ Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 - `BUDJETTIHAUKKA_DEMO_SQL_TABLE` (oletus: `budjettidata_demo`)
 - `BUDJETTIHAUKKA_DEMO_SHEET_ID_2022`, `BUDJETTIHAUKKA_DEMO_SHEET_ID_2023`, `BUDJETTIHAUKKA_DEMO_SHEET_ID_2024` (Google Sheets -lähde, kun `BUDJETTIHAUKKA_DATA_SOURCE=google_sheets`)
 - `BUDJETTIHAUKKA_GEMINI_MODEL` (oletus: `gemini-2.5-pro-preview-03-25`)
+- `BUDJETTIHAUKKA_ENABLE_LLM_QUERY_PLAN` (`true`/`false`, käytetäänkö LLM:ää rakenteisen QueryPlan-JSON:n tuottamiseen; oletus `false` jotta palvelu toimii myös quota-tilanteessa)
 - `BUDJETTIHAUKKA_MAX_QUERY_BYTES` (BigQuery-kyselyn kustannuskatto tavuina; oletus: `1000000000`)
+- `BUDJETTIHAUKKA_SQL_MAX_LIMIT` (SQL-turvaportin enimmäisrivilimit; oletus: `1000`)
+- `BUDJETTIHAUKKA_BQ_AUTO_REPAIR_ATTEMPTS` (kuinka monta SQL-korjausyritystä tehdään virheen jälkeen; oletus: `2`)
+- `BUDJETTIHAUKKA_CLARIFICATION_REQUIRED_CONFIDENCE` (luottamusraja pakolliselle tarkennukselle; oletus: `0.75`)
+- `BUDJETTIHAUKKA_OBSERVABILITY_LOG_PATH` (jsonl-loki kyselymetriikoille; oletus: `agent_data/query_observability.jsonl`)
 - `BUDJETTIHAUKKA_FREE_QUERIES_PER_SESSION` (ilmaiskäyttäjän kyselyraja / sessio; oletus: `25`)
 - `BUDJETTIHAUKKA_SHOW_ADS` (`true`/`false`, näytetäänkö mainospaikat UI:ssa)
 - `BUDJETTIHAUKKA_ADSENSE_CLIENT_ID` (Google AdSense client id, esim. `ca-pub-...`)
@@ -105,6 +115,49 @@ Jos dataset-oikeudet eivät vielä riitä taulujen luontiin, voit generoida SQL-
 ```
 
 Lisätiedot: [docs/data_quality_improvements.md](./docs/data_quality_improvements.md)
+
+---
+
+## 🧪 Robustisuus- ja regressiotestit
+
+```bash
+cd /Users/harrijuntunen/budjettihaukka
+.venv/bin/python scripts/eval_visualization_pipeline.py
+.venv/bin/python scripts/eval_robustness_suite.py --dataset data/evals/robustness_goldens.json
+.venv/bin/python scripts/test_bigquery_integration.py
+.venv/bin/python scripts/test_ui_no_crash_smoke.py
+# Optional screenshot-smoke (requires Playwright):
+# .venv/bin/python scripts/test_ui_no_crash_screenshots.py
+```
+
+Robustisuusdatasetti sisältää 320 kysymystä (typoja, puhekieltä, epäselviä aikarajoja, top-kasvu-kysymyksiä), ja arviointi tarkistaa 3 tasoa:
+- intentti
+- SQL shape
+- visualisoinnin primäärityyppi
+
+---
+
+## 📊 SLO-seuranta
+
+Kyselypolusta kirjoitetaan observability-lokiin mm. kentät:
+- `query_source`
+- `contract`
+- `confidence`
+- `retries`
+- `dry_run_bytes`
+- `render_template`
+- `error_class`
+
+Raportoi nykytila:
+
+```bash
+.venv/bin/python scripts/report_slo_metrics.py
+```
+
+Tavoitteet:
+- `query_success` > 99%
+- `chart_render_success` > 98%
+- `clarification_rate` hallitulla tasolla
 
 ---
 

@@ -8,6 +8,8 @@ from utils.analysis_spec_utils import (
     infer_analysis_spec,
     renderable_summary,
 )
+from utils.observability_utils import log_query_event
+from utils.semantic_query_contracts import contract_template_order, normalize_contract_result
 from utils.visualization_plan_utils import extract_intent_signals, template_order
 import streamlit.components.v1 as components
 import altair as alt
@@ -174,7 +176,7 @@ def render_scope_cards(spec: AnalysisSpec) -> None:
     miss_col.metric("Puuttuvat vuodet", _format_missing_years(spec))
 
 
-def render_interpretation_block(question: str) -> tuple[AnalysisSpec, dict[str, str]]:
+def render_interpretation_block(question: str) -> tuple[AnalysisSpec, dict[str, str], bool, list[str]]:
     spec = infer_analysis_spec(question)
     st.markdown("**Tulkinta ennen ajoa**")
     st.caption(renderable_summary(spec))
@@ -188,23 +190,43 @@ def render_interpretation_block(question: str) -> tuple[AnalysisSpec, dict[str, 
     if coverage:
         st.caption(f"Huomio: {coverage}")
 
+    required_clarification = bool(spec.clarifications) and spec.confidence < settings.clarification_required_confidence
     selections: dict[str, str] = {}
+    missing_required: list[str] = []
     if spec.clarifications:
-        st.markdown("**Tarkenna (valinnainen)**")
+        st.markdown("**Tarkenna**")
         for field in spec.clarifications:
-            try:
-                default_idx = field.options.index(field.recommended)
-            except ValueError:
-                default_idx = 0
-            selected = st.radio(
-                field.question,
-                field.options,
-                index=default_idx,
-                horizontal=True,
-                key=f"clarify_{field.field}",
-            )
-            selections[field.field] = selected
-    return spec, selections
+            widget_key = f"clarify_{field.field}"
+            if required_clarification:
+                options = [""] + list(field.options)
+                selected = st.selectbox(
+                    f"{field.question} (pakollinen)",
+                    options,
+                    index=0,
+                    key=widget_key,
+                    format_func=lambda value: "Valitse..." if value == "" else value,
+                )
+                if selected:
+                    selections[field.field] = selected
+                else:
+                    missing_required.append(field.field)
+            else:
+                try:
+                    default_idx = field.options.index(field.recommended)
+                except ValueError:
+                    default_idx = 0
+                selected = st.radio(
+                    f"{field.question} (valinnainen)",
+                    field.options,
+                    index=default_idx,
+                    horizontal=True,
+                    key=widget_key,
+                )
+                selections[field.field] = selected
+
+    if required_clarification and missing_required:
+        st.warning("Kysely vaatii tarkennuksen ennen ajoa, koska tulkinnan luottamus on matala.")
+    return spec, selections, required_clarification, missing_required
 
 def generate_sample_budget_data():
     """
@@ -427,6 +449,7 @@ def _render_top_growth_template(
     label_col = _find_column(
         work,
         [
+            "entity",
             "alamomentti_snimi",
             "momentti_snimi",
             "hallinnonala",
@@ -767,62 +790,92 @@ def visualize_data(
     title: str = "Budjettidata visualisointi",
     question: str = "",
     analysis_spec: AnalysisSpec | None = None,
-):
+    query_contract: str | None = None,
+) -> list[str]:
     st.subheader(title)
     if df is None or df.empty:
         st.warning("Ei dataa visualisoitavaksi.")
-        return
+        return []
 
     spec = analysis_spec if isinstance(analysis_spec, AnalysisSpec) else infer_analysis_spec(question)
-    intent_signals = extract_intent_signals(question)
-    templates = template_order(spec, intent_signals)
-
     work = df.copy()
-    date_col, year_col, month_col = _pick_time_columns(work)
-    category_col = _pick_category_column(work)
-    value_col = _pick_value_column(work)
-    growth_pct_col = _find_column(work, ["kasvu_pct", "muutos_pct", "growth_pct", "yoy_pct"])
-    growth_eur_col = _find_column(work, ["kasvu_eur", "muutos_eur", "growth_eur", "delta_eur"])
-
-    if value_col:
-        work[value_col] = _to_numeric_series(work[value_col])
-    if growth_pct_col:
-        work[growth_pct_col] = _to_numeric_series(work[growth_pct_col])
-    if growth_eur_col:
-        work[growth_eur_col] = _to_numeric_series(work[growth_eur_col])
-
-    time_axis = _build_time_axis(work, date_col, year_col, month_col)
-    if time_axis is not None:
-        work["_time_axis"] = time_axis
 
     rendered_templates: list[str] = []
-    for template in templates:
-        if template == "top_growth":
-            ok = _render_top_growth_template(work, spec, value_col, growth_pct_col, growth_eur_col)
-        elif template == "trend":
-            ok = _render_trend_template(work, spec, value_col, year_col)
-        elif template == "growth":
-            ok = _render_growth_template(work, spec, value_col, year_col, growth_pct_col, growth_eur_col)
-        elif template == "composition":
-            ok = _render_composition_template(work, spec, value_col, year_col, category_col)
-        elif template == "seasonality":
-            ok = _render_seasonality_template(work, spec, value_col, year_col, month_col)
-        elif template == "top_categories":
-            ok = _render_top_categories_template(work, spec, value_col, category_col)
-        else:
-            ok = False
-        if ok:
-            rendered_templates.append(template)
-        if spec.intent == "top_growth" and len(rendered_templates) >= 2:
-            # Top growth -kyselyissä pidetään visualisointi fokusoituna.
-            break
-        if len(rendered_templates) >= 3:
-            break
+    contract_templates = contract_template_order(query_contract)
+    if query_contract and contract_templates:
+        canonical = normalize_contract_result(work, query_contract, spec)
+        if not canonical.empty:
+            canonical["metric"] = _to_numeric_series(canonical["metric"])
+            canonical["delta"] = _to_numeric_series(canonical["delta"])
+            canonical["pct"] = _to_numeric_series(canonical["pct"])
+            canonical["entity"] = canonical["entity"].fillna("Tuntematon").astype(str)
+            if "time" in canonical.columns:
+                canonical["time"] = _to_numeric_series(canonical["time"]).astype("Int64")
+            for template in contract_templates:
+                if template == "top_growth":
+                    ok = _render_top_growth_template(canonical, spec, "metric", "pct", "delta")
+                elif template == "trend":
+                    ok = _render_trend_template(canonical, spec, "metric", "time")
+                elif template == "growth":
+                    ok = _render_growth_template(canonical, spec, "metric", "time", "pct", "delta")
+                elif template == "top_categories":
+                    ok = _render_top_categories_template(canonical, spec, "metric", "entity")
+                else:
+                    ok = False
+                if ok:
+                    rendered_templates.append(template)
+                if len(rendered_templates) >= 3:
+                    break
+
+    if not rendered_templates:
+        intent_signals = extract_intent_signals(question)
+        templates = template_order(spec, intent_signals)
+
+        date_col, year_col, month_col = _pick_time_columns(work)
+        category_col = _pick_category_column(work)
+        value_col = _pick_value_column(work)
+        growth_pct_col = _find_column(work, ["kasvu_pct", "muutos_pct", "growth_pct", "yoy_pct"])
+        growth_eur_col = _find_column(work, ["kasvu_eur", "muutos_eur", "growth_eur", "delta_eur"])
+
+        if value_col:
+            work[value_col] = _to_numeric_series(work[value_col])
+        if growth_pct_col:
+            work[growth_pct_col] = _to_numeric_series(work[growth_pct_col])
+        if growth_eur_col:
+            work[growth_eur_col] = _to_numeric_series(work[growth_eur_col])
+
+        time_axis = _build_time_axis(work, date_col, year_col, month_col)
+        if time_axis is not None:
+            work["_time_axis"] = time_axis
+
+        for template in templates:
+            if template == "top_growth":
+                ok = _render_top_growth_template(work, spec, value_col, growth_pct_col, growth_eur_col)
+            elif template == "trend":
+                ok = _render_trend_template(work, spec, value_col, year_col)
+            elif template == "growth":
+                ok = _render_growth_template(work, spec, value_col, year_col, growth_pct_col, growth_eur_col)
+            elif template == "composition":
+                ok = _render_composition_template(work, spec, value_col, year_col, category_col)
+            elif template == "seasonality":
+                ok = _render_seasonality_template(work, spec, value_col, year_col, month_col)
+            elif template == "top_categories":
+                ok = _render_top_categories_template(work, spec, value_col, category_col)
+            else:
+                ok = False
+            if ok:
+                rendered_templates.append(template)
+            if spec.intent == "top_growth" and len(rendered_templates) >= 2:
+                # Top growth -kyselyissä pidetään visualisointi fokusoituna.
+                break
+            if len(rendered_templates) >= 3:
+                break
 
     if not rendered_templates:
         st.info("Automaattinen visualisointi ei löytänyt sopivaa rakennetta. Näytetään taulukkodata.")
     else:
         st.caption(f"Käytetyt visualisointimallit: {', '.join(rendered_templates)}")
+    return rendered_templates
 
 def main():
     st.set_page_config(page_title="Budjettihaukka", layout="wide")
@@ -869,8 +922,10 @@ def main():
     question = st.text_area("Kirjoita kysymyksesi:", placeholder="Esim. Mitkä olivat puolustusministeriön menot vuonna 2023?", height=100)
     clarification_choices: dict[str, str] = {}
     interpreted_spec: AnalysisSpec | None = None
+    clarification_required = False
+    missing_required: list[str] = []
     if question.strip():
-        interpreted_spec, clarification_choices = render_interpretation_block(question)
+        interpreted_spec, clarification_choices, clarification_required, missing_required = render_interpretation_block(question)
 
     if st.button("Hae tulokset"):
         if not question.strip():
@@ -892,6 +947,27 @@ def main():
                 st.subheader("Esitetty kysymys:")
                 st.info(question)
 
+                if clarification_required and missing_required:
+                    st.error("Valitse pakolliset tarkennukset ennen kyselyn ajoa.")
+                    log_query_event(
+                        {
+                            "question": question.strip(),
+                            "query_source": "blocked_clarification",
+                            "contract": None,
+                            "confidence": interpreted_spec.confidence if isinstance(interpreted_spec, AnalysisSpec) else None,
+                            "clarification_required": True,
+                            "clarification_missing_fields": missing_required,
+                            "clarification_applied": False,
+                            "retries": 0,
+                            "dry_run_bytes": None,
+                            "render_template": [],
+                            "query_success": False,
+                            "chart_render_success": False,
+                            "error_class": "clarification_required",
+                        }
+                    )
+                    return
+
                 execution_question = apply_clarifications_to_question(question, clarification_choices)
                 if execution_question != question:
                     st.caption("Käytettiin käyttäjän tarkenteita analyysin suorittamiseen.")
@@ -905,14 +981,35 @@ def main():
                 analysis_spec = result.get("analysis_spec") or interpreted_spec
                 query_source = result.get("query_source")
                 query_contract = result.get("query_contract")
+                query_plan = result.get("query_plan")
 
                 if explanation:
                     st.caption(explanation)
                 if debug_mode and query_source:
                     st.caption(f"Kyselypolku: {query_source}" + (f" ({query_contract})" if query_contract else ""))
+                if debug_mode and query_plan:
+                    st.caption(f"QueryPlan: {query_plan}")
 
                 if not sql_query:
                     st.error("SQL-kyselyn generointi epäonnistui. Kokeile muotoilla kysymyksesi toisin.")
+                    log_query_event(
+                        {
+                            "query_id": result.get("query_id"),
+                            "question": question.strip(),
+                            "query_source": query_source,
+                            "contract": query_contract,
+                            "confidence": analysis_spec.confidence if isinstance(analysis_spec, AnalysisSpec) else None,
+                            "clarification_required": clarification_required,
+                            "clarification_missing_fields": missing_required,
+                            "clarification_applied": bool(clarification_choices),
+                            "retries": int(result.get("query_retries") or 0),
+                            "dry_run_bytes": result.get("dry_run_bytes"),
+                            "render_template": [],
+                            "query_success": False,
+                            "chart_render_success": False,
+                            "error_class": result.get("error_class") or "sql_generation_failed",
+                        }
+                    )
                     return
 
                 # Näytetään generoitu SQL kehittäjille tai debug-tilassa
@@ -922,8 +1019,27 @@ def main():
 
                 if error:
                     st.error(f"Kyselyn suoritus epäonnistui: {error}")
+                    log_query_event(
+                        {
+                            "query_id": result.get("query_id"),
+                            "question": question.strip(),
+                            "query_source": query_source,
+                            "contract": query_contract,
+                            "confidence": analysis_spec.confidence if isinstance(analysis_spec, AnalysisSpec) else None,
+                            "clarification_required": clarification_required,
+                            "clarification_missing_fields": missing_required,
+                            "clarification_applied": bool(clarification_choices),
+                            "retries": int(result.get("query_retries") or 0),
+                            "dry_run_bytes": result.get("dry_run_bytes"),
+                            "render_template": [],
+                            "query_success": False,
+                            "chart_render_success": False,
+                            "error_class": result.get("error_class"),
+                        }
+                    )
                     return
 
+                rendered_templates: list[str] = []
                 if results is not None and not results.empty:
                     render_query_cost_stats()
                     if isinstance(analysis_spec, AnalysisSpec):
@@ -942,17 +1058,54 @@ def main():
                     )
                     
                     # Visualisoi tulokset
-                    visualize_data(
+                    rendered_templates = visualize_data(
                         results,
                         title="Kyselyn tulokset visualisoituna",
                         question=execution_question,
                         analysis_spec=analysis_spec if isinstance(analysis_spec, AnalysisSpec) else None,
+                        query_contract=query_contract,
                     )
                 else:
                     st.warning("Kysely ei palauttanut tuloksia. Kokeile muokata kysymystäsi.")
+
+                log_query_event(
+                    {
+                        "query_id": result.get("query_id"),
+                        "question": question.strip(),
+                        "query_source": query_source,
+                        "contract": query_contract,
+                        "confidence": analysis_spec.confidence if isinstance(analysis_spec, AnalysisSpec) else None,
+                        "clarification_required": clarification_required,
+                        "clarification_missing_fields": missing_required,
+                        "clarification_applied": bool(clarification_choices),
+                        "retries": int(result.get("query_retries") or 0),
+                        "dry_run_bytes": result.get("dry_run_bytes"),
+                        "render_template": rendered_templates,
+                        "query_success": True,
+                        "chart_render_success": bool(rendered_templates),
+                        "error_class": result.get("error_class"),
+                    }
+                )
             
             except Exception as e:
                 st.error(f"Virhe sovelluksessa: {str(e)}")
+                log_query_event(
+                    {
+                        "question": question.strip(),
+                        "query_source": "app_exception",
+                        "contract": None,
+                        "confidence": interpreted_spec.confidence if isinstance(interpreted_spec, AnalysisSpec) else None,
+                        "clarification_required": clarification_required,
+                        "clarification_missing_fields": missing_required,
+                        "clarification_applied": bool(clarification_choices),
+                        "retries": 0,
+                        "dry_run_bytes": None,
+                        "render_template": [],
+                        "query_success": False,
+                        "chart_render_success": False,
+                        "error_class": "app_exception",
+                    }
+                )
                 if debug_mode:
                     st.exception(e)
 

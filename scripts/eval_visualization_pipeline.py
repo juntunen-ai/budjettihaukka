@@ -12,7 +12,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from utils.analysis_spec_utils import infer_analysis_spec
-from utils.semantic_query_contracts import choose_contract
+from utils.semantic_query_contracts import choose_contract, contract_template_order
 from utils.visualization_plan_utils import extract_intent_signals, template_order
 
 
@@ -58,7 +58,11 @@ def evaluate(golden_path: Path, show_failures: int) -> int:
         spec = infer_analysis_spec(question)
         predicted_intent = spec.intent
         predicted_contract = choose_contract(spec)
-        predicted_template = template_order(spec, extract_intent_signals(question))[0]
+        contract_templates = contract_template_order(predicted_contract)
+        if contract_templates:
+            predicted_template = contract_templates[0]
+        else:
+            predicted_template = template_order(spec, extract_intent_signals(question))[0]
 
         expected_intent = expected.get("intent")
         expected_contract = expected.get("contract")

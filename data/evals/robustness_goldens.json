@@ -1,0 +1,3530 @@
+{
+  "metadata": {
+    "name": "robustness-goldens",
+    "version": "2026-03-09",
+    "description": "Large NL->intent->SQL shape->visualization golden set with typos and colloquial phrasing.",
+    "count": 320
+  },
+  "cases": [
+    {
+      "id": "R0001",
+      "question": "Mitkä ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 1998-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0002",
+      "question": "Mitk ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 1998-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0003",
+      "question": "Mitkä ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2000-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0004",
+      "question": "Mitk ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2000-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0005",
+      "question": "Mitkä ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2008-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0006",
+      "question": "Mitk ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2008-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0007",
+      "question": "Mitkä ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2010-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0008",
+      "question": "Mitk ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2010-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0009",
+      "question": "Mitkä ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2015-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0010",
+      "question": "Mitk ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2015-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0011",
+      "question": "Mitkä ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2020-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0012",
+      "question": "Mitk ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2020-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0013",
+      "question": "Mitkä ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2022-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0014",
+      "question": "Mitk ovat absoluuttisesti eniten kasvaneet budjettimomentit vuosina 2022-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0015",
+      "question": "Top 5 eniten kasvaneet momentit 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0016",
+      "question": "Top 10 eniten kasvaneet momentit 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0017",
+      "question": "Top 15 eniten kasvaneet momentit 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0018",
+      "question": "Top 20 eniten kasvaneet momentit 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0019",
+      "question": "Top 5 eniten kasvaneet momentit 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0020",
+      "question": "Top 10 eniten kasvaneet momentit 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0021",
+      "question": "Top 15 eniten kasvaneet momentit 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0022",
+      "question": "Top 20 eniten kasvaneet momentit 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0023",
+      "question": "Top 5 eniten kasvaneet momentit 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0024",
+      "question": "Top 10 eniten kasvaneet momentit 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0025",
+      "question": "Top 15 eniten kasvaneet momentit 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0026",
+      "question": "Top 20 eniten kasvaneet momentit 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0027",
+      "question": "Top 5 eniten kasvaneet momentit 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0028",
+      "question": "Top 10 eniten kasvaneet momentit 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0029",
+      "question": "Top 15 eniten kasvaneet momentit 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0030",
+      "question": "Top 20 eniten kasvaneet momentit 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0031",
+      "question": "Top 5 eniten kasvaneet momentit 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0032",
+      "question": "Top 10 eniten kasvaneet momentit 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0033",
+      "question": "Top 15 eniten kasvaneet momentit 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0034",
+      "question": "Top 20 eniten kasvaneet momentit 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0035",
+      "question": "Top 5 eniten kasvaneet momentit 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0036",
+      "question": "Top 10 eniten kasvaneet momentit 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0037",
+      "question": "Top 15 eniten kasvaneet momentit 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0038",
+      "question": "Top 20 eniten kasvaneet momentit 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0039",
+      "question": "Top 5 eniten kasvaneet momentit 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0040",
+      "question": "Top 10 eniten kasvaneet momentit 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0041",
+      "question": "Top 15 eniten kasvaneet momentit 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0042",
+      "question": "Top 20 eniten kasvaneet momentit 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0043",
+      "question": "Suurin momenttien kasvu euroissa välillä 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0044",
+      "question": "Suurin momenttien kasvu euroissa välillä 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0045",
+      "question": "Suurin momenttien kasvu euroissa välillä 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0046",
+      "question": "Suurin momenttien kasvu euroissa välillä 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0047",
+      "question": "Suurin momenttien kasvu euroissa välillä 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0048",
+      "question": "Suurin momenttien kasvu euroissa välillä 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0049",
+      "question": "Suurin momenttien kasvu euroissa välillä 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0050",
+      "question": "Mitkä momentit kasvoivat eniten prosentteina 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0051",
+      "question": "Mitkä momentit kasvoivat eniten prosentteina 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0052",
+      "question": "Mitkä momentit kasvoivat eniten prosenteina 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0053",
+      "question": "Mitk momentit kasvoivat eniten prosenteina 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0054",
+      "question": "Mitkä momentit kasvoivat eniten prosentteina 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0055",
+      "question": "Mitk momentit kasvoivat eniten prosenteina 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0056",
+      "question": "Mitkä momentit kasvoivat eniten prosenteina 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0057",
+      "question": "Mitkä momentit kasvoivat eniten prosentteina 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0058",
+      "question": "Mitk momentit kasvoivat eniten prosentteina 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0059",
+      "question": "Mitkä momentit kasvoivat eniten prosentteina 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0060",
+      "question": "Mitk momentit kasvoivat eniten prosenteina 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0061",
+      "question": "Mitkä momentit kasvoivat eniten prosentteina 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0062",
+      "question": "Mitk momentit kasvoivat eniten prosenteina 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0063",
+      "question": "Mitk momentit kasvoivat eniten prosentteina 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0064",
+      "question": "Mitkä momentit kasvoivat eniten prosenteina 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0065",
+      "question": "Mitkä momentit kasvoivat eniten prosentteina 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0066",
+      "question": "Mitk momentit kasvoivat eniten prosenteina 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0067",
+      "question": "Mitkä momentit kasvoivat eniten prosenteina 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0068",
+      "question": "top 5 momentit kasvun mukaan 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0069",
+      "question": "top 10 momentit kasvun mukaan 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0070",
+      "question": "top 15 momentit kasvun mukaan 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0071",
+      "question": "top 20 momentit kasvun mukaan 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0072",
+      "question": "top 5 momentit kasvun mukaan 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0073",
+      "question": "top 10 momentit kasvun mukaan 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0074",
+      "question": "top 15 momentit kasvun mukaan 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0075",
+      "question": "top 20 momentit kasvun mukaan 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0076",
+      "question": "top 5 momentit kasvun mukaan 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0077",
+      "question": "top 10 momentit kasvun mukaan 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0078",
+      "question": "top 15 momentit kasvun mukaan 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0079",
+      "question": "top 20 momentit kasvun mukaan 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0080",
+      "question": "top 5 momentit kasvun mukaan 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0081",
+      "question": "top 10 momentit kasvun mukaan 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0082",
+      "question": "top 15 momentit kasvun mukaan 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0083",
+      "question": "top 20 momentit kasvun mukaan 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0084",
+      "question": "top 5 momentit kasvun mukaan 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0085",
+      "question": "top 10 momentit kasvun mukaan 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0086",
+      "question": "top 15 momentit kasvun mukaan 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0087",
+      "question": "top 20 momentit kasvun mukaan 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0088",
+      "question": "top 5 momentit kasvun mukaan 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0089",
+      "question": "top 10 momentit kasvun mukaan 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0090",
+      "question": "top 15 momentit kasvun mukaan 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0091",
+      "question": "top 20 momentit kasvun mukaan 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0092",
+      "question": "top 5 momentit kasvun mukaan 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0093",
+      "question": "top 10 momentit kasvun mukaan 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0094",
+      "question": "top 15 momentit kasvun mukaan 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0095",
+      "question": "top 20 momentit kasvun mukaan 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0096",
+      "question": "mitkä budjettimomentit nousi eniten 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0097",
+      "question": "mitkä budjettimomentit nousi eniten 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0098",
+      "question": "mitkä budjettimomentit nousi eniten 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0099",
+      "question": "mitkä budjettimomentit nousi eniten 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0100",
+      "question": "mitkä budjettimomentit nousi eniten 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0101",
+      "question": "mitkä budjettimomentit nousi eniten 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0102",
+      "question": "mitkä budjettimomentit nousi eniten 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_moment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_moment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0103",
+      "question": "Mitkä alamomentit kasvoivat eniten 1998-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0104",
+      "question": "Mitk alamomentit kasvoivat eniten 1998-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0105",
+      "question": "Mitkä alamomentit kasvoivat eniten 2000-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0106",
+      "question": "Mitk alamomentit kasvoivat eniten 2000-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0107",
+      "question": "Mitkä alamomentit kasvoivat eniten 2008-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0108",
+      "question": "Mitk alamomentit kasvoivat eniten 2008-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0109",
+      "question": "Mitkä alamomentit kasvoivat eniten 2010-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0110",
+      "question": "Mitkä alamomentit kasvoivat eniten 2015-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0111",
+      "question": "Mitk alamomentit kasvoivat eniten 2015-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0112",
+      "question": "Mitkä alamomentit kasvoivat eniten 2020-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0113",
+      "question": "Mitk alamomentit kasvoivat eniten 2020-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0114",
+      "question": "Mitkä alamomentit kasvoivat eniten 2022-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0115",
+      "question": "Mitk alamomentit kasvoivat eniten 2022-2024?",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0116",
+      "question": "Top 5 eniten kasvaneet alamomentit vuosina 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0117",
+      "question": "Top 10 eniten kasvaneet alamomentit vuosina 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0118",
+      "question": "Top 15 eniten kasvaneet alamomentit vuosina 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0119",
+      "question": "Top 20 eniten kasvaneet alamomentit vuosina 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0120",
+      "question": "Top 5 eniten kasvaneet alamomentit vuosina 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0121",
+      "question": "Top 10 eniten kasvaneet alamomentit vuosina 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0122",
+      "question": "Top 15 eniten kasvaneet alamomentit vuosina 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0123",
+      "question": "Top 20 eniten kasvaneet alamomentit vuosina 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0124",
+      "question": "Top 5 eniten kasvaneet alamomentit vuosina 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0125",
+      "question": "Top 10 eniten kasvaneet alamomentit vuosina 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0126",
+      "question": "Top 15 eniten kasvaneet alamomentit vuosina 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0127",
+      "question": "Top 20 eniten kasvaneet alamomentit vuosina 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0128",
+      "question": "Top 5 eniten kasvaneet alamomentit vuosina 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0129",
+      "question": "Top 10 eniten kasvaneet alamomentit vuosina 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0130",
+      "question": "Top 15 eniten kasvaneet alamomentit vuosina 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0131",
+      "question": "Top 20 eniten kasvaneet alamomentit vuosina 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0132",
+      "question": "Top 5 eniten kasvaneet alamomentit vuosina 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0133",
+      "question": "Top 10 eniten kasvaneet alamomentit vuosina 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0134",
+      "question": "Top 15 eniten kasvaneet alamomentit vuosina 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0135",
+      "question": "Top 20 eniten kasvaneet alamomentit vuosina 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0136",
+      "question": "Top 5 eniten kasvaneet alamomentit vuosina 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0137",
+      "question": "Top 10 eniten kasvaneet alamomentit vuosina 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0138",
+      "question": "Top 15 eniten kasvaneet alamomentit vuosina 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0139",
+      "question": "Top 20 eniten kasvaneet alamomentit vuosina 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0140",
+      "question": "Top 5 eniten kasvaneet alamomentit vuosina 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0141",
+      "question": "Top 10 eniten kasvaneet alamomentit vuosina 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0142",
+      "question": "Top 15 eniten kasvaneet alamomentit vuosina 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0143",
+      "question": "Top 20 eniten kasvaneet alamomentit vuosina 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0144",
+      "question": "Suurimmat kasvaneet momentit ja alamomentit 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0145",
+      "question": "Suurimmat kasvaneet momentit ja alamomentit 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0146",
+      "question": "Suurimmat kasvaneet momentit ja alamomentit 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0147",
+      "question": "Suurimmat kasvaneet momentit ja alamomentit 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0148",
+      "question": "Suurimmat kasvaneet momentit ja alamomentit 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0149",
+      "question": "Suurimmat kasvaneet momentit ja alamomentit 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0150",
+      "question": "Suurimmat kasvaneet momentit ja alamomentit 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0151",
+      "question": "mitkä alamomentit nousi eniten euroissa 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0152",
+      "question": "mitkä alamomentit nousi eniten euroissa 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0153",
+      "question": "mitkä alamomentit nousi eniten euroissa 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0154",
+      "question": "mitkä alamomentit nousi eniten euroissa 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0155",
+      "question": "mitkä alamomentit nousi eniten euroissa 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0156",
+      "question": "mitkä alamomentit nousi eniten euroissa 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0157",
+      "question": "mitkä alamomentit nousi eniten euroissa 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0158",
+      "question": "top 5 alamomentit kasvuprosentin mukaan 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0159",
+      "question": "top 10 alamomentit kasvuprosentin mukaan 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0160",
+      "question": "top 15 alamomentit kasvuprosentin mukaan 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0161",
+      "question": "top 20 alamomentit kasvuprosentin mukaan 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0162",
+      "question": "top 5 alamomentit kasvuprosentin mukaan 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0163",
+      "question": "top 10 alamomentit kasvuprosentin mukaan 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0164",
+      "question": "top 15 alamomentit kasvuprosentin mukaan 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0165",
+      "question": "top 20 alamomentit kasvuprosentin mukaan 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0166",
+      "question": "top 5 alamomentit kasvuprosentin mukaan 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0167",
+      "question": "top 10 alamomentit kasvuprosentin mukaan 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0168",
+      "question": "top 15 alamomentit kasvuprosentin mukaan 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0169",
+      "question": "top 20 alamomentit kasvuprosentin mukaan 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0170",
+      "question": "top 5 alamomentit kasvuprosentin mukaan 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0171",
+      "question": "top 10 alamomentit kasvuprosentin mukaan 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0172",
+      "question": "top 15 alamomentit kasvuprosentin mukaan 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0173",
+      "question": "top 20 alamomentit kasvuprosentin mukaan 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0174",
+      "question": "top 5 alamomentit kasvuprosentin mukaan 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0175",
+      "question": "top 10 alamomentit kasvuprosentin mukaan 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0176",
+      "question": "top 15 alamomentit kasvuprosentin mukaan 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0177",
+      "question": "top 20 alamomentit kasvuprosentin mukaan 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0178",
+      "question": "top 5 alamomentit kasvuprosentin mukaan 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0179",
+      "question": "top 10 alamomentit kasvuprosentin mukaan 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0180",
+      "question": "top 15 alamomentit kasvuprosentin mukaan 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0181",
+      "question": "top 20 alamomentit kasvuprosentin mukaan 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0182",
+      "question": "top 5 alamomentit kasvuprosentin mukaan 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0183",
+      "question": "top 10 alamomentit kasvuprosentin mukaan 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0184",
+      "question": "top 15 alamomentit kasvuprosentin mukaan 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0185",
+      "question": "top 20 alamomentit kasvuprosentin mukaan 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0186",
+      "question": "mitkä budjetin ala momentit kasvo eniten 1998-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0187",
+      "question": "mitkä budjetin ala momentit kasvo eniten 2000-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0188",
+      "question": "mitkä budjetin ala momentit kasvo eniten 2008-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0189",
+      "question": "mitkä budjetin ala momentit kasvo eniten 2010-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0190",
+      "question": "mitkä budjetin ala momentit kasvo eniten 2015-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0191",
+      "question": "mitkä budjetin ala momentit kasvo eniten 2020-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0192",
+      "question": "mitkä budjetin ala momentit kasvo eniten 2022-2024",
+      "expected": {
+        "intent": "top_growth",
+        "contract": "top_growth_alamoment",
+        "primary_template": "top_growth",
+        "sql_shape": "top_growth_alamoment",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0193",
+      "question": "Näytä menojen vuosimuutos 1998-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0194",
+      "question": "Näytä menojen vuosimutos 1998-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0195",
+      "question": "Nayta menojen vuosimuutos 1998-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0196",
+      "question": "Näytä menojen vuosimuutos 2000-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0197",
+      "question": "Näytä menojen vuosimutos 2000-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0198",
+      "question": "Nayta menojen vuosimuutos 2000-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0199",
+      "question": "Näytä menojen vuosimuutos 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0200",
+      "question": "Nayta menojen vuosimuutos 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0201",
+      "question": "Näytä menojen vuosimutos 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0202",
+      "question": "Näytä menojen vuosimuutos 2010-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0203",
+      "question": "Nayta menojen vuosimuutos 2010-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0204",
+      "question": "Näytä menojen vuosimutos 2010-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0205",
+      "question": "Näytä menojen vuosimuutos 2015-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0206",
+      "question": "Nayta menojen vuosimuutos 2015-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0207",
+      "question": "Näytä menojen vuosimutos 2015-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0208",
+      "question": "Näytä menojen vuosimuutos 2020-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0209",
+      "question": "Näytä menojen vuosimutos 2020-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0210",
+      "question": "Nayta menojen vuosimutos 2020-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0211",
+      "question": "Näytä menojen vuosimuutos 2022-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0212",
+      "question": "Nayta menojen vuosimuutos 2022-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0213",
+      "question": "Näytä menojen vuosimutos 2022-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0214",
+      "question": "Miten nettokertymä muuttui vuodesta toiseen 1998-2024?",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0215",
+      "question": "Miten nettokertymä muuttui vuodesta toiseen 2000-2024?",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0216",
+      "question": "Miten nettokertymä muuttui vuodesta toiseen 2008-2024?",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0217",
+      "question": "Miten nettokertymä muuttui vuodesta toiseen 2010-2024?",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0218",
+      "question": "Miten nettokertymä muuttui vuodesta toiseen 2015-2024?",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0219",
+      "question": "Miten nettokertymä muuttui vuodesta toiseen 2020-2024?",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0220",
+      "question": "Miten nettokertymä muuttui vuodesta toiseen 2022-2024?",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0221",
+      "question": "vuosikasvu euroissa 1998-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0222",
+      "question": "vuosikasvu euroissa 2000-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0223",
+      "question": "vuosikasvu euroissa 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0224",
+      "question": "vuosikasvu euroissa 2010-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0225",
+      "question": "vuosikasvu euroissa 2015-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0226",
+      "question": "vuosikasvu euroissa 2020-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0227",
+      "question": "vuosikasvu euroissa 2022-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0228",
+      "question": "vuosimuutos prosentteina 1998-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0229",
+      "question": "vuosimutos prosentteina 1998-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0230",
+      "question": "vuosimuutos prosenteina 1998-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0231",
+      "question": "vuosimuutos prosentteina 2000-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0232",
+      "question": "vuosimuutos prosenteina 2000-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0233",
+      "question": "vuosimuutos prosentteina 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0234",
+      "question": "vuosimutos prosentteina 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0235",
+      "question": "vuosimutos prosenteina 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0236",
+      "question": "vuosimuutos prosenteina 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0237",
+      "question": "vuosimuutos prosentteina 2010-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0238",
+      "question": "vuosimuutos prosenteina 2010-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0239",
+      "question": "vuosimutos prosentteina 2010-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0240",
+      "question": "vuosimuutos prosentteina 2015-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0241",
+      "question": "vuosimutos prosentteina 2015-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0242",
+      "question": "vuosimuutos prosenteina 2015-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0243",
+      "question": "vuosimuutos prosentteina 2020-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0244",
+      "question": "vuosimutos prosentteina 2020-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0245",
+      "question": "vuosimuutos prosenteina 2020-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0246",
+      "question": "vuosimuutos prosentteina 2022-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0247",
+      "question": "vuosimutos prosentteina 2022-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0248",
+      "question": "vuosimuutos prosenteina 2022-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0249",
+      "question": "Miten menot kehittyi vuositasolla 1998-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0250",
+      "question": "Miten menot kehittyi vuositasolla 2000-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0251",
+      "question": "Miten menot kehittyi vuositasolla 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0252",
+      "question": "Miten menot kehittyi vuositasolla 2010-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0253",
+      "question": "Miten menot kehittyi vuositasolla 2015-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0254",
+      "question": "Miten menot kehittyi vuositasolla 2020-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0255",
+      "question": "Miten menot kehittyi vuositasolla 2022-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0256",
+      "question": "yoy muutos koko budjetille 1998-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0257",
+      "question": "yoy muutos koko budjetille 2000-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0258",
+      "question": "yoy muutos koko budjetille 2008-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0259",
+      "question": "yoy muutos koko budjetille 2010-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0260",
+      "question": "yoy muutos koko budjetille 2015-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0261",
+      "question": "yoy muutos koko budjetille 2020-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0262",
+      "question": "yoy muutos koko budjetille 2022-2024",
+      "expected": {
+        "intent": "growth",
+        "contract": "yoy_change",
+        "primary_template": "trend",
+        "sql_shape": "yoy_change",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0263",
+      "question": "Näytä trendi hallinnonaloittain 1998-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0264",
+      "question": "Nayta trendi hallinnonalottain 1998-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0265",
+      "question": "Näytä trendi hallinnonaloittain 2000-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0266",
+      "question": "Nayta trendi hallinnonalottain 2000-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0267",
+      "question": "Näytä trendi hallinnonalottain 2000-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0268",
+      "question": "Nayta trendi hallinnonaloittain 2000-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0269",
+      "question": "Näytä trendi hallinnonaloittain 2008-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0270",
+      "question": "Näytä trendi hallinnonalottain 2008-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0271",
+      "question": "Näytä trendi hallinnonaloittain 2010-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0272",
+      "question": "Nayta trendi hallinnonaloittain 2010-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0273",
+      "question": "Näytä trendi hallinnonalottain 2010-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0274",
+      "question": "Näytä trendi hallinnonaloittain 2015-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0275",
+      "question": "Näytä trendi hallinnonalottain 2015-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0276",
+      "question": "Nayta trendi hallinnonalottain 2015-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0277",
+      "question": "Näytä trendi hallinnonaloittain 2020-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0278",
+      "question": "Nayta trendi hallinnonaloittain 2020-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0279",
+      "question": "Näytä trendi hallinnonalottain 2020-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0280",
+      "question": "Näytä trendi hallinnonaloittain 2022-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0281",
+      "question": "Nayta trendi hallinnonaloittain 2022-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0282",
+      "question": "Miten eri hallinnonalat kehittyivät 1998-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0283",
+      "question": "Miten eri hallinnonalat kehittyivät 2000-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0284",
+      "question": "Miten eri hallinnonalat kehittyi 2000-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0285",
+      "question": "Miten eri hallinnonalat kehittyivät 2008-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0286",
+      "question": "Miten eri hallinnonalat kehittyi 2008-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0287",
+      "question": "Miten eri hallinnonalat kehittyivät 2010-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0288",
+      "question": "Miten eri hallinnonalat kehittyi 2010-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0289",
+      "question": "Miten eri hallinnonalat kehittyivät 2015-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0290",
+      "question": "Miten eri hallinnonalat kehittyi 2015-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0291",
+      "question": "Miten eri hallinnonalat kehittyivät 2020-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0292",
+      "question": "Miten eri hallinnonalat kehittyi 2020-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0293",
+      "question": "Miten eri hallinnonalat kehittyivät 2022-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0294",
+      "question": "Miten eri hallinnonalat kehittyi 2022-2024?",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0295",
+      "question": "Aikasarja hallinnonaloittain välillä 1998-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0296",
+      "question": "Aikasarja hallinnonalottain välillä 1998-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0297",
+      "question": "Aikasarja hallinnonaloittain välillä 2000-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0298",
+      "question": "Aikasarja hallinnonalottain välillä 2000-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0299",
+      "question": "Aikasarja hallinnonaloittain välillä 2008-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0300",
+      "question": "Aikasarja hallinnonalottain välillä 2008-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0301",
+      "question": "Aikasarja hallinnonaloittain välillä 2010-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0302",
+      "question": "Aikasarja hallinnonalottain välillä 2010-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0303",
+      "question": "Aikasarja hallinnonaloittain välillä 2015-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0304",
+      "question": "Aikasarja hallinnonalottain välillä 2015-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0305",
+      "question": "Aikasarja hallinnonaloittain välillä 2020-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0306",
+      "question": "Aikasarja hallinnonaloittain välillä 2022-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0307",
+      "question": "hallinnonalojen pitkän aikavälin trendi 1998-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0308",
+      "question": "hallinnonalojen pitkän aikavälin trendi 2000-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0309",
+      "question": "hallinnonalojen pitkän aikavälin trendi 2008-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0310",
+      "question": "hallinnonalojen pitkän aikavälin trendi 2010-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0311",
+      "question": "hallinnonalojen pitkän aikavälin trendi 2015-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0312",
+      "question": "hallinnonalojen pitkän aikavälin trendi 2020-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0313",
+      "question": "hallinnonalojen pitkän aikavälin trendi 2022-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0314",
+      "question": "trendi hallinnonala tasolla 1998-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0315",
+      "question": "trendi hallinnonala tasolla 2000-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": false
+      }
+    },
+    {
+      "id": "R0316",
+      "question": "trendi hallinnonala tasolla 2008-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0317",
+      "question": "trendi hallinnonala tasolla 2010-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0318",
+      "question": "trendi hallinnonala tasolla 2015-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0319",
+      "question": "trendi hallinnonala tasolla 2020-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    },
+    {
+      "id": "R0320",
+      "question": "trendi hallinnonala tasolla 2022-2024",
+      "expected": {
+        "intent": "trend",
+        "contract": "trend_by_hallinnonala",
+        "primary_template": "trend",
+        "sql_shape": "trend_by_hallinnonala",
+        "critical": true
+      }
+    }
+  ]
+}

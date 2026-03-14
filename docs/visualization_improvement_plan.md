@@ -97,3 +97,9 @@ Improve chart relevance so visualizations match user intent reliably, especially
   - Golden set at `data/evals/visualization_goldens.json` (52 queries)
   - Evaluator script at `scripts/eval_visualization_pipeline.py`
   - Threshold gates: all-match >= 85%, critical >= 95%
+- Phase 5 (robustness hardening) implemented:
+  - Auto-repair loop in `utils/bigquery_utils.py` (dry-run/execute errors -> 1-2 repair attempts -> deterministic fallback-contract)
+  - Contract-based canonical schema for visualization in `utils/semantic_query_contracts.py` (`time`, `entity`, `metric`, `delta`, `pct`)
+  - Mandatory clarifications at low confidence in `streamlit_app.py`
+  - Observability logging (`utils/observability_utils.py`) and SLO report script (`scripts/report_slo_metrics.py`)
+  - Expanded robustness dataset (`data/evals/robustness_goldens.json`, 320 cases)

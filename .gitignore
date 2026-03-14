@@ -6,3 +6,4 @@ __pycache__/
 .env.local
 .venv/
 data/**/*.csv
+agent_data/query_observability.jsonl
