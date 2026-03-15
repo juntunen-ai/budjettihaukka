@@ -1423,13 +1423,19 @@ def _deterministic_fallback_sql(question: str, analysis_spec: AnalysisSpec | Non
     return _build_bigquery_fallback_sql(question, analysis_spec=spec)
 
 
-def process_natural_language_query(question: str) -> dict:
+def execute_analysis_spec(
+    question: str,
+    analysis_spec: AnalysisSpec,
+    *,
+    allow_llm_query_plan: bool = False,
+) -> dict:
+    """Suorittaa analyysin valmiiksi tulkitulle AnalysisSpec-objektille.
+
+    Tämä on uuden arkkitehtuurin ensisijainen rajapinta: luonnollinen kieli
+    tulkitaan ensin AnalysisSpeciksi, jonka jälkeen suorituspolku on täysin
+    deterministinen (yearly agg / contract / fallback SQL-template).
     """
-    Käsittelee luonnollisen kielen kysymyksen: generoi SQL, validoi, suorittaa ja palauttaa tulokset.
-    """
-    logger.info("Käsitellään kysymys: %s", question)
     query_id = str(uuid.uuid4())
-    analysis_spec = infer_analysis_spec(question)
     if _requires_population_denominator((question or "").lower()):
         return {
             "query_id": query_id,
@@ -1450,7 +1456,7 @@ def process_natural_language_query(question: str) -> dict:
     query_plan = None
 
     generated_sql = None
-    if not settings.use_google_sheets_demo and settings.enable_llm_query_plan:
+    if not settings.use_google_sheets_demo and allow_llm_query_plan and settings.enable_llm_query_plan:
         fallback_plan = {
             "intent": analysis_spec.intent,
             "metric": analysis_spec.metric,
@@ -1588,3 +1594,16 @@ def process_natural_language_query(question: str) -> dict:
         "dry_run_bytes": dry_run_bytes,
         "error_class": "",
     }
+
+
+def process_natural_language_query(question: str) -> dict:
+    """
+    Käsittelee luonnollisen kielen kysymyksen: generoi SQL, validoi, suorittaa ja palauttaa tulokset.
+    """
+    logger.info("Käsitellään kysymys: %s", question)
+    analysis_spec = infer_analysis_spec(question)
+    return execute_analysis_spec(
+        question,
+        analysis_spec,
+        allow_llm_query_plan=True,
+    )

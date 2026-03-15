@@ -1,11 +1,12 @@
 import streamlit as st
 from config import settings
 from utils import bigquery_utils
+from api.client import BudgetAnalyticsClient
+from domain.contracts import deserialize_analysis_spec
+from services.semantic_parser import parse_question
 from utils.analysis_spec_utils import (
     AnalysisSpec,
-    apply_clarifications_to_question,
     coverage_notice,
-    infer_analysis_spec,
     renderable_summary,
 )
 from utils.observability_utils import log_query_event
@@ -15,6 +16,8 @@ import streamlit.components.v1 as components
 import altair as alt
 import pandas as pd
 import random
+from uuid import uuid4
+from utils.question_library_utils import log_question_library_entry, read_question_library
 
 EURO_DISPLAY_SCALE = 1_000_000.0
 EURO_DISPLAY_UNIT = "milj. €"
@@ -62,6 +65,34 @@ def apply_custom_theme() -> None:
           padding-top: 2rem;
           padding-bottom: 3rem;
           max-width: 1160px;
+        }
+
+        .bh-topnav {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          margin-bottom: 0.75rem;
+        }
+
+        .bh-topnav-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          padding: 0.45rem 0.9rem;
+          border: 2px solid #111111;
+          border-radius: 999px;
+          background: #fff3b6;
+          color: #111111 !important;
+          text-decoration: none !important;
+          font-family: 'Raleway', sans-serif !important;
+          font-weight: 700;
+          font-size: 0.95rem;
+          line-height: 1;
+        }
+
+        .bh-topnav-link:hover {
+          background: #fde992;
+          transform: translateY(-1px);
         }
 
         h1, h2, h3, h4, h5, h6,
@@ -358,6 +389,19 @@ def render_footer_logo() -> None:
     )
 
 
+def render_top_nav(admin_mode: bool = False) -> None:
+    target_href = "/" if admin_mode else "/?admin=1"
+    link_label = "Etusivu" if admin_mode else "Admin"
+    st.markdown(
+        f"""
+        <div class="bh-topnav">
+          <a class="bh-topnav-link" href="{target_href}" target="_self" rel="noopener noreferrer">{link_label}</a>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def render_usage_meter() -> None:
     if "queries_used" not in st.session_state:
         st.session_state["queries_used"] = 0
@@ -445,21 +489,29 @@ def render_budget_moment_evidence(
     results_df: pd.DataFrame,
     analysis_spec: AnalysisSpec | None = None,
     limit: int = 30,
+    evidence_rows: list[dict] | None = None,
 ) -> None:
     st.subheader("Käytetyt budjettimomentit")
-    evidence = bigquery_utils.get_budget_moment_evidence(
-        question=question,
-        results_df=results_df,
-        analysis_spec=analysis_spec if isinstance(analysis_spec, AnalysisSpec) else None,
-        limit=limit,
-    )
-    evidence_df = evidence.get("evidence_df")
+    if evidence_rows:
+        evidence_df = pd.DataFrame(evidence_rows)
+        evidence_source = "analytics_api"
+    else:
+        evidence = bigquery_utils.get_budget_moment_evidence(
+            question=question,
+            results_df=results_df,
+            analysis_spec=analysis_spec if isinstance(analysis_spec, AnalysisSpec) else None,
+            limit=limit,
+        )
+        evidence_df = evidence.get("evidence_df")
+        evidence_source = evidence.get("source")
     if not isinstance(evidence_df, pd.DataFrame) or evidence_df.empty:
         st.warning("Budjettimomentteja ei voitu tunnistaa tästä vastauksesta.")
         return
 
-    if evidence.get("source") == "results_df":
+    if evidence_source == "results_df":
         st.caption("Momentit tunnistettiin suoraan tulosaineistosta, jota visualisoinnit käyttävät.")
+    elif evidence_source == "analytics_api":
+        st.caption("Momentit palautettiin valmiiksi analytiikka-API:n canonical-tulkinnasta.")
     else:
         st.caption(
             f"Visualisoinnin momentit haettiin erillisellä tukikyselyllä samasta rajauksesta. "
@@ -491,6 +543,224 @@ def _format_year_range(year_from: int | None, year_to: int | None) -> str:
     return str(year_from) if year_from == year_to else f"{year_from}-{year_to}"
 
 
+def _results_df_from_api_response(result: dict) -> pd.DataFrame:
+    rows = result.get("result_rows") or []
+    columns = result.get("result_columns") or []
+    if not rows:
+        return pd.DataFrame(columns=columns)
+    return pd.DataFrame(rows, columns=columns or None)
+
+
+def _is_truthy_query_param(name: str) -> bool:
+    try:
+        raw = st.query_params.get(name)
+    except Exception:
+        return False
+    if isinstance(raw, list):
+        raw = raw[0] if raw else ""
+    return str(raw or "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _load_question_library_df(limit: int = 5000) -> pd.DataFrame:
+    rows = read_question_library(limit=limit)
+    if not rows:
+        return pd.DataFrame()
+    df = pd.DataFrame(rows)
+    if "ts" in df.columns:
+        df["ts"] = pd.to_datetime(df["ts"], errors="coerce", utc=True)
+    return df.sort_values("ts", ascending=False, na_position="last")
+
+
+def render_admin_view() -> None:
+    st.markdown('<div class="bh-hero-title" style="font-size: clamp(2.2rem, 5vw, 3.4rem); margin-bottom: 0.6rem;">ADMIN</div>', unsafe_allow_html=True)
+    st.header("Admin-näkymä")
+    st.caption(
+        "Tämä näkymä näyttää kysymyskirjaston kertymää palvelun kehittämistä varten. "
+        "Se avautuu vain osoitteella, jossa on query-parametri `?admin=1`."
+    )
+
+    library_df = _load_question_library_df()
+    if library_df.empty:
+        st.info("Kysymyskirjasto on vielä tyhjä.")
+        return
+
+    total_queries = len(library_df)
+    unique_questions = int(library_df["question"].nunique()) if "question" in library_df.columns else 0
+    unique_sessions = int(library_df["session_id"].nunique()) if "session_id" in library_df.columns else 0
+    success_rate = (
+        float((library_df["status"] == "success").mean() * 100.0)
+        if "status" in library_df.columns
+        else 0.0
+    )
+
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Kyselyitä yhteensä", f"{total_queries:,}".replace(",", " "))
+    col2.metric("Uniikkeja kysymyksiä", f"{unique_questions:,}".replace(",", " "))
+    col3.metric("Sessioita", f"{unique_sessions:,}".replace(",", " "))
+    col4.metric("Onnistumisaste", f"{success_rate:.1f} %")
+
+    tab_overview, tab_questions, tab_download = st.tabs(["Yhteenveto", "Kysymykset", "Lataus"])
+
+    with tab_overview:
+        left, right = st.columns(2)
+
+        if "status" in library_df.columns:
+            status_counts = (
+                library_df["status"]
+                .fillna("unknown")
+                .value_counts()
+                .rename_axis("status")
+                .reset_index(name="kyselyitä")
+            )
+            left.subheader("Statukset")
+            left.dataframe(status_counts, width="stretch", hide_index=True)
+
+        if "intent" in library_df.columns:
+            intent_counts = (
+                library_df["intent"]
+                .fillna("unknown")
+                .value_counts()
+                .head(15)
+                .rename_axis("intent")
+                .reset_index(name="kyselyitä")
+            )
+            right.subheader("Intentit")
+            right.dataframe(intent_counts, width="stretch", hide_index=True)
+
+        lower_left, lower_right = st.columns(2)
+
+        if "resolved_concept_label" in library_df.columns:
+            concept_counts = (
+                library_df["resolved_concept_label"]
+                .fillna("ei ratkaistu")
+                .replace("", "ei ratkaistu")
+                .value_counts()
+                .head(20)
+                .rename_axis("käsite")
+                .reset_index(name="kyselyitä")
+            )
+            lower_left.subheader("Ratkaistut käsitteet")
+            lower_left.dataframe(concept_counts, width="stretch", hide_index=True)
+
+        repeated_questions = (
+            library_df["question"]
+            .fillna("")
+            .value_counts()
+            .head(20)
+            .rename_axis("kysymys")
+            .reset_index(name="toistot")
+        )
+        lower_right.subheader("Toistuvimmat kysymykset")
+        lower_right.dataframe(repeated_questions, width="stretch", hide_index=True)
+
+    with tab_questions:
+        status_options = ["Kaikki"]
+        if "status" in library_df.columns:
+            status_options += sorted(v for v in library_df["status"].dropna().unique().tolist() if v)
+        selected_status = st.selectbox("Suodata statuksen mukaan", status_options, index=0, key="admin_status_filter")
+        search_text = st.text_input("Hae kysymystekstistä", key="admin_search_text")
+        show_limit = st.slider("Näytä rivejä", min_value=20, max_value=500, value=100, step=20, key="admin_row_limit")
+
+        filtered = library_df.copy()
+        if selected_status != "Kaikki" and "status" in filtered.columns:
+            filtered = filtered[filtered["status"] == selected_status]
+        if search_text.strip():
+            filtered = filtered[
+                filtered["question"].astype(str).str.contains(search_text.strip(), case=False, na=False)
+            ]
+
+        display_df = filtered.copy()
+        if "ts" in display_df.columns:
+            display_df["ts"] = (
+                display_df["ts"]
+                .dt.tz_convert("Europe/Helsinki")
+                .dt.strftime("%Y-%m-%d %H:%M:%S")
+            )
+
+        wanted_columns = [
+            "ts",
+            "question",
+            "status",
+            "intent",
+            "resolved_concept_label",
+            "query_source",
+            "result_row_count",
+            "used_moment_count",
+            "error_class",
+        ]
+        visible_columns = [column for column in wanted_columns if column in display_df.columns]
+        st.dataframe(display_df[visible_columns].head(show_limit), width="stretch", hide_index=True)
+        st.caption(f"Suodatuksen jälkeen rivejä: {len(filtered)}")
+
+    with tab_download:
+        export_df = library_df.copy()
+        if "ts" in export_df.columns:
+            export_df["ts"] = export_df["ts"].astype(str)
+        st.download_button(
+            "Lataa kysymyskirjasto CSV",
+            data=export_df.to_csv(index=False).encode("utf-8"),
+            file_name="budjettihaukka_question_library.csv",
+            mime="text/csv",
+        )
+        st.download_button(
+            "Lataa kysymyskirjasto JSON",
+            data=export_df.to_json(orient="records", force_ascii=False, indent=2),
+            file_name="budjettihaukka_question_library.json",
+            mime="application/json",
+        )
+
+
+def _log_question_library_event(
+    *,
+    question: str,
+    session_id: str,
+    status: str,
+    analysis_spec: AnalysisSpec | None = None,
+    query_source: str | None = None,
+    query_contract: str | None = None,
+    clarification_required: bool = False,
+    clarification_choices: dict[str, str] | None = None,
+    missing_required: list[str] | None = None,
+    result: dict | None = None,
+    results_df: pd.DataFrame | None = None,
+    error_class: str | None = None,
+    error_message: str | None = None,
+) -> None:
+    spec = analysis_spec if isinstance(analysis_spec, AnalysisSpec) else None
+    payload = {
+        "session_id": session_id,
+        "surface": "streamlit",
+        "language": "fi",
+        "status": status,
+        "question": question.strip(),
+        "clarification_required": clarification_required,
+        "clarification_choices": clarification_choices or {},
+        "clarification_missing_fields": missing_required or [],
+        "intent": spec.intent if spec else None,
+        "metric": spec.metric if spec else None,
+        "entity_level": spec.entity_level if spec else None,
+        "growth_type": spec.growth_type if spec else None,
+        "time_from": spec.time_from if spec else None,
+        "time_to": spec.time_to if spec else None,
+        "requested_time_from": spec.requested_time_from if spec else None,
+        "requested_time_to": spec.requested_time_to if spec else None,
+        "confidence": spec.confidence if spec else None,
+        "resolved_concept_id": spec.resolved_concept_id if spec else None,
+        "resolved_concept_label": spec.resolved_concept_label if spec else None,
+        "ontology_match_score": spec.ontology_match_score if spec else None,
+        "ontology_risk_level": spec.ontology_risk_level if spec else None,
+        "ontology_must_clarify": spec.ontology_must_clarify if spec else None,
+        "query_source": query_source,
+        "query_contract": query_contract,
+        "query_id": (result or {}).get("query_id"),
+        "used_moment_count": len((result or {}).get("used_moments") or []),
+        "result_row_count": len(results_df) if isinstance(results_df, pd.DataFrame) else 0,
+        "error_class": error_class,
+        "error_message": error_message,
+    }
+    log_question_library_entry(payload)
+
+
 def _format_missing_years(spec: AnalysisSpec) -> str:
     if spec.requested_time_from is None or spec.requested_time_to is None:
         return "ei pyydetty"
@@ -514,7 +784,7 @@ def render_scope_cards(spec: AnalysisSpec) -> None:
 
 
 def render_interpretation_block(question: str) -> tuple[AnalysisSpec, dict[str, str], bool, list[str]]:
-    spec = infer_analysis_spec(question)
+    spec = parse_question(question).analysis_spec
     required_clarification = bool(spec.clarifications) and spec.confidence < settings.clarification_required_confidence
     selections: dict[str, str] = {}
     missing_required: list[str] = []
@@ -1312,7 +1582,7 @@ def visualize_data(
         st.warning("Ei dataa visualisoitavaksi.")
         return []
 
-    spec = analysis_spec if isinstance(analysis_spec, AnalysisSpec) else infer_analysis_spec(question)
+    spec = analysis_spec if isinstance(analysis_spec, AnalysisSpec) else parse_question(question).analysis_spec
     work = df.copy()
 
     rendered_templates: list[str] = []
@@ -1395,6 +1665,14 @@ def visualize_data(
 def main():
     st.set_page_config(page_title="Budjettihaukka", layout="wide", initial_sidebar_state="collapsed")
     apply_custom_theme()
+    analytics_client = BudgetAnalyticsClient()
+    if "query_session_id" not in st.session_state:
+        st.session_state["query_session_id"] = str(uuid4())
+    admin_mode = _is_truthy_query_param("admin")
+    render_top_nav(admin_mode=admin_mode)
+    if admin_mode:
+        render_admin_view()
+        return
     st.markdown('<div class="bh-hero-title">BUDJETTIHAUKKA</div>', unsafe_allow_html=True)
     st.write(
         "Budjettihaukka tekee julkisesta taloudesta läpinäkyvämpää ja päätöksenteosta ymmärrettävämpää. "
@@ -1439,6 +1717,17 @@ def main():
             try:
                 if clarification_required and missing_required:
                     st.error("Valitse pakolliset tarkennukset ennen kyselyn ajoa.")
+                    _log_question_library_event(
+                        question=question,
+                        session_id=st.session_state["query_session_id"],
+                        status="blocked_clarification",
+                        analysis_spec=interpreted_spec,
+                        clarification_required=True,
+                        clarification_choices=clarification_choices,
+                        missing_required=missing_required,
+                        error_class="clarification_required",
+                        error_message="Pakollinen tarkennus puuttuu.",
+                    )
                     log_query_event(
                         {
                             "question": question.strip(),
@@ -1458,25 +1747,85 @@ def main():
                     )
                     return
 
-                execution_question = apply_clarifications_to_question(question, clarification_choices)
-                # Käsitellään kysymys yhdellä polulla (sisältää fallbackin).
-                result = bigquery_utils.process_natural_language_query(execution_question)
+                result = analytics_client.analyze(
+                    question,
+                    clarifications=clarification_choices,
+                    language="fi",
+                    ui_context={"surface": "streamlit"},
+                )
+                execution_question = result.get("execution_question") or question
                 sql_query = result.get("sql_query", "")
-                results = result.get("results_df")
+                results = _results_df_from_api_response(result)
                 error = result.get("error")
                 explanation = result.get("explanation")
-                analysis_spec = result.get("analysis_spec") or interpreted_spec
+                analysis_spec_payload = result.get("analysis_spec") or {}
+                analysis_spec = (
+                    deserialize_analysis_spec(analysis_spec_payload)
+                    if analysis_spec_payload
+                    else interpreted_spec
+                )
                 query_source = result.get("query_source")
                 query_contract = result.get("query_contract")
-                query_plan = result.get("query_plan")
+                query_plan = (result.get("metadata") or {}).get("query_plan")
 
                 if debug_mode and query_source:
                     st.caption(f"Kyselypolku: {query_source}" + (f" ({query_contract})" if query_contract else ""))
                 if debug_mode and query_plan:
                     st.caption(f"QueryPlan: {query_plan}")
 
-                if not sql_query:
+                if result.get("status") == "clarification_required":
+                    st.error("Analyysi tarvitsee tarkennuksen ennen ajoa.")
+                    for warning in result.get("warnings") or []:
+                        st.caption(warning)
+                    _log_question_library_event(
+                        question=question,
+                        session_id=st.session_state["query_session_id"],
+                        status="clarification_required",
+                        analysis_spec=analysis_spec,
+                        query_source="clarification_required",
+                        clarification_required=True,
+                        clarification_choices=clarification_choices,
+                        missing_required=missing_required,
+                        result=result,
+                        error_class="clarification_required",
+                        error_message="Analyysi tarvitsee tarkennuksen ennen ajoa.",
+                    )
+                    log_query_event(
+                        {
+                            "query_id": result.get("query_id"),
+                            "question": question.strip(),
+                            "query_source": "clarification_required",
+                            "contract": None,
+                            "confidence": analysis_spec.confidence if isinstance(analysis_spec, AnalysisSpec) else None,
+                            "clarification_required": True,
+                            "clarification_missing_fields": missing_required,
+                            "clarification_applied": bool(clarification_choices),
+                            "retries": int(result.get("retries") or 0),
+                            "dry_run_bytes": result.get("dry_run_bytes"),
+                            "render_template": [],
+                            "query_success": False,
+                            "chart_render_success": False,
+                            "error_class": "clarification_required",
+                        }
+                    )
+                    return
+
+                if not sql_query and result.get("status") != "success":
                     st.error("SQL-kyselyn generointi epäonnistui. Kokeile muotoilla kysymyksesi toisin.")
+                    _log_question_library_event(
+                        question=question,
+                        session_id=st.session_state["query_session_id"],
+                        status="sql_generation_failed",
+                        analysis_spec=analysis_spec,
+                        query_source=query_source,
+                        query_contract=query_contract,
+                        clarification_required=clarification_required,
+                        clarification_choices=clarification_choices,
+                        missing_required=missing_required,
+                        result=result,
+                        error_class=result.get("error_class") or "sql_generation_failed",
+                        error_message="SQL-kyselyn generointi epäonnistui.",
+                    )
                     log_query_event(
                         {
                             "query_id": result.get("query_id"),
@@ -1487,7 +1836,7 @@ def main():
                             "clarification_required": clarification_required,
                             "clarification_missing_fields": missing_required,
                             "clarification_applied": bool(clarification_choices),
-                            "retries": int(result.get("query_retries") or 0),
+                            "retries": int(result.get("retries") or 0),
                             "dry_run_bytes": result.get("dry_run_bytes"),
                             "render_template": [],
                             "query_success": False,
@@ -1504,6 +1853,21 @@ def main():
 
                 if error:
                     st.error(f"Kyselyn suoritus epäonnistui: {error}")
+                    _log_question_library_event(
+                        question=question,
+                        session_id=st.session_state["query_session_id"],
+                        status="query_error",
+                        analysis_spec=analysis_spec,
+                        query_source=query_source,
+                        query_contract=query_contract,
+                        clarification_required=clarification_required,
+                        clarification_choices=clarification_choices,
+                        missing_required=missing_required,
+                        result=result,
+                        results_df=results,
+                        error_class=result.get("error_class"),
+                        error_message=str(error),
+                    )
                     log_query_event(
                         {
                             "query_id": result.get("query_id"),
@@ -1514,7 +1878,7 @@ def main():
                             "clarification_required": clarification_required,
                             "clarification_missing_fields": missing_required,
                             "clarification_applied": bool(clarification_choices),
-                            "retries": int(result.get("query_retries") or 0),
+                            "retries": int(result.get("retries") or 0),
                             "dry_run_bytes": result.get("dry_run_bytes"),
                             "render_template": [],
                             "query_success": False,
@@ -1538,10 +1902,26 @@ def main():
                         question=execution_question,
                         results_df=results,
                         analysis_spec=analysis_spec if isinstance(analysis_spec, AnalysisSpec) else None,
+                        evidence_rows=result.get("used_moments") or [],
                     )
                 else:
                     st.warning("Kysely ei palauttanut tuloksia. Kokeile muokata kysymystäsi.")
 
+                _log_question_library_event(
+                    question=question,
+                    session_id=st.session_state["query_session_id"],
+                    status="success" if results is not None and not results.empty else "empty_result",
+                    analysis_spec=analysis_spec,
+                    query_source=query_source,
+                    query_contract=query_contract,
+                    clarification_required=clarification_required,
+                    clarification_choices=clarification_choices,
+                    missing_required=missing_required,
+                    result=result,
+                    results_df=results,
+                    error_class=result.get("error_class"),
+                    error_message=None,
+                )
                 log_query_event(
                     {
                         "query_id": result.get("query_id"),
@@ -1552,7 +1932,7 @@ def main():
                         "clarification_required": clarification_required,
                         "clarification_missing_fields": missing_required,
                         "clarification_applied": bool(clarification_choices),
-                        "retries": int(result.get("query_retries") or 0),
+                        "retries": int(result.get("retries") or 0),
                         "dry_run_bytes": result.get("dry_run_bytes"),
                         "render_template": rendered_templates,
                         "query_success": True,
@@ -1563,6 +1943,17 @@ def main():
             
             except Exception as e:
                 st.error(f"Virhe sovelluksessa: {str(e)}")
+                _log_question_library_event(
+                    question=question,
+                    session_id=st.session_state["query_session_id"],
+                    status="app_exception",
+                    analysis_spec=interpreted_spec,
+                    clarification_required=clarification_required,
+                    clarification_choices=clarification_choices,
+                    missing_required=missing_required,
+                    error_class="app_exception",
+                    error_message=str(e),
+                )
                 log_query_event(
                     {
                         "question": question.strip(),

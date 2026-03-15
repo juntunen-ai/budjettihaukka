@@ -76,12 +76,18 @@ class Settings:
         "BUDJETTIHAUKKA_OBSERVABILITY_LOG_PATH",
         "agent_data/query_observability.jsonl",
     )
+    question_library_log_path: str = os.getenv(
+        "BUDJETTIHAUKKA_QUESTION_LIBRARY_LOG_PATH",
+        "agent_data/question_library.jsonl",
+    )
     free_queries_per_session: int = _env_int("BUDJETTIHAUKKA_FREE_QUERIES_PER_SESSION", 25)
     show_ads: bool = _env_bool("BUDJETTIHAUKKA_SHOW_ADS", True)
     adsense_client_id: str = os.getenv("BUDJETTIHAUKKA_ADSENSE_CLIENT_ID", "")
     adsense_slot_top: str = os.getenv("BUDJETTIHAUKKA_ADSENSE_SLOT_TOP", "")
     adsense_slot_bottom: str = os.getenv("BUDJETTIHAUKKA_ADSENSE_SLOT_BOTTOM", "")
     ad_placeholder_text: str = os.getenv("BUDJETTIHAUKKA_AD_PLACEHOLDER_TEXT", "Mainospaikka")
+    analytics_api_url: str = os.getenv("BUDJETTIHAUKKA_ANALYTICS_API_URL", "http://127.0.0.1:8000")
+    use_backend_api: bool = _env_bool("BUDJETTIHAUKKA_USE_BACKEND_API", False)
     ontology_path: str = os.getenv(
         "BUDJETTIHAUKKA_ONTOLOGY_PATH",
         "data/ontology/budjettihaukka_ontology.yaml",
