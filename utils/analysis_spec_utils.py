@@ -4,6 +4,7 @@ import re
 from dataclasses import dataclass, field
 from functools import lru_cache
 
+from utils.budget_semantics import infer_fiscal_side_from_question, infer_intent_from_question, infer_metric_from_question
 from utils.ontology_utils import BudgetOntology, OntologyConcept, load_budget_ontology, resolve_concepts_for_question
 
 DATA_MIN_YEAR = 1998
@@ -22,6 +23,7 @@ class ClarificationField:
 class AnalysisSpec:
     intent: str
     metric: str
+    fiscal_side: str
     entity_level: str
     growth_type: str
     requested_time_from: int | None
@@ -167,6 +169,7 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
     ontology_risk_level: str | None = None
     ontology_must_clarify = False
     ontology_matched_aliases: list[str] = []
+    concept_default_fiscal_side: str | None = None
 
     ontology = _load_runtime_ontology()
     if ontology is not None:
@@ -180,6 +183,7 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
             ontology_risk_level = top.risk_level
             ontology_must_clarify = top.must_clarify
             ontology_matched_aliases = list(top.matched_aliases)
+            concept_default_fiscal_side = top.default_fiscal_side
 
             assumptions.append(
                 f"Ontologinen tulkinta: {top.label_fi}"
@@ -246,6 +250,28 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
         assumptions.append("Top-listan koko oletetaan 10 visualisointiin ja 100 taulukkoon.")
         confidence -= 0.06
 
+    fiscal_side = infer_fiscal_side_from_question(question, concept_default_fiscal_side)
+    metric = infer_metric_from_question(question, "nettokertyma")
+    intent = infer_intent_from_question(question, intent, fiscal_side)
+
+    if intent in {"top_cuts", "revenue_decline"} and entity_level == "kokonais":
+        entity_level = "momentti"
+        assumptions.append("Leikkaus-/heikkenemiskysymykset maadoitetaan oletuksena momenttitasolle.")
+        confidence -= 0.04
+
+    if ranking_n is None and intent in {"top_growth", "top_cuts", "revenue_decline"}:
+        ranking_n = 10
+        assumptions.append("Top-listan koko oletetaan 10 visualisointiin ja 100 taulukkoon.")
+        confidence -= 0.04
+
+    if intent == "top_cuts" and fiscal_side != "expense":
+        fiscal_side = "expense"
+        assumptions.append("Leikkaus tulkitaan menopuolen supistukseksi.")
+
+    if intent == "revenue_decline" and fiscal_side != "revenue":
+        fiscal_side = "revenue"
+        assumptions.append("Tulokertymän heikkeneminen tulkitaan tulopuolen muutokseksi.")
+
     if years and (min(years) < DATA_MIN_YEAR or max(years) > DATA_MAX_YEAR):
         assumptions.append(
             f"Aikaväli rajataan datan saatavuuteen {DATA_MIN_YEAR}-{DATA_MAX_YEAR}."
@@ -261,7 +287,8 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
 
     return AnalysisSpec(
         intent=intent,
-        metric="nettokertyma",
+        metric=metric,
+        fiscal_side=fiscal_side,
         entity_level=entity_level,
         growth_type=growth_type if growth_type != "unknown" else "absolute",
         requested_time_from=requested_from,
@@ -324,7 +351,8 @@ def renderable_summary(spec: AnalysisSpec) -> str:
     rank_txt = f"Top {spec.ranking_n}" if spec.ranking_n else "Top ei määritelty"
     return (
         f"Intentti: {spec.intent} | Mittari: {spec.metric} | Taso: {spec.entity_level} | "
-        f"Kasvu: {spec.growth_type} | Pyyntöaikaväli: {requested_txt} | Käytetty aikaväli: {effective_txt} | {rank_txt} | "
+        f"Kasvu: {spec.growth_type} | Fiscal side: {spec.fiscal_side} | "
+        f"Pyyntöaikaväli: {requested_txt} | Käytetty aikaväli: {effective_txt} | {rank_txt} | "
         + (f"Konsepti: {spec.resolved_concept_label} | " if spec.resolved_concept_label else "")
         + f"Luottamus: {spec.confidence:.0%}"
     )

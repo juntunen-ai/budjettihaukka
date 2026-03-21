@@ -10,6 +10,8 @@ CHART_MAP = {
     "trend": "trend_line",
     "growth": "growth_bar",
     "top_growth": "ranking_bar",
+    "top_cuts": "ranking_bar",
+    "revenue_decline": "ranking_bar",
     "composition": "stacked_area",
     "top_categories": "category_bar",
     "seasonality": "seasonality_heatmap",

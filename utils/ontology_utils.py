@@ -75,6 +75,7 @@ class OntologyConcept:
     narrower_concept_ids: list[str]
     default_entity_level: str
     default_metric: str
+    default_fiscal_side: str
     default_intents: list[str]
     risk_level: str
     must_clarify: bool
@@ -121,6 +122,7 @@ class ResolvedConcept:
     matched_aliases: tuple[str, ...]
     risk_level: str
     must_clarify: bool
+    default_fiscal_side: str
 
 
 def default_ontology_path() -> Path:
@@ -214,6 +216,7 @@ def load_budget_ontology(path: str | Path | None = None) -> BudgetOntology:
                 narrower_concept_ids=[str(v).strip() for v in item.get("narrower_concept_ids", []) if str(v).strip()],
                 default_entity_level=str(item.get("default_entity_level", "kokonais")).strip(),
                 default_metric=str(item.get("default_metric", "nettokertyma")).strip(),
+                default_fiscal_side=str(item.get("default_fiscal_side", "mixed")).strip(),
                 default_intents=[str(v).strip() for v in item.get("default_intents", []) if str(v).strip()],
                 risk_level=str(item.get("risk_level", "medium")).strip(),
                 must_clarify=bool(item.get("must_clarify", False)),
@@ -244,6 +247,7 @@ def validate_budget_ontology(ontology: BudgetOntology) -> list[str]:
 
     known_levels = {"kokonais", "hallinnonala", "kirjanpitoyksikko", "momentti", "alamomentti"}
     known_risks = {"low", "medium", "high"}
+    known_fiscal_sides = {"expense", "revenue", "financing", "technical", "mixed", "unknown"}
     known_match_types = {
         "canonical_name_pattern",
         "canonical_exact",
@@ -262,6 +266,8 @@ def validate_budget_ontology(ontology: BudgetOntology) -> list[str]:
                 issues.append(f"{concept.concept_id}: unknown narrower_concept_id={child_id}")
         if concept.default_entity_level not in known_levels:
             issues.append(f"{concept.concept_id}: invalid default_entity_level={concept.default_entity_level}")
+        if concept.default_fiscal_side not in known_fiscal_sides:
+            issues.append(f"{concept.concept_id}: invalid default_fiscal_side={concept.default_fiscal_side}")
         if concept.risk_level not in known_risks:
             issues.append(f"{concept.concept_id}: invalid risk_level={concept.risk_level}")
         if concept.must_clarify and not concept.clarification_question and not concept.guardrails:
@@ -306,6 +312,7 @@ def flatten_budget_ontology(ontology: BudgetOntology) -> dict[str, list[dict[str
                 "narrower_concept_ids": json.dumps(concept.narrower_concept_ids, ensure_ascii=False),
                 "default_entity_level": concept.default_entity_level,
                 "default_metric": concept.default_metric,
+                "default_fiscal_side": concept.default_fiscal_side,
                 "default_intents": json.dumps(concept.default_intents, ensure_ascii=False),
                 "risk_level": concept.risk_level,
                 "must_clarify": concept.must_clarify,
@@ -433,6 +440,7 @@ def resolve_concepts_for_question(
                 matched_aliases=tuple(sorted(set(matched_aliases), key=lambda v: (_normalize_text(v), v))),
                 risk_level=concept.risk_level,
                 must_clarify=concept.must_clarify,
+                default_fiscal_side=concept.default_fiscal_side,
             )
         )
 

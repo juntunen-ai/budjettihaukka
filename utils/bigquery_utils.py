@@ -11,6 +11,7 @@ import sqlglot
 from sqlglot import exp
 
 from config import settings
+from utils.budget_semantics import fiscal_side_case_sql
 from utils.analysis_spec_utils import AnalysisSpec, coverage_notice, infer_analysis_spec
 from utils.demo_data_utils import adapt_sql_to_demo_table, execute_demo_sql, get_demo_table_name
 from utils.ontology_utils import load_budget_ontology
@@ -57,7 +58,12 @@ BQ_HALLINNONALA_EXPR = "COALESCE(NULLIF(hallinnonala_canonical, ''), `Hallinnona
 BQ_KIRJANPITOYKSIKKO_EXPR = "NULLIF(`Kirjanpitoyksikkö`, '')"
 BQ_MOMENTTI_EXPR = "COALESCE(NULLIF(momentti_canonical, ''), NULLIF(`Momentti_sNimi`, ''))"
 BQ_ALAMOMENTTI_EXPR = "COALESCE(NULLIF(alamomentti_canonical, ''), NULLIF(`TakpMrL_sNimi`, ''))"
-YEARLY_AGG_TABLE_ID = f"{settings.project_id}.{settings.dataset}.valtiontalous_yearly_agg_v1"
+YEARLY_AGG_BASE_TABLE_ID = f"{settings.project_id}.{settings.dataset}.valtiontalous_yearly_agg_v1"
+YEARLY_AGG_TABLE_ID = f"{settings.project_id}.{settings.dataset}.valtiontalous_yearly_agg_guarded_v1"
+CONCEPT_BRIDGE_TABLE_ID = f"{settings.project_id}.{settings.dataset}.concept_moment_bridge_v2"
+MOMENT_LINEAGE_TABLE_ID = f"{settings.project_id}.{settings.dataset}.moment_lineage_v1"
+MOMENT_LINEAGE_GUARDRAIL_TABLE_ID = f"{settings.project_id}.{settings.dataset}.moment_structural_change_guardrails_v1"
+BRIDGE_PRIORITY_CONCEPTS = {"varhaiskasvatus", "yliopistot", "puolustus"}
 ONTOLOGY_RULE_LEVEL_MAP = {
     "hallinnonala": {
         "canonical_expr": BQ_HALLINNONALA_EXPR,
@@ -198,18 +204,29 @@ def _coerce_int(value: Any) -> int | None:
         return None
 
 
+def _top_limit(analysis_spec: AnalysisSpec | None, default: int = 10) -> int:
+    if not isinstance(analysis_spec, AnalysisSpec):
+        return default
+    ranking_n = _coerce_int(getattr(analysis_spec, "ranking_n", None))
+    if ranking_n is None:
+        return default
+    return max(1, min(ranking_n, 100))
+
+
 def _merge_analysis_spec_with_query_plan(spec: AnalysisSpec, query_plan: dict[str, Any] | None) -> AnalysisSpec:
     if not query_plan:
         return spec
 
-    allowed_intents = {"overview", "trend", "growth", "top_growth", "composition", "seasonality"}
+    allowed_intents = {"overview", "trend", "growth", "top_growth", "top_cuts", "revenue_decline", "composition", "seasonality"}
     allowed_entities = {"kokonais", "hallinnonala", "momentti", "alamomentti", "molemmat"}
     allowed_growth = {"absolute", "pct"}
+    allowed_fiscal_sides = {"expense", "revenue", "financing", "technical", "mixed", "unknown"}
 
     merged = replace(spec)
     intent = str(query_plan.get("intent", "")).strip().lower()
     entity = str(query_plan.get("entity_level", "")).strip().lower()
     growth = str(query_plan.get("growth_type", "")).strip().lower()
+    fiscal_side = str(query_plan.get("fiscal_side", "")).strip().lower()
 
     if intent in allowed_intents:
         merged.intent = intent
@@ -217,6 +234,8 @@ def _merge_analysis_spec_with_query_plan(spec: AnalysisSpec, query_plan: dict[st
         merged.entity_level = entity
     if growth in allowed_growth:
         merged.growth_type = growth
+    if fiscal_side in allowed_fiscal_sides:
+        merged.fiscal_side = fiscal_side
 
     ranking_n = _coerce_int(query_plan.get("ranking_n"))
     if ranking_n is not None:
@@ -309,6 +328,26 @@ def _ontology_membership_table_id() -> str:
     return f"{settings.project_id}.{settings.dataset}.{settings.ontology_table_prefix}_membership_rule"
 
 
+def _bridge_runtime_levels(dialect: str) -> tuple[str, ...]:
+    if dialect == "demo":
+        return tuple()
+    if dialect in {"yearly_agg", "bigquery"}:
+        return ("hallinnonala", "kirjanpitoyksikko", "momentti", "alamomentti")
+    return ("hallinnonala", "kirjanpitoyksikko", "momentti", "alamomentti")
+
+
+def _concept_bridge_enabled(analysis_spec: AnalysisSpec | None) -> bool:
+    if not isinstance(analysis_spec, AnalysisSpec):
+        return False
+    if settings.use_google_sheets_demo or not analysis_spec.resolved_concept_id:
+        return False
+    if analysis_spec.resolved_concept_id in BRIDGE_PRIORITY_CONCEPTS:
+        return True
+    if analysis_spec.intent == "top_cuts" and analysis_spec.resolved_concept_id:
+        return True
+    return False
+
+
 @lru_cache(maxsize=1)
 def _load_runtime_ontology():
     try:
@@ -378,6 +417,118 @@ def _fetch_ontology_membership_rules(concept_id: str) -> tuple[dict[str, Any], .
     return _local_ontology_membership_rules(concept_id)
 
 
+@lru_cache(maxsize=256)
+def _fetch_concept_bridge_rows_cached(
+    concept_id: str,
+    dialect: str,
+    year_from: int,
+    year_to: int,
+) -> tuple[dict[str, Any], ...]:
+    if not concept_id or settings.use_google_sheets_demo:
+        return tuple()
+
+    levels = _bridge_runtime_levels(dialect)
+    if not levels:
+        return tuple()
+
+    client = _get_bq_client()
+    if client is None:
+        return tuple()
+
+    sql = (
+        "SELECT hierarchy_level, hierarchy_code, bridge_display_name, has_same_year_conflict, "
+        "valid_from_year, valid_to_year, bridge_confidence, bridge_sources, has_rule_support, evidence_hits "
+        f"FROM `{CONCEPT_BRIDGE_TABLE_ID}` "
+        "WHERE concept_id = @concept_id "
+        "  AND recommended_for_runtime = TRUE "
+        "  AND hierarchy_level IN UNNEST(@levels) "
+        "  AND COALESCE(valid_to_year, 9999) >= @year_from "
+        "  AND COALESCE(valid_from_year, 0) <= @year_to "
+        "ORDER BY has_rule_support DESC, bridge_confidence DESC, hierarchy_level, hierarchy_code"
+    )
+    try:
+        job = client.query(
+            sql,
+            job_config=bigquery.QueryJobConfig(
+                query_parameters=[
+                    bigquery.ScalarQueryParameter("concept_id", "STRING", concept_id),
+                    bigquery.ArrayQueryParameter("levels", "STRING", list(levels)),
+                    bigquery.ScalarQueryParameter("year_from", "INT64", int(year_from)),
+                    bigquery.ScalarQueryParameter("year_to", "INT64", int(year_to)),
+                ]
+            ),
+        )
+        rows = [dict(row.items()) for row in job.result()]
+        return tuple(rows)
+    except Exception as exc:
+        logger.warning("Concept bridge -rivien haku epäonnistui konseptille %s: %s", concept_id, exc)
+        return tuple()
+
+
+def _fetch_concept_bridge_rules(
+    analysis_spec: AnalysisSpec | None,
+    dialect: str,
+) -> tuple[dict[str, Any], ...]:
+    if not _concept_bridge_enabled(analysis_spec):
+        return tuple()
+
+    assert isinstance(analysis_spec, AnalysisSpec)
+    year_from, year_to = _with_default_year_bounds(analysis_spec.time_from, analysis_spec.time_to)
+    rows = _fetch_concept_bridge_rows_cached(
+        analysis_spec.resolved_concept_id or "",
+        dialect,
+        year_from,
+        year_to,
+    )
+    rules: list[dict[str, Any]] = []
+    supported_levels = set(_bridge_runtime_levels(dialect))
+    for idx, row in enumerate(rows, start=1):
+        hierarchy_level = str(row.get("hierarchy_level", "")).strip().lower()
+        hierarchy_code = str(row.get("hierarchy_code", "")).strip()
+        if not hierarchy_level or not hierarchy_code or hierarchy_level not in supported_levels:
+            continue
+        bridge_display_name = str(row.get("bridge_display_name", "")).strip() or None
+        has_same_year_conflict = bool(row.get("has_same_year_conflict"))
+        rules.append(
+            {
+                "rule_scope": "include",
+                "hierarchy_level": hierarchy_level,
+                "match_type": "exact_code_with_name" if has_same_year_conflict and bridge_display_name else "exact_code",
+                "value": hierarchy_code,
+                "name_value": bridge_display_name,
+                "valid_from_year": row.get("valid_from_year"),
+                "valid_to_year": row.get("valid_to_year"),
+                "confidence": float(row.get("bridge_confidence") or 0.99),
+                "rule_id": f"{analysis_spec.resolved_concept_id}_bridge_{idx:03d}",
+                "bridge_source": row.get("bridge_sources"),
+            }
+        )
+    return tuple(rules)
+
+
+def get_concept_bridge_summary(
+    concept_id: str | None,
+    year_from: int | None = None,
+    year_to: int | None = None,
+    dialect: str = "bigquery",
+) -> dict[str, Any]:
+    if not concept_id:
+        return {}
+    start, end = _with_default_year_bounds(year_from, year_to)
+    rows = _fetch_concept_bridge_rows_cached(concept_id, dialect, start, end)
+    if not rows:
+        return {}
+    sources = sorted({str(row.get("bridge_sources") or "") for row in rows if row.get("bridge_sources")})
+    valid_froms = [int(v) for v in (row.get("valid_from_year") for row in rows) if v is not None]
+    valid_tos = [int(v) for v in (row.get("valid_to_year") for row in rows) if v is not None]
+    return {
+        "row_count": len(rows),
+        "sources": sources,
+        "valid_from_year": min(valid_froms) if valid_froms else None,
+        "valid_to_year": max(valid_tos) if valid_tos else None,
+    }
+
+
 def _rule_year_window(
     analysis_spec: AnalysisSpec | None,
     valid_from_year: int | None,
@@ -414,6 +565,7 @@ def _rule_match_predicate(
     code_expr = expressions["code_expr"]
     match_type = str(rule.get("match_type", "")).strip().lower()
     value = str(rule.get("value", "")).strip()
+    name_value = str(rule.get("name_value", "")).strip()
     if not value:
         return None
 
@@ -425,6 +577,11 @@ def _rule_match_predicate(
         return f"LOWER(CAST({raw_expr} AS STRING)) LIKE LOWER({_sql_literal(value)})"
     if match_type == "exact_code" and code_expr != "NULL":
         return f"CAST({code_expr} AS STRING) = {_sql_literal(value)}"
+    if match_type == "exact_code_with_name" and code_expr != "NULL" and canonical_expr != "NULL" and name_value:
+        return (
+            f"(CAST({code_expr} AS STRING) = {_sql_literal(value)} "
+            f"AND LOWER(CAST({canonical_expr} AS STRING)) = LOWER({_sql_literal(name_value)}))"
+        )
     if match_type == "code_prefix" and code_expr != "NULL":
         return f"CAST({code_expr} AS STRING) LIKE {_sql_literal(value + '%')}"
     return None
@@ -437,7 +594,15 @@ def _ontology_scope_clause(
     if not isinstance(analysis_spec, AnalysisSpec) or not analysis_spec.resolved_concept_id:
         return None
 
-    rules = _fetch_ontology_membership_rules(analysis_spec.resolved_concept_id)
+    bridge_rules = _fetch_concept_bridge_rules(analysis_spec, dialect)
+    ontology_rules = _fetch_ontology_membership_rules(analysis_spec.resolved_concept_id)
+    if bridge_rules:
+        exclude_rules = tuple(
+            rule for rule in ontology_rules if str(rule.get("rule_scope", "")).strip().lower() == "exclude"
+        )
+        rules = tuple(bridge_rules) + exclude_rules
+    else:
+        rules = ontology_rules
     if not rules:
         return None
 
@@ -479,6 +644,44 @@ def _ontology_scope_clause(
     return "(" + " AND ".join(parts) + ")"
 
 
+def _fiscal_side_expr(dialect: str) -> str:
+    if dialect == "yearly_agg":
+        return fiscal_side_case_sql(
+            code_expr="momentti_tunnusp",
+            name_expr="momentti_snimi",
+            hallinnonala_expr="hallinnonala",
+        )
+    if dialect == "demo":
+        return fiscal_side_case_sql(
+            code_expr="momentti_tunnusp",
+            name_expr="momentti_snimi",
+            hallinnonala_expr="hallinnonala",
+        )
+    return fiscal_side_case_sql(
+        code_expr="`Momentti_TunnusP`",
+        name_expr=BQ_MOMENTTI_EXPR,
+        hallinnonala_expr=BQ_HALLINNONALA_EXPR,
+    )
+
+
+def _semantic_where_clause(analysis_spec: AnalysisSpec | None, dialect: str) -> str | None:
+    if not isinstance(analysis_spec, AnalysisSpec):
+        return None
+
+    side_expr = _fiscal_side_expr(dialect)
+    filters: list[str] = [f"{side_expr} <> 'technical'"]
+    side = str(analysis_spec.fiscal_side or "").strip().lower()
+    if side in {"expense", "revenue", "financing"}:
+        filters.append(f"{side_expr} = '{side}'")
+    if analysis_spec.intent == "top_cuts":
+        filters.append(f"{side_expr} = 'expense'")
+    if analysis_spec.intent == "revenue_decline":
+        filters.append(f"{side_expr} = 'revenue'")
+    if not filters:
+        return None
+    return "(" + " AND ".join(filters) + ")"
+
+
 def _build_topic_where_clause(text: str, dialect: str) -> str | None:
     if _is_higher_education_query(text):
         if dialect == "bigquery":
@@ -514,6 +717,9 @@ def _build_demo_fallback_sql(question: str, analysis_spec: AnalysisSpec | None =
         where_parts.append(f"vuosi BETWEEN {year_from} AND {year_to}")
     if _is_defense_query(text):
         where_parts.append("LOWER(hallinnonala) LIKE '%puolustus%'")
+    semantic_clause = _semantic_where_clause(spec, "demo")
+    if semantic_clause:
+        where_parts.append(semantic_clause)
     topic_clause = _ontology_scope_clause(spec, "demo") or _build_topic_where_clause(text, "demo")
     if topic_clause:
         where_parts.append(topic_clause)
@@ -580,6 +786,9 @@ def _build_bigquery_fallback_sql(question: str, analysis_spec: AnalysisSpec | No
         where_parts.append(f"SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to}")
     if _is_defense_query(text):
         where_parts.append(f"LOWER({BQ_HALLINNONALA_EXPR}) LIKE '%puolustus%'")
+    semantic_clause = _semantic_where_clause(spec, "bigquery")
+    if semantic_clause:
+        where_parts.append(semantic_clause)
     topic_clause = _ontology_scope_clause(spec, "bigquery") or _build_topic_where_clause(text, "bigquery")
     if topic_clause:
         where_parts.append(topic_clause)
@@ -587,6 +796,52 @@ def _build_bigquery_fallback_sql(question: str, analysis_spec: AnalysisSpec | No
 
     if any(token in text for token in ("montako", "kuinka monta", "count", "lukum")):
         return f"SELECT COUNT(*) AS rows_count FROM {table}{where_clause} LIMIT 1"
+
+    if spec.intent in {"top_cuts", "revenue_decline"}:
+        start_year, end_year = _with_default_year_bounds(spec.time_from, spec.time_to)
+        if spec.entity_level in {"alamomentti", "molemmat"}:
+            group_cols = ["momentti_tunnusp", "momentti_snimi", "alamomentti_tunnus", "alamomentti_snimi"]
+            select_list = "momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi"
+        elif spec.entity_level == "hallinnonala":
+            group_cols = ["hallinnonala"]
+            select_list = "hallinnonala"
+        else:
+            group_cols = ["momentti_tunnusp", "momentti_snimi"]
+            select_list = "momentti_tunnusp, momentti_snimi"
+        group_by = ", ".join(group_cols)
+        non_null_guard = " OR ".join([f"{column} IS NOT NULL" for column in group_cols])
+        value_expr = "ABS(nettokertyma_sum)" if spec.intent == "revenue_decline" else "nettokertyma_sum"
+        delta_alias = "muutos_abs_eur" if spec.intent == "revenue_decline" else "muutos_eur"
+        decline_filter = "AND loppuvuosi_sum < alkuvuosi_sum"
+        return (
+            "WITH base AS ("
+            "  SELECT "
+            "    SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
+            f"    {BQ_HALLINNONALA_EXPR} AS hallinnonala, "
+            "    NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
+            f"    {BQ_MOMENTTI_EXPR} AS momentti_snimi, "
+            "    NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus, "
+            f"    {BQ_ALAMOMENTTI_EXPR} AS alamomentti_snimi, "
+            "    SAFE_CAST(`Nettokertymä` AS NUMERIC) AS nettokertyma_sum "
+            f"  FROM {table}{where_clause}"
+            "), "
+            "start_end AS ("
+            f"  SELECT {select_list}, "
+            f"    SUM(IF(vuosi = {start_year}, {value_expr}, 0)) AS alkuvuosi_sum, "
+            f"    SUM(IF(vuosi = {end_year}, {value_expr}, 0)) AS loppuvuosi_sum "
+            "  FROM base "
+            f"  GROUP BY {group_by}"
+            ") "
+            "SELECT "
+            f"  {select_list}, "
+            "  alkuvuosi_sum, loppuvuosi_sum, "
+            f"  loppuvuosi_sum - alkuvuosi_sum AS {delta_alias}, "
+            "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS muutos_pct "
+            "FROM start_end "
+            f"WHERE ({non_null_guard}) AND ABS(alkuvuosi_sum) >= 1000000 {decline_filter} "
+            "ORDER BY muutos_pct ASC, alkuvuosi_sum DESC "
+            "LIMIT 100"
+        )
 
     if _is_top_moment_growth_query(text):
         if year_from is None or year_to is None:
@@ -695,10 +950,10 @@ def _yearly_agg_available() -> bool:
     if client is None:
         return False
     try:
-        table = client.get_table(YEARLY_AGG_TABLE_ID)
-        return bool(int(getattr(table, "num_rows", 0) or 0) > 0)
+        client.get_table(YEARLY_AGG_TABLE_ID)
+        return True
     except Exception as exc:
-        logger.warning("Vuosiaggregaattitaulu ei ole käytettävissä: %s", exc)
+        logger.warning("Vuosiaggregaattinäkymä ei ole käytettävissä: %s", exc)
         return False
 
 
@@ -712,7 +967,7 @@ def _can_use_yearly_agg(question: str, analysis_spec: AnalysisSpec | None) -> bo
         return False
     if not isinstance(analysis_spec, AnalysisSpec):
         return False
-    return analysis_spec.intent in {"trend", "growth", "top_growth", "composition", "overview"}
+    return analysis_spec.intent in {"trend", "growth", "top_growth", "top_cuts", "revenue_decline", "composition", "overview"}
 
 
 def _yearly_agg_where_clause(question: str, analysis_spec: AnalysisSpec) -> str:
@@ -721,10 +976,124 @@ def _yearly_agg_where_clause(question: str, analysis_spec: AnalysisSpec) -> str:
     where_parts = [f"vuosi BETWEEN {year_from} AND {year_to}"]
     if _is_defense_query(text):
         where_parts.append("LOWER(hallinnonala) LIKE '%puolustus%'")
+    semantic_clause = _semantic_where_clause(analysis_spec, "yearly_agg")
+    if semantic_clause:
+        where_parts.append(semantic_clause)
     topic_clause = _ontology_scope_clause(analysis_spec, "yearly_agg")
     if topic_clause:
         where_parts.append(topic_clause)
     return " WHERE " + " AND ".join(where_parts)
+
+
+def _yearly_agg_base_cte(where_clause: str) -> str:
+    side_expr = _fiscal_side_expr("yearly_agg")
+    return (
+        "base AS ("
+        "  SELECT "
+        "    vuosi, "
+        "    hallinnonala, "
+        "    momentti_tunnusp, "
+        "    momentti_snimi, "
+        "    alamomentti_tunnus, "
+        "    alamomentti_snimi, "
+        "    nettokertyma_sum, "
+        "    COALESCE(has_structural_guardrail, FALSE) AS has_structural_guardrail, "
+        "    structural_relation_types, "
+        "    structural_guardrail_confidence, "
+        f"    {side_expr} AS fiscal_side "
+        f"  FROM `{YEARLY_AGG_TABLE_ID}`{where_clause}"
+        ")"
+    )
+
+
+def _yearly_agg_grouping_columns(entity_level: str) -> tuple[list[str], list[str]]:
+    if entity_level in {"alamomentti", "molemmat"}:
+        cols = ["momentti_tunnusp", "momentti_snimi", "alamomentti_tunnus", "alamomentti_snimi"]
+        labels = ["momentti_tunnusp", "momentti_snimi", "alamomentti_tunnus", "alamomentti_snimi"]
+        return cols, labels
+    if entity_level == "hallinnonala":
+        return ["hallinnonala"], ["hallinnonala"]
+    return ["momentti_tunnusp", "momentti_snimi"], ["momentti_tunnusp", "momentti_snimi"]
+
+
+def _build_yearly_agg_rank_change_sql(
+    analysis_spec: AnalysisSpec,
+    where_clause: str,
+    *,
+    order_mode: str,
+    revenue_mode: bool = False,
+) -> str:
+    start_year, end_year = _with_default_year_bounds(analysis_spec.time_from, analysis_spec.time_to)
+    group_cols, select_cols = _yearly_agg_grouping_columns(analysis_spec.entity_level)
+    group_by = ", ".join(group_cols)
+    select_list = ", ".join(select_cols)
+    non_null_guard = " OR ".join([f"{column} IS NOT NULL" for column in group_cols])
+    order_expr = "muutos_pct ASC, muutos_eur ASC" if order_mode == "cuts" else "muutos_pct ASC, muutos_abs_eur ASC"
+
+    if revenue_mode:
+        return (
+            f"WITH {_yearly_agg_base_cte(where_clause)}, "
+            "start_end AS ("
+            f"  SELECT {select_list}, "
+            f"    SUM(IF(vuosi = {start_year}, ABS(nettokertyma_sum), 0)) AS alkuvuosi_sum, "
+            f"    SUM(IF(vuosi = {end_year}, ABS(nettokertyma_sum), 0)) AS loppuvuosi_sum "
+            f"  , COUNTIF(vuosi = {start_year}) AS alkuvuosi_havaintoja "
+            f"  , COUNTIF(vuosi = {end_year}) AS loppuvuosi_havaintoja "
+            "  , MAX(CAST(has_structural_guardrail AS INT64)) AS has_structural_guardrail_window "
+            "  , MAX(structural_guardrail_confidence) AS structural_guardrail_confidence "
+            "  , ARRAY_TO_STRING(ARRAY_AGG(DISTINCT structural_relation_types IGNORE NULLS ORDER BY structural_relation_types), ', ') AS structural_relation_types "
+            "  FROM base "
+            f"  GROUP BY {group_by}"
+            ") "
+            "SELECT "
+            f"  {select_list}, "
+            "  alkuvuosi_sum, "
+            "  loppuvuosi_sum, "
+            "  loppuvuosi_sum - alkuvuosi_sum AS muutos_abs_eur, "
+            "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS muutos_pct, "
+            "  has_structural_guardrail_window, structural_guardrail_confidence, structural_relation_types "
+            "FROM start_end "
+            f"WHERE ({non_null_guard}) "
+            "  AND ABS(alkuvuosi_sum) >= 1000000 "
+            "  AND alkuvuosi_havaintoja > 0 "
+            "  AND loppuvuosi_havaintoja > 0 "
+            "  AND loppuvuosi_sum < alkuvuosi_sum "
+            "  AND has_structural_guardrail_window = 0 "
+            f"ORDER BY {order_expr} "
+            f"LIMIT {max(25, _top_limit(analysis_spec))}"
+        )
+
+    return (
+        f"WITH {_yearly_agg_base_cte(where_clause)}, "
+        "start_end AS ("
+        f"  SELECT {select_list}, "
+        f"    SUM(IF(vuosi = {start_year}, nettokertyma_sum, 0)) AS alkuvuosi_sum, "
+        f"    SUM(IF(vuosi = {end_year}, nettokertyma_sum, 0)) AS loppuvuosi_sum "
+        f"  , COUNTIF(vuosi = {start_year}) AS alkuvuosi_havaintoja "
+        f"  , COUNTIF(vuosi = {end_year}) AS loppuvuosi_havaintoja "
+        "  , MAX(CAST(has_structural_guardrail AS INT64)) AS has_structural_guardrail_window "
+        "  , MAX(structural_guardrail_confidence) AS structural_guardrail_confidence "
+        "  , ARRAY_TO_STRING(ARRAY_AGG(DISTINCT structural_relation_types IGNORE NULLS ORDER BY structural_relation_types), ', ') AS structural_relation_types "
+        "  FROM base "
+        f"  GROUP BY {group_by}"
+        ") "
+        "SELECT "
+        f"  {select_list}, "
+        "  alkuvuosi_sum, "
+        "  loppuvuosi_sum, "
+        "  loppuvuosi_sum - alkuvuosi_sum AS muutos_eur, "
+        "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS muutos_pct, "
+        "  has_structural_guardrail_window, structural_guardrail_confidence, structural_relation_types "
+        "FROM start_end "
+        f"WHERE ({non_null_guard}) "
+        "  AND ABS(alkuvuosi_sum) >= 1000000 "
+        "  AND alkuvuosi_havaintoja > 0 "
+        "  AND loppuvuosi_havaintoja > 0 "
+        "  AND loppuvuosi_sum < alkuvuosi_sum "
+        "  AND has_structural_guardrail_window = 0 "
+        f"ORDER BY {order_expr} "
+        f"LIMIT {max(25, _top_limit(analysis_spec))}"
+    )
 
 
 def _build_yearly_agg_sql(question: str, analysis_spec: AnalysisSpec) -> str:
@@ -736,6 +1105,12 @@ def _build_yearly_agg_sql(question: str, analysis_spec: AnalysisSpec) -> str:
     if any(token in text for token in ("montako", "kuinka monta", "count", "lukum")):
         return f"SELECT COUNT(*) AS rows_count FROM {table}{where_clause} LIMIT 1"
 
+    if analysis_spec.intent == "top_cuts":
+        return _build_yearly_agg_rank_change_sql(analysis_spec, where_clause, order_mode="cuts", revenue_mode=False)
+
+    if analysis_spec.intent == "revenue_decline":
+        return _build_yearly_agg_rank_change_sql(analysis_spec, where_clause, order_mode="decline", revenue_mode=True)
+
     if analysis_spec.intent == "top_growth":
         if analysis_spec.entity_level in {"alamomentti", "molemmat"}:
             return (
@@ -746,7 +1121,12 @@ def _build_yearly_agg_sql(question: str, analysis_spec: AnalysisSpec) -> str:
                 "    alamomentti_tunnus, "
                 "    alamomentti_snimi, "
                 f"    SUM(IF(vuosi = {start_year}, nettokertyma_sum, 0)) AS alkuvuosi_sum, "
-                f"    SUM(IF(vuosi = {end_year}, nettokertyma_sum, 0)) AS loppuvuosi_sum "
+                f"    SUM(IF(vuosi = {end_year}, nettokertyma_sum, 0)) AS loppuvuosi_sum, "
+                f"    COUNTIF(vuosi = {start_year}) AS alkuvuosi_havaintoja, "
+                f"    COUNTIF(vuosi = {end_year}) AS loppuvuosi_havaintoja, "
+                "    MAX(CAST(has_structural_guardrail AS INT64)) AS has_structural_guardrail_window, "
+                "    MAX(structural_guardrail_confidence) AS structural_guardrail_confidence, "
+                "    ARRAY_TO_STRING(ARRAY_AGG(DISTINCT structural_relation_types IGNORE NULLS ORDER BY structural_relation_types), ', ') AS structural_relation_types "
                 f"  FROM {table}{where_clause} "
                 "  GROUP BY momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi"
                 ") "
@@ -754,8 +1134,12 @@ def _build_yearly_agg_sql(question: str, analysis_spec: AnalysisSpec) -> str:
                 "  momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi, "
                 "  alkuvuosi_sum, loppuvuosi_sum, "
                 "  loppuvuosi_sum - alkuvuosi_sum AS kasvu_eur, "
-                "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS kasvu_pct "
+                "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS kasvu_pct, "
+                "  has_structural_guardrail_window, structural_guardrail_confidence, structural_relation_types "
                 "FROM start_end "
+                "WHERE has_structural_guardrail_window = 0 "
+                "  AND alkuvuosi_havaintoja > 0 "
+                "  AND loppuvuosi_havaintoja > 0 "
                 "ORDER BY kasvu_eur DESC "
                 "LIMIT 100"
             )
@@ -765,7 +1149,12 @@ def _build_yearly_agg_sql(question: str, analysis_spec: AnalysisSpec) -> str:
             "    momentti_tunnusp, "
             "    momentti_snimi, "
             f"    SUM(IF(vuosi = {start_year}, nettokertyma_sum, 0)) AS alkuvuosi_sum, "
-            f"    SUM(IF(vuosi = {end_year}, nettokertyma_sum, 0)) AS loppuvuosi_sum "
+            f"    SUM(IF(vuosi = {end_year}, nettokertyma_sum, 0)) AS loppuvuosi_sum, "
+            f"    COUNTIF(vuosi = {start_year}) AS alkuvuosi_havaintoja, "
+            f"    COUNTIF(vuosi = {end_year}) AS loppuvuosi_havaintoja, "
+            "    MAX(CAST(has_structural_guardrail AS INT64)) AS has_structural_guardrail_window, "
+            "    MAX(structural_guardrail_confidence) AS structural_guardrail_confidence, "
+            "    ARRAY_TO_STRING(ARRAY_AGG(DISTINCT structural_relation_types IGNORE NULLS ORDER BY structural_relation_types), ', ') AS structural_relation_types "
             f"  FROM {table}{where_clause} "
             "  GROUP BY momentti_tunnusp, momentti_snimi"
             ") "
@@ -773,8 +1162,12 @@ def _build_yearly_agg_sql(question: str, analysis_spec: AnalysisSpec) -> str:
             "  momentti_tunnusp, momentti_snimi, "
             "  alkuvuosi_sum, loppuvuosi_sum, "
             "  loppuvuosi_sum - alkuvuosi_sum AS kasvu_eur, "
-            "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS kasvu_pct "
+            "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS kasvu_pct, "
+            "  has_structural_guardrail_window, structural_guardrail_confidence, structural_relation_types "
             "FROM start_end "
+            "WHERE has_structural_guardrail_window = 0 "
+            "  AND alkuvuosi_havaintoja > 0 "
+            "  AND loppuvuosi_havaintoja > 0 "
             "ORDER BY kasvu_eur DESC "
             "LIMIT 100"
         )
@@ -817,6 +1210,7 @@ def _build_yearly_agg_sql(question: str, analysis_spec: AnalysisSpec) -> str:
 def _choose_budget_moment_value_column(df: pd.DataFrame) -> str | None:
     for candidate in (
         "kasvu_eur",
+        "muutos_abs_eur",
         "nettokertyma_sum",
         "loppuvuosi_sum",
         "muutos_eur",
@@ -945,6 +1339,9 @@ def _build_bigquery_budget_moment_evidence_sql(
     ]
     if _is_defense_query(text):
         where_parts.append(f"LOWER({BQ_HALLINNONALA_EXPR}) LIKE '%puolustus%'")
+    semantic_clause = _semantic_where_clause(analysis_spec, "bigquery")
+    if semantic_clause:
+        where_parts.append(semantic_clause)
     topic_clause = _ontology_scope_clause(analysis_spec, "bigquery") or _build_topic_where_clause(text, "bigquery")
     if topic_clause:
         where_parts.append(topic_clause)
@@ -979,6 +1376,9 @@ def _build_demo_budget_moment_evidence_sql(
     ]
     if _is_defense_query(text):
         where_parts.append("LOWER(hallinnonala) LIKE '%puolustus%'")
+    semantic_clause = _semantic_where_clause(analysis_spec, "demo")
+    if semantic_clause:
+        where_parts.append(semantic_clause)
     topic_clause = _ontology_scope_clause(analysis_spec, "demo") or _build_topic_where_clause(text, "demo")
     if topic_clause:
         where_parts.append(topic_clause)
@@ -999,6 +1399,70 @@ def _build_demo_budget_moment_evidence_sql(
     )
 
 
+def _build_concept_bridge_sql(question: str, analysis_spec: AnalysisSpec, limit: int = 500) -> str | None:
+    if not isinstance(analysis_spec, AnalysisSpec) or not analysis_spec.resolved_concept_id:
+        return None
+
+    row_limit = max(1, min(int(limit), 1000))
+    if settings.use_google_sheets_demo:
+        year_from, year_to = _budget_moment_year_bounds(question, analysis_spec)
+        where_parts = [f"vuosi BETWEEN {year_from} AND {year_to}"]
+        semantic_clause = _semantic_where_clause(analysis_spec, "demo")
+        if semantic_clause:
+            where_parts.append(semantic_clause)
+        topic_clause = _ontology_scope_clause(analysis_spec, "demo")
+        if topic_clause:
+            where_parts.append(topic_clause)
+        where_clause = " WHERE " + " AND ".join(where_parts)
+        return (
+            "WITH bridge AS ("
+            "  SELECT "
+            "    NULLIF(momentti_tunnusp, '') AS momentti_tunnusp, "
+            "    NULLIF(momentti_snimi, '') AS momentti_snimi, "
+            "    NULL AS alamomentti_tunnus, "
+            "    NULL AS alamomentti_snimi, "
+            f"    {_fiscal_side_expr('demo')} AS fiscal_side "
+            f"  FROM {get_demo_table_name()}{where_clause}"
+            ") "
+            "SELECT momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi, fiscal_side "
+            "FROM bridge "
+            "GROUP BY momentti_tunnusp, momentti_snimi, fiscal_side "
+            "ORDER BY momentti_tunnusp, momentti_snimi "
+            f"LIMIT {row_limit}"
+        )
+    year_from, year_to = _budget_moment_year_bounds(question, analysis_spec)
+    return (
+        "SELECT "
+        "  CASE WHEN hierarchy_level = 'alamomentti' THEN NULL ELSE hierarchy_code END AS momentti_tunnusp, "
+        "  CASE WHEN hierarchy_level = 'momentti' THEN bridge_display_name ELSE NULL END AS momentti_snimi, "
+        "  CASE WHEN hierarchy_level = 'alamomentti' THEN hierarchy_code ELSE NULL END AS alamomentti_tunnus, "
+        "  CASE WHEN hierarchy_level = 'alamomentti' THEN bridge_display_name ELSE NULL END AS alamomentti_snimi, "
+        "  default_fiscal_side AS fiscal_side, "
+        "  bridge_confidence "
+        f"FROM `{CONCEPT_BRIDGE_TABLE_ID}` "
+        f"WHERE concept_id = {_sql_literal(analysis_spec.resolved_concept_id)} "
+        "  AND recommended_for_runtime = TRUE "
+        "  AND hierarchy_level IN ('momentti', 'alamomentti') "
+        f"  AND COALESCE(valid_to_year, 9999) >= {year_from} "
+        f"  AND COALESCE(valid_from_year, 0) <= {year_to} "
+        "ORDER BY bridge_confidence DESC, hierarchy_level, hierarchy_code, bridge_display_name "
+        f"LIMIT {row_limit}"
+    )
+
+
+def get_concept_bridge(question: str, analysis_spec: AnalysisSpec, limit: int = 500) -> dict[str, Any]:
+    sql = _build_concept_bridge_sql(question, analysis_spec, limit=limit)
+    if not sql:
+        return {"bridge_df": pd.DataFrame(), "sql": None, "error": None}
+    execution = _execute_with_auto_repair(sql, max_repair_attempts=1)
+    bridge_df = execution.get("results_df") if isinstance(execution.get("results_df"), pd.DataFrame) else pd.DataFrame()
+    return {
+        "bridge_df": bridge_df.copy().where(pd.notna(bridge_df), None) if not bridge_df.empty else pd.DataFrame(),
+        "sql": execution.get("sql"),
+        "error": execution.get("error"),
+    }
+
+
 def get_budget_moment_evidence(
     question: str,
     results_df: pd.DataFrame | None = None,
@@ -1016,6 +1480,19 @@ def get_budget_moment_evidence(
             "sql": None,
             "error": None,
         }
+
+    if isinstance(analysis_spec, AnalysisSpec) and analysis_spec.resolved_concept_id:
+        concept_bridge = get_concept_bridge(question, analysis_spec, limit=max(limit, 100))
+        bridge_df = concept_bridge.get("bridge_df")
+        if isinstance(bridge_df, pd.DataFrame) and not bridge_df.empty:
+            evidence_df = _build_budget_moment_evidence_from_results(bridge_df, limit=limit)
+            if not evidence_df.empty:
+                return {
+                    "evidence_df": evidence_df,
+                    "source": "concept_bridge",
+                    "sql": concept_bridge.get("sql"),
+                    "error": concept_bridge.get("error"),
+                }
 
     sql = (
         _build_demo_budget_moment_evidence_sql(question, analysis_spec, limit)
@@ -1423,6 +1900,20 @@ def _deterministic_fallback_sql(question: str, analysis_spec: AnalysisSpec | Non
     return _build_bigquery_fallback_sql(question, analysis_spec=spec)
 
 
+def _lineage_guardrail_notice(analysis_spec: AnalysisSpec | None, query_source: str | None) -> str:
+    if not isinstance(analysis_spec, AnalysisSpec):
+        return ""
+    if query_source != "yearly_agg":
+        return ""
+    if analysis_spec.intent not in {"top_growth", "top_cuts", "revenue_decline"}:
+        return ""
+    return (
+        " Huom: rankingista on suodatettu pois momentit, joilla havaittiin "
+        "rakenteellinen muutos (siirto, uudelleennimeäminen, split tai merge) "
+        "tarkasteluvälillä."
+    )
+
+
 def execute_analysis_spec(
     question: str,
     analysis_spec: AnalysisSpec,
@@ -1528,6 +2019,7 @@ def execute_analysis_spec(
 
     global last_bq_error
     year_notice = coverage_notice(analysis_spec) or _year_range_notice(question)
+    lineage_notice = _lineage_guardrail_notice(analysis_spec, query_source)
     source_info = f"Kyselypolku: {query_source}"
     if query_contract:
         source_info = f"{source_info} ({query_contract})"
@@ -1540,6 +2032,8 @@ def execute_analysis_spec(
             explanation = f"{explanation} Auto-repair yritykset: {total_retries}."
         if year_notice:
             explanation = f"{explanation} {year_notice}"
+        if lineage_notice:
+            explanation = f"{explanation}{lineage_notice}"
         return {
             "query_id": query_id,
             "sql_query": executed_sql,
@@ -1560,6 +2054,8 @@ def execute_analysis_spec(
             explanation = f"{explanation} Auto-repair yritykset: {total_retries}."
         if year_notice:
             explanation = f"{explanation} {year_notice}"
+        if lineage_notice:
+            explanation = f"{explanation}{lineage_notice}"
         return {
             "query_id": query_id,
             "sql_query": executed_sql,
@@ -1580,6 +2076,8 @@ def execute_analysis_spec(
         explanation = f"{explanation} Auto-repair yritykset: {total_retries}."
     if year_notice:
         explanation = f"{explanation} {year_notice}"
+    if lineage_notice:
+        explanation = f"{explanation}{lineage_notice}"
     return {
         "query_id": query_id,
         "sql_query": executed_sql,

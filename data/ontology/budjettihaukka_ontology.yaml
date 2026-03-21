@@ -11,9 +11,10 @@ concepts:
     description_fi: Laaja koulutuksen kokonaisuus sisältäen korkeakoulutuksen, ammatillisen koulutuksen ja opintotuen.
     policy_theme: koulutus
     broader_concept_id:
-    narrower_concept_ids: [korkeakoulutus, ammatillinen_koulutus, opintotuki]
+    narrower_concept_ids: [korkeakoulutus, ammatillinen_koulutus, opintotuki, varhaiskasvatus, perusopetus]
     default_entity_level: hallinnonala
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, composition, growth]
     risk_level: medium
     must_clarify: false
@@ -29,6 +30,26 @@ concepts:
       - alias: opetus
         source: manual
         alias_type: alt
+        lang: fi
+      - alias: koulutuksen
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: koulutusta
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: koulutukseen
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: opetusmenot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: OKM
+        source: manual
+        alias_type: abbreviation
         lang: fi
     include_rules:
       - hierarchy_level: hallinnonala
@@ -63,6 +84,7 @@ concepts:
     narrower_concept_ids: [yliopistot, ammattikorkeakoulut]
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, top_growth]
     risk_level: high
     must_clarify: true
@@ -79,6 +101,14 @@ concepts:
       - alias: korkeakoulujen rahoitus
         source: manual
         alias_type: alt
+        lang: fi
+      - alias: korkeakoulutuksen
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: korkeakouluja
+        source: manual
+        alias_type: inflected
         lang: fi
     include_rules:
       - hierarchy_level: momentti
@@ -117,6 +147,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, top_growth]
     risk_level: high
     must_clarify: false
@@ -159,6 +190,14 @@ concepts:
         match_type: canonical_name_pattern
         value: "%opintotuki%"
         confidence: 0.99
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%kesäyliopisto%"
+        confidence: 0.99
+      - hierarchy_level: momentti
+        match_type: exact_code
+        value: "33.60.32."
+        confidence: 0.99
     visualization_recipes:
       - intent: trend
         primary_chart: trend
@@ -178,6 +217,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, top_growth]
     risk_level: medium
     must_clarify: false
@@ -224,6 +264,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, composition]
     risk_level: medium
     must_clarify: false
@@ -278,6 +319,87 @@ concepts:
         primary_chart: top_categories
         secondary_chart: treemap
 
+  - concept_id: varhaiskasvatus
+    label_fi: Varhaiskasvatus
+    description_fi: >-
+      Varhaiskasvatukseen viittaavat budjettierät. Tulkinta on korkean riskin,
+      koska varhaiskasvatus sisältyy usein laajempiin kuntien ja koulutuksen
+      rahoituskokonaisuuksiin eikä muodosta koko aikasarjalla yhtä puhdasta
+      momenttijatkumoa.
+    policy_theme: koulutus
+    broader_concept_id: koulutus
+    narrower_concept_ids: []
+    default_entity_level: momentti
+    default_metric: nettokertyma
+    default_fiscal_side: expense
+    default_intents: [trend, growth, composition]
+    risk_level: high
+    must_clarify: false
+    aliases:
+      - alias: varhaiskasvatus
+        source: manual
+        alias_type: pref
+        lang: fi
+      - alias: varhaiskasvatuksen rahoitus
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: varhaiskasvatuksen menot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: päivähoito
+        source: manual
+        alias_type: historical
+        lang: fi
+      - alias: lasten päivähoito
+        source: manual
+        alias_type: historical
+        lang: fi
+      - alias: early childhood education
+        source: manual
+        alias_type: english
+        lang: en
+    include_rules:
+      - hierarchy_level: momentti
+        match_type: exact_code
+        value: "29.10.20."
+        valid_from_year: 2016
+        confidence: 0.99
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%varhaiskasvat%"
+        valid_from_year: 2016
+        confidence: 0.97
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%päivähoito%"
+        valid_to_year: 2015
+        confidence: 0.90
+    exclude_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%yliopist%"
+        confidence: 0.95
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%ammattikorkeakoul%"
+        confidence: 0.95
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%opintotuki%"
+        confidence: 0.95
+    visualization_recipes:
+      - intent: trend
+        primary_chart: trend
+        secondary_chart: growth
+      - intent: composition
+        primary_chart: top_categories
+        secondary_chart: treemap
+    guardrails:
+      - ambiguity_reason: varhaiskasvatuksen rahoitus näkyy usein osana laajempia koulutuksen ja kuntien rahoituskokonaisuuksia
+        clarification_question: Haluatko tarkastella vain suoraan varhaiskasvatukseen nimettyjä momentteja vai laajempaa kuntien rahoituskokonaisuutta?
+
   - concept_id: opintotuki
     label_fi: Opintotuki
     description_fi: Opintoraha, asumislisä, opintotuen valtiontakaukset ja muut opintotukeen liittyvät budjettierät.
@@ -286,6 +408,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth]
     risk_level: low
     must_clarify: false
@@ -302,6 +425,14 @@ concepts:
         source: manual
         alias_type: alt
         lang: fi
+      - alias: opintotuen
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: opintotukea
+        source: manual
+        alias_type: inflected
+        lang: fi
     include_rules:
       - hierarchy_level: momentti
         match_type: canonical_name_pattern
@@ -315,7 +446,11 @@ concepts:
         match_type: canonical_name_pattern
         value: "%asumislisä%"
         confidence: 0.90
-    exclude_rules: []
+    exclude_rules:
+      - hierarchy_level: momentti
+        match_type: exact_code
+        value: "33.60.38."
+        confidence: 0.99
     visualization_recipes:
       - intent: trend
         primary_chart: trend
@@ -329,6 +464,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: hallinnonala
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, top_growth, composition]
     risk_level: low
     must_clarify: false
@@ -349,14 +485,34 @@ concepts:
         source: manual
         alias_type: english
         lang: en
+      - alias: puolustuksen
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: puolustusta
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: puolustusbudjetti
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: puolustusvoimat
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: PLM
+        source: manual
+        alias_type: abbreviation
+        lang: fi
     external_refs:
       - source: finto_juho
         uri: http://www.yso.fi/onto/yso/p4552
         label: puolustus
     include_rules:
-      - hierarchy_level: hallinnonala
-        match_type: canonical_name_pattern
-        value: "%puolustusministeriön hallinnonala%"
+      - hierarchy_level: momentti
+        match_type: code_prefix
+        value: "27."
         confidence: 0.99
       - hierarchy_level: momentti
         match_type: canonical_name_pattern
@@ -379,6 +535,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, composition]
     risk_level: medium
     must_clarify: true
@@ -397,6 +554,18 @@ concepts:
         alias_type: alt
         lang: fi
       - alias: pelastustoimi
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: poliisin
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: poliisille
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: turvallisuusala
         source: manual
         alias_type: alt
         lang: fi
@@ -434,6 +603,7 @@ concepts:
     narrower_concept_ids: [hyvinvointialueiden_rahoitus, sosiaaliturva, elakkeet]
     default_entity_level: hallinnonala
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, composition, growth]
     risk_level: medium
     must_clarify: true
@@ -454,6 +624,22 @@ concepts:
       - alias: terveysmenot
         source: manual
         alias_type: alt
+        lang: fi
+      - alias: terveydenhuolto
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: sairaanhoito
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: sosiaalimenot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: STM
+        source: manual
+        alias_type: abbreviation
         lang: fi
     include_rules:
       - hierarchy_level: hallinnonala
@@ -484,6 +670,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth]
     risk_level: high
     must_clarify: false
@@ -530,6 +717,7 @@ concepts:
     narrower_concept_ids: [elakkeet, asumistuki]
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, composition, growth]
     risk_level: medium
     must_clarify: false
@@ -543,6 +731,18 @@ concepts:
         alias_type: alt
         lang: fi
       - alias: tulonsiirrot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: sosiaaliturvan
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: sosiaaliturvaa
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: sosiaalietuudet
         source: manual
         alias_type: alt
         lang: fi
@@ -580,6 +780,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, top_growth]
     risk_level: medium
     must_clarify: false
@@ -662,6 +863,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth]
     risk_level: low
     must_clarify: false
@@ -677,6 +879,18 @@ concepts:
       - alias: kansaneläkkeet
         source: manual
         alias_type: alt
+        lang: fi
+      - alias: eläkkeiden
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: eläkkeistä
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: eläkkeisiin
+        source: manual
+        alias_type: inflected
         lang: fi
     include_rules:
       - hierarchy_level: momentti
@@ -701,6 +915,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, composition]
     risk_level: medium
     must_clarify: false
@@ -720,6 +935,22 @@ concepts:
       - alias: te-palvelut
         source: manual
         alias_type: colloquial
+        lang: fi
+      - alias: työllisyyden
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: työttömyys
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: työllistäminen
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: TEM
+        source: manual
+        alias_type: abbreviation
         lang: fi
     include_rules:
       - hierarchy_level: hallinnonala
@@ -755,6 +986,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth]
     risk_level: medium
     must_clarify: false
@@ -770,6 +1002,18 @@ concepts:
       - alias: kuntarahoitus
         source: manual
         alias_type: colloquial
+        lang: fi
+      - alias: valtionosuuksien
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: valtionosuuksia
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: kuntarahoituksen
+        source: manual
+        alias_type: inflected
         lang: fi
     include_rules:
       - hierarchy_level: momentti
@@ -798,6 +1042,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: hallinnonala
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, composition]
     risk_level: low
     must_clarify: false
@@ -817,6 +1062,26 @@ concepts:
       - alias: tie- ja ratahankkeet
         source: manual
         alias_type: alt
+        lang: fi
+      - alias: liikenteen
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: liikennemenot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: tiehankkeet
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: ratahankkeet
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: LVM
+        source: manual
+        alias_type: abbreviation
         lang: fi
     include_rules:
       - hierarchy_level: hallinnonala
@@ -848,6 +1113,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: hallinnonala
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, composition]
     risk_level: medium
     must_clarify: false
@@ -867,6 +1133,22 @@ concepts:
       - alias: ympäristömenot
         source: manual
         alias_type: alt
+        lang: fi
+      - alias: ympäristön
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: ilmastopolitiikka
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: luonnonsuojelu
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: YM
+        source: manual
+        alias_type: abbreviation
         lang: fi
     include_rules:
       - hierarchy_level: hallinnonala
@@ -898,6 +1180,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, composition, top_growth]
     risk_level: high
     must_clarify: true
@@ -916,6 +1199,22 @@ concepts:
         alias_type: alt
         lang: fi
       - alias: investointituet
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: yritystukien
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: yritystukia
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: elinkeinotuet
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: viennin edistäminen
         source: manual
         alias_type: alt
         lang: fi
@@ -960,6 +1259,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: expense
     default_intents: [trend, growth, composition]
     risk_level: medium
     must_clarify: false
@@ -977,6 +1277,22 @@ concepts:
         alias_type: colloquial
         lang: fi
       - alias: tutkimusrahoitus
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: tutkimuksen
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: tutkimusta
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: t&k
+        source: manual
+        alias_type: abbreviation
+        lang: fi
+      - alias: tutkimus- ja kehitys
         source: manual
         alias_type: alt
         lang: fi
@@ -1010,10 +1326,10 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: revenue
     default_intents: [trend, composition, growth]
     risk_level: medium
-    must_clarify: true
-    clarification_question: Haluatko tarkastella kaikkia verotuloja vai jotain verolajia, kuten arvonlisäveroa tai tuloveroa?
+    must_clarify: false
     aliases:
       - alias: verotulot
         source: manual
@@ -1027,11 +1343,31 @@ concepts:
         source: manual
         alias_type: alt
         lang: fi
+      - alias: verotulojen
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: verotusta
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: verotuksesta
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: ansiotuloverotus
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: pääomaverotus
+        source: manual
+        alias_type: alt
+        lang: fi
     include_rules:
-      - hierarchy_level: hallinnonala
-        match_type: canonical_name_pattern
-        value: "%valtiovarainministeriön hallinnonala%"
-        confidence: 0.55
+      - hierarchy_level: momentti
+        match_type: code_prefix
+        value: "11."
+        confidence: 0.99
       - hierarchy_level: momentti
         match_type: canonical_name_pattern
         value: "%vero%"
@@ -1040,6 +1376,34 @@ concepts:
         match_type: canonical_name_pattern
         value: "%arvonlisävero%"
         confidence: 0.95
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%valmistevero%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%autovero%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%ajoneuvovero%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%energiavero%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%tupakkavero%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%alkoholijuomavero%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%varainsiirtovero%"
+        confidence: 0.90
     exclude_rules:
       - hierarchy_level: momentti
         match_type: canonical_name_pattern
@@ -1049,6 +1413,30 @@ concepts:
         match_type: canonical_name_pattern
         value: "%verotuskustannus%"
         confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%osinkotulot%"
+        confidence: 0.99
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%veikkauksen%"
+        confidence: 0.99
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%raha-automaattiyhdistyksen%"
+        confidence: 0.99
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%sakkorahat%"
+        confidence: 0.99
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%osakemyynnistä%"
+        confidence: 0.99
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%peruutukset%"
+        confidence: 0.99
     visualization_recipes:
       - intent: composition
         primary_chart: top_categories
@@ -1068,6 +1456,7 @@ concepts:
     narrower_concept_ids: []
     default_entity_level: momentti
     default_metric: nettokertyma
+    default_fiscal_side: mixed
     default_intents: [trend, growth]
     risk_level: low
     must_clarify: false
@@ -1087,6 +1476,22 @@ concepts:
       - alias: valtionvelka
         source: manual
         alias_type: alt
+        lang: fi
+      - alias: velan
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: velkaa
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: velasta
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: valtionvelan
+        source: manual
+        alias_type: inflected
         lang: fi
     include_rules:
       - hierarchy_level: momentti
@@ -1110,3 +1515,550 @@ concepts:
       - intent: trend
         primary_chart: trend
         secondary_chart: growth
+
+  - concept_id: maa_ja_metsatalous
+    label_fi: Maa- ja metsätalous
+    description_fi: Maa- ja metsätalousministeriön hallinnonala, maataloustuet ja maatilatalouden budjettierät.
+    policy_theme: talous
+    broader_concept_id:
+    narrower_concept_ids: []
+    default_entity_level: hallinnonala
+    default_metric: nettokertyma
+    default_fiscal_side: expense
+    default_intents: [trend, growth, composition]
+    risk_level: medium
+    must_clarify: false
+    aliases:
+      - alias: maatalous
+        source: manual
+        alias_type: pref
+        lang: fi
+      - alias: maa- ja metsätalous
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: maataloustuet
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: maatilatalous
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: metsätalous
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: maataloustuki
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: maatalouden
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: maataloustukien
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: MMM
+        source: manual
+        alias_type: abbreviation
+        lang: fi
+      - alias: agricultural subsidies
+        source: manual
+        alias_type: english
+        lang: en
+    include_rules:
+      - hierarchy_level: hallinnonala
+        match_type: canonical_name_pattern
+        value: "%maa- ja metsätalousministeriön hallinnonala%"
+        confidence: 0.95
+      - hierarchy_level: momentti
+        match_type: code_prefix
+        value: "30."
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%maatalous%"
+        confidence: 0.80
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%maatila%"
+        confidence: 0.80
+    exclude_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%eläinlääkint%"
+        confidence: 0.60
+    visualization_recipes:
+      - intent: trend
+        primary_chart: trend
+        secondary_chart: growth
+      - intent: composition
+        primary_chart: top_categories
+        secondary_chart: stacked_area
+
+  - concept_id: oikeuslaitos
+    label_fi: Oikeuslaitos
+    description_fi: Oikeusministeriön hallinnonala, tuomioistuimet, rikosseuraamuslaitos ja oikeuslaitoksen budjettierät.
+    policy_theme: turvallisuus
+    broader_concept_id:
+    narrower_concept_ids: []
+    default_entity_level: hallinnonala
+    default_metric: nettokertyma
+    default_fiscal_side: expense
+    default_intents: [trend, growth, composition]
+    risk_level: low
+    must_clarify: false
+    aliases:
+      - alias: oikeuslaitos
+        source: manual
+        alias_type: pref
+        lang: fi
+      - alias: oikeus
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: oikeusministeriö
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: tuomioistuimet
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: oikeusmenot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: vankilat
+        source: manual
+        alias_type: colloquial
+        lang: fi
+      - alias: rikosseuraamuslaitos
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: oikeuslaitoksen
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: OM
+        source: manual
+        alias_type: abbreviation
+        lang: fi
+    include_rules:
+      - hierarchy_level: hallinnonala
+        match_type: canonical_name_pattern
+        value: "%oikeusministeriön hallinnonala%"
+        confidence: 0.95
+      - hierarchy_level: momentti
+        match_type: code_prefix
+        value: "25."
+        confidence: 0.90
+    exclude_rules: []
+    visualization_recipes:
+      - intent: trend
+        primary_chart: trend
+        secondary_chart: growth
+      - intent: composition
+        primary_chart: top_categories
+        secondary_chart: treemap
+
+  - concept_id: kulttuuri_ja_taide
+    label_fi: Kulttuuri ja taide
+    description_fi: Kulttuurin, taiteen, museoiden, kirjastojen ja muiden kulttuuripalvelujen budjettierät.
+    policy_theme: koulutus
+    broader_concept_id:
+    narrower_concept_ids: []
+    default_entity_level: momentti
+    default_metric: nettokertyma
+    default_fiscal_side: expense
+    default_intents: [trend, growth, composition]
+    risk_level: medium
+    must_clarify: false
+    aliases:
+      - alias: kulttuuri
+        source: manual
+        alias_type: pref
+        lang: fi
+      - alias: taide
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: kulttuurimenot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: taiteen rahoitus
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: kulttuuripolitiikka
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: kirjasto
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: museo
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: teatteri
+        source: manual
+        alias_type: colloquial
+        lang: fi
+      - alias: kulttuurin
+        source: manual
+        alias_type: inflected
+        lang: fi
+    include_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%kulttuuri%"
+        confidence: 0.85
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%taide%"
+        confidence: 0.80
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%museo%"
+        confidence: 0.75
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%kirjasto%"
+        confidence: 0.75
+    exclude_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%taiteen perusopetus%"
+        confidence: 0.80
+    visualization_recipes:
+      - intent: trend
+        primary_chart: trend
+        secondary_chart: growth
+      - intent: composition
+        primary_chart: top_categories
+        secondary_chart: treemap
+
+  - concept_id: kehitysyhteistyo
+    label_fi: Kehitysyhteistyö
+    description_fi: Suomen kehitysyhteistyömenot, kehitysapu ja humanitaarinen apu.
+    policy_theme: kansainvalisyys
+    broader_concept_id: ulkoasiainhallinto
+    narrower_concept_ids: []
+    default_entity_level: momentti
+    default_metric: nettokertyma
+    default_fiscal_side: expense
+    default_intents: [trend, growth]
+    risk_level: low
+    must_clarify: false
+    aliases:
+      - alias: kehitysyhteistyö
+        source: manual
+        alias_type: pref
+        lang: fi
+      - alias: kehitysapu
+        source: manual
+        alias_type: colloquial
+        lang: fi
+      - alias: kehitysyhteistyömenot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: ulkomaanapu
+        source: manual
+        alias_type: colloquial
+        lang: fi
+      - alias: humanitaarinen apu
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: kehitysyhteistyön
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: development aid
+        source: manual
+        alias_type: english
+        lang: en
+    include_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%kehitysyhteistyö%"
+        confidence: 0.95
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%kehitysapu%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%humanitaarinen apu%"
+        confidence: 0.85
+    exclude_rules: []
+    visualization_recipes:
+      - intent: trend
+        primary_chart: trend
+        secondary_chart: growth
+
+  - concept_id: ulkoasiainhallinto
+    label_fi: Ulkoasiainhallinto
+    description_fi: Ulkoministeriön hallinnonala, ulkopolitiikka ja kansainväliset suhteet.
+    policy_theme: kansainvalisyys
+    broader_concept_id:
+    narrower_concept_ids: [kehitysyhteistyo]
+    default_entity_level: hallinnonala
+    default_metric: nettokertyma
+    default_fiscal_side: expense
+    default_intents: [trend, growth, composition]
+    risk_level: low
+    must_clarify: false
+    aliases:
+      - alias: ulkoministeriö
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: ulkoasiainhallinto
+        source: manual
+        alias_type: pref
+        lang: fi
+      - alias: ulkopolitiikka
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: ulkoasiat
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: ulkoministeriön menot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: UM
+        source: manual
+        alias_type: abbreviation
+        lang: fi
+    include_rules:
+      - hierarchy_level: hallinnonala
+        match_type: canonical_name_pattern
+        value: "%ulkoministeriön hallinnonala%"
+        confidence: 0.95
+      - hierarchy_level: momentti
+        match_type: code_prefix
+        value: "24."
+        confidence: 0.90
+    exclude_rules: []
+    visualization_recipes:
+      - intent: trend
+        primary_chart: trend
+        secondary_chart: growth
+      - intent: composition
+        primary_chart: top_categories
+        secondary_chart: treemap
+
+  - concept_id: energiapolitiikka
+    label_fi: Energiapolitiikka
+    description_fi: Energiatuet, uusiutuvan energian edistäminen ja energiapolitiikan budjettierät.
+    policy_theme: talous
+    broader_concept_id:
+    narrower_concept_ids: []
+    default_entity_level: momentti
+    default_metric: nettokertyma
+    default_fiscal_side: expense
+    default_intents: [trend, growth]
+    risk_level: medium
+    must_clarify: false
+    aliases:
+      - alias: energia
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: energiapolitiikka
+        source: manual
+        alias_type: pref
+        lang: fi
+      - alias: energiatuet
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: energiatuki
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: uusiutuva energia
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: energian
+        source: manual
+        alias_type: inflected
+        lang: fi
+    include_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%energia%"
+        confidence: 0.80
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%uusiutuvat energialähteet%"
+        confidence: 0.85
+    exclude_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%energiavero%"
+        confidence: 0.90
+    visualization_recipes:
+      - intent: trend
+        primary_chart: trend
+        secondary_chart: growth
+
+  - concept_id: perusopetus
+    label_fi: Perusopetus
+    description_fi: Perusopetuksen, lukiokoulutuksen ja yleissivistävän koulutuksen budjettierät.
+    policy_theme: koulutus
+    broader_concept_id: koulutus
+    narrower_concept_ids: []
+    default_entity_level: momentti
+    default_metric: nettokertyma
+    default_fiscal_side: expense
+    default_intents: [trend, growth]
+    risk_level: medium
+    must_clarify: false
+    aliases:
+      - alias: perusopetus
+        source: manual
+        alias_type: pref
+        lang: fi
+      - alias: peruskoulu
+        source: manual
+        alias_type: colloquial
+        lang: fi
+      - alias: peruskoulut
+        source: manual
+        alias_type: colloquial
+        lang: fi
+      - alias: yleissivistävä koulutus
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: lukio
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: lukiokoulutus
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: perusopetuksen
+        source: manual
+        alias_type: inflected
+        lang: fi
+    include_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%perusopet%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%yleissivistävän koulutuksen%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%lukiokoulutuk%"
+        confidence: 0.85
+    exclude_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%ammattikorkeakoul%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%yliopist%"
+        confidence: 0.90
+    visualization_recipes:
+      - intent: trend
+        primary_chart: trend
+        secondary_chart: growth
+
+  - concept_id: valtionhallinto
+    label_fi: Valtionhallinto
+    description_fi: Valtiovarainministeriön hallinnonala, hallinnon yleismenot ja valtion keskushallinnon budjettierät.
+    policy_theme: hallinto
+    broader_concept_id:
+    narrower_concept_ids: []
+    default_entity_level: hallinnonala
+    default_metric: nettokertyma
+    default_fiscal_side: expense
+    default_intents: [trend, growth, composition]
+    risk_level: medium
+    must_clarify: true
+    clarification_question: Tarkoitatko koko valtiovarainministeriön hallinnonalaa vai hallinnon yleismenoja laajemmin?
+    aliases:
+      - alias: hallinto
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: hallintomenot
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: valtionhallinto
+        source: manual
+        alias_type: pref
+        lang: fi
+      - alias: byrokratia
+        source: manual
+        alias_type: colloquial
+        lang: fi
+      - alias: virkamieshallinto
+        source: manual
+        alias_type: colloquial
+        lang: fi
+      - alias: valtiovarainministeriö
+        source: manual
+        alias_type: alt
+        lang: fi
+      - alias: hallinnon
+        source: manual
+        alias_type: inflected
+        lang: fi
+      - alias: VM
+        source: manual
+        alias_type: abbreviation
+        lang: fi
+    include_rules:
+      - hierarchy_level: hallinnonala
+        match_type: canonical_name_pattern
+        value: "%valtiovarainministeriön hallinnonala%"
+        confidence: 0.85
+      - hierarchy_level: momentti
+        match_type: code_prefix
+        value: "28."
+        confidence: 0.80
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%hallinto%"
+        confidence: 0.60
+    exclude_rules:
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%hyvinvointialueiden%"
+        confidence: 0.90
+      - hierarchy_level: momentti
+        match_type: canonical_name_pattern
+        value: "%valtionosuus kunnille%"
+        confidence: 0.85
+    visualization_recipes:
+      - intent: trend
+        primary_chart: trend
+        secondary_chart: growth
+      - intent: composition
+        primary_chart: top_categories
+        secondary_chart: treemap
+    guardrails:
+      - ambiguity_reason: hallinto voidaan ymmärtää joko VM:n hallinnonalana tai laajemmin koko valtionhallinnon yleismenot
+        clarification_question: Rajataanko tarkastelu valtiovarainministeriön hallinnonalaan vai laajempaan hallinnon kokonaisuuteen?

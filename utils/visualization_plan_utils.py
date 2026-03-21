@@ -18,6 +18,10 @@ def extract_intent_signals(question: str) -> dict[str, bool]:
 def template_order(spec: AnalysisSpec, intent_signals: dict[str, bool]) -> list[str]:
     if spec.intent == "top_growth":
         return ["top_growth", "trend", "growth"]
+    if spec.intent == "top_cuts":
+        return ["top_growth", "top_categories", "trend"]
+    if spec.intent == "revenue_decline":
+        return ["top_growth", "top_categories", "trend"]
     if spec.intent == "growth":
         return ["trend", "growth", "top_categories"]
     if spec.intent == "trend":
@@ -31,4 +35,3 @@ def template_order(spec: AnalysisSpec, intent_signals: dict[str, bool]) -> list[
     if intent_signals.get("composition"):
         return ["composition", "trend", "top_categories"]
     return ["trend", "top_categories", "growth", "seasonality"]
-

@@ -33,7 +33,32 @@ def _concept_notes(spec: AnalysisSpec, concept: OntologyConcept | None) -> list[
     if concept is None and spec.resolved_concept_id:
         notes.append(f"Konseptia {spec.resolved_concept_id} ei löytynyt ontologiasta paikallisesta storesta.")
     elif concept is not None:
-        notes.append(f"Canonical concept: {concept.label_fi} ({concept.concept_id})")
+        notes.append(
+            f"Canonical concept: {concept.label_fi} ({concept.concept_id}), "
+            f"default fiscal side {concept.default_fiscal_side}"
+        )
+        try:
+            from utils.bigquery_utils import get_concept_bridge_summary
+
+            bridge_summary = get_concept_bridge_summary(
+                spec.resolved_concept_id,
+                spec.time_from,
+                spec.time_to,
+            )
+        except Exception:
+            bridge_summary = {}
+        if bridge_summary:
+            source_text = ", ".join(bridge_summary.get("sources") or [])
+            notes.append(
+                "Concept bridge aktiivinen: "
+                f"{bridge_summary.get('row_count')} runtime-riviä"
+                + (f", lähteet {source_text}" if source_text else "")
+            )
+        elif concept.risk_level == "high":
+            notes.append(
+                "Concept bridge ei tuottanut runtime-osumia tällä aikarajauksella; "
+                "käytetään ontologian fallback-sääntöjä."
+            )
     return notes
 
 
@@ -47,6 +72,7 @@ def resolve_analysis(question: str, spec: AnalysisSpec) -> ResolvedAnalysis:
         analysis_spec=spec,
         concept_id=spec.resolved_concept_id,
         concept_label=spec.resolved_concept_label,
+        fiscal_side=spec.fiscal_side,
         include_rules=include_rules,
         exclude_rules=exclude_rules,
         ambiguity_notes=_concept_notes(spec, concept),
