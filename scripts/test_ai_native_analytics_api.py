@@ -12,6 +12,7 @@ if str(ROOT) not in sys.path:
 
 from api.app import app
 from services.analysis_orchestrator import analyze_question
+from utils.analysis_spec_utils import infer_analysis_spec
 
 
 def assert_true(condition: bool, message: str) -> None:
@@ -35,6 +36,15 @@ def main() -> None:
     assert_true(body['query_source'] == 'yearly_agg', 'api should expose yearly_agg source')
     assert_true(len(body.get('result_rows') or []) >= 1, 'api result rows missing')
     assert_true(len(body.get('used_moments') or []) >= 1, 'api used moments missing')
+
+    cut_spec = infer_analysis_spec('Mitäs momenteista on leikattu prosentuaalisesti eniten 2008-2020?')
+    assert_true(cut_spec.intent == 'top_cuts', f'unexpected cut intent: {cut_spec.intent}')
+    assert_true(cut_spec.fiscal_side == 'expense', f'unexpected cut fiscal side: {cut_spec.fiscal_side}')
+    assert_true(cut_spec.entity_level == 'momentti', f'unexpected cut entity level: {cut_spec.entity_level}')
+
+    decline_spec = infer_analysis_spec('Mistä verokertymä pieneni eniten 2008-2020?')
+    assert_true(decline_spec.intent == 'revenue_decline', f'unexpected revenue decline intent: {decline_spec.intent}')
+    assert_true(decline_spec.fiscal_side == 'revenue', f'unexpected revenue fiscal side: {decline_spec.fiscal_side}')
 
     print('AI-native analytics API tests PASSED')
 

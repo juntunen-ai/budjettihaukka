@@ -27,6 +27,7 @@ def main() -> None:
     assert higher_ed_spec.ontology_must_clarify is True, higher_ed_spec
 
     original_fetch = bq_utils._fetch_ontology_membership_rules
+    original_bridge = bq_utils._fetch_concept_bridge_rules
     try:
         bq_utils._fetch_ontology_membership_rules = lambda concept_id: (
             {
@@ -50,6 +51,7 @@ def main() -> None:
                 "rule_id": "yliopistot_exclude_01",
             },
         )
+        bq_utils._fetch_concept_bridge_rules = lambda analysis_spec, dialect: tuple()
 
         scope_clause = bq_utils._ontology_scope_clause(university_spec, "bigquery")
         assert scope_clause is not None
@@ -73,6 +75,7 @@ def main() -> None:
         assert contract_sql is None
     finally:
         bq_utils._fetch_ontology_membership_rules = original_fetch
+        bq_utils._fetch_concept_bridge_rules = original_bridge
 
     print("Ontology query integration tests PASSED")
 

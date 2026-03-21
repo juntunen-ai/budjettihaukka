@@ -29,6 +29,7 @@ class ResolvedAnalysis:
     analysis_spec: AnalysisSpec
     concept_id: str | None
     concept_label: str | None
+    fiscal_side: str | None = None
     include_rules: list[dict[str, Any]] = field(default_factory=list)
     exclude_rules: list[dict[str, Any]] = field(default_factory=list)
     ambiguity_notes: list[str] = field(default_factory=list)
@@ -102,5 +103,6 @@ def deserialize_analysis_spec(payload: dict[str, Any]) -> AnalysisSpec:
         for item in payload.get("clarifications", [])
     ]
     normalized = dict(payload)
+    normalized.setdefault("fiscal_side", "unknown")
     normalized["clarifications"] = clarifications
     return AnalysisSpec(**normalized)

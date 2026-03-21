@@ -17,7 +17,7 @@ def _records(df: pd.DataFrame) -> list[dict[str, Any]]:
 
 
 def _frame_type(spec: AnalysisSpec, query_contract: str | None, df: pd.DataFrame) -> str:
-    if query_contract in {"top_growth_moment", "top_growth_alamoment"} or spec.intent == "top_growth":
+    if query_contract in {"top_growth_moment", "top_growth_alamoment"} or spec.intent in {"top_growth", "top_cuts", "revenue_decline"}:
         return "ranking"
     if spec.intent in {"trend", "growth", "seasonality", "overview", "composition"} and "vuosi" in df.columns:
         return "time_series"
@@ -36,7 +36,7 @@ def build_analytics_frame(df: pd.DataFrame, spec: AnalysisSpec, query_contract: 
 
     work = df.copy() if isinstance(df, pd.DataFrame) else pd.DataFrame()
     selected_cols: list[str] = []
-    for candidate in ("vuosi", "kk", "hallinnonala", "kirjanpitoyksikko", "momentti_tunnusp", "momentti_snimi", "alamomentti_tunnus", "alamomentti_snimi", "nettokertyma_sum", "muutos_eur", "muutos_pct", "kasvu_eur", "kasvu_pct"):
+    for candidate in ("vuosi", "kk", "hallinnonala", "kirjanpitoyksikko", "momentti_tunnusp", "momentti_snimi", "alamomentti_tunnus", "alamomentti_snimi", "nettokertyma_sum", "muutos_eur", "muutos_abs_eur", "muutos_pct", "kasvu_eur", "kasvu_pct", "alkuvuosi_sum", "loppuvuosi_sum", "has_structural_guardrail_window", "structural_guardrail_confidence", "structural_relation_types"):
         if candidate in work.columns:
             selected_cols.append(candidate)
     frame_df = work[selected_cols].copy() if selected_cols else work

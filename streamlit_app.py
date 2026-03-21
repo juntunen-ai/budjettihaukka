@@ -512,6 +512,8 @@ def render_budget_moment_evidence(
         st.caption("Momentit tunnistettiin suoraan tulosaineistosta, jota visualisoinnit käyttävät.")
     elif evidence_source == "analytics_api":
         st.caption("Momentit palautettiin valmiiksi analytiikka-API:n canonical-tulkinnasta.")
+    elif evidence_source == "concept_bridge":
+        st.caption("Momentit haettiin semanttisesta concept bridgestä, joka käyttää ontologiaa ja budjettipuolen rajauksia.")
     else:
         st.caption(
             f"Visualisoinnin momentit haettiin erillisellä tukikyselyllä samasta rajauksesta. "
@@ -682,6 +684,7 @@ def render_admin_view() -> None:
             "question",
             "status",
             "intent",
+            "fiscal_side",
             "resolved_concept_label",
             "query_source",
             "result_row_count",
@@ -738,6 +741,7 @@ def _log_question_library_event(
         "clarification_missing_fields": missing_required or [],
         "intent": spec.intent if spec else None,
         "metric": spec.metric if spec else None,
+        "fiscal_side": spec.fiscal_side if spec else None,
         "entity_level": spec.entity_level if spec else None,
         "growth_type": spec.growth_type if spec else None,
         "time_from": spec.time_from if spec else None,
@@ -1179,10 +1183,11 @@ def _render_top_growth_template(
         return False
 
     agg_func = "mean" if metric_col == growth_pct_col else "sum"
+    ascending = spec.intent in {"top_cuts", "revenue_decline"}
     ranked = (
         rank_df.groupby(label_col, as_index=False)[metric_col]
         .agg(agg_func)
-        .sort_values(metric_col, ascending=False)
+        .sort_values(metric_col, ascending=ascending)
         .head(spec.ranking_n or 10)
     )
     if ranked.empty:
@@ -1200,8 +1205,16 @@ def _render_top_growth_template(
         ranked["plot_metric"] = ranked["metric"] / scale
         ranked["metric_label"] = ranked["metric"].map(_format_euro_millions)
 
-    st.markdown(f"**{_title_with_scope('Eniten kasvaneet kategoriat', spec)}**")
-    st.caption(f"X-akseli: kasvu ({unit}) | Y-akseli: kategoria")
+    title = "Eniten kasvaneet kategoriat"
+    x_title = f"Kasvu ({unit})"
+    if spec.intent == "top_cuts":
+        title = "Eniten leikatut kategoriat"
+        x_title = f"Muutos ({unit})"
+    elif spec.intent == "revenue_decline":
+        title = "Eniten pienentyneet tulokategoriat"
+        x_title = f"Muutos ({unit})"
+    st.markdown(f"**{_title_with_scope(title, spec)}**")
+    st.caption(f"X-akseli: {x_title.lower()} | Y-akseli: kategoria")
 
     top_chart = (
         alt.Chart(ranked)
@@ -1210,12 +1223,12 @@ def _render_top_growth_template(
             y=alt.Y("label_short:N", sort="-x", title=""),
             x=alt.X(
                 "plot_metric:Q",
-                title=f"Kasvu ({unit})",
+                title=x_title,
                 axis=_altair_axis(_vega_space_grouping_expr()),
             ),
             tooltip=[
                 alt.Tooltip("label:N", title="Kategoria"),
-                alt.Tooltip("metric_label:N", title=f"Kasvu ({unit})"),
+                alt.Tooltip("metric_label:N", title=x_title),
             ],
         )
     )
@@ -1234,20 +1247,29 @@ def _render_top_growth_template(
             "alkuvuosi_sum",
             "loppuvuosi_sum",
             "kasvu_eur",
+            "muutos_eur",
+            "muutos_abs_eur",
             "kasvu_pct",
+            "muutos_pct",
         )
         if col in work.columns
     ]
     if detail_cols:
         details = work[detail_cols].copy()
-        for euro_col in ("alkuvuosi_sum", "loppuvuosi_sum", "kasvu_eur"):
+        for euro_col in ("alkuvuosi_sum", "loppuvuosi_sum", "kasvu_eur", "muutos_eur", "muutos_abs_eur"):
             if euro_col in details.columns:
                 details[euro_col] = _to_numeric_series(details[euro_col]).map(
                     lambda x: f"{_format_euro_millions(x)} {EURO_DISPLAY_UNIT}"
                 )
-        if "kasvu_pct" in details.columns:
-            details["kasvu_pct"] = _to_numeric_series(details["kasvu_pct"]).map(lambda x: _format_number(x, 2, " %"))
-        st.markdown("**Kasvutaulukko**")
+        for pct_col in ("kasvu_pct", "muutos_pct"):
+            if pct_col in details.columns:
+                details[pct_col] = _to_numeric_series(details[pct_col]).map(lambda x: _format_number(x, 2, " %"))
+        detail_title = "Kasvutaulukko"
+        if spec.intent == "top_cuts":
+            detail_title = "Leikkaustaulukko"
+        elif spec.intent == "revenue_decline":
+            detail_title = "Tulokertymän heikkenemistaulukko"
+        st.markdown(f"**{detail_title}**")
         st.dataframe(details.head(spec.ranking_n or 10), width="stretch")
     return True
 
@@ -1620,7 +1642,7 @@ def visualize_data(
         category_col = _pick_category_column(work)
         value_col = _pick_value_column(work)
         growth_pct_col = _find_column(work, ["kasvu_pct", "muutos_pct", "growth_pct", "yoy_pct"])
-        growth_eur_col = _find_column(work, ["kasvu_eur", "muutos_eur", "growth_eur", "delta_eur"])
+        growth_eur_col = _find_column(work, ["kasvu_eur", "muutos_eur", "muutos_abs_eur", "growth_eur", "delta_eur"])
 
         if value_col:
             work[value_col] = _to_numeric_series(work[value_col])
