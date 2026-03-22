@@ -277,6 +277,30 @@ concepts:
     source: finto_yso
     alias_type: alt
     lang: fi
+  - alias: yliopistojen
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: yliopistojen rahoitus
+    source: manual
+    alias_type: alt
+    lang: fi
+  - alias: yliopistorahoitus
+    source: manual
+    alias_type: alt
+    lang: fi
+  - alias: yliopistorahoituksen
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: yliopiston
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: yliopistoihin
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: university
     source: manual
     alias_type: english
@@ -508,17 +532,45 @@ concepts:
     source: finto_yso
     alias_type: pref
     lang: fi
+  - alias: ammatillisen koulutuksen
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: ammatillisen koulutuksen rahoitus
+    source: manual
+    alias_type: alt
+    lang: fi
+  - alias: ammatillisen koulutuksen menot
+    source: manual
+    alias_type: alt
+    lang: fi
+  - alias: ammatilliseen koulutukseen
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: ammattikoulutus
     source: finto_yso
     alias_type: alt
+    lang: fi
+  - alias: ammattikoulutuksen
+    source: manual
+    alias_type: inflected
     lang: fi
   - alias: ammattiopetus
     source: manual
     alias_type: alt
     lang: fi
+  - alias: ammattiopetuksen
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: ammattikoulu
     source: manual
     alias_type: colloquial
+    lang: fi
+  - alias: ammattikoulun
+    source: manual
+    alias_type: inflected
     lang: fi
   - alias: ammatillinen koulutus ja lukiokoulutus
     source: vm_vocabulary
@@ -639,11 +691,27 @@ concepts:
     source: manual
     alias_type: alt
     lang: fi
+  - alias: varhaiskasvatuksen
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: varhaiskasvatukseen
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: päivähoito
     source: manual
     alias_type: historical
     lang: fi
+  - alias: päivähoidon
+    source: manual
+    alias_type: historical
+    lang: fi
   - alias: lasten päivähoito
+    source: manual
+    alias_type: historical
+    lang: fi
+  - alias: lasten päivähoidon
     source: manual
     alias_type: historical
     lang: fi
@@ -895,13 +963,25 @@ concepts:
     source: manual
     alias_type: inflected
     lang: fi
+  - alias: puolustukseen
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: puolustusbudjetti
     source: manual
     alias_type: alt
     lang: fi
+  - alias: puolustusbudjetin
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: puolustusvoimat
     source: manual
     alias_type: alt
+    lang: fi
+  - alias: puolustusvoimien
+    source: manual
+    alias_type: inflected
     lang: fi
   - alias: PLM
     source: manual
@@ -1244,6 +1324,18 @@ concepts:
     source: manual
     alias_type: alt
     lang: fi
+  - alias: hyvinvointialueiden
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: hyvinvointialueille
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: hyvinvointialueiden rahoituksen
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: alueiden rahoitus
     source: manual
     alias_type: colloquial
@@ -1473,6 +1565,10 @@ concepts:
     alias_type: alt
     lang: fi
   - alias: asumistuen
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: asumistukea
     source: manual
     alias_type: inflected
     lang: fi
@@ -1792,6 +1888,14 @@ concepts:
     alias_type: pref
     lang: fi
   - alias: valtionosuudet kunnille
+    source: manual
+    alias_type: alt
+    lang: fi
+  - alias: valtionosuuksia
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: kuntien rahoitus valtiolta
     source: manual
     alias_type: alt
     lang: fi
@@ -2167,13 +2271,25 @@ concepts:
     source: manual
     alias_type: alt
     lang: fi
+  - alias: yritystuen
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: yritysavustukset
     source: manual
     alias_type: alt
     lang: fi
+  - alias: yritysavustusten
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: investointituet
     source: manual
     alias_type: alt
+    lang: fi
+  - alias: investointitukien
+    source: manual
+    alias_type: inflected
     lang: fi
   - alias: yritystukien
     source: manual
@@ -2186,6 +2302,10 @@ concepts:
   - alias: elinkeinotuet
     source: manual
     alias_type: alt
+    lang: fi
+  - alias: elinkeinotukien
+    source: manual
+    alias_type: inflected
     lang: fi
   - alias: viennin edistäminen
     source: manual
@@ -2426,11 +2546,27 @@ concepts:
     source: manual
     alias_type: alt
     lang: fi
+  - alias: verokertyma
+    source: manual
+    alias_type: alt
+    lang: fi
+  - alias: verokertymän
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: verotuloja
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: verotulojen
     source: manual
     alias_type: inflected
     lang: fi
   - alias: verotusta
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: verotuksen
     source: manual
     alias_type: inflected
     lang: fi
@@ -2508,10 +2644,6 @@ concepts:
     lang: fi
   include_rules:
   - hierarchy_level: momentti
-    match_type: code_prefix
-    value: '11.'
-    confidence: 0.99
-  - hierarchy_level: momentti
     match_type: canonical_name_pattern
     value: '%vero%'
     confidence: 0.9
@@ -2554,8 +2686,12 @@ concepts:
     confidence: 0.99
   - hierarchy_level: momentti
     match_type: canonical_name_pattern
-    value: '%verotuskustannus%'
+    value: '%verotuskustann%'
     confidence: 0.9
+  - hierarchy_level: momentti
+    match_type: canonical_name_pattern
+    value: '%verotuki%'
+    confidence: 0.99
   - hierarchy_level: momentti
     match_type: canonical_name_pattern
     value: '%osinkotulot%'
@@ -2579,6 +2715,10 @@ concepts:
   - hierarchy_level: momentti
     match_type: canonical_name_pattern
     value: '%peruutukset%'
+    confidence: 0.99
+  - hierarchy_level: momentti
+    match_type: exact_code
+    value: 12.39.02.
     confidence: 0.99
   visualization_recipes:
   - intent: composition
@@ -2611,9 +2751,17 @@ concepts:
     source: manual
     alias_type: pref
     lang: fi
+  - alias: korkomenojen
+    source: manual
+    alias_type: inflected
+    lang: fi
   - alias: velanhoito
     source: manual
     alias_type: alt
+    lang: fi
+  - alias: velanhoidon
+    source: manual
+    alias_type: inflected
     lang: fi
   - alias: valtionvelka
     source: manual
@@ -2697,22 +2845,42 @@ concepts:
     lang: fi
   include_rules:
   - hierarchy_level: momentti
-    match_type: canonical_name_pattern
-    value: '%valtionvelan korko%'
+    match_type: exact_code
+    value: 15.03.01.
+    confidence: 0.99
+  - hierarchy_level: momentti
+    match_type: exact_code
+    value: 36.01.90.
+    confidence: 0.99
+  - hierarchy_level: momentti
+    match_type: exact_code
+    value: 36.02.90.
+    confidence: 0.99
+  - hierarchy_level: momentti
+    match_type: exact_code
+    value: 36.03.90.
     confidence: 0.99
   - hierarchy_level: momentti
     match_type: canonical_name_pattern
-    value: '%velka%'
-    confidence: 0.75
-  - hierarchy_level: momentti
-    match_type: canonical_name_pattern
-    value: '%korko%'
-    confidence: 0.8
+    value: '%valtionvelan korko%'
+    confidence: 0.99
   exclude_rules:
   - hierarchy_level: momentti
     match_type: canonical_name_pattern
     value: '%korkotuki%'
     confidence: 0.8
+  - hierarchy_level: momentti
+    match_type: canonical_name_pattern
+    value: '%tappiokorvaukset%'
+    confidence: 0.99
+  - hierarchy_level: momentti
+    match_type: canonical_name_pattern
+    value: '%verotukseen liittyvät korkomenot%'
+    confidence: 0.99
+  - hierarchy_level: momentti
+    match_type: canonical_name_pattern
+    value: '%ennakkotuloista maksettavat korkomenot%'
+    confidence: 0.99
   visualization_recipes:
   - intent: trend
     primary_chart: trend

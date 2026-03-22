@@ -10,6 +10,8 @@ from utils.ontology_utils import BudgetOntology, OntologyConcept, load_budget_on
 DATA_MIN_YEAR = 1998
 DATA_MAX_YEAR = 2025
 
+TOKEN_PATTERN = re.compile(r"[0-9A-Za-zÅÄÖåäö]+(?:-[0-9A-Za-zÅÄÖåäö]+)*")
+
 
 @dataclass(frozen=True)
 class ClarificationField:
@@ -77,6 +79,20 @@ def _extract_top_n(text: str) -> int | None:
     return None
 
 
+def _question_tokens(text: str) -> list[str]:
+    return [match.group(0).lower() for match in TOKEN_PATTERN.finditer(text or "")]
+
+
+def _has_exact_token(tokens: list[str], *values: str) -> bool:
+    wanted = {value.lower() for value in values}
+    return any(token in wanted for token in tokens)
+
+
+def _has_token_prefix(tokens: list[str], *prefixes: str) -> bool:
+    normalized = tuple(prefix.lower() for prefix in prefixes)
+    return any(token.startswith(prefix) for token in tokens for prefix in normalized)
+
+
 def _normalize_time_bounds(years: list[int]) -> tuple[int | None, int | None]:
     if not years:
         return None, None
@@ -100,32 +116,22 @@ def _requested_time_bounds(years: list[int]) -> tuple[int | None, int | None]:
 
 def infer_analysis_spec(question: str) -> AnalysisSpec:
     text = (question or "").lower()
+    tokens = _question_tokens(question)
     years = _extract_years(text)
     requested_from, requested_to = _requested_time_bounds(years)
     time_from, time_to = _normalize_time_bounds(years)
     ranking_n = _extract_top_n(text)
 
-    has_growth = any(
-        token in text
-        for token in (
-            "kasv",
-            "muutos",
-            "mutos",
-            "muuttu",
-            "nous",
-            "nousi",
-            "noussut",
-            "laski",
-            "yoy",
-            "vuosimuutos",
-        )
+    has_growth = (
+        _has_token_prefix(tokens, "kasvu", "muutos", "mutos", "muuttu", "nous", "lask", "vuosimuutos")
+        or _has_exact_token(tokens, "yoy")
     )
-    has_top = any(token in text for token in ("top", "eniten", "suurin", "suur", "absoluutt"))
-    has_trend = any(token in text for token in ("trend", "aikasarja", "kehitty", "kehitys", "pitkaaik"))
-    has_composition = any(token in text for token in ("jakauma", "osuus", "osuu", "raken", "rakenn"))
-    has_seasonality = any(token in text for token in ("kuukaus", "kausivaihtelu", "season", "kausi"))
-    has_moment = "moment" in text
-    has_alamoment = "alamoment" in text
+    has_top = _has_exact_token(tokens, "top", "eniten") or _has_token_prefix(tokens, "suur", "absoluutt")
+    has_trend = _has_token_prefix(tokens, "trend", "aikasarja", "kehitty", "kehitys", "pitkäaik", "pitkaaik")
+    has_composition = _has_token_prefix(tokens, "jakauma", "osuus", "osuudet", "raken")
+    has_seasonality = _has_token_prefix(tokens, "kuukaus", "kausivaihtelu", "season", "kausi")
+    has_moment = _has_token_prefix(tokens, "moment")
+    has_alamoment = _has_token_prefix(tokens, "alamoment")
 
     if has_top and has_growth:
         intent = "top_growth"
@@ -253,6 +259,16 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
     fiscal_side = infer_fiscal_side_from_question(question, concept_default_fiscal_side)
     metric = infer_metric_from_question(question, "nettokertyma")
     intent = infer_intent_from_question(question, intent, fiscal_side)
+
+    if (
+        intent == "overview"
+        and time_from is not None
+        and time_to is not None
+        and time_from != time_to
+    ):
+        intent = "trend"
+        assumptions.append("Monivuotinen aikaväli tulkitaan oletuksena trendikysymykseksi.")
+        confidence -= 0.03
 
     if intent in {"top_cuts", "revenue_decline"} and entity_level == "kokonais":
         entity_level = "momentti"

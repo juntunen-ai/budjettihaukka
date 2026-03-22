@@ -6,5 +6,6 @@ __pycache__/
 .env.local
 .venv/
 data/**/*.csv
+data/ontology/rendered_phase1/
 agent_data/query_observability.jsonl
 agent_data/question_library.jsonl

@@ -30,6 +30,8 @@ class ResolvedAnalysis:
     concept_id: str | None
     concept_label: str | None
     fiscal_side: str | None = None
+    observability_class: str | None = None
+    observability_reason: str | None = None
     include_rules: list[dict[str, Any]] = field(default_factory=list)
     exclude_rules: list[dict[str, Any]] = field(default_factory=list)
     ambiguity_notes: list[str] = field(default_factory=list)
@@ -73,6 +75,7 @@ class AnalyzeResult:
     retries: int = 0
     error: str | None = None
     error_class: str | None = None
+    verification_status: str | None = None
     warnings: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 

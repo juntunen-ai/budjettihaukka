@@ -1,0 +1,1214 @@
+[
+  {
+    "id": "asumistuki-01",
+    "question": "Miten asumistuki on kehittynyt 2018-2024",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted",
+    "allowed_moment_prefixes": [
+      "33.10.54.",
+      "35.30.54.",
+      "35.45.54."
+    ],
+    "disallowed_moment_prefixes": [
+      "29.70.55.",
+      "33.21.52."
+    ]
+  },
+  {
+    "id": "asumistuki-02",
+    "question": "Miten asumistuen menot ovat kehittyneet 2010-2024",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted",
+    "allowed_moment_prefixes": [
+      "33.10.54.",
+      "35.30.54.",
+      "35.45.54."
+    ],
+    "disallowed_moment_prefixes": [
+      "29.70.55."
+    ]
+  },
+  {
+    "id": "asumistuki-03",
+    "question": "Näytä yleisen asumistuen trendi 2018-2024",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "asumistuki-04",
+    "question": "Asumistuen kehitys 2018-2024",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "asumistuki-05",
+    "question": "Asumistuen rahoitus 2018-2024",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "asumistuki-06",
+    "question": "Paljonko asumistukea oli vuonna 2024",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "overview",
+    "runtime_assertions": false
+  },
+  {
+    "id": "asumistuki-07",
+    "question": "Asumistuen rakenne 2020-2024",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "composition",
+    "expected_primary_chart": "stacked_area",
+    "runtime_assertions": false
+  },
+  {
+    "id": "asumistuki-08",
+    "question": "housing allowance trend 2018-2024",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "asumistuki-09",
+    "question": "Näytä asumistuen menot vuosina 2008-2015",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "asumistuki-10",
+    "question": "Asumistuen trendi 2014-2024",
+    "expected_concept_id": "asumistuki",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "exact",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "puolustus-01",
+    "question": "Miten puolustusmenot ovat kehittyneet 2018-2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "allowed_moment_prefixes": [
+      "27."
+    ],
+    "disallowed_moment_prefixes": [
+      "11.",
+      "12.",
+      "15."
+    ]
+  },
+  {
+    "id": "puolustus-02",
+    "question": "Puolustuksen trendi 2018-2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "allowed_moment_prefixes": [
+      "27."
+    ],
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15."
+    ]
+  },
+  {
+    "id": "puolustus-03",
+    "question": "Puolustusbudjetin kehitys 2018-2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "puolustus-04",
+    "question": "Puolustusvoimien menojen kehitys 2018-2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "puolustus-05",
+    "question": "Paljonko puolustukseen käytettiin rahaa vuonna 2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "overview",
+    "runtime_assertions": false
+  },
+  {
+    "id": "puolustus-06",
+    "question": "Puolustuksen rakenne 2018-2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "composition",
+    "expected_primary_chart": "stacked_area",
+    "runtime_assertions": false
+  },
+  {
+    "id": "puolustus-07",
+    "question": "PLM menot 2018-2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "puolustus-08",
+    "question": "defense spending trend 2018-2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "puolustus-09",
+    "question": "Puolustuksen rahoitus 2020-2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "puolustus-10",
+    "question": "Miten puolustus kehittyi 2018-2024",
+    "expected_concept_id": "puolustus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "yliopistot-01",
+    "question": "Miten yliopistojen rahoitus on kehittynyt 2008-2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "12.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "yliopistot-02",
+    "question": "Yliopistojen trendi 2010-2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "yliopistot-03",
+    "question": "Näytä yliopistojen trendi 2010-2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "yliopistot-04",
+    "question": "Yliopistorahoituksen kehitys 2015-2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "yliopistot-05",
+    "question": "Miten yliopiston rahoitus on kehittynyt 2015-2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "yliopistot-06",
+    "question": "Paljonko yliopistoihin käytettiin rahaa 2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "overview",
+    "runtime_assertions": false
+  },
+  {
+    "id": "yliopistot-07",
+    "question": "Yliopistojen rakenne 2018-2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "composition",
+    "expected_primary_chart": "stacked_area",
+    "runtime_assertions": false
+  },
+  {
+    "id": "yliopistot-08",
+    "question": "university funding trend 2018-2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "yliopistot-09",
+    "question": "Valtionrahoitus yliopistojen toimintaan 2018-2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "yliopistot-10",
+    "question": "Yliopistojen menot 2012-2024",
+    "expected_concept_id": "yliopistot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "ammatillinen_koulutus-01",
+    "question": "Miten ammatillisen koulutuksen rahoitus on kehittynyt 2010-2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "ammatillinen_koulutus-02",
+    "question": "Ammatillisen koulutuksen trendi 2015-2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "ammatillinen_koulutus-03",
+    "question": "Ammattikoulutuksen kehitys 2015-2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "ammatillinen_koulutus-04",
+    "question": "Ammattiopetuksen menot 2015-2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "ammatillinen_koulutus-05",
+    "question": "Ammattikoulun rahoitus 2015-2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "ammatillinen_koulutus-06",
+    "question": "Paljonko ammatilliseen koulutukseen käytettiin rahaa 2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "overview",
+    "runtime_assertions": false
+  },
+  {
+    "id": "ammatillinen_koulutus-07",
+    "question": "Ammatillisen koulutuksen rakenne 2018-2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "composition",
+    "expected_primary_chart": "stacked_area",
+    "runtime_assertions": false
+  },
+  {
+    "id": "ammatillinen_koulutus-08",
+    "question": "Ammatillisen koulutuksen menot 2018-2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "ammatillinen_koulutus-09",
+    "question": "Näytä ammatillisen koulutuksen rahoitus 2018-2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "ammatillinen_koulutus-10",
+    "question": "Ammattikoulutus trend 2014-2024",
+    "expected_concept_id": "ammatillinen_koulutus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "varhaiskasvatus-01",
+    "question": "Miten varhaiskasvatuksen rahoitus on kehittynyt 2018-2024",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "varhaiskasvatus-02",
+    "question": "Miten varhaiskasvatuksen rahoitus on kehittynyt 2008-2015",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "varhaiskasvatus-03",
+    "question": "Varhaiskasvatuksen trendi 2018-2024",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "varhaiskasvatus-04",
+    "question": "Varhaiskasvatuksen menot 2018-2024",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "varhaiskasvatus-05",
+    "question": "Päivähoidon rahoitus 2008-2015",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "varhaiskasvatus-06",
+    "question": "Lasten päivähoidon menot 2008-2015",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "varhaiskasvatus-07",
+    "question": "early childhood education trend 2018-2024",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "varhaiskasvatus-08",
+    "question": "Paljonko varhaiskasvatukseen käytettiin rahaa 2024",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "overview",
+    "runtime_assertions": false
+  },
+  {
+    "id": "varhaiskasvatus-09",
+    "question": "Varhaiskasvatuksen rakenne 2018-2024",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "composition",
+    "expected_primary_chart": "stacked_area",
+    "runtime_assertions": false
+  },
+  {
+    "id": "varhaiskasvatus-10",
+    "question": "Näytä varhaiskasvatuksen kehitys 2018-2024",
+    "expected_concept_id": "varhaiskasvatus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "verotulot-01",
+    "question": "Miten verotulot ovat kehittyneet 2018-2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "allowed_moment_prefixes": [
+      "11.",
+      "12.",
+      "13.",
+      "14."
+    ],
+    "disallowed_moment_prefixes": [
+      "15.",
+      "27.",
+      "29."
+    ]
+  },
+  {
+    "id": "verotulot-02",
+    "question": "Verotulojen trendi 2018-2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "allowed_moment_prefixes": [
+      "11.",
+      "12.",
+      "13.",
+      "14."
+    ],
+    "disallowed_moment_prefixes": [
+      "15.",
+      "27.",
+      "29."
+    ]
+  },
+  {
+    "id": "verotulot-03",
+    "question": "Verokertymän kehitys 2018-2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "verotulot-04",
+    "question": "Verotuksen kehitys 2018-2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "verotulot-05",
+    "question": "Paljonko verotuloja kertyi 2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "overview",
+    "runtime_assertions": false
+  },
+  {
+    "id": "verotulot-06",
+    "question": "Verotulojen rakenne 2018-2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "composition",
+    "expected_primary_chart": "stacked_area",
+    "runtime_assertions": false
+  },
+  {
+    "id": "verotulot-07",
+    "question": "verotulot trend 2010-2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "verotulot-08",
+    "question": "verokertyma 2018-2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "verotulot-09",
+    "question": "verot 2018-2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "verotulot-10",
+    "question": "Näytä verotulojen kehitys 2008-2024",
+    "expected_concept_id": "verotulot",
+    "expected_fiscal_side": "revenue",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "velka_ja_korkomenot-01",
+    "question": "Miten velka ja korkomenot ovat kehittyneet 2018-2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "allowed_moment_prefixes": [
+      "15.",
+      "36."
+    ],
+    "disallowed_moment_prefixes": [
+      "11.",
+      "27.",
+      "29."
+    ]
+  },
+  {
+    "id": "velka_ja_korkomenot-02",
+    "question": "Korkomenojen trendi 2018-2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "allowed_moment_prefixes": [
+      "15.",
+      "36."
+    ],
+    "disallowed_moment_prefixes": [
+      "11.",
+      "27.",
+      "29."
+    ]
+  },
+  {
+    "id": "velka_ja_korkomenot-03",
+    "question": "Valtionvelan kehitys 2018-2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "mixed",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "velka_ja_korkomenot-04",
+    "question": "Velanhoidon menot 2018-2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "velka_ja_korkomenot-05",
+    "question": "Paljonko valtionvelan korko oli 2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "mixed",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "overview",
+    "runtime_assertions": false
+  },
+  {
+    "id": "velka_ja_korkomenot-06",
+    "question": "Velan ja korkomenojen rakenne 2018-2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "composition",
+    "expected_primary_chart": "stacked_area",
+    "runtime_assertions": false
+  },
+  {
+    "id": "velka_ja_korkomenot-07",
+    "question": "valtionvelka trend 2010-2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "mixed",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "velka_ja_korkomenot-08",
+    "question": "velka trend 2018-2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "mixed",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "velka_ja_korkomenot-09",
+    "question": "korkomenot 2018-2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "velka_ja_korkomenot-10",
+    "question": "velan kehitys 2018-2024",
+    "expected_concept_id": "velka_ja_korkomenot",
+    "expected_fiscal_side": "mixed",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "kuntien_valtionosuudet-01",
+    "question": "Miten kuntien valtionosuudet ovat kehittyneet 2018-2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "kuntien_valtionosuudet-02",
+    "question": "Valtionosuudet kunnille 2018-2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "kuntien_valtionosuudet-03",
+    "question": "Kuntarahoituksen kehitys 2018-2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "kuntien_valtionosuudet-04",
+    "question": "Valtionosuuksien trendi 2018-2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "kuntien_valtionosuudet-05",
+    "question": "Paljonko kunnille maksettiin valtionosuuksia 2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "overview",
+    "runtime_assertions": false
+  },
+  {
+    "id": "kuntien_valtionosuudet-06",
+    "question": "Kuntien valtionosuuksien rakenne 2018-2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "composition",
+    "expected_primary_chart": "stacked_area",
+    "runtime_assertions": false
+  },
+  {
+    "id": "kuntien_valtionosuudet-07",
+    "question": "kuntarahoitus trend 2015-2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "kuntien_valtionosuudet-08",
+    "question": "Valtionosuus kunnille peruspalvelujen järjestämiseen 2015-2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "kuntien_valtionosuudet-09",
+    "question": "kuntien valtionosuudet 2010-2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "kuntien_valtionosuudet-10",
+    "question": "kuntien rahoitus valtiolta 2018-2024",
+    "expected_concept_id": "kuntien_valtionosuudet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-01",
+    "question": "Miten hyvinvointialueiden rahoitus on kehittynyt 2023-2025",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-02",
+    "question": "Hyvinvointialueiden trendi 2023-2025",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": true,
+    "expected_verification_status": "trusted_with_warning",
+    "disallowed_moment_prefixes": [
+      "11.",
+      "15.",
+      "27."
+    ]
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-03",
+    "question": "Alueiden rahoitus 2023-2025",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-04",
+    "question": "Hyvinvointialueiden ja HUS-yhtymän rahoitus 2023-2025",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": true,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-05",
+    "question": "Paljonko hyvinvointialueille maksettiin rahoitusta 2024",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "overview",
+    "runtime_assertions": false
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-06",
+    "question": "Hyvinvointialueiden rahoituksen rakenne 2023-2025",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "composition",
+    "expected_primary_chart": "stacked_area",
+    "runtime_assertions": false
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-07",
+    "question": "hyvinvointialueet 2023-2025",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-08",
+    "question": "hyvinvointialueiden rahoitus trend 2023-2025",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-09",
+    "question": "hyvinvointialueiden rahoitus 2023-2025",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": false,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "hyvinvointialueiden_rahoitus-10",
+    "question": "HUS-yhtymän rahoitus 2023-2025",
+    "expected_concept_id": "hyvinvointialueiden_rahoitus",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "composite",
+    "expected_clarification_required": true,
+    "expected_intent": "trend",
+    "expected_primary_chart": "trend_line",
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-01",
+    "question": "Miten yritystuet ovat kehittyneet 2018-2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-02",
+    "question": "Yritystukien trendi 2018-2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-03",
+    "question": "Yritystuen kehitys 2018-2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-04",
+    "question": "Yritysavustusten trendi 2018-2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-05",
+    "question": "Investointitukien kehitys 2018-2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-06",
+    "question": "Elinkeinotukien trendi 2018-2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-07",
+    "question": "yritystuet 2018-2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-08",
+    "question": "Näytä yritystukien menot 2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-09",
+    "question": "Miten suorat yritystuet ovat kehittyneet 2018-2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  },
+  {
+    "id": "yritystuet-10",
+    "question": "Miten investointituet ovat kehittyneet 2018-2024",
+    "expected_concept_id": "yritystuet",
+    "expected_fiscal_side": "expense",
+    "expected_observability_class": "proxy",
+    "expected_clarification_required": true,
+    "runtime_assertions": false
+  }
+]

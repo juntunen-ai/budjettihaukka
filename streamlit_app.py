@@ -28,6 +28,29 @@ CHART_BG_SOFT = "#fde992"
 CHART_INK = "#111111"
 CHART_GRID = "#11111122"
 
+TRUST_BADGE_META = {
+    "trusted": {
+        "label": "Luotettava",
+        "css_class": "bh-trust-trusted",
+        "message": "Tulkinta ja käytetty budjettirajaus näyttävät olevan hyvällä tasolla tämän kysymyksen kannalta.",
+    },
+    "trusted_with_warning": {
+        "label": "Luotettava rajauksin",
+        "css_class": "bh-trust-warning",
+        "message": "Vastaus on käyttökelpoinen, mutta siihen liittyy rajaus- tai tulkintavaroituksia, jotka kannattaa lukea mukaan.",
+    },
+    "needs_clarification": {
+        "label": "Tarkennus tarvitaan",
+        "css_class": "bh-trust-clarify",
+        "message": "Järjestelmä ei halua arvata liian rohkeasti. Kysymystä pitää tarkentaa ennen luotettavaa vastausta.",
+    },
+    "unsupported": {
+        "label": "Ei riittävän luotettava",
+        "css_class": "bh-trust-unsupported",
+        "message": "Tätä kysymystä ei voida vastata nykyisestä datasta riittävän tarkasti ilman, että riski harhaanjohtavasta tuloksesta kasvaa liikaa.",
+    },
+}
+
 
 def apply_custom_theme() -> None:
     st.markdown(
@@ -93,6 +116,76 @@ def apply_custom_theme() -> None:
         .bh-topnav-link:hover {
           background: #fde992;
           transform: translateY(-1px);
+        }
+
+        .bh-trust-shell {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 0.8rem;
+          flex-wrap: wrap;
+          margin: 0.5rem 0 1rem 0;
+          padding: 0.8rem 1rem;
+          border: 2px solid #111111;
+          border-radius: 18px;
+          background: #fff3b6;
+        }
+
+        .bh-trust-main {
+          display: flex;
+          align-items: center;
+          gap: 0.7rem;
+          flex-wrap: wrap;
+        }
+
+        .bh-trust-badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.35rem 0.75rem;
+          border: 2px solid #111111;
+          border-radius: 999px;
+          font-family: 'Raleway', sans-serif !important;
+          font-size: 0.88rem;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+          line-height: 1;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+
+        .bh-trust-trusted {
+          background: #c5f0b5;
+        }
+
+        .bh-trust-warning {
+          background: #ffe08f;
+        }
+
+        .bh-trust-clarify {
+          background: #ffd4a3;
+        }
+
+        .bh-trust-unsupported {
+          background: #f6c2c2;
+        }
+
+        .bh-trust-note {
+          font-size: 0.98rem;
+          line-height: 1.35;
+        }
+
+        .bh-trust-observability {
+          display: inline-flex;
+          align-items: center;
+          padding: 0.32rem 0.7rem;
+          border: 1.5px solid #111111;
+          border-radius: 999px;
+          font-size: 0.82rem;
+          font-weight: 700;
+          background: #fff9d6;
+          line-height: 1;
+          white-space: nowrap;
         }
 
         h1, h2, h3, h4, h5, h6,
@@ -551,6 +644,55 @@ def _results_df_from_api_response(result: dict) -> pd.DataFrame:
     if not rows:
         return pd.DataFrame(columns=columns)
     return pd.DataFrame(rows, columns=columns or None)
+
+
+def _observability_label(value: str | None) -> str | None:
+    labels = {
+        "exact": "Tulkinta: exact",
+        "composite": "Tulkinta: composite",
+        "proxy": "Tulkinta: proxy",
+        "unsupported": "Tulkinta: unsupported",
+    }
+    return labels.get((value or "").strip().lower())
+
+
+def render_trust_badge(result: dict) -> None:
+    verification_status = (result.get("verification_status") or "").strip().lower()
+    if not verification_status:
+        status = (result.get("status") or "").strip().lower()
+        if status == "unsupported":
+            verification_status = "unsupported"
+        elif status == "clarification_required":
+            verification_status = "needs_clarification"
+        else:
+            return
+
+    meta = TRUST_BADGE_META.get(verification_status)
+    if not meta:
+        return
+
+    resolved = result.get("resolved_analysis") or {}
+    note = meta["message"]
+    observability_reason = str(resolved.get("observability_reason") or "").strip()
+    if observability_reason:
+        note = f"{note} {observability_reason}"
+
+    observability_text = _observability_label(resolved.get("observability_class"))
+    observability_html = (
+        f'<span class="bh-trust-observability">{observability_text}</span>' if observability_text else ""
+    )
+    st.markdown(
+        f"""
+        <div class="bh-trust-shell">
+          <div class="bh-trust-main">
+            <span class="bh-trust-badge {meta['css_class']}">{meta['label']}</span>
+            {observability_html}
+          </div>
+          <div class="bh-trust-note">{note}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 def _is_truthy_query_param(name: str) -> bool:
@@ -1795,6 +1937,8 @@ def main():
                 if debug_mode and query_plan:
                     st.caption(f"QueryPlan: {query_plan}")
 
+                render_trust_badge(result)
+
                 if result.get("status") == "clarification_required":
                     st.error("Analyysi tarvitsee tarkennuksen ennen ajoa.")
                     for warning in result.get("warnings") or []:
@@ -1829,6 +1973,28 @@ def main():
                             "chart_render_success": False,
                             "error_class": "clarification_required",
                         }
+                    )
+                    return
+
+                if result.get("status") == "unsupported":
+                    st.warning("Kysymystä ei voida tällä hetkellä vastata riittävän luotettavasti käytettävissä olevasta datasta.")
+                    if explanation:
+                        st.caption(explanation)
+                    for warning in result.get("warnings") or []:
+                        st.caption(warning)
+                    _log_question_library_event(
+                        question=question,
+                        session_id=st.session_state["query_session_id"],
+                        status="unsupported",
+                        analysis_spec=analysis_spec,
+                        query_source=query_source,
+                        query_contract=query_contract,
+                        clarification_required=clarification_required,
+                        clarification_choices=clarification_choices,
+                        missing_required=missing_required,
+                        result=result,
+                        error_class="unsupported",
+                        error_message="Kysymystä ei voida vastata riittävän luotettavasti.",
                     )
                     return
 

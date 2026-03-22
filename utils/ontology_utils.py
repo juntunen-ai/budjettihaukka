@@ -11,6 +11,68 @@ import yaml
 from config import settings
 
 
+TOKEN_RE = re.compile(r"[0-9A-Za-zÅÄÖåäö]+(?:-[0-9A-Za-zÅÄÖåäö]+)*")
+
+ALIAS_REVIEW_STATUSES = {"gold", "reviewed", "candidate", "blocked"}
+OBSERVABILITY_CLASSES = {"exact", "composite", "proxy", "unsupported"}
+
+CONCEPT_OBSERVABILITY_DEFAULTS: dict[str, tuple[str, str]] = {
+    "asumistuki": (
+        "exact",
+        "Asumistuki voidaan rajata suoraan tunnistettuihin asumistukimomentteihin koko nykyisen analyysipolun kannalta käyttökelpoisella ajanjaksolla.",
+    ),
+    "puolustus": (
+        "composite",
+        "Puolustusmenot koostuvat useista puolustusministeriön ja puolustusvoimien momenteista, joten vastaus perustuu koottuun konseptirajaukseen.",
+    ),
+    "yliopistot": (
+        "composite",
+        "Yliopistorahoitus muodostuu useista yliopistoihin liittyvistä budjettimomenteista ja voi muuttua rakenteellisesti vuosien välillä.",
+    ),
+    "ammatillinen_koulutus": (
+        "composite",
+        "Ammatillisen koulutuksen rahoitus koostuu useista koulutus- ja valtionosuusmomenteista.",
+    ),
+    "varhaiskasvatus": (
+        "proxy",
+        "Varhaiskasvatus ei näy kaikissa vuosissa yhtenä puhtaana budjettikäsitteenä, vaan osin laajemmissa valtionosuus- tai koulutusmomenteissa.",
+    ),
+    "verotulot": (
+        "composite",
+        "Verotulot ovat usean verolajin kokonaisuus, joka kannattaa tarvittaessa tarkentaa yksittäiseen verolajiin.",
+    ),
+    "velka_ja_korkomenot": (
+        "composite",
+        "Velka ja korkomenot yhdistävät useita velanhoitoon liittyviä eriä, joiden semantiikka vaihtelee.",
+    ),
+    "kuntien_valtionosuudet": (
+        "composite",
+        "Kuntien valtionosuudet muodostuvat useista siirto- ja rahoitusmomenteista.",
+    ),
+    "hyvinvointialueiden_rahoitus": (
+        "composite",
+        "Hyvinvointialueiden rahoitus on koottu useista sote-rahoituksen budjettieristä.",
+    ),
+    "yritystuet": (
+        "proxy",
+        "Yritystuet ovat käsitteenä laaja ja osin tulkinnanvarainen; analyysi perustuu konseptirajaukseen, ei yksiselitteiseen viralliseen momenttiluokkaan.",
+    ),
+}
+
+ALIAS_TYPE_DEFAULTS: dict[str, dict[str, Any]] = {
+    "label": {"precision_score": 0.99, "review_status": "gold"},
+    "pref": {"precision_score": 0.98, "review_status": "gold"},
+    "canonical": {"precision_score": 0.9, "review_status": "reviewed"},
+    "inflected": {"precision_score": 0.9, "review_status": "gold"},
+    "alt": {"precision_score": 0.82, "review_status": "reviewed"},
+    "english": {"precision_score": 0.72, "review_status": "reviewed"},
+    "colloquial": {"precision_score": 0.7, "review_status": "reviewed"},
+    "vm_phrase": {"precision_score": 0.62, "review_status": "candidate"},
+    "vm_token": {"precision_score": 0.18, "review_status": "blocked"},
+    "abbreviation": {"precision_score": 0.58, "review_status": "reviewed", "is_acronym": True, "requires_token_boundary": True},
+}
+
+
 def _normalize_text(value: str) -> str:
     return re.sub(r"\s+", " ", (value or "").strip().lower())
 
@@ -18,6 +80,16 @@ def _normalize_text(value: str) -> str:
 def _tokenize(value: str) -> list[str]:
     normalized = _normalize_text(value)
     return [token for token in re.split(r"[^0-9a-zåäö]+", normalized) if token]
+
+
+def _tokenize_with_original(value: str) -> list[tuple[str, str]]:
+    tokens: list[tuple[str, str]] = []
+    for match in TOKEN_RE.finditer(value or ""):
+        original = match.group(0)
+        normalized = _normalize_text(original)
+        if normalized:
+            tokens.append((original, normalized))
+    return tokens
 
 
 def _optional_str(value: Any) -> str | None:
@@ -40,6 +112,12 @@ class OntologyAlias:
     source: str
     alias_type: str
     lang: str = "fi"
+    precision_score: float = 0.7
+    requires_token_boundary: bool = False
+    is_acronym: bool = False
+    review_status: str = "reviewed"
+    valid_from_year: int | None = None
+    valid_to_year: int | None = None
 
 
 @dataclass(frozen=True)
@@ -80,6 +158,8 @@ class OntologyConcept:
     risk_level: str
     must_clarify: bool
     clarification_question: str | None = None
+    observability_class: str = "composite"
+    observability_reason: str = ""
     aliases: list[OntologyAlias] = field(default_factory=list)
     external_refs: list[OntologyExternalRef] = field(default_factory=list)
     include_rules: list[OntologyMembershipRule] = field(default_factory=list)
@@ -125,6 +205,32 @@ class ResolvedConcept:
     default_fiscal_side: str
 
 
+def _default_observability_for_concept(concept_id: str) -> tuple[str, str]:
+    return CONCEPT_OBSERVABILITY_DEFAULTS.get(
+        concept_id,
+        ("composite", "Käsite tulkitaan koottuna budjettikonseptina, ellei ontologiassa määritellä tarkempaa answerability-luokkaa."),
+    )
+
+
+def _default_alias_metadata(alias: str, source: str, alias_type: str) -> dict[str, Any]:
+    alias_text = str(alias or "").strip()
+    base = dict(ALIAS_TYPE_DEFAULTS.get(alias_type, {"precision_score": 0.7, "review_status": "reviewed"}))
+    is_acronym = bool(base.get("is_acronym")) or (
+        len(alias_text) <= 5 and alias_text.isupper() and any(char.isalpha() for char in alias_text)
+    )
+    requires_token_boundary = bool(base.get("requires_token_boundary")) or len(alias_text) < 4 or " " in alias_text
+    if source == "vm_vocabulary" and alias_type == "canonical":
+        base["review_status"] = "reviewed"
+    if source == "manual" and alias_type in {"pref", "inflected"}:
+        base["review_status"] = "gold"
+    return {
+        "precision_score": float(base.get("precision_score", 0.7)),
+        "requires_token_boundary": requires_token_boundary,
+        "is_acronym": is_acronym,
+        "review_status": str(base.get("review_status", "reviewed")),
+    }
+
+
 def default_ontology_path() -> Path:
     base = Path(__file__).resolve().parents[1]
     configured = Path(settings.ontology_path)
@@ -136,12 +242,25 @@ def default_ontology_path() -> Path:
 def _coerce_aliases(raw_aliases: list[dict[str, Any]]) -> list[OntologyAlias]:
     aliases: list[OntologyAlias] = []
     for item in raw_aliases:
+        alias = str(item["alias"]).strip()
+        source = str(item.get("source", "manual")).strip()
+        alias_type = str(item.get("alias_type", "alt")).strip()
+        defaults = _default_alias_metadata(alias, source, alias_type)
+        review_status = str(item.get("review_status", defaults["review_status"])).strip().lower()
+        if review_status not in ALIAS_REVIEW_STATUSES:
+            review_status = "reviewed"
         aliases.append(
             OntologyAlias(
-                alias=str(item["alias"]).strip(),
-                source=str(item.get("source", "manual")).strip(),
-                alias_type=str(item.get("alias_type", "alt")).strip(),
+                alias=alias,
+                source=source,
+                alias_type=alias_type,
                 lang=str(item.get("lang", "fi")).strip(),
+                precision_score=float(item.get("precision_score", defaults["precision_score"])),
+                requires_token_boundary=bool(item.get("requires_token_boundary", defaults["requires_token_boundary"])),
+                is_acronym=bool(item.get("is_acronym", defaults["is_acronym"])),
+                review_status=review_status,
+                valid_from_year=item.get("valid_from_year"),
+                valid_to_year=item.get("valid_to_year"),
             )
         )
     return aliases
@@ -221,6 +340,8 @@ def load_budget_ontology(path: str | Path | None = None) -> BudgetOntology:
                 risk_level=str(item.get("risk_level", "medium")).strip(),
                 must_clarify=bool(item.get("must_clarify", False)),
                 clarification_question=_optional_str(item.get("clarification_question")),
+                observability_class=str(item.get("observability_class") or _default_observability_for_concept(str(item["concept_id"]).strip())[0]).strip(),
+                observability_reason=str(item.get("observability_reason") or _default_observability_for_concept(str(item["concept_id"]).strip())[1]).strip(),
                 aliases=_coerce_aliases(item.get("aliases", [])),
                 external_refs=_coerce_external_refs(item.get("external_refs", [])),
                 include_rules=_coerce_rules(item.get("include_rules", [])),
@@ -248,6 +369,7 @@ def validate_budget_ontology(ontology: BudgetOntology) -> list[str]:
     known_levels = {"kokonais", "hallinnonala", "kirjanpitoyksikko", "momentti", "alamomentti"}
     known_risks = {"low", "medium", "high"}
     known_fiscal_sides = {"expense", "revenue", "financing", "technical", "mixed", "unknown"}
+    known_observability_classes = OBSERVABILITY_CLASSES
     known_match_types = {
         "canonical_name_pattern",
         "canonical_exact",
@@ -270,6 +392,8 @@ def validate_budget_ontology(ontology: BudgetOntology) -> list[str]:
             issues.append(f"{concept.concept_id}: invalid default_fiscal_side={concept.default_fiscal_side}")
         if concept.risk_level not in known_risks:
             issues.append(f"{concept.concept_id}: invalid risk_level={concept.risk_level}")
+        if concept.observability_class not in known_observability_classes:
+            issues.append(f"{concept.concept_id}: invalid observability_class={concept.observability_class}")
         if concept.must_clarify and not concept.clarification_question and not concept.guardrails:
             issues.append(f"{concept.concept_id}: must_clarify requires clarification_question or guardrails")
         if not concept.aliases:
@@ -288,6 +412,9 @@ def validate_budget_ontology(ontology: BudgetOntology) -> list[str]:
                     )
                 if not rule.value:
                     issues.append(f"{concept.concept_id}: empty value in {rule_group_name}")
+        for alias in concept.aliases:
+            if alias.review_status not in ALIAS_REVIEW_STATUSES:
+                issues.append(f"{concept.concept_id}: invalid alias review_status={alias.review_status} for alias {alias.alias}")
     return issues
 
 
@@ -317,6 +444,8 @@ def flatten_budget_ontology(ontology: BudgetOntology) -> dict[str, list[dict[str
                 "risk_level": concept.risk_level,
                 "must_clarify": concept.must_clarify,
                 "clarification_question": concept.clarification_question,
+                "observability_class": concept.observability_class,
+                "observability_reason": concept.observability_reason,
             }
         )
         for alias in concept.aliases:
@@ -329,6 +458,12 @@ def flatten_budget_ontology(ontology: BudgetOntology) -> dict[str, list[dict[str
                     "source": alias.source,
                     "alias_type": alias.alias_type,
                     "lang": alias.lang,
+                    "precision_score": alias.precision_score,
+                    "requires_token_boundary": alias.requires_token_boundary,
+                    "is_acronym": alias.is_acronym,
+                    "review_status": alias.review_status,
+                    "valid_from_year": alias.valid_from_year,
+                    "valid_to_year": alias.valid_to_year,
                 }
             )
         for ref in concept.external_refs:
@@ -410,24 +545,46 @@ def resolve_concepts_for_question(
     limit: int = 5,
 ) -> list[ResolvedConcept]:
     question_norm = _normalize_text(question)
-    question_tokens = set(_tokenize(question))
+    question_token_pairs = _tokenize_with_original(question)
+    question_tokens = {normalized for _original, normalized in question_token_pairs}
+    question_upper_tokens = {original for original, _normalized in question_token_pairs if original.isupper()}
     scored: list[ResolvedConcept] = []
 
     for concept in ontology.concepts:
         matched_aliases: list[str] = []
         score = 0.0
-        for alias in concept.all_aliases():
-            alias_norm = _normalize_text(alias)
+        synthetic_label_alias = OntologyAlias(
+            alias=concept.label_fi,
+            source="ontology_label",
+            alias_type="label",
+            lang="fi",
+            **_default_alias_metadata(concept.label_fi, "ontology_label", "label"),
+        )
+        for alias in [synthetic_label_alias, *concept.aliases]:
+            if alias.review_status == "blocked":
+                continue
+            alias_norm = _normalize_text(alias.alias)
             if not alias_norm:
                 continue
-            alias_tokens = set(_tokenize(alias))
-            if alias_norm in question_norm:
-                matched_aliases.append(alias)
-                score += 1.0 + min(len(alias_norm) / 40.0, 1.0)
-                continue
-            if alias_tokens and alias_tokens.issubset(question_tokens):
-                matched_aliases.append(alias)
-                score += 0.75 + min(len(alias_tokens) * 0.15, 0.6)
+            alias_tokens = set(_tokenize(alias.alias))
+            matched = False
+
+            if alias.is_acronym:
+                matched = alias.alias in question_upper_tokens
+            elif " " in alias_norm or alias.requires_token_boundary:
+                phrase_pattern = re.compile(rf"(?<![0-9a-zåäö]){re.escape(alias_norm)}(?![0-9a-zåäö])")
+                matched = bool(phrase_pattern.search(question_norm))
+            elif alias_tokens:
+                matched = alias_tokens.issubset(question_tokens)
+                if not matched and " " in alias_norm and alias.precision_score >= 0.9 and len(alias_norm) >= 5:
+                    matched = alias_norm in question_norm
+
+            if matched:
+                matched_aliases.append(alias.alias)
+                review_bonus = {"gold": 0.25, "reviewed": 0.08, "candidate": -0.18}.get(alias.review_status, 0.0)
+                source_bonus = {"ontology_label": 0.25, "manual": 0.15, "vm_vocabulary": -0.05}.get(alias.source, 0.0)
+                token_bonus = min(len(alias_tokens) * 0.08, 0.32)
+                score += alias.precision_score + review_bonus + source_bonus + token_bonus
         if score <= 0:
             continue
         if concept.risk_level == "high":

@@ -17,15 +17,16 @@ logger = logging.getLogger("build_concept_moment_bridge")
 
 
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build concept_moment_bridge_v2 view in BigQuery.")
+    parser = argparse.ArgumentParser(description="Build concept_moment_bridge_v3 view in BigQuery.")
     parser.add_argument("--project", default=settings.project_id)
     parser.add_argument("--dataset", default=settings.dataset)
-    parser.add_argument("--view-name", default="concept_moment_bridge_v2")
+    parser.add_argument("--view-name", default="concept_moment_bridge_v3")
+    parser.add_argument("--helper-view-name", default="concept_runtime_scope_v1")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
 
-def build_bridge_sql(project: str, dataset: str, view_name: str) -> str:
+def build_bridge_sql(project: str, dataset: str, view_name: str, helper_view_name: str) -> str:
     concept_ref = f"`{project}.{dataset}.{settings.ontology_table_prefix}_concept`"
     alias_ref = f"`{project}.{dataset}.{settings.ontology_table_prefix}_alias`"
     rule_ref = f"`{project}.{dataset}.{settings.ontology_table_prefix}_membership_rule`"
@@ -33,6 +34,7 @@ def build_bridge_sql(project: str, dataset: str, view_name: str) -> str:
     evidence_ref = f"`{project}.{dataset}.vm_budget_semantic_evidence`"
     segments_ref = f"`{project}.{dataset}.vm_budget_document_segments`"
     view_ref = f"`{project}.{dataset}.{view_name}`"
+    helper_ref = f"`{project}.{dataset}.{helper_view_name}`"
 
     return f"""
 CREATE OR REPLACE VIEW {view_ref} AS
@@ -50,12 +52,14 @@ alias_terms AS (
   FROM {alias_ref}
   WHERE lang = 'fi'
     AND LENGTH(TRIM(alias)) >= 5
+    AND COALESCE(review_status, 'reviewed') != 'blocked'
+    AND COALESCE(precision_score, 0.0) >= 0.55
   UNION DISTINCT
   SELECT concept_id, LOWER(TRIM(concept_label)) AS alias
   FROM concept_meta
   WHERE LENGTH(TRIM(concept_label)) >= 5
 ),
-rule_base AS (
+include_rule_base AS (
   SELECT
     concept_id,
     hierarchy_level,
@@ -64,9 +68,24 @@ rule_base AS (
     valid_from_year,
     valid_to_year,
     confidence,
-    rule_id
+    rule_id,
+    rule_scope
   FROM {rule_ref}
   WHERE rule_scope = 'include'
+),
+exclude_rule_base AS (
+  SELECT
+    concept_id,
+    hierarchy_level,
+    match_type,
+    value,
+    valid_from_year,
+    valid_to_year,
+    confidence,
+    rule_id,
+    rule_scope
+  FROM {rule_ref}
+  WHERE rule_scope = 'exclude'
 ),
 hierarchy_mapping AS (
   SELECT
@@ -83,8 +102,9 @@ hierarchy_mapping AS (
   FROM {mapping_ref}
   WHERE level_name IN ('hallinnonala', 'kirjanpitoyksikko', 'luku', 'momentti', 'alamomentti')
 ),
-rule_expanded AS (
+expanded_rules AS (
   SELECT
+    rb.rule_scope,
     rb.concept_id,
     cm.concept_label,
     cm.policy_theme,
@@ -107,7 +127,11 @@ rule_expanded AS (
     rb.confidence AS rule_confidence,
     hm.alias_issue_category,
     hm.has_same_year_conflict
-  FROM rule_base rb
+  FROM (
+    SELECT * FROM include_rule_base
+    UNION ALL
+    SELECT * FROM exclude_rule_base
+  ) rb
   JOIN concept_meta cm USING(concept_id)
   JOIN hierarchy_mapping hm
     ON rb.hierarchy_level = hm.hierarchy_level
@@ -122,9 +146,9 @@ rule_expanded AS (
       ))
   )
 ),
-rule_expanded_valid AS (
+expanded_rules_valid AS (
   SELECT *
-  FROM rule_expanded
+  FROM expanded_rules
   WHERE (valid_from_year IS NULL OR valid_to_year IS NULL OR valid_from_year <= valid_to_year)
 ),
 segment_stats AS (
@@ -210,17 +234,18 @@ bridge_candidates AS (
     hierarchy_level,
     hierarchy_code,
     canonical_name AS bridge_display_name,
+    has_same_year_conflict,
     valid_from_year,
     valid_to_year,
-    'ontology_rule' AS bridge_source,
+    CASE WHEN rule_scope = 'exclude' THEN 'ontology_exclude' ELSE 'ontology_rule' END AS bridge_source,
     CAST(NULL AS INT64) AS evidence_hits,
     CAST(NULL AS FLOAT64) AS evidence_match_confidence,
     rule_confidence,
-    TRUE AS has_rule_support,
-    has_same_year_conflict,
+    rule_scope = 'include' AS has_rule_support,
+    rule_scope = 'exclude' AS has_exclude_support,
     CAST(NULL AS STRING) AS sample_content_url,
     CAST(NULL AS STRING) AS sample_snippet
-  FROM rule_expanded_valid
+  FROM expanded_rules_valid
   UNION ALL
   SELECT
     concept_id,
@@ -231,6 +256,7 @@ bridge_candidates AS (
     hierarchy_level,
     hierarchy_code,
     bridge_display_name,
+    FALSE AS has_same_year_conflict,
     valid_from_year,
     valid_to_year,
     'vm_evidence' AS bridge_source,
@@ -238,7 +264,7 @@ bridge_candidates AS (
     evidence_match_confidence,
     CAST(NULL AS FLOAT64) AS rule_confidence,
     FALSE AS has_rule_support,
-    FALSE AS has_same_year_conflict,
+    FALSE AS has_exclude_support,
     top_evidence.content_url AS sample_content_url,
     top_evidence.snippet AS sample_snippet
   FROM evidence_matches
@@ -259,6 +285,7 @@ bridge_aggregated AS (
     ARRAY_TO_STRING(ARRAY_AGG(DISTINCT bridge_source ORDER BY bridge_source), ', ') AS bridge_sources,
     SUM(COALESCE(evidence_hits, 0)) AS evidence_hits,
     LOGICAL_OR(has_rule_support) AS has_rule_support,
+    LOGICAL_OR(has_exclude_support) AS has_exclude_support,
     MAX(COALESCE(rule_confidence, 0.0)) AS max_rule_confidence,
     MAX(COALESCE(evidence_match_confidence, 0.0)) AS max_evidence_confidence,
     ARRAY_AGG(sample_content_url IGNORE NULLS ORDER BY sample_content_url DESC LIMIT 1)[SAFE_OFFSET(0)] AS sample_content_url,
@@ -280,7 +307,15 @@ SELECT
   valid_to_year,
   bridge_sources,
   evidence_hits,
+  evidence_hits AS evidence_count,
   has_rule_support,
+  has_exclude_support,
+  CASE
+    WHEN has_exclude_support THEN 'exclude'
+    WHEN has_rule_support AND max_rule_confidence >= 0.95 AND evidence_hits >= 1 THEN 'direct'
+    WHEN has_rule_support THEN 'composite'
+    ELSE 'proxy'
+  END AS membership_type,
   CASE
     WHEN has_rule_support THEN LEAST(0.995, GREATEST(max_rule_confidence, 0.82 + 0.02 * evidence_hits))
     ELSE LEAST(0.89, 0.45 + 0.08 * evidence_hits)
@@ -289,17 +324,31 @@ SELECT
     AND (
       has_rule_support
       OR (evidence_hits >= 2 AND max_evidence_confidence >= 0.92)
-    ) AS recommended_for_runtime,
+    )
+    AND NOT has_exclude_support AS recommended_for_runtime,
+  CASE
+    WHEN has_exclude_support THEN 'Konseptin eksplisiittinen poissulku ontologiasta.'
+    WHEN has_rule_support AND evidence_hits >= 1 THEN 'Suora konseptituki ontologiasta ja VM-evidenssistä.'
+    WHEN has_rule_support THEN 'Ontologiatuettu koottu budjettimomentti.'
+    ELSE 'VM-evidenssiin perustuva proxy-ehdokas, joka vaatii varovaisuutta.'
+  END AS notes,
   sample_content_url,
   sample_snippet
 FROM bridge_aggregated
+;
+
+CREATE OR REPLACE VIEW {helper_ref} AS
+SELECT *
+FROM {view_ref}
+WHERE recommended_for_runtime = TRUE
+  AND membership_type != 'exclude'
 """
 
 
 def main() -> None:
     args = _parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    sql = build_bridge_sql(args.project, args.dataset, args.view_name)
+    sql = build_bridge_sql(args.project, args.dataset, args.view_name, args.helper_view_name)
     cmd = [
         "bq",
         "query",
@@ -311,9 +360,23 @@ def main() -> None:
         cmd.append("--dry_run")
     subprocess.run(cmd, input=sql, text=True, check=True)
     if args.dry_run:
-        logger.info("Dry-run completed for %s.%s.%s", args.project, args.dataset, args.view_name)
+        logger.info(
+            "Dry-run completed for %s.%s.%s (+ %s)",
+            args.project,
+            args.dataset,
+            args.view_name,
+            args.helper_view_name,
+        )
         return
-    logger.info("Built view %s.%s.%s", args.project, args.dataset, args.view_name)
+    logger.info(
+        "Built views %s.%s.%s and %s.%s.%s",
+        args.project,
+        args.dataset,
+        args.view_name,
+        args.project,
+        args.dataset,
+        args.helper_view_name,
+    )
 
 
 if __name__ == "__main__":

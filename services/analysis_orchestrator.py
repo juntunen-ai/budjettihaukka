@@ -5,6 +5,7 @@ import pandas as pd
 from domain.contracts import AnalyzeResult
 from services.analytics_engine import collect_used_moments, run_analysis
 from services.analytics_frames import build_analytics_frame
+from services.answer_verifier import verify_answer
 from services.explanation_service import build_explanation
 from services.ontology_resolver import resolve_analysis
 from services.semantic_parser import apply_user_clarifications, parse_question, reparse_with_clarifications
@@ -66,8 +67,24 @@ def analyze_question(question: str, clarifications: dict[str, str] | None = None
     warnings: list[str] = []
     if evidence_error:
         warnings.append(evidence_error)
+    verification = verify_answer(
+        question=execution_question,
+        analysis_spec=final_parsed.analysis_spec,
+        resolved=resolved,
+        result_rows=result_rows,
+        used_moments=used_moments,
+        execution_error=execution.get("error"),
+    )
+    warnings.extend(verification.warnings)
 
-    status = "error" if execution.get("error") else "success"
+    if execution.get("error"):
+        status = "error"
+    elif verification.verification_status == "needs_clarification":
+        status = "clarification_required"
+    elif verification.verification_status == "unsupported":
+        status = "unsupported"
+    else:
+        status = "success"
     return AnalyzeResult(
         status=status,
         question=question,
@@ -88,8 +105,10 @@ def analyze_question(question: str, clarifications: dict[str, str] | None = None
         retries=int(execution.get("query_retries") or 0),
         error=execution.get("error"),
         error_class=execution.get("error_class"),
+        verification_status=verification.verification_status,
         warnings=warnings,
         metadata={
             "query_plan": execution.get("query_plan"),
+            "verification": verification.metadata,
         },
     )

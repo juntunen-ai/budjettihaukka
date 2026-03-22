@@ -35,7 +35,8 @@ def _concept_notes(spec: AnalysisSpec, concept: OntologyConcept | None) -> list[
     elif concept is not None:
         notes.append(
             f"Canonical concept: {concept.label_fi} ({concept.concept_id}), "
-            f"default fiscal side {concept.default_fiscal_side}"
+            f"default fiscal side {concept.default_fiscal_side}, "
+            f"observability {concept.observability_class}"
         )
         try:
             from utils.bigquery_utils import get_concept_bridge_summary
@@ -73,6 +74,8 @@ def resolve_analysis(question: str, spec: AnalysisSpec) -> ResolvedAnalysis:
         concept_id=spec.resolved_concept_id,
         concept_label=spec.resolved_concept_label,
         fiscal_side=spec.fiscal_side,
+        observability_class=concept.observability_class if concept else None,
+        observability_reason=concept.observability_reason if concept else None,
         include_rules=include_rules,
         exclude_rules=exclude_rules,
         ambiguity_notes=_concept_notes(spec, concept),

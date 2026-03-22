@@ -11,7 +11,7 @@ import sqlglot
 from sqlglot import exp
 
 from config import settings
-from utils.budget_semantics import fiscal_side_case_sql
+from utils.budget_semantics import classify_moment_fiscal_side, fiscal_side_case_sql, normalize_fiscal_side
 from utils.analysis_spec_utils import AnalysisSpec, coverage_notice, infer_analysis_spec
 from utils.demo_data_utils import adapt_sql_to_demo_table, execute_demo_sql, get_demo_table_name
 from utils.ontology_utils import load_budget_ontology
@@ -60,7 +60,7 @@ BQ_MOMENTTI_EXPR = "COALESCE(NULLIF(momentti_canonical, ''), NULLIF(`Momentti_sN
 BQ_ALAMOMENTTI_EXPR = "COALESCE(NULLIF(alamomentti_canonical, ''), NULLIF(`TakpMrL_sNimi`, ''))"
 YEARLY_AGG_BASE_TABLE_ID = f"{settings.project_id}.{settings.dataset}.valtiontalous_yearly_agg_v1"
 YEARLY_AGG_TABLE_ID = f"{settings.project_id}.{settings.dataset}.valtiontalous_yearly_agg_guarded_v1"
-CONCEPT_BRIDGE_TABLE_ID = f"{settings.project_id}.{settings.dataset}.concept_moment_bridge_v2"
+CONCEPT_BRIDGE_TABLE_ID = f"{settings.project_id}.{settings.dataset}.concept_moment_bridge_v3"
 MOMENT_LINEAGE_TABLE_ID = f"{settings.project_id}.{settings.dataset}.moment_lineage_v1"
 MOMENT_LINEAGE_GUARDRAIL_TABLE_ID = f"{settings.project_id}.{settings.dataset}.moment_structural_change_guardrails_v1"
 BRIDGE_PRIORITY_CONCEPTS = {"varhaiskasvatus", "yliopistot", "puolustus"}
@@ -437,7 +437,8 @@ def _fetch_concept_bridge_rows_cached(
 
     sql = (
         "SELECT hierarchy_level, hierarchy_code, bridge_display_name, has_same_year_conflict, "
-        "valid_from_year, valid_to_year, bridge_confidence, bridge_sources, has_rule_support, evidence_hits "
+        "valid_from_year, valid_to_year, bridge_confidence, bridge_sources, has_rule_support, "
+        "evidence_hits, evidence_count, membership_type, notes, has_exclude_support "
         f"FROM `{CONCEPT_BRIDGE_TABLE_ID}` "
         "WHERE concept_id = @concept_id "
         "  AND recommended_for_runtime = TRUE "
@@ -482,6 +483,7 @@ def _fetch_concept_bridge_rules(
     )
     rules: list[dict[str, Any]] = []
     supported_levels = set(_bridge_runtime_levels(dialect))
+    expected_fiscal_side = normalize_fiscal_side(getattr(analysis_spec, "fiscal_side", None))
     for idx, row in enumerate(rows, start=1):
         hierarchy_level = str(row.get("hierarchy_level", "")).strip().lower()
         hierarchy_code = str(row.get("hierarchy_code", "")).strip()
@@ -489,6 +491,10 @@ def _fetch_concept_bridge_rules(
             continue
         bridge_display_name = str(row.get("bridge_display_name", "")).strip() or None
         has_same_year_conflict = bool(row.get("has_same_year_conflict"))
+        if hierarchy_level == "momentti" and expected_fiscal_side not in {"unknown", "mixed"}:
+            row_side = classify_moment_fiscal_side(hierarchy_code, bridge_display_name)
+            if row_side not in {"unknown", "mixed"} and row_side != expected_fiscal_side:
+                continue
         rules.append(
             {
                 "rule_scope": "include",
@@ -526,6 +532,32 @@ def get_concept_bridge_summary(
         "sources": sources,
         "valid_from_year": min(valid_froms) if valid_froms else None,
         "valid_to_year": max(valid_tos) if valid_tos else None,
+        "membership_types": sorted(
+            {
+                str(row.get("membership_type") or "").strip()
+                for row in rows
+                if str(row.get("membership_type") or "").strip()
+            }
+        ),
+        "evidence_count": int(sum(int(row.get("evidence_count") or 0) for row in rows)),
+    }
+
+
+def get_concept_bridge_runtime_codes(
+    concept_id: str | None,
+    year_from: int | None = None,
+    year_to: int | None = None,
+    dialect: str = "bigquery",
+) -> set[str]:
+    if not concept_id:
+        return set()
+    start, end = _with_default_year_bounds(year_from, year_to)
+    rows = _fetch_concept_bridge_rows_cached(concept_id, dialect, start, end)
+    return {
+        str(row.get("hierarchy_code")).strip()
+        for row in rows
+        if str(row.get("hierarchy_level") or "").strip().lower() == "momentti"
+        and str(row.get("hierarchy_code") or "").strip()
     }
 
 

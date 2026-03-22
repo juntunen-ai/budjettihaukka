@@ -1,0 +1,39 @@
+version: 1
+label_fi: Budjettihaukka external semantic seed
+notes_fi: >-
+  Controlled external semantic sources for Phase 2. These inputs are harvested into
+  reviewed alias candidates only. They must not be promoted to runtime matching without
+  explicit review.
+concept_sources:
+  - concept_id: varhaiskasvatus
+    items:
+      - source: finto_uri
+        source_system: finto_yso
+        vocab: yso
+        uri: http://www.yso.fi/onto/yso/p1650
+        expected_pref_label_fi: varhaiskasvatus
+      - source: sanastot_concept
+        source_system: sanastot_oksa
+        url: https://sanastot.suomi.fi/terminology/oksa/concept/c125
+        expected_label_fi: varhaiskasvatus
+  - concept_id: asumistuki
+    items:
+      - source: finto_search
+        source_system: finto_yso
+        vocab: yso
+        query: asumistuki
+        expected_pref_label_fi: asumistuet
+  - concept_id: verotulot
+    items:
+      - source: finto_uri
+        source_system: finto_yso
+        vocab: yso
+        uri: http://www.yso.fi/onto/yso/p940
+        expected_pref_label_fi: verotulot
+  - concept_id: yritystuet
+    items:
+      - source: finto_uri
+        source_system: finto_yso
+        vocab: yso
+        uri: http://www.yso.fi/onto/yso/p28266
+        expected_pref_label_fi: yritystuet

@@ -32,5 +32,6 @@ class AnalyzeResponse(BaseModel):
     retries: int = 0
     error: str | None = None
     error_class: str | None = None
+    verification_status: str | None = None
     warnings: list[str] = Field(default_factory=list)
     metadata: dict[str, Any] = Field(default_factory=dict)
