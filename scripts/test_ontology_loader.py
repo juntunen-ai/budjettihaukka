@@ -32,7 +32,7 @@ def main() -> None:
 
     flattened = flatten_budget_ontology(ontology)
     assert len(flattened["ontology_concept"]) == 30
-    assert len(flattened["ontology_alias"]) >= 130
+    assert len(flattened["ontology_alias"]) >= 500
     assert len(flattened["ontology_membership_rule"]) >= 60
     assert len(flattened["ontology_viz_recipe"]) >= 30
 
