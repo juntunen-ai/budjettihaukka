@@ -93,6 +93,13 @@ def _has_token_prefix(tokens: list[str], *prefixes: str) -> bool:
     return any(token.startswith(prefix) for token in tokens for prefix in normalized)
 
 
+def _has_token_substring(tokens: list[str], *needles: str) -> bool:
+    # Finnish compounds ("budjettimomentit", "menomomentti") hide the keyword
+    # mid-token, so prefix matching alone misses them.
+    normalized = tuple(needle.lower() for needle in needles)
+    return any(needle in token for token in tokens for needle in normalized)
+
+
 def _normalize_time_bounds(years: list[int]) -> tuple[int | None, int | None]:
     if not years:
         return None, None
@@ -123,15 +130,15 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
     ranking_n = _extract_top_n(text)
 
     has_growth = (
-        _has_token_prefix(tokens, "kasvu", "muutos", "mutos", "muuttu", "nous", "lask", "vuosimuutos")
+        _has_token_substring(tokens, "kasv", "muutos", "mutos", "muuttu", "nous", "lask", "vuosimuutos")
         or _has_exact_token(tokens, "yoy")
     )
     has_top = _has_exact_token(tokens, "top", "eniten") or _has_token_prefix(tokens, "suur", "absoluutt")
     has_trend = _has_token_prefix(tokens, "trend", "aikasarja", "kehitty", "kehitys", "pitkäaik", "pitkaaik")
     has_composition = _has_token_prefix(tokens, "jakauma", "osuus", "osuudet", "raken")
     has_seasonality = _has_token_prefix(tokens, "kuukaus", "kausivaihtelu", "season", "kausi")
-    has_moment = _has_token_prefix(tokens, "moment")
-    has_alamoment = _has_token_prefix(tokens, "alamoment")
+    has_moment = _has_token_substring(tokens, "moment")
+    has_alamoment = _has_token_substring(tokens, "alamoment")
 
     if has_top and has_growth:
         intent = "top_growth"

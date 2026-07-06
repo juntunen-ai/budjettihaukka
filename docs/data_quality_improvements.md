@@ -79,12 +79,37 @@ To create curated tables/views and dimensions, caller needs at least:
 
 on target dataset (for example `valtion-budjetti-data.valtiodata_ingest_tmp_20260308`).
 
-## Recommended next integration step
+## App integration (done)
 
-After validating report results, switch app data table from raw to semantic/curated path by environment:
+The app now reads the promoted semantic alias by default
+(`BUDJETTIHAUKKA_TABLE=valtiontalous_semantic_current`); the raw ingest table
+is exposed to pipeline scripts as `BUDJETTIHAUKKA_RAW_TABLE` (default
+`budjettidata`).
 
-```bash
-export BUDJETTIHAUKKA_TABLE="valtiontalous_semantic_v1"
-```
+The semantic layer is versioned: `build_bq_data_quality_layer.py
+--semantic-version N` builds `valtiontalous_semantic_v{N}` (plus
+`valtiontalous_yearly_agg_v1`) and repoints the alias. Older versions stay
+queryable; `--promote-only` repoints the alias without rebuilding, which is
+the rollback path.
 
-Before switching, SQL generation templates/contracts should be updated to reference curated column names consistently.
+Column-name compatibility between generated SQL (contracts, fallbacks,
+ontology rule expressions) and the semantic view is enforced offline by
+`scripts/test_semantic_view_column_compat.py`; run it whenever either side
+changes.
+
+## Schema drift detection
+
+The accepted Valtiokonttori source schema lives in
+`data/schema_snapshots/valtiokonttori_source_columns.json` (original CSV
+header -> normalized name). Two guards compare against it:
+
+- **Ingest** (`ingest_valtiokonttori_to_bigquery.py`): a changed source
+  header aborts the run (exit 3) with an added/removed/possible-rename alert
+  before anything is loaded. Re-run with `--accept-schema-drift` to accept
+  the new schema and update the snapshot.
+- **DQ checks** (`run_bq_data_quality_checks.py`): a `schema_drift` check
+  compares the live raw table (`--drift-table`, default
+  `BUDJETTIHAUKKA_RAW_TABLE`) against the snapshot and FAILs the report on
+  mismatch.
+
+Offline tests: `scripts/test_schema_drift_detection.py`.

@@ -54,7 +54,8 @@ Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 - `BUDJETTIHAUKKA_LOCATION` (oletus: `us-central1`)
 - `BUDJETTIHAUKKA_DATA_SOURCE` (`bigquery` tai `google_sheets`; oletus: `bigquery`)
 - `BUDJETTIHAUKKA_DATASET` (oletus: `valtiodata`)
-- `BUDJETTIHAUKKA_TABLE` (oletus: `budjettidata`)
+- `BUDJETTIHAUKKA_TABLE` (oletus: `valtiontalous_semantic_current` — promotoitu semantic-kerroksen alias)
+- `BUDJETTIHAUKKA_RAW_TABLE` (raakadatataulu ingest-/build-skripteille; oletus: `budjettidata`)
 - `BUDJETTIHAUKKA_DEMO_SQL_TABLE` (oletus: `budjettidata_demo`)
 - `BUDJETTIHAUKKA_DEMO_SHEET_ID_2022`, `BUDJETTIHAUKKA_DEMO_SHEET_ID_2023`, `BUDJETTIHAUKKA_DEMO_SHEET_ID_2024` (Google Sheets -lähde, kun `BUDJETTIHAUKKA_DATA_SOURCE=google_sheets`)
 - `BUDJETTIHAUKKA_GEMINI_MODEL` (oletus: `gemini-2.5-pro-preview-03-25`)
@@ -105,8 +106,28 @@ cd /Users/harrijuntunen/budjettihaukka
 Tämä luo:
 - `valtiontalous_curated_dq` (tyypitetty/normalisoitu taulu + quality flagit)
 - `dim_hallinnonala`, `dim_momentti`, `dim_alamomentti`, `dim_topic_alias`
-- `valtiontalous_semantic_v1` (analytiikan näkymä)
+- `valtiontalous_semantic_v{N}` (versioitu analytiikan näkymä, `--semantic-version N`)
+- `valtiontalous_yearly_agg_v1` (vuositason aggregaattitaulu contracteille)
+- `valtiontalous_semantic_current` (promotoitu alias, jota sovellus lukee)
 - raportit hakemistoon `docs/reports/`
+
+Sovellus lukee oletuksena promotoitua aliasta (`BUDJETTIHAUKKA_TABLE=valtiontalous_semantic_current`),
+ei raakataulua. Versiointi mahdollistaa turvallisen rollbackin:
+
+```bash
+# Rakenna ja promotoi uusi versio
+.venv/bin/python scripts/build_bq_data_quality_layer.py --semantic-version 2
+
+# Rollback edelliseen versioon ilman uudelleenrakennusta
+.venv/bin/python scripts/build_bq_data_quality_layer.py --semantic-version 1 --promote-only
+```
+
+Sarakeyhteensopivuus sovelluksen SQL-generoinnin ja semantic-näkymän välillä
+tarkistetaan offline-testillä (ei vaadi BigQuery-yhteyttä):
+
+```bash
+.venv/bin/python scripts/test_semantic_view_column_compat.py
+```
 
 Jos dataset-oikeudet eivät vielä riitä taulujen luontiin, voit generoida SQL-paketin paikallisesti:
 
@@ -124,6 +145,8 @@ Lisätiedot: [docs/data_quality_improvements.md](./docs/data_quality_improvement
 cd /Users/harrijuntunen/budjettihaukka
 .venv/bin/python scripts/eval_visualization_pipeline.py
 .venv/bin/python scripts/eval_robustness_suite.py --dataset data/evals/robustness_goldens.json
+.venv/bin/python scripts/test_semantic_view_column_compat.py
+.venv/bin/python scripts/test_schema_drift_detection.py
 .venv/bin/python scripts/test_bigquery_integration.py
 .venv/bin/python scripts/test_ui_no_crash_smoke.py
 # Optional screenshot-smoke (requires Playwright):

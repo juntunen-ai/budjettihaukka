@@ -35,6 +35,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from config import settings
+from utils import schema_snapshot_utils
 
 LIST_URL = "https://api.tutkihallintoa.fi/valtiontalous/v1/budjettitalousvuosikuukausi"
 
@@ -385,6 +386,16 @@ def parse_args() -> argparse.Namespace:
         default="data/valtiokonttori_column_map.json",
         help="Write original->normalized column map here",
     )
+    parser.add_argument(
+        "--schema-snapshot",
+        default=schema_snapshot_utils.DEFAULT_SNAPSHOT_PATH,
+        help="Accepted source schema snapshot; drift against it aborts ingest",
+    )
+    parser.add_argument(
+        "--accept-schema-drift",
+        action="store_true",
+        help="Accept detected schema drift: update the snapshot and continue ingest",
+    )
     return parser.parse_args()
 
 
@@ -430,6 +441,34 @@ def main() -> int:
         encoding="utf-8",
     )
     logger.info("Column map written to %s (%s columns)", args.column_map_out, len(normalized_columns))
+
+    snapshot = schema_snapshot_utils.load_snapshot(args.schema_snapshot)
+    if snapshot is None:
+        schema_snapshot_utils.save_snapshot(
+            args.schema_snapshot,
+            schema_snapshot_utils.build_snapshot(original_to_normalized, source="valtiokonttori_csv_headers"),
+        )
+        logger.info("No schema snapshot yet; accepted current source schema -> %s", args.schema_snapshot)
+    else:
+        drift = schema_snapshot_utils.diff_snapshot(snapshot, original_to_normalized)
+        if drift.has_drift:
+            alert = schema_snapshot_utils.format_drift_alert(drift, context="valtiokonttori source headers")
+            if args.accept_schema_drift:
+                logger.warning("%s", alert)
+                schema_snapshot_utils.save_snapshot(
+                    args.schema_snapshot,
+                    schema_snapshot_utils.build_snapshot(
+                        original_to_normalized, source="valtiokonttori_csv_headers"
+                    ),
+                )
+                logger.warning("Schema drift accepted; snapshot updated -> %s", args.schema_snapshot)
+            else:
+                logger.error("%s", alert)
+                logger.error(
+                    "Aborting ingest before load. Review the change, then re-run with "
+                    "--accept-schema-drift to accept the new source schema."
+                )
+                return 3
 
     ensure_manifest_table(client, manifest_table_id)
     loaded_files, loaded_rows = ingest_files(

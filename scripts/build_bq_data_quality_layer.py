@@ -649,13 +649,68 @@ WHERE source.is_valid_year
 """
 
 
+def build_yearly_agg_sql(project: str, dataset: str, semantic_view: str, yearly_agg_table: str) -> str:
+    return f"""
+CREATE OR REPLACE TABLE `{project}.{dataset}.{yearly_agg_table}`
+PARTITION BY RANGE_BUCKET(vuosi, GENERATE_ARRAY(1998, 2026, 1))
+CLUSTER BY hallinnonala, momentti_tunnusp, alamomentti_tunnus AS
+SELECT
+  SAFE_CAST(`Vuosi` AS INT64) AS vuosi,
+  COALESCE(NULLIF(hallinnonala_canonical, ''), `Hallinnonala`) AS hallinnonala,
+  NULLIF(`Ha_Tunnus`, '') AS ha_tunnus,
+  NULLIF(`Tv_Tunnus`, '') AS tv_tunnus,
+  NULLIF(`Kirjanpitoyksikkö`, '') AS kirjanpitoyksikko,
+  NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp,
+  COALESCE(NULLIF(momentti_canonical, ''), NULLIF(`Momentti_sNimi`, '')) AS momentti_snimi,
+  NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus,
+  COALESCE(NULLIF(alamomentti_canonical, ''), NULLIF(`TakpMrL_sNimi`, '')) AS alamomentti_snimi,
+  SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum,
+  COUNT(*) AS source_rows
+FROM `{project}.{dataset}.{semantic_view}`
+GROUP BY 1,2,3,4,5,6,7,8,9
+"""
+
+
+def build_promotion_sql(project: str, dataset: str, semantic_view: str, alias: str) -> str:
+    return f"""
+CREATE OR REPLACE VIEW `{project}.{dataset}.{alias}` AS
+SELECT * FROM `{project}.{dataset}.{semantic_view}`
+"""
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build BigQuery data quality layer for Budjettihaukka.")
     parser.add_argument("--project", default=settings.project_id)
     parser.add_argument("--dataset", default=settings.dataset)
-    parser.add_argument("--raw-table", default=settings.table)
+    parser.add_argument("--raw-table", default=settings.raw_table)
     parser.add_argument("--curated-table", default="valtiontalous_curated_dq_v")
-    parser.add_argument("--semantic-view", default="valtiontalous_semantic_v1")
+    parser.add_argument(
+        "--semantic-version",
+        type=int,
+        default=1,
+        help="Semantic layer version N; builds valtiontalous_semantic_v{N}. Older versions are left in place for rollback.",
+    )
+    parser.add_argument(
+        "--semantic-view",
+        default="",
+        help="Explicit semantic view name; overrides --semantic-version naming.",
+    )
+    parser.add_argument(
+        "--promote-alias",
+        default="valtiontalous_semantic_current",
+        help="Stable view alias the app reads (BUDJETTIHAUKKA_TABLE default).",
+    )
+    parser.add_argument(
+        "--no-promote",
+        action="store_true",
+        help="Build the versioned layer without repointing the promotion alias.",
+    )
+    parser.add_argument(
+        "--promote-only",
+        action="store_true",
+        help="Only repoint the promotion alias to --semantic-version (rollback/promote without rebuilding).",
+    )
+    parser.add_argument("--yearly-agg-table", default="valtiontalous_yearly_agg_v1")
     parser.add_argument(
         "--build-mode",
         choices=["view", "table"],
@@ -675,6 +730,20 @@ def main() -> int:
     args = parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
+    semantic_view = args.semantic_view or f"valtiontalous_semantic_v{args.semantic_version}"
+    promotion_sql = build_promotion_sql(
+        project=args.project,
+        dataset=args.dataset,
+        semantic_view=semantic_view,
+        alias=args.promote_alias,
+    )
+
+    if args.promote_only:
+        client = bigquery.Client(project=args.project)
+        _run_query(client, promotion_sql, label=f"promote {args.promote_alias} -> {semantic_view}", dry_run=args.dry_run)
+        logger.info("Promoted %s.%s.%s -> %s", args.project, args.dataset, args.promote_alias, semantic_view)
+        return 0
+
     curated_sql = build_curated_sql(
         project=args.project,
         dataset=args.dataset,
@@ -692,7 +761,13 @@ def main() -> int:
         project=args.project,
         dataset=args.dataset,
         curated_table=args.curated_table,
-        semantic_view=args.semantic_view,
+        semantic_view=semantic_view,
+    )
+    yearly_agg_sql = build_yearly_agg_sql(
+        project=args.project,
+        dataset=args.dataset,
+        semantic_view=semantic_view,
+        yearly_agg_table=args.yearly_agg_table,
     )
 
     if args.render_sql_dir:
@@ -701,10 +776,14 @@ def main() -> int:
         (out_dir / "01_curated_table.sql").write_text(curated_sql + "\n", encoding="utf-8")
         for idx, (label, sql) in enumerate(dims_sql, start=2):
             (out_dir / f"{idx:02d}_{label}.sql").write_text(sql + "\n", encoding="utf-8")
-        (out_dir / f"{len(dims_sql) + 2:02d}_semantic_view.sql").write_text(
+        next_idx = len(dims_sql) + 2
+        (out_dir / f"{next_idx:02d}_semantic_view.sql").write_text(
             semantic_sql + "\n",
             encoding="utf-8",
         )
+        (out_dir / f"{next_idx + 1:02d}_yearly_agg.sql").write_text(yearly_agg_sql + "\n", encoding="utf-8")
+        if not args.no_promote:
+            (out_dir / f"{next_idx + 2:02d}_promote_alias.sql").write_text(promotion_sql + "\n", encoding="utf-8")
         logger.info("Rendered SQL bundle to %s", out_dir)
         return 0
 
@@ -724,9 +803,24 @@ def main() -> int:
         _run_query(
             client,
             semantic_sql,
-            label=f"semantic_view={args.semantic_view}",
+            label=f"semantic_view={semantic_view}",
             dry_run=args.dry_run,
         )
+
+        _run_query(
+            client,
+            yearly_agg_sql,
+            label=f"yearly_agg={args.yearly_agg_table}",
+            dry_run=args.dry_run,
+        )
+
+        if not args.no_promote:
+            _run_query(
+                client,
+                promotion_sql,
+                label=f"promote {args.promote_alias} -> {semantic_view}",
+                dry_run=args.dry_run,
+            )
     except Forbidden as exc:
         logger.error("Permission error while building DQ layer: %s", exc)
         logger.error(
@@ -737,13 +831,14 @@ def main() -> int:
         return 2
 
     logger.info(
-        "Data quality layer ready: %s.%s.%s + %s.%s.%s",
+        "Data quality layer ready: %s.%s.%s + %s.%s.%s%s",
         args.project,
         args.dataset,
         args.curated_table,
         args.project,
         args.dataset,
-        args.semantic_view,
+        semantic_view,
+        "" if args.no_promote else f" (promoted as {args.promote_alias})",
     )
     return 0
 
