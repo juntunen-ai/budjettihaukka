@@ -67,7 +67,6 @@ class Settings:
     enable_llm_query_plan: bool = _env_bool("BUDJETTIHAUKKA_ENABLE_LLM_QUERY_PLAN", False)
     gemini_api_key: str | None = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     google_application_credentials: str | None = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-    tavily_api_key: str | None = os.getenv("TAVILY_API_KEY")
     max_query_bytes: int = _env_int("BUDJETTIHAUKKA_MAX_QUERY_BYTES", 1_000_000_000)
     sql_max_limit: int = _env_int("BUDJETTIHAUKKA_SQL_MAX_LIMIT", 1000)
     bq_auto_repair_attempts: int = _env_int("BUDJETTIHAUKKA_BQ_AUTO_REPAIR_ATTEMPTS", 2)
@@ -90,6 +89,10 @@ class Settings:
     adsense_slot_bottom: str = os.getenv("BUDJETTIHAUKKA_ADSENSE_SLOT_BOTTOM", "")
     ad_placeholder_text: str = os.getenv("BUDJETTIHAUKKA_AD_PLACEHOLDER_TEXT", "Mainospaikka")
     analytics_api_url: str = os.getenv("BUDJETTIHAUKKA_ANALYTICS_API_URL", "http://127.0.0.1:8000")
+    cors_origins_raw: str = os.getenv(
+        "BUDJETTIHAUKKA_CORS_ORIGINS",
+        "http://localhost:8501,http://127.0.0.1:8501",
+    )
     use_backend_api: bool = _env_bool("BUDJETTIHAUKKA_USE_BACKEND_API", False)
     ontology_path: str = os.getenv(
         "BUDJETTIHAUKKA_ONTOLOGY_PATH",
@@ -100,6 +103,10 @@ class Settings:
     @property
     def full_table_id(self) -> str:
         return f"{self.project_id}.{self.dataset}.{self.table}"
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_origins_raw.split(",") if origin.strip()]
 
     @property
     def llm_provider(self) -> str:
