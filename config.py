@@ -55,7 +55,10 @@ class Settings:
     location: str = os.getenv("BUDJETTIHAUKKA_LOCATION", "us-central1")
     data_source: str = os.getenv("BUDJETTIHAUKKA_DATA_SOURCE", "bigquery").lower()
     dataset: str = os.getenv("BUDJETTIHAUKKA_DATASET", "valtiodata")
-    table: str = os.getenv("BUDJETTIHAUKKA_TABLE", "budjettidata")
+    # App queries the promoted semantic layer alias; raw ingest table stays
+    # available for pipeline scripts via raw_table.
+    table: str = os.getenv("BUDJETTIHAUKKA_TABLE", "valtiontalous_semantic_current")
+    raw_table: str = os.getenv("BUDJETTIHAUKKA_RAW_TABLE", "budjettidata")
     demo_sql_table: str = os.getenv("BUDJETTIHAUKKA_DEMO_SQL_TABLE", "budjettidata_demo")
     demo_sheet_id_2022: str = os.getenv("BUDJETTIHAUKKA_DEMO_SHEET_ID_2022", "")
     demo_sheet_id_2023: str = os.getenv("BUDJETTIHAUKKA_DEMO_SHEET_ID_2023", "")
