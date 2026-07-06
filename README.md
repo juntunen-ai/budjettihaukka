@@ -145,6 +145,8 @@ Lisätiedot: [docs/data_quality_improvements.md](./docs/data_quality_improvement
 cd /Users/harrijuntunen/budjettihaukka
 .venv/bin/python scripts/eval_visualization_pipeline.py
 .venv/bin/python scripts/eval_robustness_suite.py --dataset data/evals/robustness_goldens.json
+.venv/bin/python scripts/test_semantic_view_column_compat.py
+.venv/bin/python scripts/test_schema_drift_detection.py
 .venv/bin/python scripts/test_bigquery_integration.py
 .venv/bin/python scripts/test_ui_no_crash_smoke.py
 # Optional screenshot-smoke (requires Playwright):

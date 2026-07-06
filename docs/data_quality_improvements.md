@@ -96,3 +96,20 @@ Column-name compatibility between generated SQL (contracts, fallbacks,
 ontology rule expressions) and the semantic view is enforced offline by
 `scripts/test_semantic_view_column_compat.py`; run it whenever either side
 changes.
+
+## Schema drift detection
+
+The accepted Valtiokonttori source schema lives in
+`data/schema_snapshots/valtiokonttori_source_columns.json` (original CSV
+header -> normalized name). Two guards compare against it:
+
+- **Ingest** (`ingest_valtiokonttori_to_bigquery.py`): a changed source
+  header aborts the run (exit 3) with an added/removed/possible-rename alert
+  before anything is loaded. Re-run with `--accept-schema-drift` to accept
+  the new schema and update the snapshot.
+- **DQ checks** (`run_bq_data_quality_checks.py`): a `schema_drift` check
+  compares the live raw table (`--drift-table`, default
+  `BUDJETTIHAUKKA_RAW_TABLE`) against the snapshot and FAILs the report on
+  mismatch.
+
+Offline tests: `scripts/test_schema_drift_detection.py`.

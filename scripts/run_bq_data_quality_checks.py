@@ -18,8 +18,68 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from config import settings
+from utils import schema_snapshot_utils
 
 logger = logging.getLogger("run_bq_data_quality_checks")
+
+
+def _schema_drift_result(client: bigquery.Client, drift_table_ref: str, snapshot_path: str) -> dict:
+    """Compare the live raw table schema against the accepted source snapshot.
+
+    The snapshot stores original CSV header names and their normalized forms;
+    the live table may use either convention, so diff against whichever side
+    of the snapshot overlaps more.
+    """
+    snapshot = schema_snapshot_utils.load_snapshot(snapshot_path)
+    if snapshot is None:
+        return {
+            "name": "schema_drift",
+            "status": "WARN",
+            "description": (
+                f"No schema snapshot at {snapshot_path}; run ingest once to accept a baseline."
+            ),
+            "failed_count": 0,
+            "failed_ratio": 0.0,
+        }
+    try:
+        table = client.get_table(drift_table_ref)
+    except Exception as error:  # table missing is itself a drift-grade alert
+        return {
+            "name": "schema_drift",
+            "status": "FAIL",
+            "description": f"Raw table {drift_table_ref} not readable: {error}",
+            "failed_count": 1,
+            "failed_ratio": 1.0,
+        }
+    live_columns = {field.name for field in table.schema}
+    snapshot_columns: dict[str, str] = snapshot.get("columns", {})
+    original_names = set(snapshot_columns)
+    normalized_names = set(snapshot_columns.values())
+    baseline = (
+        original_names
+        if len(live_columns & original_names) >= len(live_columns & normalized_names)
+        else normalized_names
+    )
+    # Ignore ingest-added metadata columns on the live side.
+    metadata_columns = {"source_url", "source_year", "source_month", "ingested_at"}
+    drift = schema_snapshot_utils.diff_columns(baseline, live_columns - metadata_columns)
+    if drift.has_drift:
+        return {
+            "name": "schema_drift",
+            "status": "FAIL",
+            "description": schema_snapshot_utils.format_drift_alert(
+                drift, context=f"live {drift_table_ref} vs {snapshot_path}"
+            ).replace("\n", " "),
+            "failed_count": len(drift.added) + len(drift.removed),
+            "failed_ratio": 0.0,
+        }
+    return {
+        "name": "schema_drift",
+        "status": "PASS",
+        "description": f"Live {drift_table_ref} schema matches accepted snapshot.",
+        "failed_count": 0,
+        "failed_ratio": 0.0,
+    }
 
 
 @dataclass(frozen=True)
@@ -344,6 +404,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--table", default=settings.table, help="Table id or fully-qualified project.dataset.table")
     parser.add_argument("--output-dir", default="docs/reports")
     parser.add_argument("--print-json", action="store_true")
+    parser.add_argument(
+        "--drift-table",
+        default=settings.raw_table,
+        help="Raw table whose live schema is compared against the accepted snapshot",
+    )
+    parser.add_argument(
+        "--schema-snapshot",
+        default=schema_snapshot_utils.DEFAULT_SNAPSHOT_PATH,
+        help="Accepted source schema snapshot path",
+    )
+    parser.add_argument("--skip-schema-drift", action="store_true")
     return parser.parse_args()
 
 
@@ -407,6 +478,13 @@ def main() -> int:
                 "failed_ratio": ratio,
             }
         )
+
+    if not args.skip_schema_drift:
+        drift_table_ref = _table_ref(args.project, args.dataset, args.drift_table)
+        drift_result = _schema_drift_result(client, drift_table_ref, args.schema_snapshot)
+        has_fail = has_fail or (drift_result["status"] == "FAIL")
+        has_warn = has_warn or (drift_result["status"] == "WARN")
+        results.append(drift_result)
 
     freshness_status = "PASS"
     if freshness_days > 70:
