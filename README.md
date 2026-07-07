@@ -34,15 +34,17 @@ Tulevissa vaiheissa:
 
 ## 🛠️ Teknologiat
 
-- Python 3.13
-- Streamlit
+- Python 3.12+ (Streamlit, FastAPI, pandas, sqlglot)
 - Google Cloud Platform
-  - BigQuery
-  - Vertex AI
-  - Cloud Storage
-  - Firebase Hosting / Studio
-- Docker (Cloud Run -käyttöönotto)
-- Jupyter Workbench (prototyyppivaiheessa)
+  - BigQuery (**sandbox/free tier** — rajoitukset ja niiden huomiointi
+    dokumentoitu arkkitehtuurikuvauksessa)
+  - Vertex AI / AI Studio (Gemini; valinnainen QueryPlan-tuki)
+- Docker (Cloud Run -käyttöönotto, tulossa)
+
+📐 **Arkkitehtuuri ja GCP-asetukset:**
+[docs/architecture/system_overview.md](./docs/architecture/system_overview.md)
+— komponenttikartta, dataputki, BigQuery free tier -rajoitukset,
+autentikointi ja tunnetut operatiiviset erikoisuudet.
 
 ---
 
@@ -50,8 +52,8 @@ Tulevissa vaiheissa:
 
 Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 
-- `BUDJETTIHAUKKA_PROJECT_ID` (oletus: `valtion-budjetti-data`)
-- `BUDJETTIHAUKKA_LOCATION` (oletus: `us-central1`)
+- `BUDJETTIHAUKKA_PROJECT_ID` (oletus: `valtion-budjetti-data`; aktiivinen data-projekti on `budjettihaukka-gpt` — aseta `.env.local`-tiedostossa)
+- `BUDJETTIHAUKKA_LOCATION` (Vertex AI -sijainti; oletus: `us-central1`. Huom: BigQuery-datasetin sijainti on `europe-west1`)
 - `BUDJETTIHAUKKA_DATA_SOURCE` (`bigquery` tai `google_sheets`; oletus: `bigquery`)
 - `BUDJETTIHAUKKA_DATASET` (oletus: `valtiodata`)
 - `BUDJETTIHAUKKA_TABLE` (oletus: `valtiontalous_semantic_current` — promotoitu semantic-kerroksen alias)

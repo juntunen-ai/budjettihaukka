@@ -146,6 +146,12 @@ def ensure_manifest_table(client: bigquery.Client, manifest_table_id: str) -> No
 
 
 def ensure_dataset_sandbox_defaults(client: bigquery.Client, dataset_id: str, expiration_days: int) -> None:
+    if expiration_days <= 0:
+        logger.info(
+            "Skipping sandbox expiration defaults for %s (billed project mode).",
+            dataset_id,
+        )
+        return
     dataset = client.get_dataset(dataset_id)
     target_ms = expiration_days * 24 * 60 * 60 * 1000
     changed = False
@@ -184,9 +190,18 @@ def get_success_urls(client: bigquery.Client, manifest_table_id: str) -> set[str
 
 
 def insert_manifest_row(client: bigquery.Client, manifest_table_id: str, row: dict) -> None:
-    errors = client.insert_rows_json(manifest_table_id, [row])
-    if errors:
-        logger.warning("Failed to insert manifest row: %s", errors)
+    # Load job instead of streaming insert: works on BigQuery sandbox
+    # (free tier) projects where insertAll is not allowed, and load jobs
+    # are free in both tiers.
+    try:
+        job = client.load_table_from_json(
+            [row],
+            manifest_table_id,
+            job_config=bigquery.LoadJobConfig(write_disposition="WRITE_APPEND"),
+        )
+        job.result()
+    except Exception as error:
+        logger.warning("Failed to insert manifest row: %s", error)
 
 
 def _load_dataframe_to_bigquery(

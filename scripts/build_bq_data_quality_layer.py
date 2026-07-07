@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import sys
 from pathlib import Path
@@ -342,15 +343,40 @@ def _run_query(client: bigquery.Client, sql: str, label: str, dry_run: bool = Fa
     logger.info("Completed: %s", label)
 
 
+def _source_compat_cte(project: str, dataset: str, raw_table: str, raw_naming: str) -> str:
+    """Expose the raw table under original Valtiokonttori header names.
+
+    The legacy raw table keeps original headers (`Vuosi`, `Nettokertymä`);
+    the ingest pipeline writes ASCII snake_case (`vuosi`, `nettokertyma`).
+    The curated SQL below is written against original names, so normalized
+    tables get an aliasing layer generated from the committed column map.
+    """
+    table_ref = f"`{project}.{dataset}.{raw_table}`"
+    if raw_naming == "original":
+        return f"SELECT * FROM {table_ref}"
+    column_map_path = Path(__file__).resolve().parents[1] / "data" / "valtiokonttori_column_map.json"
+    column_map: dict[str, str] = json.loads(column_map_path.read_text(encoding="utf-8"))["columns"]
+    aliases = ",\n    ".join(
+        f"`{normalized}` AS `{original}`" for original, normalized in column_map.items()
+    )
+    return f"SELECT\n    {aliases}\n  FROM {table_ref}"
+
+
+def detect_raw_naming(client: "bigquery.Client", project: str, dataset: str, raw_table: str) -> str:
+    columns = {field.name for field in client.get_table(f"{project}.{dataset}.{raw_table}").schema}
+    return "original" if "Vuosi" in columns else "normalized"
+
+
 def build_curated_sql(
     project: str,
     dataset: str,
     raw_table: str,
     curated_table: str,
     build_mode: str,
+    raw_naming: str = "original",
 ) -> str:
-    table_ref = f"`{project}.{dataset}.{raw_table}`"
     target_ref = f"`{project}.{dataset}.{curated_table}`"
+    source_compat = _source_compat_cte(project, dataset, raw_table, raw_naming)
     hierarchy_helper_selects = ",\n  ".join(_hierarchy_helper_selects())
     if build_mode == "table":
         header = (
@@ -363,49 +389,52 @@ def build_curated_sql(
         header = f"CREATE OR REPLACE VIEW {target_ref} AS"
     return f"""
 {header}
-WITH normalized AS (
+WITH source_raw AS (
+  {source_compat}
+),
+normalized AS (
   SELECT
     SAFE_CAST(`Vuosi` AS INT64) AS vuosi,
     SAFE_CAST(`Kk` AS INT64) AS kk,
     DATE(SAFE_CAST(`Vuosi` AS INT64), SAFE_CAST(`Kk` AS INT64), 1) AS period_date,
-    NULLIF(TRIM(`Ha_Tunnus`), '') AS ha_tunnus,
-    NULLIF(TRIM(`Hallinnonala`), '') AS hallinnonala,
-    NULLIF(TRIM(`Tv_Tunnus`), '') AS tv_tunnus,
-    NULLIF(TRIM(`Kirjanpitoyksikkö`), '') AS kirjanpitoyksikko,
-    NULLIF(TRIM(`PaaluokkaOsasto_TunnusP`), '') AS paaluokkaosasto_tunnusp,
-    NULLIF(TRIM(`PaaluokkaOsasto_sNimi`), '') AS paaluokkaosasto_snimi,
-    NULLIF(TRIM(`Luku_TunnusP`), '') AS luku_tunnusp,
-    NULLIF(TRIM(`Luku_sNimi`), '') AS luku_snimi,
-    NULLIF(TRIM(`Momentti_TunnusP`), '') AS momentti_tunnusp,
-    NULLIF(TRIM(`Momentti_sNimi`), '') AS momentti_snimi,
-    NULLIF(TRIM(`TakpT_TunnusP`), '') AS takpt_tunnusp,
-    NULLIF(TRIM(`TakpT_sNimi`), '') AS takpt_snimi,
-    NULLIF(TRIM(`TakpTr_sNimi`), '') AS takptr_snimi,
-    NULLIF(TRIM(`TakpMrL_Tunnus`), '') AS alamomentti_tunnus,
-    NULLIF(TRIM(`TakpMrL_sNimi`), '') AS alamomentti_snimi,
-    NULLIF(TRIM(`TakpT_Netto`), '') AS takpt_netto_raw,
-    NULLIF(TRIM(`Tililuokka_Tunnus`), '') AS tililuokka_tunnus,
-    NULLIF(TRIM(`Tililuokka_sNimi`), '') AS tililuokka_snimi,
-    NULLIF(TRIM(`Ylatiliryhma_Tunnus`), '') AS ylatiliryhma_tunnus,
-    NULLIF(TRIM(`Ylatiliryhma_sNimi`), '') AS ylatiliryhma_snimi,
-    NULLIF(TRIM(`Tiliryhma_Tunnus`), '') AS tiliryhma_tunnus,
-    NULLIF(TRIM(`Tiliryhma_sNimi`), '') AS tiliryhma_snimi,
-    NULLIF(TRIM(`Tililaji_Tunnus`), '') AS tililaji_tunnus,
-    NULLIF(TRIM(`Tililaji_sNimi`), '') AS tililaji_snimi,
-    NULLIF(TRIM(`LkpT_Tunnus`), '') AS lkpt_tunnus,
-    NULLIF(TRIM(`LkpT_sNimi`), '') AS lkpt_snimi,
-    NULLIF(TRIM(`Alkuperäinen_talousarvio`), '') AS alkuperainen_talousarvio_raw,
-    NULLIF(TRIM(`Lisätalousarvio`), '') AS lisatalousarvio_raw,
-    NULLIF(TRIM(`Voimassaoleva_talousarvio`), '') AS voimassaoleva_talousarvio_raw,
-    NULLIF(TRIM(`Käytettävissä`), '') AS kaytettavissa_raw,
-    NULLIF(TRIM(`Alkusaldo`), '') AS alkusaldo_raw,
-    NULLIF(TRIM(`Nettokertymä_ko_vuodelta`), '') AS nettokertyma_ko_vuodelta_raw,
-    NULLIF(TRIM(`NettoKertymaAikVuosSiirrt`), '') AS nettokertymaaikvuossiirrt_raw,
-    NULLIF(TRIM(`Nettokertymä`), '') AS nettokertyma_raw,
-    NULLIF(TRIM(`Loppusaldo`), '') AS loppusaldo_raw,
-    NULLIF(TRIM(`JakamatonDb`), '') AS jakamatondb_raw,
-    NULLIF(TRIM(`JakamatonKr`), '') AS jakamatonkr_raw
-  FROM {table_ref}
+    NULLIF(TRIM(CAST(`Ha_Tunnus` AS STRING)), '') AS ha_tunnus,
+    NULLIF(TRIM(CAST(`Hallinnonala` AS STRING)), '') AS hallinnonala,
+    NULLIF(TRIM(CAST(`Tv_Tunnus` AS STRING)), '') AS tv_tunnus,
+    NULLIF(TRIM(CAST(`Kirjanpitoyksikkö` AS STRING)), '') AS kirjanpitoyksikko,
+    NULLIF(TRIM(CAST(`PaaluokkaOsasto_TunnusP` AS STRING)), '') AS paaluokkaosasto_tunnusp,
+    NULLIF(TRIM(CAST(`PaaluokkaOsasto_sNimi` AS STRING)), '') AS paaluokkaosasto_snimi,
+    NULLIF(TRIM(CAST(`Luku_TunnusP` AS STRING)), '') AS luku_tunnusp,
+    NULLIF(TRIM(CAST(`Luku_sNimi` AS STRING)), '') AS luku_snimi,
+    NULLIF(TRIM(CAST(`Momentti_TunnusP` AS STRING)), '') AS momentti_tunnusp,
+    NULLIF(TRIM(CAST(`Momentti_sNimi` AS STRING)), '') AS momentti_snimi,
+    NULLIF(TRIM(CAST(`TakpT_TunnusP` AS STRING)), '') AS takpt_tunnusp,
+    NULLIF(TRIM(CAST(`TakpT_sNimi` AS STRING)), '') AS takpt_snimi,
+    NULLIF(TRIM(CAST(`TakpTr_sNimi` AS STRING)), '') AS takptr_snimi,
+    NULLIF(TRIM(CAST(`TakpMrL_Tunnus` AS STRING)), '') AS alamomentti_tunnus,
+    NULLIF(TRIM(CAST(`TakpMrL_sNimi` AS STRING)), '') AS alamomentti_snimi,
+    NULLIF(TRIM(CAST(`TakpT_Netto` AS STRING)), '') AS takpt_netto_raw,
+    NULLIF(TRIM(CAST(`Tililuokka_Tunnus` AS STRING)), '') AS tililuokka_tunnus,
+    NULLIF(TRIM(CAST(`Tililuokka_sNimi` AS STRING)), '') AS tililuokka_snimi,
+    NULLIF(TRIM(CAST(`Ylatiliryhma_Tunnus` AS STRING)), '') AS ylatiliryhma_tunnus,
+    NULLIF(TRIM(CAST(`Ylatiliryhma_sNimi` AS STRING)), '') AS ylatiliryhma_snimi,
+    NULLIF(TRIM(CAST(`Tiliryhma_Tunnus` AS STRING)), '') AS tiliryhma_tunnus,
+    NULLIF(TRIM(CAST(`Tiliryhma_sNimi` AS STRING)), '') AS tiliryhma_snimi,
+    NULLIF(TRIM(CAST(`Tililaji_Tunnus` AS STRING)), '') AS tililaji_tunnus,
+    NULLIF(TRIM(CAST(`Tililaji_sNimi` AS STRING)), '') AS tililaji_snimi,
+    NULLIF(TRIM(CAST(`LkpT_Tunnus` AS STRING)), '') AS lkpt_tunnus,
+    NULLIF(TRIM(CAST(`LkpT_sNimi` AS STRING)), '') AS lkpt_snimi,
+    NULLIF(TRIM(CAST(`Alkuperäinen_talousarvio` AS STRING)), '') AS alkuperainen_talousarvio_raw,
+    NULLIF(TRIM(CAST(`Lisätalousarvio` AS STRING)), '') AS lisatalousarvio_raw,
+    NULLIF(TRIM(CAST(`Voimassaoleva_talousarvio` AS STRING)), '') AS voimassaoleva_talousarvio_raw,
+    NULLIF(TRIM(CAST(`Käytettävissä` AS STRING)), '') AS kaytettavissa_raw,
+    NULLIF(TRIM(CAST(`Alkusaldo` AS STRING)), '') AS alkusaldo_raw,
+    NULLIF(TRIM(CAST(`Nettokertymä_ko_vuodelta` AS STRING)), '') AS nettokertyma_ko_vuodelta_raw,
+    NULLIF(TRIM(CAST(`NettoKertymaAikVuosSiirrt` AS STRING)), '') AS nettokertymaaikvuossiirrt_raw,
+    NULLIF(TRIM(CAST(`Nettokertymä` AS STRING)), '') AS nettokertyma_raw,
+    NULLIF(TRIM(CAST(`Loppusaldo` AS STRING)), '') AS loppusaldo_raw,
+    NULLIF(TRIM(CAST(`JakamatonDb` AS STRING)), '') AS jakamatondb_raw,
+    NULLIF(TRIM(CAST(`JakamatonKr` AS STRING)), '') AS jakamatonkr_raw
+  FROM source_raw
 ),
 typed AS (
   SELECT
@@ -712,6 +741,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--yearly-agg-table", default="valtiontalous_yearly_agg_v1")
     parser.add_argument(
+        "--raw-naming",
+        choices=["auto", "original", "normalized"],
+        default="auto",
+        help="Raw table column naming: original Valtiokonttori headers or ingest-normalized snake_case. 'auto' inspects the live table ('original' in --render-sql-dir mode).",
+    )
+    parser.add_argument(
         "--build-mode",
         choices=["view", "table"],
         default="view",
@@ -744,12 +779,23 @@ def main() -> int:
         logger.info("Promoted %s.%s.%s -> %s", args.project, args.dataset, args.promote_alias, semantic_view)
         return 0
 
+    raw_naming = args.raw_naming
+    if raw_naming == "auto":
+        if args.render_sql_dir:
+            raw_naming = "original"
+        else:
+            raw_naming = detect_raw_naming(
+                bigquery.Client(project=args.project), args.project, args.dataset, args.raw_table
+            )
+            logger.info("Detected raw table naming: %s", raw_naming)
+
     curated_sql = build_curated_sql(
         project=args.project,
         dataset=args.dataset,
         raw_table=args.raw_table,
         curated_table=args.curated_table,
         build_mode=args.build_mode,
+        raw_naming=raw_naming,
     )
     dims_sql = build_dimensions_sql(
         project=args.project,
