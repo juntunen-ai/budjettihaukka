@@ -206,7 +206,13 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
                     f"  SELECT row_fingerprint, COUNT(*) c FROM `{table_ref}` GROUP BY row_fingerprint HAVING COUNT(*) > 1"
                     ") SELECT COALESCE(SUM(c - 1), 0) FROM d"
                 ),
-                fail_count=0,
+                # The Valtiokonttori export has no transaction id and the
+                # published CSVs contain a small number of literal duplicate
+                # lines (verified against source files) — those are data as
+                # published, not a load error. WARN on any duplication so it
+                # stays visible; FAIL only on a spike (e.g. double ingest).
+                warn_count=0,
+                fail_ratio=0.01,
             ),
             DQCheck(
                 name="missing_months_before_latest_year",
@@ -273,7 +279,13 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
                     f"  SELECT row_fingerprint, COUNT(*) c FROM `{table_ref}` GROUP BY row_fingerprint HAVING COUNT(*) > 1"
                     ") SELECT COALESCE(SUM(c - 1), 0) FROM d"
                 ),
-                fail_count=0,
+                # The Valtiokonttori export has no transaction id and the
+                # published CSVs contain a small number of literal duplicate
+                # lines (verified against source files) — those are data as
+                # published, not a load error. WARN on any duplication so it
+                # stays visible; FAIL only on a spike (e.g. double ingest).
+                warn_count=0,
+                fail_ratio=0.01,
             ),
             DQCheck(
                 name="missing_months_before_latest_year",

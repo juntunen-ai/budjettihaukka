@@ -466,6 +466,10 @@ SELECT
     CAST(COALESCE(momentti_tunnusp, momentti_snimi) IS NULL AS INT64) +
     CAST(NOT (nettokertyma_raw IS NULL OR nettokertyma IS NOT NULL) AS INT64)
   ) AS quality_issue_count,
+  -- Fingerprint must cover EVERY content column: the source export has no
+  -- transaction id, and rows may legitimately differ only in accounting-code
+  -- dimensions (tililuokka/tiliryhma/lkp). A narrower hash flags such rows
+  -- as false duplicates.
   TO_HEX(
     MD5(
       CONCAT(
@@ -475,11 +479,39 @@ SELECT
         COALESCE(hallinnonala, ''), '|',
         COALESCE(tv_tunnus, ''), '|',
         COALESCE(kirjanpitoyksikko, ''), '|',
+        COALESCE(paaluokkaosasto_tunnusp, ''), '|',
+        COALESCE(paaluokkaosasto_snimi, ''), '|',
+        COALESCE(luku_tunnusp, ''), '|',
+        COALESCE(luku_snimi, ''), '|',
         COALESCE(momentti_tunnusp, ''), '|',
         COALESCE(momentti_snimi, ''), '|',
+        COALESCE(takpt_tunnusp, ''), '|',
+        COALESCE(takpt_snimi, ''), '|',
+        COALESCE(takptr_snimi, ''), '|',
         COALESCE(alamomentti_tunnus, ''), '|',
         COALESCE(alamomentti_snimi, ''), '|',
-        COALESCE(CAST(nettokertyma AS STRING), '')
+        COALESCE(takpt_netto_raw, ''), '|',
+        COALESCE(tililuokka_tunnus, ''), '|',
+        COALESCE(tililuokka_snimi, ''), '|',
+        COALESCE(ylatiliryhma_tunnus, ''), '|',
+        COALESCE(ylatiliryhma_snimi, ''), '|',
+        COALESCE(tiliryhma_tunnus, ''), '|',
+        COALESCE(tiliryhma_snimi, ''), '|',
+        COALESCE(tililaji_tunnus, ''), '|',
+        COALESCE(tililaji_snimi, ''), '|',
+        COALESCE(lkpt_tunnus, ''), '|',
+        COALESCE(lkpt_snimi, ''), '|',
+        COALESCE(alkuperainen_talousarvio_raw, ''), '|',
+        COALESCE(lisatalousarvio_raw, ''), '|',
+        COALESCE(voimassaoleva_talousarvio_raw, ''), '|',
+        COALESCE(kaytettavissa_raw, ''), '|',
+        COALESCE(alkusaldo_raw, ''), '|',
+        COALESCE(nettokertyma_ko_vuodelta_raw, ''), '|',
+        COALESCE(nettokertymaaikvuossiirrt_raw, ''), '|',
+        COALESCE(nettokertyma_raw, ''), '|',
+        COALESCE(loppusaldo_raw, ''), '|',
+        COALESCE(jakamatondb_raw, ''), '|',
+        COALESCE(jakamatonkr_raw, '')
       )
     )
   ) AS row_fingerprint,
