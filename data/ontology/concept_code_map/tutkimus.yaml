@@ -1,0 +1,59 @@
+# Concept→budget-code map: TUTKIMUS
+#
+# Johdettu koulutus-katselmuksen (dossier #1, 2026-07-08) Q2:A-verdictistä:
+# Akatemia- ja tiederahoitus erotettiin koulutuksesta omaksi konseptikseen.
+# Säännöt = koulutus.yaml:n target_concept: tutkimus -rivit + saman rahan
+# historialliset kaudet. Muistiorganisaatiot (arkistot) on johdonmukaisesti
+# ohjattu kulttuuriin, ei tutkimukseen.
+concept: tutkimus
+label_fi: Tutkimus ja tiede
+version: 1
+decided_by: "johdettu dossier #1:n verdicteistä (Harri Juntunen)"
+decided_on: "2026-07-09"
+source_dossier: review dossier #1, Q2:A
+disclosure_fi: >-
+  Kattaa OKM:n hallinnonalan tiederahoituksen (Suomen Akatemia, strateginen
+  tutkimus, kv. tiedejärjestöt, rahapelituotot tieteelle). Yliopistojen
+  perusrahoitukseen sisältyvä tutkimus on koulutus-käsitteessä (ei
+  eroteltavissa), ja muiden hallinnonalojen sektoritutkimuslaitokset
+  (VTT, THL, Luke ym.) eivät sisälly tähän versioon.
+rules:
+  # Tiede-luku 1998-2008 (Akatemia, veikkausvoitot tieteelle, kv-järjestöt)
+  - {level: momentti, code: "29.88.21.", year_from: 1998, year_to: 2008, role: include,
+     note: "Suomen Akatemian toimintamenot"}
+  - {level: momentti, code: "29.88.50.", year_from: 1998, year_to: 2008, role: include,
+     note: "Suomen Akatemian tutkimusmäärärahat"}
+  - {level: momentti, code: "29.88.53.", year_from: 1998, year_to: 2008, role: include,
+     note: "Veikkausvoitot tieteen edistämiseen"}
+  - {level: momentti, code: "29.88.66.", year_from: 1998, year_to: 2008, role: include,
+     note: "Kv. tiedejärjestöjen jäsenmaksut"}
+  - {level: momentti, code: "29.88.22.", year_from: 1998, year_to: 2008, role: exclude, target_concept: kulttuuri,
+     note: "Arkistolaitos on muistiorganisaatio, ei tiederahoitusta"}
+
+  # Tiede-kausi luvussa 29.60 (2007-2011)
+  - {level: momentti, code: "29.60.01.", year_from: 2007, year_to: 2011, role: include,
+     note: "Akatemian toimintamenot"}
+  - {level: momentti, code: "29.60.50.", year_from: 2007, year_to: 2011, role: include,
+     note: "Akatemian tutkimusmäärärahat"}
+  - {level: momentti, code: "29.60.53.", year_from: 2007, year_to: 2011, role: include,
+     note: "Veikkausvoitot tieteelle"}
+  - {level: momentti, code: "29.60.66.", year_from: 2007, year_to: 2011, role: include,
+     note: "Kv. tiedejärjestöt"}
+  - {level: momentti, code: "29.60.02.", year_from: 2007, year_to: 2011, role: exclude, target_concept: kulttuuri,
+     note: "Arkistolaitos → kulttuuri"}
+
+  # Korkeakouluopetus ja tutkimus -kausi 2010→ (tutkimusmomentit)
+  - {level: momentti, code: "29.40.01.", year_from: 2010, year_to: null, role: include,
+     note: "Suomen Akatemian toimintamenot"}
+  - {level: momentti, code: "29.40.22.", year_from: 2012, year_to: null, role: include,
+     note: "Tutkimusinfrastruktuurit"}
+  - {level: momentti, code: "29.40.51.", year_from: 2010, year_to: null, role: include,
+     note: "Suomen Akatemian tutkimusmäärärahat"}
+  - {level: momentti, code: "29.40.53.", year_from: 2010, year_to: null, role: include,
+     note: "Rahapelituotot tieteen edistämiseen"}
+  - {level: momentti, code: "29.40.54.", year_from: 2015, year_to: null, role: include,
+     note: "Strateginen tutkimusrahoitus"}
+  - {level: momentti, code: "29.40.56.", year_from: 2024, year_to: null, role: include,
+     note: "Tiedepoliittiset tavoitteet"}
+  - {level: momentti, code: "29.40.66.", year_from: 2010, year_to: null, role: include,
+     note: "Kv. tiedejärjestöjen jäsenmaksut (CERN, ESO ym.)"}

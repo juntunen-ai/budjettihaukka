@@ -69,6 +69,10 @@ ALIAS_TYPE_DEFAULTS: dict[str, dict[str, Any]] = {
     "colloquial": {"precision_score": 0.7, "review_status": "reviewed"},
     "vm_phrase": {"precision_score": 0.62, "review_status": "candidate"},
     "vm_token": {"precision_score": 0.18, "review_status": "blocked"},
+    # Finto/YSO: altLabel on sanaston virallinen synonyymi (luotettava);
+    # narrower on alakäsite — hyvä vihje muttei sama käsite.
+    "finto_alt": {"precision_score": 0.8, "review_status": "reviewed"},
+    "finto_narrower": {"precision_score": 0.55, "review_status": "candidate"},
     "abbreviation": {"precision_score": 0.58, "review_status": "reviewed", "is_acronym": True, "requires_token_boundary": True},
 }
 

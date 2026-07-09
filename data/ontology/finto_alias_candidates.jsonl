@@ -1,0 +1,90 @@
+{"concept_id": "koulutus", "alias": "tutkijakoulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p84", "lang": "fi"}
+{"concept_id": "koulutus", "alias": "perusasteen koulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p84", "lang": "fi"}
+{"concept_id": "koulutus", "alias": "pappiskoulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p84", "lang": "fi"}
+{"concept_id": "koulutus", "alias": "kirjoittajakoulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p84", "lang": "fi"}
+{"concept_id": "koulutus", "alias": "aikuiskoulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p84", "lang": "fi"}
+{"concept_id": "koulutus", "alias": "opettajankoulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p84", "lang": "fi"}
+{"concept_id": "koulutus", "alias": "peruskoulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p84", "lang": "fi"}
+{"concept_id": "koulutus", "alias": "ylikoulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p84", "lang": "fi"}
+{"concept_id": "korkeakoulutus", "alias": "korkeanasteen koulutus", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3390", "lang": "fi"}
+{"concept_id": "korkeakoulutus", "alias": "akateeminen koulutus", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3390", "lang": "fi"}
+{"concept_id": "korkeakoulutus", "alias": "korkea-asteenkoulutus", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3390", "lang": "fi"}
+{"concept_id": "yliopistot", "alias": "virtuaaliyliopistot", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p10895", "lang": "fi"}
+{"concept_id": "yliopistot", "alias": "teknilliset yliopistot", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p10895", "lang": "fi"}
+{"concept_id": "yliopistot", "alias": "avoin yliopisto", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p10895", "lang": "fi"}
+{"concept_id": "yliopistot", "alias": "kesäyliopistot", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p10895", "lang": "fi"}
+{"concept_id": "ammattikorkeakoulut", "alias": "avoin ammattikorkeakoulu", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p10564", "lang": "fi"}
+{"concept_id": "ammattikorkeakoulut", "alias": "virtuaaliammattikorkeakoulut", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p10564", "lang": "fi"}
+{"concept_id": "ammatillinen_koulutus", "alias": "ammattiopinnot", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9700", "lang": "fi"}
+{"concept_id": "ammatillinen_koulutus", "alias": "ammatillinen peruskoulutus", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9700", "lang": "fi"}
+{"concept_id": "ammatillinen_koulutus", "alias": "ammatillinen lisäkoulutus", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9700", "lang": "fi"}
+{"concept_id": "ammatillinen_koulutus", "alias": "ammatillinen aikuiskoulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9700", "lang": "fi"}
+{"concept_id": "ammatillinen_koulutus", "alias": "oppisopimuskoulutus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9700", "lang": "fi"}
+{"concept_id": "varhaiskasvatus", "alias": "avoin varhaiskasvatus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1650", "lang": "fi"}
+{"concept_id": "puolustus", "alias": "maanpuolustus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p4552", "lang": "fi"}
+{"concept_id": "puolustus", "alias": "itsepuolustus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p4552", "lang": "fi"}
+{"concept_id": "poliisi_ja_sisainen_turvallisuus", "alias": "rikosetsivät", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p20817", "lang": "fi"}
+{"concept_id": "sosiaali_ja_terveys", "alias": "sote-palvelut", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3307", "lang": "fi"}
+{"concept_id": "sosiaali_ja_terveys", "alias": "terveydenhuoltopalvelut", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3307", "lang": "fi"}
+{"concept_id": "sosiaali_ja_terveys", "alias": "akuuttihoitopalvelut", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3307", "lang": "fi"}
+{"concept_id": "sosiaali_ja_terveys", "alias": "mielenterveyspalvelut", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3307", "lang": "fi"}
+{"concept_id": "sosiaali_ja_terveys", "alias": "kuntoutuspalvelut", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3307", "lang": "fi"}
+{"concept_id": "hyvinvointialueiden_rahoitus", "alias": "sote-alueet", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p27746", "lang": "fi"}
+{"concept_id": "hyvinvointialueiden_rahoitus", "alias": "sosiaali- ja terveysalueet", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p27746", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "eläkevakuutus", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "lakisääteinen eläkevakuutus", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "vanhuuseläke", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "perhe-eläkkeet", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "työeläkkeet", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "luopumiseläkkeet", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "yrittäjäeläkkeet", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "työkyvyttömyyseläkkeet", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "ansioeläkkeet", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "elakkeet", "alias": "kirkon eläkkeet", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1263", "lang": "fi"}
+{"concept_id": "liikenne_ja_infra", "alias": "postiliikenne", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3466", "lang": "fi"}
+{"concept_id": "liikenne_ja_infra", "alias": "rajaliikenne", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3466", "lang": "fi"}
+{"concept_id": "liikenne_ja_infra", "alias": "vesiliikenne", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3466", "lang": "fi"}
+{"concept_id": "liikenne_ja_infra", "alias": "kauttakulkuliikenne", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3466", "lang": "fi"}
+{"concept_id": "liikenne_ja_infra", "alias": "tilausliikenne", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3466", "lang": "fi"}
+{"concept_id": "liikenne_ja_infra", "alias": "yksityisliikenne", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3466", "lang": "fi"}
+{"concept_id": "liikenne_ja_infra", "alias": "pendeliliikenne", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3466", "lang": "fi"}
+{"concept_id": "liikenne_ja_infra", "alias": "ulkomaanliikenne", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p3466", "lang": "fi"}
+{"concept_id": "ymparisto_ja_ilmasto", "alias": "meluntorjunta", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p13", "lang": "fi"}
+{"concept_id": "ymparisto_ja_ilmasto", "alias": "rakennussuojelu", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p13", "lang": "fi"}
+{"concept_id": "ymparisto_ja_ilmasto", "alias": "maisemansuojelu", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p13", "lang": "fi"}
+{"concept_id": "ymparisto_ja_ilmasto", "alias": "ilmastonsuojelu", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p13", "lang": "fi"}
+{"concept_id": "ymparisto_ja_ilmasto", "alias": "ilmansuojelu", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p13", "lang": "fi"}
+{"concept_id": "ymparisto_ja_ilmasto", "alias": "maaperänsuojelu", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p13", "lang": "fi"}
+{"concept_id": "ymparisto_ja_ilmasto", "alias": "vesiensuojelu", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p13", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "tutkimus (tieteellinen)", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "tieteellinen tutkimus", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "käyttäjätutkimus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "kontrastiivinen tutkimus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "feministinen tutkimus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "avaruustutkimus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "geenitutkimus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "työntutkimus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "kaupunkitutkimus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "tutkimus_ja_innovaatiot", "alias": "survey-tutkimus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p183", "lang": "fi"}
+{"concept_id": "maa_ja_metsatalous", "alias": "tehomaatalous", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p4503", "lang": "fi"}
+{"concept_id": "maa_ja_metsatalous", "alias": "kestävä maatalous", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p4503", "lang": "fi"}
+{"concept_id": "oikeuslaitos", "alias": "oikeudenkäyntilaitos", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p1500", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "kulttuurit", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "kulttuurimuodot", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "kulttuurijärjestelmät", "alias_type": "finto_alt", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "liikuntakulttuuri", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "yhtenäiskulttuuri", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "naiskulttuuri", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "psykokulttuuri", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "lesbokulttuuri", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "ruumiinkulttuuri", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "osakulttuurit", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "kulttuuri_ja_taide", "alias": "työpaikkakulttuuri", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p372", "lang": "fi"}
+{"concept_id": "ulkoasiainhallinto", "alias": "yhteinen ulko- ja turvallisuuspolitiikka", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p12405", "lang": "fi"}
+{"concept_id": "perusopetus", "alias": "omaura", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p19327", "lang": "fi"}
+{"concept_id": "perusopetus", "alias": "joustava perusopetus", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p19327", "lang": "fi"}
+{"concept_id": "valtionhallinto", "alias": "valtion paikallishallinto", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9113", "lang": "fi"}
+{"concept_id": "valtionhallinto", "alias": "keskushallinto", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9113", "lang": "fi"}
+{"concept_id": "valtionhallinto", "alias": "lääninhallinto", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9113", "lang": "fi"}
+{"concept_id": "valtionhallinto", "alias": "välillinen valtionhallinto", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9113", "lang": "fi"}
+{"concept_id": "valtionhallinto", "alias": "piirihallinto", "alias_type": "finto_narrower", "source": "finto_yso", "yso_uri": "http://www.yso.fi/onto/yso/p9113", "lang": "fi"}

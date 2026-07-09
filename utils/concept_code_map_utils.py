@@ -19,6 +19,13 @@ import yaml
 
 MAP_DIR = Path(__file__).resolve().parents[1] / "data" / "ontology" / "concept_code_map"
 
+# Ontology concept ids -> concept map file names, where they differ.
+# The ontology resolver produces the left-hand ids at query time.
+CONCEPT_ID_ALIASES = {
+    "tutkimus_ja_innovaatiot": "tutkimus",
+    "kulttuuri_ja_taide": "kulttuuri",
+}
+
 _DIALECT_EXPRS = {
     "bigquery": {
         "momentti": "NULLIF(`Momentti_TunnusP`, '')",
@@ -31,11 +38,12 @@ _DIALECT_EXPRS = {
 
 @lru_cache(maxsize=None)
 def _load_concept_doc(concept_id: str) -> dict[str, Any] | None:
-    path = MAP_DIR / f"{concept_id}.yaml"
+    file_id = CONCEPT_ID_ALIASES.get(concept_id, concept_id)
+    path = MAP_DIR / f"{file_id}.yaml"
     if not path.exists():
         return None
     doc = yaml.safe_load(path.read_text(encoding="utf-8"))
-    if not isinstance(doc, dict) or doc.get("concept") != concept_id:
+    if not isinstance(doc, dict) or doc.get("concept") != file_id:
         return None
     return doc
 

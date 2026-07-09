@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import re
 import sys
 from pathlib import Path
 
@@ -30,8 +31,34 @@ def _numeric_expr(raw_col: str) -> str:
     )
 
 
+# Osa lähdevuosista on tuplakoodattu: UTF-8-tavut on luettu ISO-8859-10:nä
+# (nordic), jolloin ä→'ÃĪ', ö→'Ãķ', Ö→'Ã', Ä→'Ã'. Skannaus
+# 2026-07: nämä neljä sekvenssiä kattavat kaikki havaitut tapaukset (405
+# nimeä), ja jokainen korjautuu ketjulla encode('iso8859-10').decode('utf-8').
+MOJIBAKE_PAIRS = [
+    ("\u00c3\u012a", "\u00e4"),  # -> a-umlaut
+    ("\u00c3\u0137", "\u00f6"),  # -> o-umlaut
+    ("\u00c3\u0096", "\u00d6"),  # -> O-umlaut (C1-kontrollitavu 0x96)
+    ("\u00c3\u0084", "\u00c4"),  # -> A-umlaut (C1-kontrollitavu 0x84)
+]
+
+
+def _sql_literal(value: str) -> str:
+    escaped = "".join(
+        ch if ch.isprintable() and ch not in ("'", "\\") else f"\\u{ord(ch):04x}"
+        for ch in value
+    )
+    return f"'{escaped}'"
+
+
+def _mojibake_fix_expr(expr: str) -> str:
+    for broken, fixed in MOJIBAKE_PAIRS:
+        expr = f"REPLACE({expr}, {_sql_literal(broken)}, {_sql_literal(fixed)})"
+    return expr
+
+
 def _clean_text_expr(raw_col: str) -> str:
-    return f"NULLIF(REGEXP_REPLACE(TRIM({raw_col}), r'\\s+', ' '), '')"
+    return f"NULLIF(REGEXP_REPLACE(TRIM({_mojibake_fix_expr(raw_col)}), r'\\s+', ' '), '')"
 
 
 def _display_name_expr(expr: str) -> str:
@@ -375,6 +402,15 @@ def build_curated_sql(
     build_mode: str,
     raw_naming: str = "original",
 ) -> str:
+    def _finalize(sql: str) -> str:
+        # Raakatekstikentät kulkevat TRIM(CAST(`X` AS STRING)) -muodossa;
+        # sovelletaan mojibake-korjaus jokaiseen niistä.
+        return re.sub(
+            r"TRIM\(CAST\(`([^`]+)` AS STRING\)\)",
+            lambda m: "TRIM(" + _mojibake_fix_expr(f"CAST(`{m.group(1)}` AS STRING)") + ")",
+            sql,
+        )
+
     target_ref = f"`{project}.{dataset}.{curated_table}`"
     source_compat = _source_compat_cte(project, dataset, raw_table, raw_naming)
     hierarchy_helper_selects = ",\n  ".join(_hierarchy_helper_selects())
@@ -387,7 +423,7 @@ def build_curated_sql(
         )
     else:
         header = f"CREATE OR REPLACE VIEW {target_ref} AS"
-    return f"""
+    return _finalize(f"""
 {header}
 WITH source_raw AS (
   {source_compat}
@@ -519,7 +555,7 @@ SELECT
 FROM typed
 WHERE vuosi IS NOT NULL
   AND kk IS NOT NULL
-"""
+""")
 
 
 def build_dimensions_sql(project: str, dataset: str, curated_table: str, build_mode: str) -> list[tuple[str, str]]:
