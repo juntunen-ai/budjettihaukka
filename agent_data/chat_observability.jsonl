@@ -1,0 +1,3 @@
+{"ts": "2026-07-09T16:35:26+0300", "question": "Vastaa: 1+1?", "answer_chars": 191, "tool_calls": [], "elapsed_s": 1.28, "error": null, "model": "gemini-3.5-flash"}
+{"ts": "2026-07-09T16:37:40+0300", "question": "How have education expenses developed between 2000 and 2024?", "answer_chars": 209, "tool_calls": ["resolve_concept", "resolve_concept"], "elapsed_s": 80.84, "error": null, "model": "gemini-3.5-flash"}
+{"ts": "2026-07-09T16:42:19+0300", "question": "How have education expenses developed between 2000 and 2024? Answer in English.", "answer_chars": 217, "tool_calls": ["resolve_concept", "resolve_concept"], "elapsed_s": 19.93, "error": null, "model": "gemini-3.5-flash"}

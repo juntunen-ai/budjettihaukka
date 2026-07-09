@@ -1676,6 +1676,12 @@ def enforce_sql_security(sql: str) -> tuple[str, str | None]:
         allowed_tables = {_normalize_table_id(settings.full_table_id)}
         if _yearly_agg_available():
             allowed_tables.add(_normalize_table_id(YEARLY_AGG_TABLE_ID))
+            allowed_tables.add(_normalize_table_id(YEARLY_AGG_BASE_TABLE_ID))
+        # Curated concept totals: tiny, human-decided view — the cheapest and
+        # most trustworthy source for concept-level trend questions.
+        allowed_tables.add(
+            _normalize_table_id(f"{settings.project_id}.{settings.dataset}.concept_yearly_totals_v1")
+        )
         if source_tables - allowed_tables or len(source_tables) != 1:
             return (
                 "",
