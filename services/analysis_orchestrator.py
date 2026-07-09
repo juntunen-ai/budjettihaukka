@@ -110,5 +110,6 @@ def analyze_question(question: str, clarifications: dict[str, str] | None = None
         metadata={
             "query_plan": execution.get("query_plan"),
             "verification": verification.metadata,
+            "definition_meta": execution.get("definition_meta"),
         },
     )

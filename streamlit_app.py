@@ -695,6 +695,37 @@ def render_trust_badge(result: dict) -> None:
     )
 
 
+def render_definition_disclosure(result: dict) -> None:
+    """'Näin laskin' — the human-decided definition behind the concept.
+
+    Shown whenever the answer was grounded by a curated concept→code map
+    (review dossier verdicts), so the user always sees what e.g. 'koulutus'
+    means in this answer and which uncertainties apply.
+    """
+    meta = result.get("definition_meta") or (result.get("metadata") or {}).get("definition_meta")
+    if not isinstance(meta, dict) or not meta.get("label"):
+        return
+    header = (
+        f"📐 **Määritelmä: {meta['label']}** (v{meta.get('version', 1)}, "
+        f"vahvistettu {meta.get('decided_on', '?')})"
+    )
+    lines = [header]
+    components = meta.get("components") or []
+    if components:
+        lines.append(
+            "Sisältää eriteltävinä osina: " + ", ".join(components) + "."
+        )
+    lines.append(
+        f"Rajaus perustuu {meta.get('include_rule_count', 0)} sisältävään ja "
+        f"{meta.get('exclude_rule_count', 0)} poissulkevaan momenttisääntöön "
+        "(ei nimihakuun)."
+    )
+    with st.expander("Näin laskin — määritelmä ja epävarmuudet", expanded=False):
+        st.markdown("\n\n".join(lines))
+        if meta.get("disclosure_fi"):
+            st.info(meta["disclosure_fi"])
+
+
 def _is_truthy_query_param(name: str) -> bool:
     try:
         raw = st.query_params.get(name)
@@ -1938,6 +1969,7 @@ def main():
                     st.caption(f"QueryPlan: {query_plan}")
 
                 render_trust_badge(result)
+                render_definition_disclosure(result)
 
                 if result.get("status") == "clarification_required":
                     st.error("Analyysi tarvitsee tarkennuksen ennen ajoa.")

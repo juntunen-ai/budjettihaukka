@@ -11,6 +11,7 @@ import sqlglot
 from sqlglot import exp
 
 from config import settings
+from utils import concept_code_map_utils
 from utils.budget_semantics import classify_moment_fiscal_side, fiscal_side_case_sql, normalize_fiscal_side
 from utils.analysis_spec_utils import AnalysisSpec, coverage_notice, infer_analysis_spec
 from utils.demo_data_utils import adapt_sql_to_demo_table, execute_demo_sql, get_demo_table_name
@@ -625,6 +626,14 @@ def _ontology_scope_clause(
 ) -> str | None:
     if not isinstance(analysis_spec, AnalysisSpec) or not analysis_spec.resolved_concept_id:
         return None
+
+    # Human-decided concept→code maps (review dossiers) are the highest
+    # authority: exact codes with year ranges, no name matching involved.
+    curated_clause = concept_code_map_utils.curated_scope_clause(
+        analysis_spec.resolved_concept_id, dialect=dialect
+    )
+    if curated_clause:
+        return curated_clause
 
     bridge_rules = _fetch_concept_bridge_rules(analysis_spec, dialect)
     ontology_rules = _fetch_ontology_membership_rules(analysis_spec.resolved_concept_id)
@@ -1958,6 +1967,24 @@ def execute_analysis_spec(
     tulkitaan ensin AnalysisSpeciksi, jonka jälkeen suorituspolku on täysin
     deterministinen (yearly agg / contract / fallback SQL-template).
     """
+    result = _execute_analysis_spec_impl(
+        question, analysis_spec, allow_llm_query_plan=allow_llm_query_plan
+    )
+    # Attach the human-decided definition so the UI can show what
+    # "koulutus" etc. means in this answer (näin laskin + disclosure).
+    if isinstance(result, dict):
+        result["definition_meta"] = concept_code_map_utils.definition_meta(
+            getattr(analysis_spec, "resolved_concept_id", None)
+        )
+    return result
+
+
+def _execute_analysis_spec_impl(
+    question: str,
+    analysis_spec: AnalysisSpec,
+    *,
+    allow_llm_query_plan: bool = False,
+) -> dict:
     query_id = str(uuid.uuid4())
     if _requires_population_denominator((question or "").lower()):
         return {
