@@ -1414,8 +1414,8 @@ concepts:
     alias_type: vm_phrase
     lang: fi
   - alias: terveydenhuollon
-    source: vm_vocabulary
-    alias_type: vm_token
+    source: manual
+    alias_type: inflected
     lang: fi
   - alias: pelastustoimen
     source: vm_vocabulary
@@ -1448,6 +1448,54 @@ concepts:
   - alias: kuntoutuspalvelut
     source: finto_yso
     alias_type: finto_narrower
+    lang: fi
+  - alias: sosiaali- ja terveyspalvelut
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: sosiaali- ja terveyspalvelujen
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: sosiaali- ja terveyspalveluihin
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: sote-palvelujen
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: sote-palveluihin
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: sote-menojen
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: terveydenhuoltoon
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: terveyspalvelut
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: terveyspalvelujen
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: terveyspalveluihin
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: sosiaalipalvelut
+    source: manual
+    alias_type: inflected
+    lang: fi
+  - alias: sosiaalipalvelujen
+    source: manual
+    alias_type: inflected
     lang: fi
   include_rules:
   - hierarchy_level: hallinnonala

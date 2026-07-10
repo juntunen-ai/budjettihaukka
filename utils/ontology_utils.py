@@ -551,6 +551,12 @@ def resolve_concepts_for_question(
     question_norm = _normalize_text(question)
     question_token_pairs = _tokenize_with_original(question)
     question_tokens = {normalized for _original, normalized in question_token_pairs}
+    # Väliviivasanat ("sote-palveluihin") pidetään kysymyksessä kokonaisina,
+    # mutta aliakset tokenisoituvat osiin — lisätään osat kysymysjoukkoon,
+    # jotta väliviivalliset aliakset voivat osua.
+    for token in list(question_tokens):
+        if "-" in token:
+            question_tokens.update(part for part in token.split("-") if part)
     question_upper_tokens = {original for original, _normalized in question_token_pairs if original.isupper()}
     scored: list[ResolvedConcept] = []
 

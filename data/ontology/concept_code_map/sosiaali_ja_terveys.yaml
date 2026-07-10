@@ -1,0 +1,78 @@
+# Concept→budget-code map: SOSIAALI- JA TERVEYSPALVELUT
+#
+# Lähde: katselmus-dossier #2, päätökset Harri Juntunen 2026-07-10.
+# Verdiktit: K1 (hyvinvointialueet) = A -> mukaan komponenttina
+#            K2 (sairausvakuutus)   = A -> mukaan komponenttina (COFOG-linjaus)
+#            K3 (toimeentuloetuudet)= A -> pois, target sosiaaliturva
+#            K4 (VOS-aukko 2010-22) = A -> pysyvä disclosure (ennakkotapaus
+#                                          koulutus-dossier #1, Q3:C)
+#
+# Rajaus: PALVELUT (järjestäminen, korvaukset, hallinto, edistäminen) —
+# rahansiirrot kotitalouksille kuuluvat sosiaaliturva-konseptiin.
+concept: sosiaali_ja_terveys
+label_fi: Sosiaali- ja terveyspalvelut
+version: 1
+decided_by: Harri Juntunen
+decided_on: "2026-07-10"
+source_dossier: review dossier #2 (claude.ai artifact sote-dossier-v1)
+disclosure_fi: >-
+  Luvut kuvaavat valtion talousarvion suoraa sote-palvelurahoitusta.
+  Vuosina 2010-2022 kuntien sote-palvelujen valtionosuus kulki VM:n
+  yleiskatteisen momentin (28.90.30) kautta eikä ole eriteltävissä; sarja
+  näyttää noilta vuosilta vain STM:n suoran rahoituksen. Vuodesta 2023
+  rahoitus kulkee hyvinvointialueiden kautta (momentti 28.89.31), joka
+  sisältää myös pelastustoimen (~0,5 mrd €/v, ei eroteltavissa).
+  Tasosiirtymät 2010 ja 2023 ovat rakenneuudistuksia, eivät meno-
+  muutoksia.
+rules:
+  # ---- Palveluydin (dossier: ei kiistanalainen) ----
+  - {level: luku, code: "33.32.", year_from: 1998, year_to: 2009, role: include,
+     note: "Kuntien järjestämä sosiaali- ja terveydenhuolto: VOS + korvaukset"}
+  - {level: luku, code: "33.60.", year_from: 1998, year_to: null, role: include,
+     note: "Kunta-sote-erityiskorvaukset (2008-2025) ja sote-tukeminen (2023->)"}
+  - {level: luku, code: "33.01.", year_from: 1998, year_to: null, role: include,
+     note: "STM:n hallinto (molemmat nimikaudet)"}
+  - {level: luku, code: "33.02.", year_from: 2008, year_to: null, role: include,
+     note: "Valvonta (Valvira, Fimea)"}
+  - {level: luku, code: "33.03.", year_from: 2008, year_to: null, role: include,
+     note: "Tutkimus- ja kehittämistoiminta (THL ym.)"}
+  - {level: luku, code: "33.70.", year_from: 2008, year_to: null, role: include,
+     note: "Terveyden ja toimintakyvyn edistäminen"}
+  - {level: luku, code: "33.80.", year_from: 2010, year_to: null, role: include,
+     note: "Lomitustoiminta (sosiaalipalvelu)"}
+  - {level: luku, code: "33.57.", year_from: 1998, year_to: 2005, role: include,
+     note: "Lomatoiminta (vanha kausi)"}
+  - {level: luku, code: "33.90.", year_from: 2008, year_to: null, role: include,
+     note: "RAY/STEA-avustukset järjestöjen hyvinvointityöhön"}
+  - {level: luku, code: "33.92.", year_from: 1998, year_to: 2009, role: include,
+     note: "Raha-automaattiyhdistyksen tuoton käyttö"}
+
+  # ---- K1: hyvinvointialueiden rahoitus komponenttina ----
+  - {level: luku, code: "28.89.", year_from: 2022, year_to: null, role: component, component: hyvinvointialueet,
+     note: "Hyvinvointialueiden ja HUS:n sote + pelastustoimi; suurin yksittäinen menoluokka 2023->"}
+
+  # ---- K2: sairausvakuutus komponenttina ----
+  - {level: luku, code: "33.18.", year_from: 1998, year_to: 2007, role: component, component: sairausvakuutus,
+     note: "Sairausvakuutus (vanha kausi)"}
+  - {level: luku, code: "33.30.", year_from: 2008, year_to: null, role: component, component: sairausvakuutus,
+     note: "Valtion osuus sairausvakuutuksesta: hoito- ja lääkekorvaukset + päivärahat"}
+
+  # ---- K3: toimeentuloetuudet pois -> sosiaaliturva ----
+  - {level: luku, code: "33.10.", year_from: 2010, year_to: null, role: exclude, target_concept: sosiaaliturva,
+     note: "Perhe-etuudet, asumistuki, perustoimeentulotuki"}
+  - {level: luku, code: "33.15.", year_from: 1998, year_to: 2007, role: exclude, target_concept: sosiaaliturva,
+     note: "Perhekustannusten tasaus"}
+  - {level: luku, code: "33.17.", year_from: 1998, year_to: 2007, role: exclude, target_concept: sosiaaliturva,
+     note: "Työttömyysturva (vanha kausi)"}
+  - {level: luku, code: "33.19.", year_from: 1998, year_to: 2007, role: exclude, target_concept: sosiaaliturva,
+     note: "Eläkevakuutus (vanha kausi)"}
+  - {level: luku, code: "33.20.", year_from: 2008, year_to: null, role: exclude, target_concept: sosiaaliturva,
+     note: "Työttömyysturva"}
+  - {level: luku, code: "33.40.", year_from: 2008, year_to: null, role: exclude, target_concept: sosiaaliturva,
+     note: "Eläkkeet (valtion osuudet)"}
+  - {level: luku, code: "33.21.", year_from: 1998, year_to: 2007, role: exclude, target_concept: sosiaaliturva,
+     note: "Rintamaveteraanieläkkeet"}
+  - {level: luku, code: "33.22.", year_from: 1998, year_to: 2008, role: exclude, target_concept: sosiaaliturva,
+     note: "Sotilasvammakorvaukset"}
+  - {level: luku, code: "33.50.", year_from: 2008, year_to: null, role: exclude, target_concept: sosiaaliturva,
+     note: "Veteraanien tukeminen (etuudet)"}
