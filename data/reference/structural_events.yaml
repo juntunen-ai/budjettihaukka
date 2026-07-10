@@ -1,0 +1,63 @@
+# Valtion budjetin rakenteelliset muutokset ja tapahtumat, jotka näkyvät
+# aikasarjoissa mutta eivät ole "oikeita" meno- tai tulomuutoksia — tai ovat
+# poikkeustapahtumia, jotka selittävät piikin. Vastausten ja kaavioiden
+# annotaatiolähde: agentti ja UI merkitsevät nämä sarjoihin, jotta murros ei
+# näytä virheeltä eikä leikkaukselta.
+#
+# vaikutus: mihin konsepteihin/sarjoihin tapahtuma ensisijaisesti osuu.
+events:
+  - year: 2010
+    id: vos_uudistus_2010
+    label_fi: Valtionosuusuudistus
+    description_fi: >-
+      Kuntien opetus- ja sote-valtionosuudet koottiin VM:n yleiskatteiseen
+      momenttiin 28.90.30. OKM:n ja STM:n hallinnonalojen sarjat putoavat
+      tasona ilman todellista leikkausta; sektorikohtainen erittely katoaa
+      budjettiaineistosta.
+    affects: [koulutus, sosiaali_ja_terveys, kuntien_valtionosuudet]
+
+  - year: 2017
+    id: opintotukileikkaus_2017
+    label_fi: Opintotukiuudistus
+    description_fi: >-
+      Opintorahaa leikattiin ja opiskelijat siirrettiin yleisen asumistuen
+      piiriin; opintotuki-komponentin taso putoaa ~30 % 2017–2019, ja osa
+      tuesta siirtyy asumistuki-momentille.
+    affects: [koulutus, opintotuki, asumistuki]
+
+  - year: 2020
+    id: covid_2020
+    label_fi: Koronapandemia
+    description_fi: >-
+      Poikkeukselliset tukipaketit ja lisätalousarviot kasvattavat useita
+      menoluokkia 2020–2021; piikit ovat todellisia mutta kertaluonteisia.
+    affects: [koulutus, sosiaali_ja_terveys, tyollisyys_ja_tyovoimapolitiikka, yritystuet]
+
+  - year: 2023
+    id: sote_uudistus_2023
+    label_fi: Sote-uudistus / hyvinvointialueet
+    description_fi: >-
+      Sosiaali- ja terveyspalvelujen sekä pelastustoimen järjestämisvastuu
+      siirtyi kunnilta hyvinvointialueille. Valtion rahoitus alueille alkaa
+      VM:n momentilta (28.89), ja kuntien peruspalvelujen valtionosuus
+      (28.90.30) putoaa murto-osaan. Sote-sarjoissa suuri tasosiirtymä,
+      joka ei ole meno- eikä leikkausmuutos.
+    affects: [sosiaali_ja_terveys, hyvinvointialueiden_rahoitus, kuntien_valtionosuudet]
+
+  - year: 2021
+    id: hx_havittajat_2021
+    label_fi: HX-hävittäjähankinta
+    description_fi: >-
+      Monitoimihävittäjien hankinnan maksatukset alkavat (momentti
+      27.10.19.); puolustusmenojen taso nousee poikkeuksellisesti
+      2021–2020-luvun loppuun.
+    affects: [puolustus]
+
+  - year: 2010
+    id: yliopistouudistus_2010
+    label_fi: Yliopistouudistus
+    description_fi: >-
+      Yliopistot irtautuivat valtiosta itsenäisiksi oikeushenkilöiksi;
+      valtion rahoitus muuttui toimintamenoista valtionrahoitusmomentiksi
+      (29.40.50). Korkeakoulusarjan rakenne muuttuu, taso jatkuva.
+    affects: [koulutus, korkeakoulutus, yliopistot]

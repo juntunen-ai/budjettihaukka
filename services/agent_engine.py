@@ -44,20 +44,38 @@ def get_data_overview() -> dict:
     project, dataset = settings.project_id, settings.dataset
     return {
         "tables": {
-            f"{project}.{dataset}.concept_yearly_totals_v1": {
+            f"{project}.{dataset}.concept_yearly_totals_real_v1": {
                 "description": (
-                    "Curated concept-level yearly totals from human-decided definitions. "
-                    "PREFER THIS for concept trend questions (koulutus, ...). Tiny and cheap."
+                    "Curated concept-level yearly totals from human-decided definitions, "
+                    "BOTH nominal and real (deflated with Statistics Finland cost-of-living "
+                    "index). PREFER THIS for concept trend questions. Tiny and cheap. "
+                    "For ranges longer than ~5 years, report REAL euros or show both."
                 ),
                 "columns": {
-                    "concept": "concept id, e.g. 'koulutus'",
+                    "concept": "concept id, e.g. 'koulutus', 'tutkimus', 'kulttuuri'",
                     "vuosi": "year (INT64)",
                     "role": "'include' core spending | 'component' separable part | 'exclude' money mapped away",
                     "component": "component name when role='component', e.g. 'opintotuki'",
                     "target_concept": "where excluded money belongs",
-                    "total_meur": "sum in millions of euros (toteuma/nettokertymä)",
+                    "total_meur_nominal": "millions of euros, nominal (toteuma/nettokertymä)",
+                    "total_meur_real": "millions of euros in latest-year prices",
+                    "real_base_year": "price base year of total_meur_real",
                 },
-                "usage": "Concept total = SUM(total_meur) WHERE role IN ('include','component').",
+                "usage": "Concept total = SUM(total_meur_*) WHERE role IN ('include','component').",
+            },
+            f"{project}.{dataset}.structural_events_v1": {
+                "description": (
+                    "Known structural breaks and one-off events (reforms) that create level "
+                    "shifts in series. ALWAYS check this before interpreting a jump/drop as a "
+                    "real spending change, and mention relevant events in the answer."
+                ),
+                "columns": {
+                    "year": "event year",
+                    "label_fi": "short name, e.g. 'Sote-uudistus / hyvinvointialueet'",
+                    "description_fi": "what the event does to the series",
+                    "affects_concepts": "ARRAY of concept ids affected",
+                },
+                "usage": "SELECT year, label_fi, description_fi FROM ... WHERE 'koulutus' IN UNNEST(affects_concepts)",
             },
             f"{project}.{dataset}.valtiontalous_yearly_agg_v1": {
                 "description": "Yearly sums per momentti/alamomentti. Use for rankings, comparisons, specific moments.",
@@ -121,8 +139,14 @@ def resolve_concept(term: str) -> dict:
             "grounding": "curated_human_decided_map",
             "definition": meta,
             "how_to_query": (
-                f"SELECT vuosi, SUM(total_meur) FROM concept_yearly_totals_v1 "
-                f"WHERE concept='{concept_id}' AND role IN ('include','component') GROUP BY vuosi"
+                "SELECT vuosi, SUM(total_meur_nominal) nominal_meur, SUM(total_meur_real) real_meur "
+                "FROM concept_yearly_totals_real_v1 "
+                f"WHERE concept='{concept_code_map_utils.CONCEPT_ID_ALIASES.get(concept_id, concept_id)}' "
+                "AND role IN ('include','component') GROUP BY vuosi"
+            ),
+            "check_structural_events": (
+                f"SELECT year, label_fi, description_fi FROM structural_events_v1 "
+                f"WHERE '{concept_id}' IN UNNEST(affects_concepts)"
             ),
             "must_disclose": meta.get("disclosure_fi"),
         }
@@ -181,8 +205,13 @@ NON-NEGOTIABLE RULES:
 4. Amounts in concept_yearly_totals_v1 are MILLIONS of euros; in other tables plain
    euros. Convert and label units clearly (e.g. "6,6 mrd €").
 5. If the question is ambiguous, ask ONE clarifying question instead of guessing.
-6. Sanity-check results: if a series has an implausible jump, check whether it is a
-   known structural break before presenting it as real change.
+6. Sanity-check results: before interpreting any jump or drop as a real change,
+   query structural_events_v1 for the concept — reforms like the 2010 VOS or the
+   2023 sote transfer create level shifts that are NOT spending changes. Mention
+   the relevant event in the answer when it falls inside the asked range.
+6b. For ranges longer than ~5 years, use real euros (total_meur_real) or present
+   both — nominal growth over decades is mostly inflation, and saying only the
+   nominal figure misleads.
 7. End with exactly the marker line: FOLLOW_UPS: q1 | q2 | q3 (three short
    suggested follow-up questions in the user's language).
 

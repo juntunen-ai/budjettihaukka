@@ -1671,27 +1671,42 @@ def enforce_sql_security(sql: str) -> tuple[str, str | None]:
     except Exception as e:
         return "", f"SQL lint epäonnistui: {e}"
 
+    small_curated_only = False
     if not settings.use_google_sheets_demo:
         source_tables = _physical_source_tables(parsed)
         allowed_tables = {_normalize_table_id(settings.full_table_id)}
         if _yearly_agg_available():
             allowed_tables.add(_normalize_table_id(YEARLY_AGG_TABLE_ID))
             allowed_tables.add(_normalize_table_id(YEARLY_AGG_BASE_TABLE_ID))
-        # Curated concept totals: tiny, human-decided view — the cheapest and
-        # most trustworthy source for concept-level trend questions.
-        allowed_tables.add(
-            _normalize_table_id(f"{settings.project_id}.{settings.dataset}.concept_yearly_totals_v1")
-        )
+        # Curated concept totals + real-price view + structural events:
+        # tiny, human-decided sources — the cheapest and most trustworthy
+        # tables for concept-level trend questions and their annotations.
+        # Their size is trivial, so the mandatory year-range guard (a cost
+        # control for the large tables) does not apply to them.
+        small_curated_tables = {
+            _normalize_table_id(f"{settings.project_id}.{settings.dataset}.{curated_view}")
+            for curated_view in (
+                "concept_yearly_totals_v1",
+                "concept_yearly_totals_real_v1",
+                "structural_events_v1",
+                "price_index_v1",
+            )
+        }
+        allowed_tables |= small_curated_tables
         if source_tables - allowed_tables or len(source_tables) != 1:
             return (
                 "",
                 "SQL käyttää kiellettyä taulua tai useita tauluja. "
                 f"Sallitut lähteet: {', '.join(f'`{table}`' for table in sorted(allowed_tables))}.",
             )
+        small_curated_only = source_tables <= small_curated_tables
 
-    secured_sql, year_error = _enforce_year_bounds(sql)
-    if year_error:
-        return "", year_error
+    if small_curated_only:
+        secured_sql = sql
+    else:
+        secured_sql, year_error = _enforce_year_bounds(sql)
+        if year_error:
+            return "", year_error
 
     secured_sql, limit_error = _enforce_limit_cap(secured_sql)
     if limit_error:
