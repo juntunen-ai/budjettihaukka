@@ -1690,9 +1690,14 @@ def enforce_sql_security(sql: str) -> tuple[str, str | None]:
                 "concept_yearly_totals_real_v1",
                 "structural_events_v1",
                 "price_index_v1",
+                "talousarvio_v1",
             )
         }
         allowed_tables |= small_curated_tables
+        # Budjetoitu vs toteuma skannaa yearly-aggregaattia -> vuosirajaus vaaditaan.
+        allowed_tables.add(
+            _normalize_table_id(f"{settings.project_id}.{settings.dataset}.budget_vs_actual_v1")
+        )
         if source_tables - allowed_tables or len(source_tables) != 1:
             return (
                 "",

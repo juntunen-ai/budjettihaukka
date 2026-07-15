@@ -1,0 +1,45 @@
+# Concept→budget-code map: SOSIAALITURVA (toimeentuloetuudet)
+#
+# Johdettu sote-katselmuksen (dossier #2, 2026-07-10) K3:A-verdictistä:
+# rahansiirrot kotitalouksille erotettiin sosiaali- ja terveyspalveluista
+# omaksi käsitteekseen. Säännöt = sosiaali_ja_terveys.yaml:n
+# target_concept: sosiaaliturva -rivit komponentteihin jäsennettyinä.
+concept: sosiaaliturva
+label_fi: Sosiaaliturva
+version: 1
+decided_by: "johdettu dossier #2:n K3-verdictistä (Harri Juntunen)"
+decided_on: "2026-07-10"
+source_dossier: review dossier #2, K3:A
+disclosure_fi: >-
+  Kattaa valtion talousarviosta rahoitetut toimeentuloetuudet (valtion
+  osuudet Kelan etuuksista, työttömyysturvasta ja eläkkeistä sekä
+  veteraanietuudet). Työeläkkeet eivät kulje valtion budjetin kautta
+  eivätkä sisälly lukuihin. Sairausvakuutus on sote-palvelut-käsitteen
+  komponentti (dossier #2, K2). Opintotuki on koulutus-käsitteen
+  komponentti (dossier #1, Q1).
+rules:
+  # ---- Eläkkeet (valtion osuudet) ----
+  - {level: luku, code: "33.19.", year_from: 1998, year_to: 2007, role: component, component: elakkeet,
+     note: "Eläkevakuutus (vanha kausi)"}
+  - {level: luku, code: "33.40.", year_from: 2008, year_to: null, role: component, component: elakkeet,
+     note: "Eläkkeet: valtion osuudet kansaneläke-, yrittäjä- ja maatalousyrittäjäeläkkeistä"}
+
+  # ---- Työttömyysturva ----
+  - {level: luku, code: "33.17.", year_from: 1998, year_to: 2007, role: component, component: tyottomyysturva,
+     note: "Työttömyysturva (vanha kausi)"}
+  - {level: luku, code: "33.20.", year_from: 2008, year_to: null, role: component, component: tyottomyysturva,
+     note: "Työttömyysturva: valtion osuudet ansioturvasta, perusturva, työmarkkinatuki"}
+
+  # ---- Perhe-etuudet, asumistuki, toimeentulotuki ----
+  - {level: luku, code: "33.15.", year_from: 1998, year_to: 2007, role: component, component: perhe_ja_asuminen,
+     note: "Perhekustannusten tasaus (lapsilisät ym., vanha kausi)"}
+  - {level: luku, code: "33.10.", year_from: 2010, year_to: null, role: component, component: perhe_ja_asuminen,
+     note: "Perhe- ja asumiskustannusten tasaus ja perustoimeentulotuki; sis. opiskelijoiden asumistuen 2017->"}
+
+  # ---- Veteraanietuudet ----
+  - {level: luku, code: "33.21.", year_from: 1998, year_to: 2007, role: component, component: veteraanit,
+     note: "Rintamaveteraanieläkkeet"}
+  - {level: luku, code: "33.22.", year_from: 1998, year_to: 2008, role: component, component: veteraanit,
+     note: "Sotilasvammakorvaukset"}
+  - {level: luku, code: "33.50.", year_from: 2008, year_to: null, role: component, component: veteraanit,
+     note: "Veteraanien tukeminen"}

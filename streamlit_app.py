@@ -720,6 +720,11 @@ def render_definition_disclosure(result: dict) -> None:
         f"{meta.get('exclude_rule_count', 0)} poissulkevaan momenttisääntöön "
         "(ei nimihakuun)."
     )
+    lines.append(
+        "**Metriikka:** toteuma (nettokertymä), nimelliset eurot. Budjetoidut "
+        "määrärahat (talousarvio + lisätalousarviot) ovat saatavilla vuodesta "
+        "2014 alkaen erikseen kysyttäessä."
+    )
     with st.expander("Näin laskin — määritelmä ja epävarmuudet", expanded=False):
         st.markdown("\n\n".join(lines))
         if meta.get("disclosure_fi"):

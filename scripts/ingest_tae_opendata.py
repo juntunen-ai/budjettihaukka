@@ -50,10 +50,10 @@ def _get_with_retry(session: requests.Session, url: str) -> requests.Response | 
     return None
 
 
-def fetch_year(session: requests.Session, year: int) -> list[dict]:
+def fetch_year(session: requests.Session, year: int, doc: str = "tae") -> list[dict]:
     rows: list[dict] = []
     for section in SECTIONS:
-        url = f"{BASE}/{year}/tae/hallituksenEsitys/{year}-tae-hallituksenEsitys-{section}.csv"
+        url = f"{BASE}/{year}/{doc}/hallituksenEsitys/{year}-{doc}-hallituksenEsitys-{section}.csv"
         resp = _get_with_retry(session, url)
         if resp is None:
             continue
@@ -80,6 +80,7 @@ def fetch_year(session: requests.Session, year: int) -> list[dict]:
             rows.append(
                 {
                     "vuosi": year,
+                    "dokumentti": doc,
                     "puoli": "tulo" if is_revenue else "meno",
                     "paaluokka_osasto": top_code,
                     "paaluokka_osasto_nimi": top_name,
@@ -104,11 +105,16 @@ def main() -> int:
     session = requests.Session()
     session.headers.update({"User-Agent": "budjettihaukka-ingest/1.0"})
 
+    docs = ["tae"] + [f"ltae{n}" for n in range(1, 8)]
     all_rows: list[dict] = []
     for year in range(args.year_from, args.year_to + 1):
-        year_rows = fetch_year(session, year)
-        all_rows.extend(year_rows)
-        print(f"TAE {year}: {len(year_rows)} momenttiriviä")
+        for doc in docs:
+            year_rows = fetch_year(session, year, doc)
+            if not year_rows and doc != "tae":
+                break  # lisätalousarviot ovat juoksevasti numeroituja
+            all_rows.extend(year_rows)
+            if year_rows:
+                print(f"{doc.upper()} {year}: {len(year_rows)} momenttiriviä")
 
     client = bigquery.Client(project=args.project)
     table_id = f"{args.project}.{args.dataset}.talousarvio_v1"
@@ -119,6 +125,7 @@ def main() -> int:
             write_disposition="WRITE_TRUNCATE",
             schema=[
                 bigquery.SchemaField("vuosi", "INT64"),
+                bigquery.SchemaField("dokumentti", "STRING"),
                 bigquery.SchemaField("puoli", "STRING"),
                 bigquery.SchemaField("paaluokka_osasto", "STRING"),
                 bigquery.SchemaField("paaluokka_osasto_nimi", "STRING"),
@@ -133,7 +140,16 @@ def main() -> int:
 
     view_sql = f"""
 CREATE OR REPLACE VIEW `{args.project}.{args.dataset}.budget_vs_actual_v1` AS
-WITH toteuma AS (
+WITH budjetoitu AS (
+  SELECT vuosi, momentti_koodi, ANY_VALUE(puoli) AS puoli,
+         ANY_VALUE(IF(dokumentti = 'tae', momentti_nimi, NULL)) AS tae_nimi,
+         SUM(IF(dokumentti = 'tae', maararaha_eur, 0)) AS tae_eur,
+         SUM(IF(dokumentti != 'tae', maararaha_eur, 0)) AS ltae_eur,
+         SUM(maararaha_eur) AS budjetoitu_eur
+  FROM `{table_id}`
+  GROUP BY vuosi, momentti_koodi
+),
+toteuma AS (
   SELECT vuosi, momentti_tunnusp AS momentti_koodi,
          ANY_VALUE(momentti_snimi) AS momentti_nimi,
          SUM(nettokertyma_sum) AS toteuma_eur
@@ -143,12 +159,14 @@ WITH toteuma AS (
 SELECT
   COALESCE(b.vuosi, t.vuosi) AS vuosi,
   COALESCE(b.momentti_koodi, t.momentti_koodi) AS momentti_koodi,
-  COALESCE(b.momentti_nimi, t.momentti_nimi) AS momentti_nimi,
+  COALESCE(b.tae_nimi, t.momentti_nimi) AS momentti_nimi,
   b.puoli,
-  b.maararaha_eur AS budjetoitu_eur,
+  b.tae_eur,
+  b.ltae_eur,
+  b.budjetoitu_eur,
   t.toteuma_eur,
-  SAFE_DIVIDE(t.toteuma_eur, NULLIF(b.maararaha_eur, 0)) AS toteuma_aste
-FROM `{table_id}` b
+  SAFE_DIVIDE(t.toteuma_eur, NULLIF(b.budjetoitu_eur, 0)) AS toteuma_aste
+FROM budjetoitu b
 FULL OUTER JOIN toteuma t USING (vuosi, momentti_koodi)
 WHERE COALESCE(b.vuosi, t.vuosi) >= 2014
 """

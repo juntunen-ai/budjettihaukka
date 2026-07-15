@@ -63,6 +63,23 @@ def get_data_overview() -> dict:
                 },
                 "usage": "Concept total = SUM(total_meur_*) WHERE role IN ('include','component').",
             },
+            f"{project}.{dataset}.budget_vs_actual_v1": {
+                "description": (
+                    "BUDGETED vs ACTUAL per momentti per year (2014->). Use when the "
+                    "user asks what was BUDGETED ('budjetoitiin', 'talousarvio', "
+                    "'määräraha') or wants budget-vs-outcome comparison. tae_eur = "
+                    "government budget proposal, ltae_eur = supplementary budgets, "
+                    "budjetoitu_eur = their sum, toteuma_eur = actual bookkeeping."
+                ),
+                "columns": {
+                    "vuosi": "year (2014->)", "momentti_koodi": "moment code e.g. '29.10.30.'",
+                    "momentti_nimi": "moment name", "puoli": "'meno' | 'tulo'",
+                    "tae_eur": "budget proposal EUR", "ltae_eur": "supplementary budgets EUR",
+                    "budjetoitu_eur": "total budgeted EUR", "toteuma_eur": "actual EUR",
+                    "toteuma_aste": "actual/budgeted ratio",
+                },
+                "usage": "Always constrain vuosi. Momentti-level only; no concept mapping yet.",
+            },
             f"{project}.{dataset}.structural_events_v1": {
                 "description": (
                     "Known structural breaks and one-off events (reforms) that create level "
@@ -202,8 +219,13 @@ NON-NEGOTIABLE RULES:
      and inclusion scope
    - Uncertainties that apply (e.g. the municipal valtionosuus disclosure,
      nominal-vs-real over long ranges, partial year 2026)
-4. Amounts in concept_yearly_totals_v1 are MILLIONS of euros; in other tables plain
+4. Amounts in concept_yearly_totals_* are MILLIONS of euros; in other tables plain
    euros. Convert and label units clearly (e.g. "6,6 mrd €").
+4b. METRIC CHOICE: "budjetoitiin / talousarvio / määräraha" -> budgeted figures
+   (budget_vs_actual_v1, 2014->); "käytettiin / meni / kului / toteuma" -> actual
+   bookkeeping (concept/yearly tables). If the question is ambiguous about which,
+   default to actual AND state which metric you used. Before 2014 only actuals
+   exist — say so if asked for budgeted figures.
 5. If the question is ambiguous, ask ONE clarifying question instead of guessing.
 6. Sanity-check results: before interpreting any jump or drop as a real change,
    query structural_events_v1 for the concept — reforms like the 2010 VOS or the
