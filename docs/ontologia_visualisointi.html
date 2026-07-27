@@ -1,0 +1,341 @@
+<title>Budjettihaukan tietopohja — ontologia ja semantiikka</title>
+<style>
+.viz-root{
+  --surface-1:#fcfcfb; --surface-2:#f4f3ef; --line:#e3e1da;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#7d7b73;
+  --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100; --s4:#008300; --s5:#4a3aa7; --s6:#e34948;
+  --seq-250:#86b6ef; --seq-400:#3987e5; --seq-550:#1c5cab;
+}
+@media (prefers-color-scheme: dark){
+  .viz-root{
+    --surface-1:#1a1a19; --surface-2:#232322; --line:#3a3936;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#96948a;
+    --s1:#3987e5; --s2:#199e70; --s3:#c98500; --s4:#008300; --s5:#9085e9; --s6:#e66767;
+    --seq-250:#86b6ef; --seq-400:#3987e5; --seq-550:#1c5cab;
+  }
+}
+:root[data-theme="dark"] .viz-root{
+  --surface-1:#1a1a19; --surface-2:#232322; --line:#3a3936;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#96948a;
+  --s1:#3987e5; --s2:#199e70; --s3:#c98500; --s4:#008300; --s5:#9085e9; --s6:#e66767;
+}
+:root[data-theme="light"] .viz-root{
+  --surface-1:#fcfcfb; --surface-2:#f4f3ef; --line:#e3e1da;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#7d7b73;
+  --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100; --s4:#008300; --s5:#4a3aa7; --s6:#e34948;
+}
+body{margin:0;}
+.viz-root{background:var(--surface-1);color:var(--text-primary);
+  font:15px/1.55 "Avenir Next","Helvetica Neue",system-ui,sans-serif;padding:40px 24px 72px;}
+.wrap{max-width:960px;margin:0 auto;}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--text-secondary);}
+h1{font-size:30px;line-height:1.15;margin:8px 0 4px;text-wrap:balance;}
+.sub{color:var(--text-secondary);margin:0 0 26px;max-width:70ch;}
+h2{font-size:19px;margin:40px 0 4px;}
+.note{font-size:13px;color:var(--text-secondary);margin:0 0 14px;max-width:76ch;}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:20px 0;}
+.tile{background:var(--surface-2);border:1px solid var(--line);padding:14px 16px;}
+.tile .v{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;}
+.tile .l{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+.tile.hero{border-left:3px solid var(--seq-550);}
+.panel{background:var(--surface-2);border:1px solid var(--line);padding:18px;margin:12px 0;overflow-x:auto;}
+svg text{font:12px "Avenir Next","Helvetica Neue",system-ui,sans-serif;fill:var(--text-secondary);}
+svg .lbl{fill:var(--text-primary);font-weight:600;}
+svg .num{font-variant-numeric:tabular-nums;}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--text-secondary);margin:8px 2px 0;}
+.legend span{display:inline-flex;align-items:center;gap:6px;}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block;}
+table.dt{border-collapse:collapse;width:100%;font-size:13.5px;}
+table.dt th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);padding:8px 10px;border-bottom:1px solid var(--line);}
+table.dt td{padding:8px 10px;border-bottom:1px solid var(--line);}
+table.dt td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.tooltip{position:fixed;pointer-events:none;background:var(--surface-2);border:1px solid var(--line);
+  padding:8px 10px;font-size:12.5px;display:none;z-index:10;box-shadow:0 2px 10px rgba(0,0,0,.14);}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:6px;}
+.covbar{height:22px;background:var(--surface-1);border:1px solid var(--line);margin:6px 0 2px;}
+.covbar > div{height:100%;background:var(--seq-550);}
+</style>
+<div class="viz-root"><div class="wrap">
+  <div class="kicker">Budjettihaukka · tietopohjan tilannekuva · 2026-07-10</div>
+  <h1>Ontologia, relaatiot ja semanttiset piirteet</h1>
+  <p class="sub">Miten valtion budjettidata jäsentyy Budjettihaukassa: ihmisen vahvistamat käsitemääritelmät,
+  niiden väliset rahavirrat, sanaston semanttiset lähteet, budjetoitu vs. toteutunut sekä
+  reaalihintaiset aikasarjat rakennemurroksineen.</p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <h2>Kartoitettu osuus valtion menoista 2024</h2>
+  <p class="note">Kuinka suuri osa menototeumasta kuuluu ihmisen vahvistamien käsitemääritelmien piiriin.
+  Loppu odottaa tulevia katselmuksia (puolustus, työllisyys, liikenne…).</p>
+  <div class="panel">
+    <div style="font-size:22px;font-weight:700;" id="covPct"></div>
+    <div class="covbar"><div id="covFill"></div></div>
+    <div class="note" id="covDetail" style="margin:4px 0 0;"></div>
+  </div>
+
+  <h2>Semanttinen arkkitehtuuri</h2>
+  <p class="note">Raakadatasta vastaukseksi: jokainen kerros lisää merkitystä, ja jokainen nuoli on koneellisesti validoitu.</p>
+  <div class="panel"><svg id="arch" width="920" height="150" viewBox="0 0 920 150"></svg></div>
+
+  <h2>Käsitteiden väliset relaatiot — mihin poissuljettu raha kuuluu</h2>
+  <p class="note">Katselmuksissa tehdyt rajaukset synnyttävät target-relaatioita: kun momentti suljetaan pois käsitteestä,
+  kirjataan mihin käsitteeseen se kuuluu. Sosiaaliturva syntyi juuri näin sote-katselmuksen sivutuotteena.
+  Viivan paksuus = sääntöjen määrä.</p>
+  <div class="panel"><svg id="flows" width="920" height="330" viewBox="0 0 920 330"></svg>
+  <div class="legend" id="flowsLegend"></div></div>
+
+  <h2>Budjetoitu vs. toteutunut 2014–2025</h2>
+  <p class="note">Budjetoitu-metriikka (talousarvioesitys + lisätalousarviot, budjetti.vm.fi:n avoin data) toteuman
+  rinnalla, valtion menot yhteensä. Vie hiiri kaavion päälle nähdäksesi vuosikohtaiset arvot ja toteuma-asteen.</p>
+  <div class="panel"><svg id="bva" width="920" height="300" viewBox="0 0 920 300"></svg>
+  <div class="legend" id="bvaLegend"></div></div>
+
+  <h2>Sanaston semanttiset lähteet</h2>
+  <p class="note">768 aliasta 30 käsitteelle. Väri = tarkkuuspaino (precision), joka määrää painoarvon
+  kyselyjen tulkinnassa — esim. vm_token on estetty (0,18) ja finto_alt luotettava (0,80).</p>
+  <div class="panel"><svg id="aliases" width="920" height="360" viewBox="0 0 920 360"></svg>
+  <div class="legend" id="aliasLegend"></div></div>
+
+  <h2>Kartoitetut käsitteet reaalihinnoin (2025 hinnoin) — rakennemurrokset merkittyinä</h2>
+  <p class="note">Ihmisen vahvistamat käsitekartat. Katkoviivat = structural_events-rekisterin murrokset:
+  tasosiirtymä uudistuksen kohdalla ei ole menomuutos. Vie hiiri kaavion päälle nähdäksesi arvot.</p>
+  <div class="panel"><svg id="series" width="920" height="380" viewBox="0 0 920 380"></svg>
+  <div class="legend" id="seriesLegend"></div></div>
+
+  <h2>Käsitekartat — päätökset datana</h2>
+  <div class="panel"><table class="dt" id="mapTable"></table></div>
+  <div class="tooltip" id="tt"></div>
+</div></div>
+<script>
+const DATA = {"concepts": [{"id": "koulutus", "label": "Koulutus", "aliases_total": 31, "aliases_by_source": {"manual": 8, "vm_vocabulary": 15, "finto_yso": 8}}, {"id": "korkeakoulutus", "label": "Korkeakoulutus", "aliases_total": 23, "aliases_by_source": {"manual": 5, "vm_vocabulary": 15, "finto_yso": 3}}, {"id": "yliopistot", "label": "Yliopistot", "aliases_total": 29, "aliases_by_source": {"finto_yso": 6, "manual": 8, "vm_vocabulary": 15}}, {"id": "ammattikorkeakoulut", "label": "Ammattikorkeakoulut", "aliases_total": 20, "aliases_by_source": {"manual": 3, "vm_vocabulary": 15, "finto_yso": 2}}, {"id": "ammatillinen_koulutus", "label": "Ammatillinen koulutus", "aliases_total": 31, "aliases_by_source": {"finto_yso": 7, "manual": 9, "vm_vocabulary": 15}}, {"id": "varhaiskasvatus", "label": "Varhaiskasvatus", "aliases_total": 26, "aliases_by_source": {"manual": 10, "vm_vocabulary": 15, "finto_yso": 1}}, {"id": "opintotuki", "label": "Opintotuki", "aliases_total": 18, "aliases_by_source": {"manual": 5, "vm_vocabulary": 13}}, {"id": "puolustus", "label": "Puolustus", "aliases_total": 29, "aliases_by_source": {"finto_juho": 1, "manual": 11, "vm_vocabulary": 15, "finto_yso": 2}}, {"id": "poliisi_ja_sisainen_turvallisuus", "label": "Poliisi ja sisäinen turvallisuus", "aliases_total": 18, "aliases_by_source": {"manual": 7, "vm_vocabulary": 10, "finto_yso": 1}}, {"id": "sosiaali_ja_terveys", "label": "Sosiaali- ja terveysmenot", "aliases_total": 40, "aliases_by_source": {"manual": 21, "vm_vocabulary": 14, "finto_yso": 5}}, {"id": "hyvinvointialueiden_rahoitus", "label": "Hyvinvointialueiden rahoitus", "aliases_total": 23, "aliases_by_source": {"manual": 6, "vm_vocabulary": 15, "finto_yso": 2}}, {"id": "sosiaaliturva", "label": "Sosiaaliturva", "aliases_total": 21, "aliases_by_source": {"manual": 6, "vm_vocabulary": 15}}, {"id": "asumistuki", "label": "Asumistuki", "aliases_total": 6, "aliases_by_source": {"manual": 6}}, {"id": "elakkeet", "label": "Eläkkeet", "aliases_total": 31, "aliases_by_source": {"manual": 6, "vm_vocabulary": 15, "finto_yso": 10}}, {"id": "tyollisyys_ja_tyovoimapolitiikka", "label": "Työllisyys ja työvoimapolitiikka", "aliases_total": 23, "aliases_by_source": {"manual": 8, "vm_vocabulary": 15}}, {"id": "kuntien_valtionosuudet", "label": "Kuntien valtionosuudet", "aliases_total": 23, "aliases_by_source": {"manual": 8, "vm_vocabulary": 15}}, {"id": "liikenne_ja_infra", "label": "Liikenne ja infra", "aliases_total": 32, "aliases_by_source": {"manual": 9, "vm_vocabulary": 15, "finto_yso": 8}}, {"id": "ymparisto_ja_ilmasto", "label": "Ympäristö ja ilmasto", "aliases_total": 30, "aliases_by_source": {"manual": 8, "vm_vocabulary": 15, "finto_yso": 7}}, {"id": "yritystuet", "label": "Yritystuet", "aliases_total": 25, "aliases_by_source": {"manual": 12, "vm_vocabulary": 13}}, {"id": "tutkimus_ja_innovaatiot", "label": "Tutkimus ja innovaatiot", "aliases_total": 33, "aliases_by_source": {"manual": 8, "vm_vocabulary": 15, "finto_yso": 10}}, {"id": "verotulot", "label": "Verotulot", "aliases_total": 27, "aliases_by_source": {"manual": 12, "vm_vocabulary": 15}}, {"id": "velka_ja_korkomenot", "label": "Velka ja korkomenot", "aliases_total": 25, "aliases_by_source": {"manual": 10, "vm_vocabulary": 15}}, {"id": "maa_ja_metsatalous", "label": "Maa- ja metsätalous", "aliases_total": 27, "aliases_by_source": {"manual": 10, "vm_vocabulary": 15, "finto_yso": 2}}, {"id": "oikeuslaitos", "label": "Oikeuslaitos", "aliases_total": 25, "aliases_by_source": {"manual": 9, "vm_vocabulary": 15, "finto_yso": 1}}, {"id": "kulttuuri_ja_taide", "label": "Kulttuuri ja taide", "aliases_total": 35, "aliases_by_source": {"manual": 9, "vm_vocabulary": 15, "finto_yso": 11}}, {"id": "kehitysyhteistyo", "label": "Kehitysyhteistyö", "aliases_total": 22, "aliases_by_source": {"manual": 7, "vm_vocabulary": 15}}, {"id": "ulkoasiainhallinto", "label": "Ulkoasiainhallinto", "aliases_total": 22, "aliases_by_source": {"manual": 6, "vm_vocabulary": 15, "finto_yso": 1}}, {"id": "energiapolitiikka", "label": "Energiapolitiikka", "aliases_total": 21, "aliases_by_source": {"manual": 6, "vm_vocabulary": 15}}, {"id": "perusopetus", "label": "Perusopetus", "aliases_total": 24, "aliases_by_source": {"manual": 7, "vm_vocabulary": 15, "finto_yso": 2}}, {"id": "valtionhallinto", "label": "Valtionhallinto", "aliases_total": 28, "aliases_by_source": {"manual": 8, "vm_vocabulary": 15, "finto_yso": 5}}], "alias_types": {"vm_token": 214, "vm_phrase": 133, "alt": 100, "inflected": 83, "canonical": 78, "finto_narrower": 72, "pref": 30, "finto_alt": 18, "colloquial": 17, "abbreviation": 11, "english": 8, "historical": 4}, "maps": {"koulutus": {"label": "Koulutus", "version": 1, "decided_on": "2026-07-08", "rules": 47, "component": ["opintotuki"], "paaluokat": {"29": 14}}, "kulttuuri": {"label": "Kulttuuri ja taide", "version": 1, "decided_on": "2026-07-09", "rules": 14, "component": [], "paaluokat": {"29": 14}}, "sosiaali_ja_terveys": {"label": "Sosiaali- ja terveyspalvelut", "version": 1, "decided_on": "2026-07-10", "rules": 22, "component": ["hyvinvointialueet", "sairausvakuutus"], "paaluokat": {"33": 12, "28": 1}}, "sosiaaliturva": {"label": "Sosiaaliturva", "version": 1, "decided_on": "2026-07-10", "rules": 9, "component": ["elakkeet", "perhe_ja_asuminen", "tyottomyysturva", "veteraanit"], "paaluokat": {"33": 9}}, "tutkimus": {"label": "Tutkimus ja tiede", "version": 1, "decided_on": "2026-07-09", "rules": 17, "component": [], "paaluokat": {"29": 15}}}, "flows": [{"from": "koulutus", "to": "tutkimus", "rules": 13}, {"from": "koulutus", "to": "kulttuuri", "rules": 11}, {"from": "sosiaali_ja_terveys", "to": "sosiaaliturva", "rules": 9}, {"from": "koulutus", "to": "uskonnolliset_yhteisot", "rules": 3}, {"from": "koulutus", "to": "nuoriso", "rules": 2}, {"from": "tutkimus", "to": "kulttuuri", "rules": 2}, {"from": "koulutus", "to": "liikunta", "rules": 1}, {"from": "koulutus", "to": "kuntien_valtionosuudet", "rules": 1}, {"from": "koulutus", "to": "terveys", "rules": 1}, {"from": "koulutus", "to": "tyollisyys", "rules": 1}], "series": {"koulutus": [{"v": 1998, "real": 6343.0, "nom": 3891.0}, {"v": 1999, "real": 6572.0, "nom": 4080.0}, {"v": 2000, "real": 6575.0, "nom": 4219.0}, {"v": 2001, "real": 6915.0, "nom": 4550.0}, {"v": 2002, "real": 7226.0, "nom": 4829.0}, {"v": 2003, "real": 7611.0, "nom": 5131.0}, {"v": 2004, "real": 7788.0, "nom": 5261.0}, {"v": 2005, "real": 7859.0, "nom": 5356.0}, {"v": 2006, "real": 8104.0, "nom": 5620.0}, {"v": 2007, "real": 8089.0, "nom": 5748.0}, {"v": 2008, "real": 8520.0, "nom": 6301.0}, {"v": 2009, "real": 8761.0, "nom": 6480.0}, {"v": 2010, "real": 7440.0, "nom": 5570.0}, {"v": 2011, "real": 7491.0, "nom": 5803.0}, {"v": 2012, "real": 6910.0, "nom": 5504.0}, {"v": 2013, "real": 6800.0, "nom": 5495.0}, {"v": 2014, "real": 6830.0, "nom": 5577.0}, {"v": 2015, "real": 7006.0, "nom": 5709.0}, {"v": 2016, "real": 6693.0, "nom": 5474.0}, {"v": 2017, "real": 6558.0, "nom": 5403.0}, {"v": 2018, "real": 6258.0, "nom": 5212.0}, {"v": 2019, "real": 5936.0, "nom": 4995.0}, {"v": 2020, "real": 6952.0, "nom": 5867.0}, {"v": 2021, "real": 6658.0, "nom": 5741.0}, {"v": 2022, "real": 6584.0, "nom": 6083.0}, {"v": 2023, "real": 5979.0, "nom": 5869.0}, {"v": 2024, "real": 6602.0, "nom": 6583.0}, {"v": 2025, "real": 7099.0, "nom": 7099.0}], "kulttuuri": [{"v": 1998, "real": 455.0, "nom": 279.0}, {"v": 1999, "real": 468.0, "nom": 291.0}, {"v": 2000, "real": 478.0, "nom": 307.0}, {"v": 2001, "real": 469.0, "nom": 309.0}, {"v": 2002, "real": 469.0, "nom": 313.0}, {"v": 2003, "real": 485.0, "nom": 327.0}, {"v": 2004, "real": 509.0, "nom": 344.0}, {"v": 2005, "real": 533.0, "nom": 363.0}, {"v": 2006, "real": 541.0, "nom": 375.0}, {"v": 2007, "real": 680.0, "nom": 483.0}, {"v": 2008, "real": 763.0, "nom": 564.0}, {"v": 2009, "real": 680.0, "nom": 503.0}, {"v": 2010, "real": 557.0, "nom": 417.0}, {"v": 2011, "real": 584.0, "nom": 452.0}, {"v": 2012, "real": 566.0, "nom": 451.0}, {"v": 2013, "real": 572.0, "nom": 462.0}, {"v": 2014, "real": 596.0, "nom": 487.0}, {"v": 2015, "real": 573.0, "nom": 467.0}, {"v": 2016, "real": 596.0, "nom": 488.0}, {"v": 2017, "real": 532.0, "nom": 438.0}, {"v": 2018, "real": 581.0, "nom": 484.0}, {"v": 2019, "real": 529.0, "nom": 445.0}, {"v": 2020, "real": 699.0, "nom": 590.0}, {"v": 2021, "real": 864.0, "nom": 745.0}, {"v": 2022, "real": 776.0, "nom": 717.0}, {"v": 2023, "real": 616.0, "nom": 605.0}, {"v": 2024, "real": 637.0, "nom": 635.0}, {"v": 2025, "real": 645.0, "nom": 645.0}], "sosiaali_ja_terveys": [{"v": 1998, "real": 4948.0, "nom": 3036.0}, {"v": 1999, "real": 5047.0, "nom": 3133.0}, {"v": 2000, "real": 5217.0, "nom": 3348.0}, {"v": 2001, "real": 5569.0, "nom": 3664.0}, {"v": 2002, "real": 6016.0, "nom": 4020.0}, {"v": 2003, "real": 6594.0, "nom": 4446.0}, {"v": 2004, "real": 7358.0, "nom": 4970.0}, {"v": 2005, "real": 8122.0, "nom": 5535.0}, {"v": 2006, "real": 8609.0, "nom": 5970.0}, {"v": 2007, "real": 8908.0, "nom": 6330.0}, {"v": 2008, "real": 9458.0, "nom": 6996.0}, {"v": 2009, "real": 10314.0, "nom": 7629.0}, {"v": 2010, "real": 2912.0, "nom": 2180.0}, {"v": 2011, "real": 2849.0, "nom": 2207.0}, {"v": 2012, "real": 2938.0, "nom": 2340.0}, {"v": 2013, "real": 2762.0, "nom": 2232.0}, {"v": 2014, "real": 2780.0, "nom": 2270.0}, {"v": 2015, "real": 2697.0, "nom": 2198.0}, {"v": 2016, "real": 2597.0, "nom": 2124.0}, {"v": 2017, "real": 3254.0, "nom": 2681.0}, {"v": 2018, "real": 3781.0, "nom": 3149.0}, {"v": 2019, "real": 3915.0, "nom": 3294.0}, {"v": 2020, "real": 3971.0, "nom": 3352.0}, {"v": 2021, "real": 5507.0, "nom": 4749.0}, {"v": 2022, "real": 7265.0, "nom": 6712.0}, {"v": 2023, "real": 23206.0, "nom": 22780.0}, {"v": 2024, "real": 28338.0, "nom": 28253.0}, {"v": 2025, "real": 29548.0, "nom": 29548.0}], "sosiaaliturva": [{"v": 1998, "real": 6473.0, "nom": 3971.0}, {"v": 1999, "real": 6072.0, "nom": 3769.0}, {"v": 2000, "real": 5869.0, "nom": 3766.0}, {"v": 2001, "real": 5683.0, "nom": 3739.0}, {"v": 2002, "real": 5755.0, "nom": 3846.0}, {"v": 2003, "real": 5753.0, "nom": 3879.0}, {"v": 2004, "real": 6075.0, "nom": 4104.0}, {"v": 2005, "real": 5961.0, "nom": 4063.0}, {"v": 2006, "real": 6811.0, "nom": 4723.0}, {"v": 2007, "real": 6557.0, "nom": 4659.0}, {"v": 2008, "real": 6259.0, "nom": 4629.0}, {"v": 2009, "real": 7286.0, "nom": 5389.0}, {"v": 2010, "real": 11624.0, "nom": 8702.0}, {"v": 2011, "real": 11211.0, "nom": 8685.0}, {"v": 2012, "real": 11706.0, "nom": 9324.0}, {"v": 2013, "real": 12288.0, "nom": 9929.0}, {"v": 2014, "real": 12603.0, "nom": 10291.0}, {"v": 2015, "real": 12612.0, "nom": 10277.0}, {"v": 2016, "real": 12894.0, "nom": 10545.0}, {"v": 2017, "real": 12672.0, "nom": 10440.0}, {"v": 2018, "real": 13544.0, "nom": 11280.0}, {"v": 2019, "real": 12256.0, "nom": 10312.0}, {"v": 2020, "real": 15087.0, "nom": 12733.0}, {"v": 2021, "real": 13997.0, "nom": 12070.0}, {"v": 2022, "real": 12650.0, "nom": 11687.0}, {"v": 2023, "real": 11331.0, "nom": 11123.0}, {"v": 2024, "real": 12548.0, "nom": 12511.0}, {"v": 2025, "real": 11969.0, "nom": 11969.0}], "tutkimus": [{"v": 1998, "real": 200.0, "nom": 123.0}, {"v": 1999, "real": 233.0, "nom": 145.0}, {"v": 2000, "real": 250.0, "nom": 160.0}, {"v": 2001, "real": 256.0, "nom": 168.0}, {"v": 2002, "real": 273.0, "nom": 183.0}, {"v": 2003, "real": 282.0, "nom": 190.0}, {"v": 2004, "real": 322.0, "nom": 218.0}, {"v": 2005, "real": 316.0, "nom": 215.0}, {"v": 2006, "real": 298.0, "nom": 207.0}, {"v": 2007, "real": 288.0, "nom": 205.0}, {"v": 2008, "real": 325.0, "nom": 240.0}, {"v": 2009, "real": 388.0, "nom": 287.0}, {"v": 2010, "real": 322.0, "nom": 241.0}, {"v": 2011, "real": 463.0, "nom": 359.0}, {"v": 2012, "real": 473.0, "nom": 377.0}, {"v": 2013, "real": 490.0, "nom": 396.0}, {"v": 2014, "real": 441.0, "nom": 360.0}, {"v": 2015, "real": 457.0, "nom": 372.0}, {"v": 2016, "real": 492.0, "nom": 402.0}, {"v": 2017, "real": 497.0, "nom": 409.0}, {"v": 2018, "real": 518.0, "nom": 432.0}, {"v": 2019, "real": 505.0, "nom": 425.0}, {"v": 2020, "real": 572.0, "nom": 483.0}, {"v": 2021, "real": 534.0, "nom": 460.0}, {"v": 2022, "real": 527.0, "nom": 487.0}, {"v": 2023, "real": 494.0, "nom": 485.0}, {"v": 2024, "real": 499.0, "nom": 497.0}, {"v": 2025, "real": 519.0, "nom": 519.0}]}, "coverage": {"mapped_meur": 48478.0, "total_meur": 86764.0, "pct": 55.9}, "bva": [{"v": 2014, "budjetoitu": 54613.0, "toteuma": 54047.0}, {"v": 2015, "budjetoitu": 54132.0, "toteuma": 53943.0}, {"v": 2016, "budjetoitu": 54703.0, "toteuma": 53875.0}, {"v": 2017, "budjetoitu": 55668.0, "toteuma": 50368.0}, {"v": 2018, "budjetoitu": 56054.0, "toteuma": 54736.0}, {"v": 2019, "budjetoitu": 55919.0, "toteuma": 51506.0}, {"v": 2020, "budjetoitu": 67901.0, "toteuma": 63306.0}, {"v": 2021, "budjetoitu": 66790.0, "toteuma": 63367.0}, {"v": 2022, "budjetoitu": 77696.0, "toteuma": 66981.0}, {"v": 2023, "budjetoitu": 82450.0, "toteuma": 75712.0}, {"v": 2024, "budjetoitu": 87567.0, "toteuma": 86647.0}, {"v": 2025, "budjetoitu": 89787.0, "toteuma": 89238.0}], "events": [{"year": 2010, "label": "Valtionosuusuudistus", "affects": ["koulutus", "sosiaali_ja_terveys", "kuntien_valtionosuudet"]}, {"year": 2017, "label": "Opintotukiuudistus", "affects": ["koulutus", "opintotuki", "asumistuki"]}, {"year": 2020, "label": "Koronapandemia", "affects": ["koulutus", "sosiaali_ja_terveys", "tyollisyys_ja_tyovoimapolitiikka", "yritystuet"]}, {"year": 2023, "label": "Sote-uudistus / hyvinvointialueet", "affects": ["sosiaali_ja_terveys", "hyvinvointialueiden_rahoitus", "kuntien_valtionosuudet"]}, {"year": 2021, "label": "HX-hävittäjähankinta", "affects": ["puolustus"]}, {"year": 2010, "label": "Yliopistouudistus", "affects": ["koulutus", "korkeakoulutus", "yliopistot"]}], "stats": {"concepts_total": 30, "concepts_mapped": 5, "map_rules": 109, "aliases_total": 768, "finto_aliases": 94, "official_codes": 4239, "events": 6, "tae_rows": 11013, "coverage_pct": 55.9}};
+const CSS = getComputedStyle(document.querySelector('.viz-root'));
+const C = k => CSS.getPropertyValue(k).trim();
+const SER = {sosiaali_ja_terveys:'--s1', sosiaaliturva:'--s2', koulutus:'--s3', tutkimus:'--s4', kulttuuri:'--s5'};
+const NIMI = {koulutus:'Koulutus', sosiaali_ja_terveys:'Sote-palvelut', tutkimus:'Tutkimus',
+              kulttuuri:'Kulttuuri', sosiaaliturva:'Sosiaaliturva'};
+const fi = (x, d = 1) => x.toFixed(d).replace('.', ',');
+const tt = document.getElementById('tt');
+function placeTooltip(ev){
+  tt.style.display = 'block';
+  tt.style.left = Math.min(ev.clientX + 14, window.innerWidth - tt.offsetWidth - 12) + 'px';
+  tt.style.top = Math.max(8, Math.min(ev.clientY + 12, window.innerHeight - tt.offsetHeight - 8)) + 'px';
+}
+
+// Tiles
+const T = DATA.stats;
+document.getElementById('tiles').innerHTML = [
+  [fi(T.coverage_pct) + ' %', 'menoista 2024 kartoitettu', 'hero'],
+  [T.concepts_mapped, 'vahvistettua karttaa'],
+  [T.map_rules, 'momenttisääntöä'],
+  [T.aliases_total, 'aliasta (' + T.finto_aliases + ' YSO:sta)'],
+  [T.tae_rows.toLocaleString('fi'), 'TAE+LTAE-riviä 2014–2026'],
+  [T.official_codes.toLocaleString('fi'), 'virallista koodia'],
+  [T.events, 'rakennemurrosta'],
+].map(([v, l, cls]) => `<div class="tile ${cls || ''}"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+
+// Coverage
+document.getElementById('covPct').textContent =
+  fi(DATA.coverage.pct) + ' % — ' + fi(DATA.coverage.mapped_meur / 1000) + ' / ' + fi(DATA.coverage.total_meur / 1000) + ' mrd €';
+document.getElementById('covFill').style.width = DATA.coverage.pct + '%';
+document.getElementById('covDetail').textContent =
+  'Kartoitettu: ' + Object.values(DATA.maps).map(m => m.label).join(', ') + '. Metriikka: toteuma (nettokertymä), nimellinen.';
+
+// Arkkitehtuuri
+(function(){
+  const steps = [
+    ['Valtiokonttori', '7,5 M riviä'], ['Curated-kerros', 'tyypitys · DQ · merkistökorjaus'],
+    ['Semanttinen näkymä', 'kanoniset nimet'], ['Käsitekerros', 'kartat · ontologia · YSO'],
+    ['Vastaus', 'määritelmä + epävarmuudet'],
+  ];
+  const w = 165, gap = 22, y = 40, h = 62;
+  let x = 8, parts = '';
+  steps.forEach(([a, b], i) => {
+    parts += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="var(--surface-1)" stroke="var(--line)"/>`;
+    parts += `<text class="lbl" x="${x + w / 2}" y="${y + 26}" text-anchor="middle">${a}</text>`;
+    parts += `<text x="${x + w / 2}" y="${y + 44}" text-anchor="middle" font-size="10.5">${b}</text>`;
+    if (i < steps.length - 1)
+      parts += `<path d="M${x + w + 3},${y + h / 2} l${gap - 8},0 m-6,-5 l6,5 l-6,5" stroke="var(--text-muted)" fill="none" stroke-width="1.5"/>`;
+    x += w + gap;
+  });
+  parts += `<text x="8" y="130" font-size="11">Rinnalla: KHI-deflaattori · COFOG-ankkurit · TAE+LTAE-määrärahat · structural_events · virallinen koodirekisteri</text>`;
+  document.getElementById('arch').innerHTML = parts;
+})();
+
+// Relaatiovirrat
+(function(){
+  const sources = [...new Set(DATA.flows.map(f => f.from))];
+  const targets = [...new Set(DATA.flows.map(f => f.to))];
+  const sy = i => 60 + i * 90, ty = i => 26 + i * 30;
+  let parts = '';
+  DATA.flows.forEach(f => {
+    const y1 = sy(sources.indexOf(f.from)), y2 = ty(targets.indexOf(f.to));
+    const wpx = Math.max(1.5, Math.min(10, f.rules * 0.9));
+    parts += `<path d="M 250,${y1} C 480,${y1} 560,${y2} 700,${y2}" stroke="${C(SER[f.from] || '--s6')}" stroke-width="${wpx}" fill="none" opacity="0.55"><title>${NIMI[f.from] || f.from} → ${NIMI[f.to] || f.to}: ${f.rules} sääntöä</title></path>`;
+  });
+  sources.forEach((s, i) => {
+    parts += `<rect x="60" y="${sy(i) - 16}" width="190" height="32" fill="var(--surface-1)" stroke="${C(SER[s] || '--s6')}" stroke-width="2"/>`;
+    parts += `<text class="lbl" x="70" y="${sy(i) + 4}">${NIMI[s] || s}</text>`;
+  });
+  targets.forEach((tg, i) => {
+    parts += `<rect x="700" y="${ty(i) - 12}" width="200" height="24" fill="var(--surface-1)" stroke="var(--line)"/>`;
+    parts += `<text x="710" y="${ty(i) + 4}">${NIMI[tg] || tg}</text>`;
+  });
+  parts += `<text x="60" y="${sy(sources.length - 1) + 52}" font-size="11">Vahvistettu kartta</text>`;
+  parts += `<text x="700" y="${ty(targets.length - 1) + 34}" font-size="11">Kohdekäsite (esitäytetty tai valmis)</text>`;
+  document.getElementById('flows').innerHTML = parts;
+  document.getElementById('flowsLegend').innerHTML = sources.map(s =>
+    `<span><i style="background:${C(SER[s] || '--s6')}"></i>${NIMI[s] || s} (lähdekäsite)</span>`).join('');
+})();
+
+// Budjetoitu vs toteuma
+(function(){
+  const svg = document.getElementById('bva');
+  const M = {l: 78, r: 24, t: 16, b: 34}, W = 920, H = 300;
+  const rows = DATA.bva.filter(d => d.toteuma > 0 || d.budjetoitu > 0);
+  const y0 = rows[0].v, y1 = rows[rows.length - 1].v;
+  let vmax = 0; rows.forEach(d => vmax = Math.max(vmax, d.budjetoitu, d.toteuma)); vmax *= 1.08;
+  const X = v => M.l + (v - y0) / (y1 - y0) * (W - M.l - M.r);
+  const Y = v => H - M.b - v / vmax * (H - M.t - M.b);
+  // Budjetoitu/toteuma ei ole kategorinen pari vaan suunniteltu vs. toteutunut:
+  // omat värit (eivät käsitevärejä) ja katkoviiva toissijaisena erotteluna.
+  const MET = {budjetoitu: {col: C('--text-muted'), dash: '6 4'}, toteuma: {col: C('--s6'), dash: ''}};
+  let parts = '';
+  for (let g = 0; g <= 4; g++){
+    const val = vmax / 4 * g, yy = Y(val);
+    parts += `<line x1="${M.l}" y1="${yy}" x2="${W - M.r}" y2="${yy}" stroke="var(--line)"/>`;
+    parts += `<text class="num" x="${M.l - 8}" y="${yy + 4}" text-anchor="end">${Math.round(val / 1000)} mrd €</text>`;
+  }
+  rows.forEach(d => { if (d.v % 2 === 0) parts += `<text x="${X(d.v)}" y="${H - 10}" text-anchor="middle">${d.v}</text>`; });
+  const mk = key => {
+    const {col, dash} = MET[key];
+    const pts = rows.filter(d => d[key] > 0);
+    let s = `<path d="${pts.map((d, i) => `${i ? 'L' : 'M'}${X(d.v).toFixed(1)},${Y(d[key]).toFixed(1)}`).join(' ')}" stroke="${col}" stroke-width="2" fill="none"${dash ? ` stroke-dasharray="${dash}"` : ''}/>`;
+    pts.forEach(d => s += `<circle cx="${X(d.v)}" cy="${Y(d[key])}" r="3" fill="${col}"/>`);
+    const last = pts[pts.length - 1], ly = Y(last[key]) + (key === 'budjetoitu' ? -12 : 20);
+    s += `<rect x="${X(last.v) - 84}" y="${ly - 9}" width="9" height="9" rx="2" fill="${col}"/>`;
+    s += `<text class="lbl" x="${X(last.v) - 70}" y="${ly}">${key === 'budjetoitu' ? 'Budjetoitu' : 'Toteuma'}</text>`;
+    return s;
+  };
+  parts += mk('toteuma') + mk('budjetoitu');
+  parts += `<line id="bvaxh" x1="0" y1="${M.t}" x2="0" y2="${H - M.b}" stroke="var(--text-muted)" opacity="0"/>`;
+  svg.innerHTML = parts;
+  document.getElementById('bvaLegend').innerHTML =
+    `<span><i style="background:${MET.toteuma.col}"></i>Toteuma (nettokertymä)</span>
+     <span><i style="background:${MET.budjetoitu.col}"></i>Budjetoitu, katkoviiva (TAE + lisätalousarviot)</span>`;
+  const xh = svg.querySelector('#bvaxh');
+  svg.addEventListener('mousemove', ev => {
+    const rect = svg.getBoundingClientRect();
+    const yr = Math.round(y0 + ((ev.clientX - rect.left) * (W / rect.width) - M.l) / (W - M.l - M.r) * (y1 - y0));
+    const d = rows.find(p => p.v === yr);
+    if (!d){ xh.setAttribute('opacity', 0); tt.style.display = 'none'; return; }
+    xh.setAttribute('x1', X(yr)); xh.setAttribute('x2', X(yr)); xh.setAttribute('opacity', .8);
+    const aste = d.budjetoitu > 0 && d.toteuma > 0 ? fi(d.toteuma / d.budjetoitu * 100) + ' %' : '—';
+    tt.innerHTML = `<b>${yr}</b>
+      <div><span class="dot" style="background:${MET.budjetoitu.col}"></span>Budjetoitu: <b>${fi(d.budjetoitu / 1000)} mrd €</b></div>
+      <div><span class="dot" style="background:${MET.toteuma.col}"></span>Toteuma: <b>${d.toteuma > 0 ? fi(d.toteuma / 1000) + ' mrd €' : 'ei vielä'}</b></div>
+      <div style="color:var(--text-secondary)">Toteuma-aste: ${aste}</div>`;
+    placeTooltip(ev);
+  });
+  svg.addEventListener('mouseleave', () => { xh.setAttribute('opacity', 0); tt.style.display = 'none'; });
+})();
+
+// Aliastyypit
+(function(){
+  const svg = document.getElementById('aliases');
+  const PREC = {label:.99, pref:.98, canonical:.9, inflected:.9, alt:.82, finto_alt:.8, english:.72,
+                colloquial:.7, vm_phrase:.62, abbreviation:.58, finto_narrower:.55, historical:.5, vm_token:.18};
+  const entries = Object.entries(DATA.alias_types).sort((a, b) => b[1] - a[1]);
+  const max = entries[0][1], bw = 540, x0 = 200, rh = 22, gap = 6;
+  let parts = '', y = 14;
+  entries.forEach(([type, n]) => {
+    const p = PREC[type] ?? .5;
+    const col = p >= .8 ? C('--seq-550') : p >= .55 ? C('--seq-400') : C('--seq-250');
+    const w = Math.max(2, n / max * bw);
+    parts += `<text x="${x0 - 8}" y="${y + 15}" text-anchor="end">${type}</text>`;
+    parts += `<rect x="${x0}" y="${y}" width="${w}" height="${rh - 4}" rx="3" fill="${col}"><title>${type}: ${n} aliasta · precision ${String(p).replace('.', ',')}</title></rect>`;
+    parts += `<text class="num" x="${x0 + w + 8}" y="${y + 14}">${n}${type === 'vm_token' ? ' (estetty)' : ''}</text>`;
+    y += rh + gap;
+  });
+  svg.setAttribute('height', y + 6); svg.setAttribute('viewBox', `0 0 920 ${y + 6}`);
+  document.getElementById('aliasLegend').innerHTML =
+    `<span><i style="background:${C('--seq-550')}"></i>precision ≥ 0,80</span>
+     <span><i style="background:${C('--seq-400')}"></i>0,55–0,79</span>
+     <span><i style="background:${C('--seq-250')}"></i>&lt; 0,55 tai estetty</span>`;
+})();
+
+// Reaalisarjat
+(function(){
+  const svg = document.getElementById('series');
+  const M = {l: 78, r: 24, t: 16, b: 34}, W = 920, H = 380;
+  const order = ['sosiaali_ja_terveys', 'sosiaaliturva', 'koulutus', 'tutkimus', 'kulttuuri'].filter(k => DATA.series[k]);
+  const years = DATA.series[order[0]].map(d => d.v);
+  const y0 = Math.min(...years), y1 = Math.max(...years);
+  let vmax = 0; order.forEach(k => DATA.series[k].forEach(d => vmax = Math.max(vmax, d.real))); vmax *= 1.06;
+  const X = v => M.l + (v - y0) / (y1 - y0) * (W - M.l - M.r);
+  const Y = v => H - M.b - v / vmax * (H - M.t - M.b);
+  let parts = '';
+  for (let g = 0; g <= 4; g++){
+    const val = vmax / 4 * g, yy = Y(val);
+    parts += `<line x1="${M.l}" y1="${yy}" x2="${W - M.r}" y2="${yy}" stroke="var(--line)"/>`;
+    parts += `<text class="num" x="${M.l - 8}" y="${yy + 4}" text-anchor="end">${Math.round(val / 1000)} mrd €</text>`;
+  }
+  for (let yr = 2000; yr <= y1; yr += 5) parts += `<text x="${X(yr)}" y="${H - 10}" text-anchor="middle">${yr}</text>`;
+  [...new Set(DATA.events.map(e => e.year))].forEach(yr => {
+    const labels = DATA.events.filter(e => e.year === yr).map(e => e.label).join(' · ');
+    parts += `<line x1="${X(yr)}" y1="${M.t}" x2="${X(yr)}" y2="${H - M.b}" stroke="var(--text-muted)" stroke-dasharray="4 4" opacity="0.7"><title>${yr}: ${labels}</title></line>`;
+  });
+  parts += `<text x="${X(2010) + 4}" y="${M.t + 12}" font-size="10.5">VOS-uudistus</text>`;
+  parts += `<text x="${X(2023) + 4}" y="${M.t + 12}" font-size="10.5">Sote 2023</text>`;
+  order.forEach(cid => {
+    const path = DATA.series[cid].map((d, i) => `${i ? 'L' : 'M'}${X(d.v).toFixed(1)},${Y(d.real).toFixed(1)}`).join(' ');
+    parts += `<path d="${path}" stroke="${C(SER[cid])}" stroke-width="2" fill="none"/>`;
+  });
+  // Suorat labelit: teksti tekstivärillä (osa sarjaväreistä alle 3:1 kontrastin),
+  // tunnistus värimerkillä; päällekkäiset labelit työnnetään erilleen.
+  const labels = order.map(cid => {
+    const last = DATA.series[cid][DATA.series[cid].length - 1];
+    return {cid, col: C(SER[cid]), y: Y(last.real) - 8, x: X(last.v) - 4};
+  }).sort((a, b) => a.y - b.y);
+  for (let i = 1; i < labels.length; i++)
+    if (labels[i].y - labels[i - 1].y < 16) labels[i].y = labels[i - 1].y + 16;
+  labels.forEach(l => {
+    const textW = NIMI[l.cid].length * 7.2;
+    parts += `<rect x="${l.x - textW - 22}" y="${l.y - 9}" width="9" height="9" rx="2" fill="${l.col}"/>`;
+    parts += `<text class="lbl" x="${l.x - 8}" y="${l.y}" text-anchor="end">${NIMI[l.cid]}</text>`;
+  });
+  parts += `<line id="xh" x1="0" y1="${M.t}" x2="0" y2="${H - M.b}" stroke="var(--text-muted)" opacity="0"/>`;
+  svg.innerHTML = parts;
+  document.getElementById('seriesLegend').innerHTML = order.map(cid =>
+    `<span><i style="background:${C(SER[cid])}"></i>${NIMI[cid]}</span>`).join('') +
+    `<span style="color:var(--text-secondary)">– – rakennemurros</span>`;
+  const xh = svg.querySelector('#xh');
+  svg.addEventListener('mousemove', ev => {
+    const rect = svg.getBoundingClientRect();
+    const yr = Math.round(y0 + ((ev.clientX - rect.left) * (W / rect.width) - M.l) / (W - M.l - M.r) * (y1 - y0));
+    if (yr < y0 || yr > y1){ xh.setAttribute('opacity', 0); tt.style.display = 'none'; return; }
+    xh.setAttribute('x1', X(yr)); xh.setAttribute('x2', X(yr)); xh.setAttribute('opacity', .8);
+    const lines = order.map(cid => {
+      const d = DATA.series[cid].find(p => p.v === yr);
+      return d ? `<div><span class="dot" style="background:${C(SER[cid])}"></span>${NIMI[cid]}: <b>${fi(d.real / 1000)} mrd €</b> <span style="color:var(--text-secondary)">(nim. ${fi(d.nom / 1000)})</span></div>` : '';
+    }).join('');
+    const evs = DATA.events.filter(e => e.year === yr).map(e => `<div style="color:var(--text-secondary)">⚑ ${e.label}</div>`).join('');
+    tt.innerHTML = `<b>${yr}</b> · 2025 hinnoin${evs}${lines}`;
+    placeTooltip(ev);
+  });
+  svg.addEventListener('mouseleave', () => { xh.setAttribute('opacity', 0); tt.style.display = 'none'; });
+})();
+
+// Karttataulukko
+(function(){
+  const rows = Object.entries(DATA.maps).map(([cid, m]) => {
+    const last = (DATA.series[cid] || []).find(d => d.v === 2024) || {real: 0};
+    return `<tr><td><span class="dot" style="background:${C(SER[cid] || '--s6')}"></span>${m.label}</td>
+      <td class="num">v${m.version}</td><td>${m.decided_on}</td>
+      <td class="num">${m.rules}</td><td>${m.component.join(', ') || '—'}</td>
+      <td class="num">${fi(last.real / 1000)} mrd €</td>
+      <td>${Object.keys(m.paaluokat).sort().map(p => 'PL ' + p).join(', ')}</td></tr>`;
+  }).join('');
+  document.getElementById('mapTable').innerHTML =
+    `<tr><th>Käsite</th><th>Versio</th><th>Päätetty</th><th>Sääntöjä</th><th>Komponentit</th><th>2024 (reaali)</th><th>Pääluokat</th></tr>` + rows;
+})();
+</script>
