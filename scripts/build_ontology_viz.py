@@ -352,8 +352,9 @@ document.getElementById('covDetail').textContent =
     let s = `<path d="${pts.map((d, i) => `${i ? 'L' : 'M'}${X(d.v).toFixed(1)},${Y(d[key]).toFixed(1)}`).join(' ')}" stroke="${col}" stroke-width="2" fill="none"${dash ? ` stroke-dasharray="${dash}"` : ''}/>`;
     pts.forEach(d => s += `<circle cx="${X(d.v)}" cy="${Y(d[key])}" r="3" fill="${col}"/>`);
     const last = pts[pts.length - 1], ly = Y(last[key]) + (key === 'budjetoitu' ? -12 : 20);
-    s += `<rect x="${X(last.v) - 84}" y="${ly - 9}" width="9" height="9" rx="2" fill="${col}"/>`;
-    s += `<text class="lbl" x="${X(last.v) - 70}" y="${ly}">${key === 'budjetoitu' ? 'Budjetoitu' : 'Toteuma'}</text>`;
+    const txt = key === 'budjetoitu' ? 'Budjetoitu' : 'Toteuma', tw = txt.length * 7.2;
+    s += `<rect x="${X(last.v) - 8 - tw - 14}" y="${ly - 9}" width="9" height="9" rx="2" fill="${col}"/>`;
+    s += `<text class="lbl" x="${X(last.v) - 8}" y="${ly}" text-anchor="end">${txt}</text>`;
     return s;
   };
   parts += mk('toteuma') + mk('budjetoitu');

@@ -33,8 +33,8 @@ rules:
   # ---- Perhe-etuudet, asumistuki, toimeentulotuki ----
   - {level: luku, code: "33.15.", year_from: 1998, year_to: 2007, role: component, component: perhe_ja_asuminen,
      note: "Perhekustannusten tasaus (lapsilisät ym., vanha kausi)"}
-  - {level: luku, code: "33.10.", year_from: 2010, year_to: null, role: component, component: perhe_ja_asuminen,
-     note: "Perhe- ja asumiskustannusten tasaus ja perustoimeentulotuki; sis. opiskelijoiden asumistuen 2017->"}
+  - {level: luku, code: "33.10.", year_from: 2008, year_to: null, role: component, component: perhe_ja_asuminen,
+     note: "Perhe- ja asumiskustannusten tasaus (2008->), perustoimeentulotuki (2010->); sis. opiskelijoiden asumistuen 2017->"}
 
   # ---- Veteraanietuudet ----
   - {level: luku, code: "33.21.", year_from: 1998, year_to: 2007, role: component, component: veteraanit,

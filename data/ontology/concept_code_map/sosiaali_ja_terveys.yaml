@@ -38,10 +38,10 @@ rules:
      note: "Tutkimus- ja kehittämistoiminta (THL ym.)"}
   - {level: luku, code: "33.70.", year_from: 2008, year_to: null, role: include,
      note: "Terveyden ja toimintakyvyn edistäminen"}
-  - {level: luku, code: "33.80.", year_from: 2010, year_to: null, role: include,
-     note: "Lomitustoiminta (sosiaalipalvelu)"}
-  - {level: luku, code: "33.57.", year_from: 1998, year_to: 2005, role: include,
-     note: "Lomatoiminta (vanha kausi)"}
+  - {level: luku, code: "33.80.", year_from: 2008, year_to: null, role: include,
+     note: "Maatalousyrittäjien ja turkistuottajien lomitustoiminta (sosiaalipalvelu)"}
+  - {level: luku, code: "33.57.", year_from: 1998, year_to: 2007, role: include,
+     note: "Lomatoiminta (vanha kausi, päättyy 2007)"}
   - {level: luku, code: "33.90.", year_from: 2008, year_to: null, role: include,
      note: "RAY/STEA-avustukset järjestöjen hyvinvointityöhön"}
   - {level: luku, code: "33.92.", year_from: 1998, year_to: 2009, role: include,
@@ -58,8 +58,8 @@ rules:
      note: "Valtion osuus sairausvakuutuksesta: hoito- ja lääkekorvaukset + päivärahat"}
 
   # ---- K3: toimeentuloetuudet pois -> sosiaaliturva ----
-  - {level: luku, code: "33.10.", year_from: 2010, year_to: null, role: exclude, target_concept: sosiaaliturva,
-     note: "Perhe-etuudet, asumistuki, perustoimeentulotuki"}
+  - {level: luku, code: "33.10.", year_from: 2008, year_to: null, role: exclude, target_concept: sosiaaliturva,
+     note: "Perhe-etuudet, asumistuki, perustoimeentulotuki (luku alkaa 2008)"}
   - {level: luku, code: "33.15.", year_from: 1998, year_to: 2007, role: exclude, target_concept: sosiaaliturva,
      note: "Perhekustannusten tasaus"}
   - {level: luku, code: "33.17.", year_from: 1998, year_to: 2007, role: exclude, target_concept: sosiaaliturva,

@@ -19,14 +19,14 @@ rules:
   # Taide ja kulttuuri -luvut eri kausina
   - {level: luku, code: "29.80.", year_from: 1998, year_to: null, role: include,
      note: "Taide ja kulttuuri (2007→); sisältää Varastokirjaston"}
-  - {level: luku, code: "29.90.", year_from: 1998, year_to: 2008, role: include,
-     note: "Taide ja kulttuuri -nimikausi; 2007→ luku on Liikuntatoimi (ei kuulu)"}
+  - {level: luku, code: "29.90.", year_from: 1998, year_to: 2008, role: include, intentional_gap: true,
+     note: "Taide ja kulttuuri -nimikausi; 2007→ sama luku on Liikuntatoimi, joka EI kuulu kulttuuriin"}
   - {level: luku, code: "29.82.", year_from: 1998, year_to: 1998, role: include,
      note: "Kotimaisten kielten tutkimuskeskus"}
   - {level: luku, code: "29.83.", year_from: 1998, year_to: 1999, role: include,
      note: "Arkistolaitos"}
-  - {level: luku, code: "29.91.", year_from: 1998, year_to: 2001, role: include,
-     note: "Kulttuuri-, museo- ja kirjastotoimi -kausi; 2007→ luku on Nuorisotyö (ei kuulu)"}
+  - {level: luku, code: "29.91.", year_from: 1998, year_to: 2001, role: include, intentional_gap: true,
+     note: "Kulttuuri-, museo- ja kirjastotoimi -kausi; 2007→ sama luku on Nuorisotyö, joka EI kuulu kulttuuriin"}
   - {level: luku, code: "29.93.", year_from: 1998, year_to: 2000, role: include,
      note: "Museovirasto ja kulttuuriperinne"}
   - {level: luku, code: "29.94.", year_from: 1998, year_to: 1999, role: include,

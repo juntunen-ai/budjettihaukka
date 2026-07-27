@@ -16,6 +16,34 @@ events:
       budjettiaineistosta.
     affects: [koulutus, sosiaali_ja_terveys, kuntien_valtionosuudet]
 
+  - year: 2008
+    id: stm_paaluokkauudistus_2008
+    label_fi: STM:n pääluokan rakenneuudistus
+    description_fi: >-
+      Sosiaali- ja terveysministeriön pääluokan luvut numeroitiin uudelleen
+      (mm. 33.15 → 33.10, 33.17 → 33.20, 33.19 → 33.40). Vertailu vuoden
+      2007 ja 2008 välillä ei ole suoraan luvuittain mahdollista, vaikka
+      kokonaisuudet vastaavat toisiaan.
+    affects: [sosiaaliturva, sosiaali_ja_terveys]
+
+  - year: 2009
+    id: finanssikriisi_2009
+    label_fi: Finanssikriisi
+    description_fi: >-
+      Työttömyyden nopea kasvu nosti työttömyysturvan ja työvoimapolitiikan
+      menoja voimakkaasti 2009-2010; kasvu on todellista mutta
+      suhdanneluonteista.
+    affects: [sosiaaliturva, tyollisyys_ja_tyovoimapolitiikka]
+
+  - year: 2010
+    id: kelamaksun_poisto_2010
+    label_fi: Työnantajan kansaneläkemaksun poisto
+    description_fi: >-
+      Työnantajan kansaneläkemaksu poistui asteittain 2009-2010, jolloin
+      kansaneläkkeiden rahoitusvastuu siirtyi valtiolle. Valtion
+      eläkemenot kasvavat tasona ilman että etuudet muuttuivat vastaavasti.
+    affects: [sosiaaliturva, elakkeet]
+
   - year: 2017
     id: opintotukileikkaus_2017
     label_fi: Opintotukiuudistus
