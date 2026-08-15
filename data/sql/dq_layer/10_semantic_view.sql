@@ -1,8 +1,8 @@
 
-CREATE OR REPLACE VIEW `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_semantic_v1` AS
+CREATE OR REPLACE VIEW `valtion-budjetti-data.valtiodata.valtiontalous_semantic_v1` AS
 WITH source AS (
   SELECT *
-  FROM `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_curated_dq_v`
+  FROM `valtion-budjetti-data.valtiodata.valtiontalous_curated_dq_v`
 )
 SELECT
   -- Raw-compatible names for existing SQL contracts/fallbacks
@@ -18,8 +18,6 @@ SELECT
   source.luku_snimi AS `Luku_sNimi`,
   source.momentti_tunnusp AS `Momentti_TunnusP`,
   source.momentti_snimi AS `Momentti_sNimi`,
-  source.alamomentti_tunnus AS `TakpMrL_Tunnus`,
-  source.alamomentti_snimi AS `TakpMrL_sNimi`,
   source.alkuperainen_talousarvio AS `Alkuperäinen_talousarvio`,
   source.lisatalousarvio AS `Lisätalousarvio`,
   source.voimassaoleva_talousarvio AS `Voimassaoleva_talousarvio`,
@@ -32,8 +30,21 @@ SELECT
   -- Semantic helper columns (named so they do not collide with case-insensitive raw names)
   source.period_date,
   source.kirjanpitoyksikko,
-  source.alamomentti_tunnus,
-  source.alamomentti_snimi,
+  source.maararahalaji_tunnus,
+  source.maararahalaji_snimi,
+  source.talousarviotili_tunnusp,
+  source.talousarviotili_snimi,
+  source.alamomentti_tunnus_candidate,
+  source.alamomentti_snimi_candidate,
+  validated_alamomentti.alamomentti_tunnus,
+  validated_alamomentti.alamomentti_snimi,
+  validated_alamomentti.alamomentti_tunnus IS NOT NULL AS alamomentti_is_validated,
+  CASE
+    WHEN source.alamomentti_tunnus_candidate IS NULL THEN 'not_derivable'
+    WHEN validated_alamomentti.alamomentti_tunnus IS NULL THEN 'not_in_official_chart'
+    ELSE 'validated'
+  END AS alamomentti_validation_status,
+  validated_alamomentti.validation_source AS alamomentti_validation_source,
   source.nettokertyma,
   source.nettokertyma_ko_vuodelta,
   source.hallinnonala_display AS hallinnonala_display,
@@ -61,47 +72,43 @@ SELECT
   COALESCE(momentti_map.canonical_name, source.momentti_display, source.momentti_snimi) AS momentti_canonical,
   COALESCE(momentti_map.alias_issue_category, 'canonical') AS momentti_alias_issue_category,
   COALESCE(momentti_map.has_same_year_conflict, FALSE) AS momentti_has_same_year_conflict,
-  source.alamomentti_display AS alamomentti_display,
-  source.alamomentti_family_key AS alamomentti_family_key,
-  COALESCE(alamomentti_map.canonical_name, source.alamomentti_display, source.alamomentti_snimi) AS alamomentti_canonical,
-  COALESCE(alamomentti_map.alias_issue_category, 'canonical') AS alamomentti_alias_issue_category,
-  COALESCE(alamomentti_map.has_same_year_conflict, FALSE) AS alamomentti_has_same_year_conflict,
   CONCAT(COALESCE(source.momentti_tunnusp, '?'), ' ', COALESCE(COALESCE(momentti_map.canonical_name, source.momentti_display, source.momentti_snimi), '')) AS momentti_label,
-  CONCAT(COALESCE(source.alamomentti_tunnus, '?'), ' ', COALESCE(COALESCE(alamomentti_map.canonical_name, source.alamomentti_display, source.alamomentti_snimi), '')) AS alamomentti_label,
+  CASE
+    WHEN validated_alamomentti.alamomentti_tunnus IS NULL THEN NULL
+    ELSE CONCAT(validated_alamomentti.alamomentti_tunnus, ' ', COALESCE(validated_alamomentti.alamomentti_snimi, ''))
+  END AS alamomentti_label,
   source.quality_issue_count,
   source.has_valid_nettokertyma,
   source.row_fingerprint
 FROM source
-LEFT JOIN `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.dim_hierarchy_name_mapping` AS hallinnonala_map
+LEFT JOIN `valtion-budjetti-data.valtiodata.dim_hierarchy_name_mapping` AS hallinnonala_map
   ON hallinnonala_map.level_name = 'hallinnonala'
  AND hallinnonala_map.code = source.ha_tunnus
  AND hallinnonala_map.alias_display_name = source.hallinnonala_display
  AND source.vuosi BETWEEN hallinnonala_map.valid_from_year AND hallinnonala_map.valid_to_year
-LEFT JOIN `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.dim_hierarchy_name_mapping` AS kirjanpitoyksikko_map
+LEFT JOIN `valtion-budjetti-data.valtiodata.dim_hierarchy_name_mapping` AS kirjanpitoyksikko_map
   ON kirjanpitoyksikko_map.level_name = 'kirjanpitoyksikko'
  AND kirjanpitoyksikko_map.code = source.tv_tunnus
  AND kirjanpitoyksikko_map.alias_display_name = source.kirjanpitoyksikko_display
  AND source.vuosi BETWEEN kirjanpitoyksikko_map.valid_from_year AND kirjanpitoyksikko_map.valid_to_year
-LEFT JOIN `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.dim_hierarchy_name_mapping` AS paaluokkaosasto_map
+LEFT JOIN `valtion-budjetti-data.valtiodata.dim_hierarchy_name_mapping` AS paaluokkaosasto_map
   ON paaluokkaosasto_map.level_name = 'paaluokkaosasto'
  AND paaluokkaosasto_map.code = source.paaluokkaosasto_tunnusp
  AND paaluokkaosasto_map.alias_display_name = source.paaluokkaosasto_display
  AND source.vuosi BETWEEN paaluokkaosasto_map.valid_from_year AND paaluokkaosasto_map.valid_to_year
-LEFT JOIN `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.dim_hierarchy_name_mapping` AS luku_map
+LEFT JOIN `valtion-budjetti-data.valtiodata.dim_hierarchy_name_mapping` AS luku_map
   ON luku_map.level_name = 'luku'
  AND luku_map.code = source.luku_tunnusp
  AND luku_map.alias_display_name = source.luku_display
  AND source.vuosi BETWEEN luku_map.valid_from_year AND luku_map.valid_to_year
-LEFT JOIN `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.dim_hierarchy_name_mapping` AS momentti_map
+LEFT JOIN `valtion-budjetti-data.valtiodata.dim_hierarchy_name_mapping` AS momentti_map
   ON momentti_map.level_name = 'momentti'
  AND momentti_map.code = source.momentti_tunnusp
  AND momentti_map.alias_display_name = source.momentti_display
  AND source.vuosi BETWEEN momentti_map.valid_from_year AND momentti_map.valid_to_year
-LEFT JOIN `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.dim_hierarchy_name_mapping` AS alamomentti_map
-  ON alamomentti_map.level_name = 'alamomentti'
- AND alamomentti_map.code = source.alamomentti_tunnus
- AND alamomentti_map.alias_display_name = source.alamomentti_display
- AND source.vuosi BETWEEN alamomentti_map.valid_from_year AND alamomentti_map.valid_to_year
+LEFT JOIN `valtion-budjetti-data.valtiodata.dim_alamomentti` AS validated_alamomentti
+  ON validated_alamomentti.vuosi = source.vuosi
+ AND validated_alamomentti.momentti_tunnusp = source.momentti_tunnusp
+ AND validated_alamomentti.talousarviotili_tunnusp = source.talousarviotili_tunnusp
 WHERE source.is_valid_year
   AND source.is_valid_month
-

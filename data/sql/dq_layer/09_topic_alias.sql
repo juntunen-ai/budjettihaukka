@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE VIEW `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.dim_topic_alias` AS
+CREATE OR REPLACE VIEW `valtion-budjetti-data.valtiodata.dim_topic_alias` AS
 SELECT * FROM UNNEST([
   STRUCT('korkeakoulutus' AS topic, 'korkeakoulu' AS alias, 'momentti_snimi' AS match_field, '%korkeakoul%' AS like_pattern),
   STRUCT('korkeakoulutus', 'yliopisto', 'momentti_snimi', '%yliopist%'),
@@ -12,4 +12,3 @@ SELECT * FROM UNNEST([
   STRUCT('ymparisto', 'ymparisto', 'hallinnonala', '%ympäristö%'),
   STRUCT('ymparisto', 'ymparisto', 'hallinnonala', '%ymparisto%')
 ])
-

@@ -17,7 +17,7 @@ def _records(df: pd.DataFrame) -> list[dict[str, Any]]:
 
 
 def _frame_type(spec: AnalysisSpec, query_contract: str | None, df: pd.DataFrame) -> str:
-    if query_contract in {"top_growth_moment", "top_growth_alamoment"} or spec.intent in {"top_growth", "top_cuts", "revenue_decline"}:
+    if query_contract == "top_growth_moment" or spec.intent in {"top_growth", "top_cuts", "revenue_decline"}:
         return "ranking"
     if spec.intent in {"trend", "growth", "seasonality", "overview", "composition"} and "vuosi" in df.columns:
         return "time_series"

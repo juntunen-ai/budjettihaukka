@@ -16,7 +16,7 @@ from utils.budget_semantics import classify_moment_fiscal_side, fiscal_side_case
 from utils.analysis_spec_utils import AnalysisSpec, coverage_notice, infer_analysis_spec
 from utils.demo_data_utils import adapt_sql_to_demo_table, execute_demo_sql, get_demo_table_name
 from utils.ontology_utils import load_budget_ontology
-from utils.semantic_query_contracts import build_contract_sql
+from utils.semantic_query_contracts import ALAMOMENTTI_UNAVAILABLE_MESSAGE, build_contract_sql
 from utils.vertex_ai_utils import PROJECT_ID, generate_query_plan_from_natural_language
 
 logger = logging.getLogger(__name__)
@@ -47,9 +47,9 @@ REPAIR_UNKNOWN_NAME_MAP = {
     "momentti_tunnusp": "NULLIF(`Momentti_TunnusP`, '')",
     "momentti_snimi": "NULLIF(`Momentti_sNimi`, '')",
     "momentti_canonical": "NULLIF(`Momentti_sNimi`, '')",
-    "alamomentti_tunnus": "NULLIF(`TakpMrL_Tunnus`, '')",
-    "alamomentti_snimi": "NULLIF(`TakpMrL_sNimi`, '')",
-    "alamomentti_canonical": "NULLIF(`TakpMrL_sNimi`, '')",
+    "alamomentti_tunnus": "NULLIF(alamomentti_tunnus, '')",
+    "alamomentti_snimi": "NULLIF(alamomentti_snimi, '')",
+    "alamomentti_canonical": "NULLIF(alamomentti_snimi, '')",
 }
 
 BQ_HALLINNONALA_EXPR = "COALESCE(NULLIF(hallinnonala_canonical, ''), `Hallinnonala`)"
@@ -58,7 +58,7 @@ BQ_HALLINNONALA_EXPR = "COALESCE(NULLIF(hallinnonala_canonical, ''), `Hallinnona
 # mahdollisista apusarake-eroista eri ympäristöissä.
 BQ_KIRJANPITOYKSIKKO_EXPR = "NULLIF(`Kirjanpitoyksikkö`, '')"
 BQ_MOMENTTI_EXPR = "COALESCE(NULLIF(momentti_canonical, ''), NULLIF(`Momentti_sNimi`, ''))"
-BQ_ALAMOMENTTI_EXPR = "COALESCE(NULLIF(alamomentti_canonical, ''), NULLIF(`TakpMrL_sNimi`, ''))"
+BQ_ALAMOMENTTI_EXPR = "NULLIF(alamomentti_snimi, '')"
 YEARLY_AGG_BASE_TABLE_ID = f"{settings.project_id}.{settings.dataset}.valtiontalous_yearly_agg_v1"
 YEARLY_AGG_TABLE_ID = f"{settings.project_id}.{settings.dataset}.valtiontalous_yearly_agg_guarded_v1"
 CONCEPT_BRIDGE_TABLE_ID = f"{settings.project_id}.{settings.dataset}.concept_moment_bridge_v3"
@@ -83,8 +83,8 @@ ONTOLOGY_RULE_LEVEL_MAP = {
     },
     "alamomentti": {
         "canonical_expr": BQ_ALAMOMENTTI_EXPR,
-        "raw_expr": "NULLIF(`TakpMrL_sNimi`, '')",
-        "code_expr": "NULLIF(`TakpMrL_Tunnus`, '')",
+        "raw_expr": "NULLIF(alamomentti_snimi, '')",
+        "code_expr": "NULLIF(alamomentti_tunnus, '')",
     },
 }
 ONTOLOGY_RULE_LEVEL_MAP_YEARLY_AGG = {
@@ -819,6 +819,8 @@ def _build_bigquery_fallback_sql(question: str, analysis_spec: AnalysisSpec | No
     table = f"`{settings.full_table_id}`"
     text = (question or "").lower()
     spec = analysis_spec if isinstance(analysis_spec, AnalysisSpec) else infer_analysis_spec(question)
+    if spec.entity_level in {"alamomentti", "molemmat"}:
+        raise ValueError(ALAMOMENTTI_UNAVAILABLE_MESSAGE)
     year_from, year_to = _with_default_year_bounds(*_effective_year_bounds(text))
     where_parts = []
     if year_from == year_to:
@@ -861,7 +863,7 @@ def _build_bigquery_fallback_sql(question: str, analysis_spec: AnalysisSpec | No
             f"    {BQ_HALLINNONALA_EXPR} AS hallinnonala, "
             "    NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
             f"    {BQ_MOMENTTI_EXPR} AS momentti_snimi, "
-            "    NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus, "
+            "    NULLIF(alamomentti_tunnus, '') AS alamomentti_tunnus, "
             f"    {BQ_ALAMOMENTTI_EXPR} AS alamomentti_snimi, "
             "    SAFE_CAST(`Nettokertymä` AS NUMERIC) AS nettokertyma_sum "
             f"  FROM {table}{where_clause}"
@@ -893,7 +895,7 @@ def _build_bigquery_fallback_sql(question: str, analysis_spec: AnalysisSpec | No
             "    SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
             "    NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
             f"    {BQ_MOMENTTI_EXPR} AS momentti_snimi, "
-            "    NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus, "
+            "    NULLIF(alamomentti_tunnus, '') AS alamomentti_tunnus, "
             f"    {BQ_ALAMOMENTTI_EXPR} AS alamomentti_snimi, "
             "    SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
             f"  FROM {table} "
@@ -1138,6 +1140,8 @@ def _build_yearly_agg_rank_change_sql(
 
 
 def _build_yearly_agg_sql(question: str, analysis_spec: AnalysisSpec) -> str:
+    if analysis_spec.entity_level in {"alamomentti", "molemmat"}:
+        raise ValueError(ALAMOMENTTI_UNAVAILABLE_MESSAGE)
     table = f"`{YEARLY_AGG_TABLE_ID}`"
     text = (question or "").lower()
     where_clause = _yearly_agg_where_clause(question, analysis_spec)
@@ -1392,7 +1396,7 @@ def _build_bigquery_budget_moment_evidence_sql(
         "SELECT "
         "  NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
         f"  {BQ_MOMENTTI_EXPR} AS momentti_snimi, "
-        "  NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus, "
+        "  NULLIF(alamomentti_tunnus, '') AS alamomentti_tunnus, "
         f"  {BQ_ALAMOMENTTI_EXPR} AS alamomentti_snimi, "
         "  SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum, "
         "  COUNT(DISTINCT SAFE_CAST(`Vuosi` AS INT64)) AS vuosia "
@@ -2012,6 +2016,21 @@ def _execute_analysis_spec_impl(
     allow_llm_query_plan: bool = False,
 ) -> dict:
     query_id = str(uuid.uuid4())
+    if analysis_spec.entity_level in {"alamomentti", "molemmat"}:
+        return {
+            "query_id": query_id,
+            "sql_query": "",
+            "results_df": pd.DataFrame(),
+            "error": ALAMOMENTTI_UNAVAILABLE_MESSAGE,
+            "explanation": f"❌ {ALAMOMENTTI_UNAVAILABLE_MESSAGE}",
+            "analysis_spec": analysis_spec,
+            "query_contract": None,
+            "query_source": "unsupported_entity_level",
+            "query_plan": None,
+            "query_retries": 0,
+            "dry_run_bytes": None,
+            "error_class": "unsupported_entity_level",
+        }
     if _requires_population_denominator((question or "").lower()):
         return {
             "query_id": query_id,
@@ -2044,6 +2063,21 @@ def _execute_analysis_spec_impl(
         }
         query_plan = generate_query_plan_from_natural_language(question, fallback_plan=fallback_plan)
         analysis_spec = _merge_analysis_spec_with_query_plan(analysis_spec, query_plan)
+        if analysis_spec.entity_level in {"alamomentti", "molemmat"}:
+            return {
+                "query_id": query_id,
+                "sql_query": "",
+                "results_df": pd.DataFrame(),
+                "error": ALAMOMENTTI_UNAVAILABLE_MESSAGE,
+                "explanation": f"❌ {ALAMOMENTTI_UNAVAILABLE_MESSAGE}",
+                "analysis_spec": analysis_spec,
+                "query_contract": None,
+                "query_source": "unsupported_entity_level",
+                "query_plan": query_plan,
+                "query_retries": 0,
+                "dry_run_bytes": None,
+                "error_class": "unsupported_entity_level",
+            }
 
     ontology_where = _ontology_scope_clause(analysis_spec, "bigquery") if not settings.use_google_sheets_demo else _ontology_scope_clause(analysis_spec, "demo")
 

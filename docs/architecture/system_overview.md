@@ -50,8 +50,8 @@ explicit trust badge.
 **Question → answer flow:** question → `infer_analysis_spec()` (heuristic
 token matching + ontology concept resolution, produces confidence score) →
 mandatory clarification if confidence < 0.75 → `choose_contract()` picks a
-SQL contract (`top_growth_moment`, `top_growth_alamoment`,
-`trend_by_hallinnonala`, `yoy_change`) or falls back to a deterministic
+SQL contract (`top_growth_moment`, `trend_by_hallinnonala`, `yoy_change`) or
+blocks unsupported alamomentti requests before SQL and otherwise falls back to a deterministic
 fallback SQL builder → SQL security gate → BigQuery → contract-shaped
 DataFrame (`time`, `entity`, `metric`, `delta`, `pct`) → visualization
 template + verified explanation + trust badge.
@@ -93,7 +93,7 @@ valtiontalous_raw                       (raw, normalized column names)
         │    autodetected raw columns
         ▼
 valtiontalous_curated_dq_v              (typed, quality flags, fingerprints)
-dim_hallinnonala / dim_momentti / dim_alamomentti / dim_hierarchy_name_mapping
+dim_hallinnonala / dim_momentti / dim_maararahalaji / dim_talousarviotili / dim_alamomentti (vain virallisesti validoitu) / dim_hierarchy_name_mapping
         ▼
 valtiontalous_semantic_v{N}             (versioned analytics view:
         │                                raw-compatible aliases + canonical

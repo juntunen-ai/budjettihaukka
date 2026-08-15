@@ -90,8 +90,26 @@ def _hierarchy_level_specs() -> list[tuple[str, str, str, str]]:
         ("paaluokkaosasto", "paaluokkaosasto_tunnusp", "paaluokkaosasto_snimi", "paaluokkaosasto"),
         ("luku", "luku_tunnusp", "luku_snimi", "luku"),
         ("momentti", "momentti_tunnusp", "momentti_snimi", "momentti"),
-        ("alamomentti", "alamomentti_tunnus", "alamomentti_snimi", "alamomentti"),
     ]
+
+
+def _alamomentti_candidate_expr() -> str:
+    """Derive only the code part below an official moment code.
+
+    Example: momentti 27.10.01. + talousarviotili 27.10.01.9.01. -> 9.01.
+    This is only a candidate. The semantic view publishes an alamomentti only
+    after an exact year-specific match against official_code_registry_v1.
+    """
+    return (
+        "CASE "
+        "WHEN REGEXP_CONTAINS(momentti_tunnusp, r'^\\d{2}\\.\\d{2}\\.\\d{2}\\.$') "
+        " AND REGEXP_CONTAINS(talousarviotili_tunnusp, "
+        "r'^\\d{2}\\.\\d{2}\\.\\d{2}\\.(?:\\d+\\.)+$') "
+        " AND STARTS_WITH(talousarviotili_tunnusp, momentti_tunnusp) "
+        " AND talousarviotili_tunnusp != momentti_tunnusp "
+        "THEN SUBSTR(talousarviotili_tunnusp, LENGTH(momentti_tunnusp) + 1) "
+        "ELSE NULL END"
+    )
 
 
 def _hierarchy_union_sql(curated_ref: str) -> str:
@@ -418,7 +436,7 @@ def build_curated_sql(
         header = (
             f"CREATE OR REPLACE TABLE {target_ref}\n"
             "PARTITION BY period_date\n"
-            "CLUSTER BY hallinnonala, momentti_tunnusp, alamomentti_tunnus\n"
+            "CLUSTER BY hallinnonala, momentti_tunnusp, talousarviotili_tunnusp\n"
             "AS"
         )
     else:
@@ -443,11 +461,11 @@ normalized AS (
     NULLIF(TRIM(CAST(`Luku_sNimi` AS STRING)), '') AS luku_snimi,
     NULLIF(TRIM(CAST(`Momentti_TunnusP` AS STRING)), '') AS momentti_tunnusp,
     NULLIF(TRIM(CAST(`Momentti_sNimi` AS STRING)), '') AS momentti_snimi,
-    NULLIF(TRIM(CAST(`TakpT_TunnusP` AS STRING)), '') AS takpt_tunnusp,
-    NULLIF(TRIM(CAST(`TakpT_sNimi` AS STRING)), '') AS takpt_snimi,
+    NULLIF(TRIM(CAST(`TakpT_TunnusP` AS STRING)), '') AS talousarviotili_tunnusp,
+    NULLIF(TRIM(CAST(`TakpT_sNimi` AS STRING)), '') AS talousarviotili_snimi,
     NULLIF(TRIM(CAST(`TakpTr_sNimi` AS STRING)), '') AS takptr_snimi,
-    NULLIF(TRIM(CAST(`TakpMrL_Tunnus` AS STRING)), '') AS alamomentti_tunnus,
-    NULLIF(TRIM(CAST(`TakpMrL_sNimi` AS STRING)), '') AS alamomentti_snimi,
+    NULLIF(TRIM(CAST(`TakpMrL_Tunnus` AS STRING)), '') AS maararahalaji_tunnus,
+    NULLIF(TRIM(CAST(`TakpMrL_sNimi` AS STRING)), '') AS maararahalaji_snimi,
     NULLIF(TRIM(CAST(`TakpT_Netto` AS STRING)), '') AS takpt_netto_raw,
     NULLIF(TRIM(CAST(`Tililuokka_Tunnus` AS STRING)), '') AS tililuokka_tunnus,
     NULLIF(TRIM(CAST(`Tililuokka_sNimi` AS STRING)), '') AS tililuokka_snimi,
@@ -490,6 +508,11 @@ typed AS (
 )
 SELECT
   *,
+  {_alamomentti_candidate_expr()} AS alamomentti_tunnus_candidate,
+  CASE
+    WHEN {_alamomentti_candidate_expr()} IS NOT NULL THEN talousarviotili_snimi
+    ELSE NULL
+  END AS alamomentti_snimi_candidate,
   vuosi BETWEEN 1900 AND 2100 AS is_valid_year,
   kk BETWEEN 1 AND 12 AS is_valid_month,
   hallinnonala IS NOT NULL AS has_hallinnonala,
@@ -521,11 +544,11 @@ SELECT
         COALESCE(luku_snimi, ''), '|',
         COALESCE(momentti_tunnusp, ''), '|',
         COALESCE(momentti_snimi, ''), '|',
-        COALESCE(takpt_tunnusp, ''), '|',
-        COALESCE(takpt_snimi, ''), '|',
         COALESCE(takptr_snimi, ''), '|',
-        COALESCE(alamomentti_tunnus, ''), '|',
-        COALESCE(alamomentti_snimi, ''), '|',
+        COALESCE(talousarviotili_tunnusp, ''), '|',
+        COALESCE(talousarviotili_snimi, ''), '|',
+        COALESCE(maararahalaji_tunnus, ''), '|',
+        COALESCE(maararahalaji_snimi, ''), '|',
         COALESCE(takpt_netto_raw, ''), '|',
         COALESCE(tililuokka_tunnus, ''), '|',
         COALESCE(tililuokka_snimi, ''), '|',
@@ -605,21 +628,65 @@ GROUP BY momentti_tunnusp, momentti_snimi
 
     steps.append(
         (
-            "dim_alamomentti",
+            "dim_maararahalaji",
             f"""
-CREATE OR REPLACE {create_object} `{project}.{dataset}.dim_alamomentti` AS
+CREATE OR REPLACE {create_object} `{project}.{dataset}.dim_maararahalaji` AS
 SELECT
-  TO_HEX(MD5(CONCAT(COALESCE(alamomentti_tunnus, ''), '|', COALESCE(alamomentti_snimi, '')))) AS alamomentti_id,
-  alamomentti_tunnus,
-  alamomentti_snimi,
+  TO_HEX(MD5(CONCAT(COALESCE(maararahalaji_tunnus, ''), '|', COALESCE(maararahalaji_snimi, '')))) AS maararahalaji_id,
+  maararahalaji_tunnus,
+  maararahalaji_snimi,
+  MIN(vuosi) AS first_year,
+  MAX(vuosi) AS last_year,
+  COUNT(*) AS row_count
+FROM {curated_ref}
+WHERE COALESCE(maararahalaji_tunnus, maararahalaji_snimi) IS NOT NULL
+GROUP BY maararahalaji_tunnus, maararahalaji_snimi
+""",
+        )
+    )
+
+    steps.append(
+        (
+            "dim_talousarviotili",
+            f"""
+CREATE OR REPLACE {create_object} `{project}.{dataset}.dim_talousarviotili` AS
+SELECT
+  TO_HEX(MD5(CONCAT(COALESCE(talousarviotili_tunnusp, ''), '|', COALESCE(talousarviotili_snimi, '')))) AS talousarviotili_id,
+  talousarviotili_tunnusp,
+  talousarviotili_snimi,
   ANY_VALUE(momentti_tunnusp) AS momentti_tunnusp,
   ANY_VALUE(momentti_snimi) AS momentti_snimi,
   MIN(vuosi) AS first_year,
   MAX(vuosi) AS last_year,
   COUNT(*) AS row_count
 FROM {curated_ref}
-WHERE COALESCE(alamomentti_tunnus, alamomentti_snimi) IS NOT NULL
-GROUP BY alamomentti_tunnus, alamomentti_snimi
+WHERE COALESCE(talousarviotili_tunnusp, talousarviotili_snimi) IS NOT NULL
+GROUP BY talousarviotili_tunnusp, talousarviotili_snimi
+""",
+        )
+    )
+
+    steps.append(
+        (
+            "dim_alamomentti",
+            f"""
+-- Fail closed: this dimension remains empty until the official registry
+-- contains year-specific talousarviotili/alamomentti rows.
+CREATE OR REPLACE {create_object} `{project}.{dataset}.dim_alamomentti` AS
+SELECT DISTINCT
+  source.vuosi,
+  source.momentti_tunnusp,
+  source.talousarviotili_tunnusp,
+  source.alamomentti_tunnus_candidate AS alamomentti_tunnus,
+  COALESCE(registry.name_fi, source.alamomentti_snimi_candidate) AS alamomentti_snimi,
+  registry.code_dotted AS official_code_dotted,
+  'official_code_registry_v1' AS validation_source
+FROM {curated_ref} AS source
+JOIN `{project}.{dataset}.official_code_registry_v1` AS registry
+  ON registry.year = source.vuosi
+ AND registry.level IN ('talousarviotili', 'alamomentti')
+ AND registry.code_dotted = source.talousarviotili_tunnusp
+WHERE source.alamomentti_tunnus_candidate IS NOT NULL
 """,
         )
     )
@@ -694,7 +761,6 @@ def build_semantic_view_sql(project: str, dataset: str, curated_table: str, sema
     helper_columns_sql = "\n".join(helper_columns)
     joins_sql = "\n".join(join_clauses)
     momentti_canonical_expr = canonical_expr_by_prefix["momentti"]
-    alamomentti_canonical_expr = canonical_expr_by_prefix["alamomentti"]
     return f"""
 CREATE OR REPLACE VIEW `{project}.{dataset}.{semantic_view}` AS
 WITH source AS (
@@ -715,8 +781,6 @@ SELECT
   source.luku_snimi AS `Luku_sNimi`,
   source.momentti_tunnusp AS `Momentti_TunnusP`,
   source.momentti_snimi AS `Momentti_sNimi`,
-  source.alamomentti_tunnus AS `TakpMrL_Tunnus`,
-  source.alamomentti_snimi AS `TakpMrL_sNimi`,
   source.alkuperainen_talousarvio AS `Alkuperäinen_talousarvio`,
   source.lisatalousarvio AS `Lisätalousarvio`,
   source.voimassaoleva_talousarvio AS `Voimassaoleva_talousarvio`,
@@ -729,18 +793,38 @@ SELECT
   -- Semantic helper columns (named so they do not collide with case-insensitive raw names)
   source.period_date,
   source.kirjanpitoyksikko,
-  source.alamomentti_tunnus,
-  source.alamomentti_snimi,
+  source.maararahalaji_tunnus,
+  source.maararahalaji_snimi,
+  source.talousarviotili_tunnusp,
+  source.talousarviotili_snimi,
+  source.alamomentti_tunnus_candidate,
+  source.alamomentti_snimi_candidate,
+  validated_alamomentti.alamomentti_tunnus,
+  validated_alamomentti.alamomentti_snimi,
+  validated_alamomentti.alamomentti_tunnus IS NOT NULL AS alamomentti_is_validated,
+  CASE
+    WHEN source.alamomentti_tunnus_candidate IS NULL THEN 'not_derivable'
+    WHEN validated_alamomentti.alamomentti_tunnus IS NULL THEN 'not_in_official_chart'
+    ELSE 'validated'
+  END AS alamomentti_validation_status,
+  validated_alamomentti.validation_source AS alamomentti_validation_source,
   source.nettokertyma,
   source.nettokertyma_ko_vuodelta,
 {helper_columns_sql}
   CONCAT(COALESCE(source.momentti_tunnusp, '?'), ' ', COALESCE({momentti_canonical_expr}, '')) AS momentti_label,
-  CONCAT(COALESCE(source.alamomentti_tunnus, '?'), ' ', COALESCE({alamomentti_canonical_expr}, '')) AS alamomentti_label,
+  CASE
+    WHEN validated_alamomentti.alamomentti_tunnus IS NULL THEN NULL
+    ELSE CONCAT(validated_alamomentti.alamomentti_tunnus, ' ', COALESCE(validated_alamomentti.alamomentti_snimi, ''))
+  END AS alamomentti_label,
   source.quality_issue_count,
   source.has_valid_nettokertyma,
   source.row_fingerprint
 FROM source
 {joins_sql}
+LEFT JOIN `{project}.{dataset}.dim_alamomentti` AS validated_alamomentti
+  ON validated_alamomentti.vuosi = source.vuosi
+ AND validated_alamomentti.momentti_tunnusp = source.momentti_tunnusp
+ AND validated_alamomentti.talousarviotili_tunnusp = source.talousarviotili_tunnusp
 WHERE source.is_valid_year
   AND source.is_valid_month
 """
@@ -750,7 +834,7 @@ def build_yearly_agg_sql(project: str, dataset: str, semantic_view: str, yearly_
     return f"""
 CREATE OR REPLACE TABLE `{project}.{dataset}.{yearly_agg_table}`
 PARTITION BY RANGE_BUCKET(vuosi, GENERATE_ARRAY(1998, 2026, 1))
-CLUSTER BY hallinnonala, momentti_tunnusp, alamomentti_tunnus AS
+CLUSTER BY hallinnonala, momentti_tunnusp, talousarviotili_tunnusp AS
 SELECT
   SAFE_CAST(`Vuosi` AS INT64) AS vuosi,
   COALESCE(NULLIF(hallinnonala_canonical, ''), `Hallinnonala`) AS hallinnonala,
@@ -759,12 +843,17 @@ SELECT
   NULLIF(`Kirjanpitoyksikkö`, '') AS kirjanpitoyksikko,
   NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp,
   COALESCE(NULLIF(momentti_canonical, ''), NULLIF(`Momentti_sNimi`, '')) AS momentti_snimi,
-  NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus,
-  COALESCE(NULLIF(alamomentti_canonical, ''), NULLIF(`TakpMrL_sNimi`, '')) AS alamomentti_snimi,
+  NULLIF(maararahalaji_tunnus, '') AS maararahalaji_tunnus,
+  NULLIF(maararahalaji_snimi, '') AS maararahalaji_snimi,
+  NULLIF(talousarviotili_tunnusp, '') AS talousarviotili_tunnusp,
+  NULLIF(talousarviotili_snimi, '') AS talousarviotili_snimi,
+  IF(alamomentti_is_validated, NULLIF(alamomentti_tunnus, ''), NULL) AS alamomentti_tunnus,
+  IF(alamomentti_is_validated, NULLIF(alamomentti_snimi, ''), NULL) AS alamomentti_snimi,
+  LOGICAL_AND(alamomentti_is_validated) AS alamomentti_is_validated,
   SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum,
   COUNT(*) AS source_rows
 FROM `{project}.{dataset}.{semantic_view}`
-GROUP BY 1,2,3,4,5,6,7,8,9
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13
 """
 
 
@@ -887,17 +976,17 @@ def main() -> int:
     if args.render_sql_dir:
         out_dir = Path(args.render_sql_dir).resolve()
         out_dir.mkdir(parents=True, exist_ok=True)
-        (out_dir / "01_curated_table.sql").write_text(curated_sql + "\n", encoding="utf-8")
+        (out_dir / "01_curated_table.sql").write_text(curated_sql.rstrip() + "\n", encoding="utf-8")
         for idx, (label, sql) in enumerate(dims_sql, start=2):
-            (out_dir / f"{idx:02d}_{label}.sql").write_text(sql + "\n", encoding="utf-8")
+            (out_dir / f"{idx:02d}_{label}.sql").write_text(sql.rstrip() + "\n", encoding="utf-8")
         next_idx = len(dims_sql) + 2
         (out_dir / f"{next_idx:02d}_semantic_view.sql").write_text(
-            semantic_sql + "\n",
+            semantic_sql.rstrip() + "\n",
             encoding="utf-8",
         )
-        (out_dir / f"{next_idx + 1:02d}_yearly_agg.sql").write_text(yearly_agg_sql + "\n", encoding="utf-8")
+        (out_dir / f"{next_idx + 1:02d}_yearly_agg.sql").write_text(yearly_agg_sql.rstrip() + "\n", encoding="utf-8")
         if not args.no_promote:
-            (out_dir / f"{next_idx + 2:02d}_promote_alias.sql").write_text(promotion_sql + "\n", encoding="utf-8")
+            (out_dir / f"{next_idx + 2:02d}_promote_alias.sql").write_text(promotion_sql.rstrip() + "\n", encoding="utf-8")
         logger.info("Rendered SQL bundle to %s", out_dir)
         return 0
 

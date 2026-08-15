@@ -138,7 +138,10 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
     has_composition = _has_token_prefix(tokens, "jakauma", "osuus", "osuudet", "raken")
     has_seasonality = _has_token_prefix(tokens, "kuukaus", "kausivaihtelu", "season", "kausi")
     has_moment = _has_token_substring(tokens, "moment")
-    has_alamoment = _has_token_substring(tokens, "alamoment")
+    has_alamoment = _has_token_substring(tokens, "alamoment") or any(
+        tokens[index] == "ala" and tokens[index + 1].startswith("moment")
+        for index in range(len(tokens) - 1)
+    )
 
     if has_top and has_growth:
         intent = "top_growth"
@@ -250,12 +253,12 @@ def infer_analysis_spec(question: str) -> AnalysisSpec:
             ClarificationField(
                 field="entity_level",
                 question="Tarkastelutaso",
-                options=("Molemmat", "Momentti", "Alamomentti", "Hallinnonala"),
-                recommended="Molemmat",
+                options=("Momentti", "Hallinnonala"),
+                recommended="Momentti",
             )
         )
         missing_key_dimensions = True
-        assumptions.append("Tasoksi oletetaan sekä momentit että alamomentit.")
+        assumptions.append("Tasoksi oletetaan momentti; alamomenttitaso on pois käytöstä validoinnin ajan.")
         confidence -= 0.10
 
     if ranking_n is None and intent == "top_growth":

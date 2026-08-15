@@ -55,11 +55,14 @@ def main() -> None:
     assert "dim_hierarchy_name_mapping" in semantic_sql
     assert "hallinnonala_canonical" in semantic_sql
     assert "momentti_canonical" in semantic_sql
-    assert "alamomentti_has_same_year_conflict" in semantic_sql
+    assert "alamomentti_is_validated" in semantic_sql
+    assert "alamomentti_validation_status" in semantic_sql
+    assert "maararahalaji_tunnus" in semantic_sql
+    assert "talousarviotili_tunnusp" in semantic_sql
 
     spec = infer_analysis_spec("Miten korkeakoulujen rahoitus on kehittynyt 2008-2024?")
     contract_sql, contract_name = build_contract_sql(spec, "demo-project.demo_dataset.valtiontalous_semantic_v1")
-    assert contract_name in {None, "yoy_change", "trend_by_hallinnonala", "top_growth_moment", "top_growth_alamoment"}
+    assert contract_name in {None, "yoy_change", "trend_by_hallinnonala", "top_growth_moment"}
     if contract_sql:
         assert "hallinnonala_canonical" in contract_sql or "momentti_canonical" in contract_sql
 

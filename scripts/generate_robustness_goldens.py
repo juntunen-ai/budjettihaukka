@@ -53,9 +53,9 @@ SCENARIOS = [
         ],
         "expected": {
             "intent": "top_growth",
-            "contract": "top_growth_alamoment",
-            "primary_template": "top_growth",
-            "sql_shape": "top_growth_alamoment",
+            "contract": "unsupported_alamomentti",
+            "primary_template": "unsupported",
+            "sql_shape": "unsupported_alamomentti",
             "critical": True,
         },
     },

@@ -38,6 +38,8 @@ COMPARE_COLUMNS = [
     "Luku_sNimi",
     "Momentti_TunnusP",
     "Momentti_sNimi",
+    "TakpT_TunnusP",
+    "TakpT_sNimi",
     "TakpMrL_Tunnus",
     "TakpMrL_sNimi",
     "Nettokertymä",
@@ -48,7 +50,8 @@ HIERARCHY_LEVELS = {
     "paaluokkaosasto": ["PaaluokkaOsasto_TunnusP", "PaaluokkaOsasto_sNimi"],
     "luku": ["Luku_TunnusP", "Luku_sNimi"],
     "momentti": ["Momentti_TunnusP", "Momentti_sNimi"],
-    "alamomentti": ["TakpMrL_Tunnus", "TakpMrL_sNimi"],
+    "talousarviotili": ["TakpT_TunnusP", "TakpT_sNimi"],
+    "maararahalaji": ["TakpMrL_Tunnus", "TakpMrL_sNimi"],
 }
 
 
@@ -184,6 +187,8 @@ def load_bq_month(client: bigquery.Client, table_ref: str, src: SourceFile) -> p
       `Luku_sNimi`,
       `Momentti_TunnusP`,
       `Momentti_sNimi`,
+      `TakpT_TunnusP`,
+      `TakpT_sNimi`,
       `TakpMrL_Tunnus`,
       `TakpMrL_sNimi`,
       `Nettokertymä`

@@ -10,6 +10,7 @@ from services.explanation_service import build_explanation
 from services.ontology_resolver import resolve_analysis
 from services.semantic_parser import apply_user_clarifications, parse_question, reparse_with_clarifications
 from services.visualization_planner import build_visualization_plan
+from utils.semantic_query_contracts import ALAMOMENTTI_UNAVAILABLE_MESSAGE
 
 
 def _raw_rows(results_df: pd.DataFrame) -> tuple[list[dict], list[str]]:
@@ -21,6 +22,23 @@ def _raw_rows(results_df: pd.DataFrame) -> tuple[list[dict], list[str]]:
 
 def analyze_question(question: str, clarifications: dict[str, str] | None = None) -> AnalyzeResult:
     parsed = parse_question(question)
+    if parsed.analysis_spec.entity_level in {"alamomentti", "molemmat"}:
+        resolved = resolve_analysis(question, parsed.analysis_spec)
+        return AnalyzeResult(
+            status="unsupported",
+            question=question,
+            execution_question=question,
+            analysis_spec=parsed.analysis_spec,
+            resolved_analysis=resolved,
+            analytics_frame=None,
+            visualization_plan=None,
+            explanation=ALAMOMENTTI_UNAVAILABLE_MESSAGE,
+            query_source="unsupported_entity_level",
+            error=ALAMOMENTTI_UNAVAILABLE_MESSAGE,
+            error_class="unsupported_entity_level",
+            verification_status="unsupported",
+            warnings=[ALAMOMENTTI_UNAVAILABLE_MESSAGE],
+        )
     if parsed.clarification_required and not clarifications:
         resolved = resolve_analysis(question, parsed.analysis_spec)
         return AnalyzeResult(
@@ -77,7 +95,9 @@ def analyze_question(question: str, clarifications: dict[str, str] | None = None
     )
     warnings.extend(verification.warnings)
 
-    if execution.get("error"):
+    if execution.get("error_class") in {"unsupported_entity_level", "unsupported_metric"}:
+        status = "unsupported"
+    elif execution.get("error"):
         status = "error"
     elif verification.verification_status == "needs_clarification":
         status = "clarification_required"

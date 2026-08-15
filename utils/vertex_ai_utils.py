@@ -19,7 +19,7 @@ LOCATION = settings.location
 TABLE_ID = settings.demo_sql_table if settings.use_google_sheets_demo else settings.full_table_id
 
 ALLOWED_INTENTS = {"overview", "trend", "growth", "top_growth", "composition", "seasonality"}
-ALLOWED_ENTITY_LEVELS = {"kokonais", "hallinnonala", "momentti", "alamomentti", "molemmat"}
+ALLOWED_ENTITY_LEVELS = {"kokonais", "hallinnonala", "momentti"}
 ALLOWED_GROWTH_TYPES = {"absolute", "pct"}
 ALLOWED_METRICS = {"nettokertyma"}
 
@@ -146,7 +146,7 @@ Kentät:
 {{
   "intent": "overview|trend|growth|top_growth|composition|seasonality",
   "metric": "nettokertyma",
-  "entity_level": "kokonais|hallinnonala|momentti|alamomentti|molemmat",
+  "entity_level": "kokonais|hallinnonala|momentti",
   "growth_type": "absolute|pct",
   "time_from": 1998,
   "time_to": 2024,

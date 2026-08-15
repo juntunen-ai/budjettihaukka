@@ -107,7 +107,7 @@ cd /Users/harrijuntunen/budjettihaukka
 
 Tämä luo:
 - `valtiontalous_curated_dq` (tyypitetty/normalisoitu taulu + quality flagit)
-- `dim_hallinnonala`, `dim_momentti`, `dim_alamomentti`, `dim_topic_alias`
+- `dim_hallinnonala`, `dim_momentti`, `dim_maararahalaji`, `dim_talousarviotili`, validoitu `dim_alamomentti` ja `dim_topic_alias`
 - `valtiontalous_semantic_v{N}` (versioitu analytiikan näkymä, `--semantic-version N`)
 - `valtiontalous_yearly_agg_v1` (vuositason aggregaattitaulu contracteille)
 - `valtiontalous_semantic_current` (promotoitu alias, jota sovellus lukee)
@@ -138,6 +138,7 @@ Jos dataset-oikeudet eivät vielä riitä taulujen luontiin, voit generoida SQL-
 ```
 
 Lisätiedot: [docs/data_quality_improvements.md](./docs/data_quality_improvements.md)
+Alamomentin fail-closed-malli: [docs/alamomentti_semantic_model.md](./docs/alamomentti_semantic_model.md)
 
 ---
 
