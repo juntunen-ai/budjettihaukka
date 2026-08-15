@@ -140,6 +140,22 @@ Jos dataset-oikeudet eivät vielä riitä taulujen luontiin, voit generoida SQL-
 Lisätiedot: [docs/data_quality_improvements.md](./docs/data_quality_improvements.md)
 Alamomentin fail-closed-malli: [docs/alamomentti_semantic_model.md](./docs/alamomentti_semantic_model.md)
 
+### Visualisointivalmis datamart
+
+Viralliset väestö-, hinta-, BKT- ja EDP-velkavertailut sekä versionoitu
+mittari- ja lähderekisteri rakennetaan erilliseen visualisointikerrokseen:
+
+```bash
+.venv/bin/python scripts/load_visualization_reference_series.py --year-from 1998 --year-to 2026
+.venv/bin/python scripts/build_visualization_data_mart.py --render-sql-dir data/sql/visualization_mart
+.venv/bin/python scripts/test_visualization_data_mart.py
+.venv/bin/python scripts/run_visualization_data_quality_checks.py --project PROJECT --dataset DATASET
+```
+
+Kerros merkitsee osavuodet, puuttuvat nimittäjät ja rakennemuutokset, eikä
+väitä kuukausikertymää tarkastettuun tilinpäätökseen täsmäytetyksi.
+Käyttö- ja tulkintaohje: [docs/visualization_data_mart.md](./docs/visualization_data_mart.md)
+
 ---
 
 ## 🧪 Robustisuus- ja regressiotestit
