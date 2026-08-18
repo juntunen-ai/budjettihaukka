@@ -1,5 +1,8 @@
 # Budjettihaukka – Tekoälypohjainen talouspoliittisen tiedon analysointisovellus
 
+**Nykyinen julkaisu: v2.0.0 (18.8.2026).** Julkaisun sisältö ja tunnetut
+operatiiviset rajoitteet on koottu tiedostoon [CHANGELOG.md](./CHANGELOG.md).
+
 Budjettihaukka on avoimen lähdekoodin web-sovellus, jonka tarkoituksena on tuoda **talouspolitiikkaan liittyvä tieto** helposti saataville, analysoitavaksi ja visualisoitavaksi. Sovelluksen käyttäjä voi esittää kysymyksiä **luonnollisella kielellä**, ja tekoälyn avulla saa kansantaloudelliseen optimaalisuuteen ja empiiriseen taloustutkimukseen perustubia analyyseja. Tulokset voidaan näyttää taulukkoina, dynaamisina visualisointeina sekä analyyttisinä raportteina.
 
 Projektin pitkän aikavälin tavoite on tukea kansalaisia, tutkijoita ja toimittajia tarjoamalla **tietopohjainen, helppokäyttöinen työkalu poliittisten ja taloudellisten päätösten arviointiin**.
@@ -52,12 +55,12 @@ autentikointi ja tunnetut operatiiviset erikoisuudet.
 
 Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 
-- `BUDJETTIHAUKKA_PROJECT_ID` (oletus: `valtion-budjetti-data`; aktiivinen data-projekti on `budjettihaukka-gpt` — aseta `.env.local`-tiedostossa)
+- `BUDJETTIHAUKKA_PROJECT_ID` (oletus ja aktiivinen data-projekti: `budjettihaukka-gpt`)
 - `BUDJETTIHAUKKA_LOCATION` (Vertex AI -sijainti; oletus: `us-central1`. Huom: BigQuery-datasetin sijainti on `europe-west1`)
 - `BUDJETTIHAUKKA_DATA_SOURCE` (`bigquery` tai `google_sheets`; oletus: `bigquery`)
 - `BUDJETTIHAUKKA_DATASET` (oletus: `valtiodata`)
 - `BUDJETTIHAUKKA_TABLE` (oletus: `valtiontalous_semantic_current` — promotoitu semantic-kerroksen alias)
-- `BUDJETTIHAUKKA_RAW_TABLE` (raakadatataulu ingest-/build-skripteille; oletus: `budjettidata`)
+- `BUDJETTIHAUKKA_RAW_TABLE` (raakadatataulu ingest-/build-skripteille; oletus: `valtiontalous_raw`; `budjettidata` on legacy-kopio)
 - `BUDJETTIHAUKKA_DEMO_SQL_TABLE` (oletus: `budjettidata_demo`)
 - `BUDJETTIHAUKKA_DEMO_SHEET_ID_2022`, `BUDJETTIHAUKKA_DEMO_SHEET_ID_2023`, `BUDJETTIHAUKKA_DEMO_SHEET_ID_2024` (Google Sheets -lähde, kun `BUDJETTIHAUKKA_DATA_SOURCE=google_sheets`)
 - `BUDJETTIHAUKKA_GEMINI_MODEL` (oletus: `gemini-2.5-pro-preview-03-25`)
@@ -79,7 +82,7 @@ Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 Esimerkki:
 
 ```bash
-export BUDJETTIHAUKKA_PROJECT_ID="valtion-budjetti-data"
+export BUDJETTIHAUKKA_PROJECT_ID="budjettihaukka-gpt"
 export BUDJETTIHAUKKA_LOCATION="us-central1"
 export GOOGLE_APPLICATION_CREDENTIALS="/polku/avaimeen/gcp-creds.json"
 export GEMINI_API_KEY="your-gemini-api-key"
@@ -103,6 +106,7 @@ Data quality -kerros voidaan rakentaa ja tarkistaa skripteillä:
 cd /Users/harrijuntunen/budjettihaukka
 .venv/bin/python scripts/build_bq_data_quality_layer.py
 .venv/bin/python scripts/run_bq_data_quality_checks.py
+.venv/bin/python scripts/audit_bigquery_operational_state.py
 ```
 
 Tämä luo:
@@ -112,6 +116,10 @@ Tämä luo:
 - `valtiontalous_yearly_agg_v1` (vuositason aggregaattitaulu contracteille)
 - `valtiontalous_semantic_current` (promotoitu alias, jota sovellus lukee)
 - raportit hakemistoon `docs/reports/`
+
+Operatiivinen auditointi on kirjoittamaton tarkistus. Se varmistaa kaikkien
+objektien kyseltävyyden, vertaa semantic-kerroksen uusinta kuukautta viralliseen
+lähdeluetteloon ja varoittaa lähestyvistä BigQuery-vanhenemisajoista.
 
 Sovellus lukee oletuksena promotoitua aliasta (`BUDJETTIHAUKKA_TABLE=valtiontalous_semantic_current`),
 ei raakataulua. Versiointi mahdollistaa turvallisen rollbackin:
@@ -155,6 +163,109 @@ mittari- ja lähderekisteri rakennetaan erilliseen visualisointikerrokseen:
 Kerros merkitsee osavuodet, puuttuvat nimittäjät ja rakennemuutokset, eikä
 väitä kuukausikertymää tarkastettuun tilinpäätökseen täsmäytetyksi.
 Käyttö- ja tulkintaohje: [docs/visualization_data_mart.md](./docs/visualization_data_mart.md)
+Visualisointien kokonaisuus, tyylisäännöt ja julkaisuportti:
+[docs/visualizations.md](./docs/visualizations.md).
+
+### Viralliset rikastukset ja revisiohistoria
+
+Tilinpäätösbenchmarkit, OKM:n Tutkiavustuksia-aggregaatit, PRH:n Y-tunnusmaster,
+koulutus- ja terveysmittaristot, aluekonteksti sekä kolme käyttötarkoitukseltaan
+erilaista deflaattoria päivitetään snapshot-first-putkella:
+
+```bash
+.venv/bin/python scripts/load_official_enrichment_reference.py
+.venv/bin/python scripts/test_official_enrichment_reference.py
+.venv/bin/python scripts/load_official_enrichment_reference.py --load-bigquery --project PROJECT --dataset DATASET
+.venv/bin/python scripts/build_enrichment_data_mart.py --project PROJECT --dataset DATASET
+```
+
+Tutkiavustuksia-pilotti on tarkoituksella vain aggregaattitasolla: saaja-, päätös-,
+Y-tunnus-, alue- ja momenttiliitokset pysyvät estettyinä, kunnes virallinen
+päätöstason aineisto on saatavilla. Tarkemmat määritelmät ja julkaisuportit:
+[docs/official_data_enrichments.md](./docs/official_data_enrichments.md).
+
+### Kuntien ja kuntayhtymien talous
+
+Valtiokonttorin avoimista rajapinnoista muodostetaan koko kuntatalouden
+aineistoluettelo sekä vuosien 2023–2026 KTAS-taloustietojen ydinsnapshot. KTAS
+sisältää hyväksytyn talousarvion, edellisen vuoden muutetun talousarvion ja kaksi
+suunnitelmavuotta. Lukuja ei esitetä toteumina.
+
+```bash
+.venv/bin/python scripts/load_municipal_finance_reference.py --start-year 2023 --end-year 2026
+.venv/bin/python scripts/test_municipal_finance_reference.py
+.venv/bin/python scripts/load_municipal_finance_reference.py --start-year 2023 --end-year 2026 --load-bigquery --project PROJECT --dataset DATASET
+.venv/bin/python scripts/build_municipal_finance_mart.py --project PROJECT --dataset DATASET
+```
+
+Rajapinnan suuret KKNR- ja KKTPP-taksonomiat on estetty oletuslatauksesta.
+Niiden URL, koko ja saatavuus säilyvät lähdeindeksissä. Raportoijan Y-tunnusta ei
+automaattisesti nimetä kunnaksi tai kuntayhtymäksi ilman virallista
+organisaatioavainta. Malli, laatupoikkeamat ja jatkolaajennus on kuvattu
+tiedostossa [docs/municipal_finance_enrichment.md](./docs/municipal_finance_enrichment.md).
+
+Tuotannon BigQuery-objektien tila ja 18.8.2026 havaittujen korjaustarpeiden
+priorisointi on dokumentoitu
+[BigQuery- ja järjestelmäauditointiin](./docs/reports/bigquery_system_audit_20260818.md).
+
+### Sote-demonstratio 2008–2025
+
+Staattinen, selkokielinen `sote-demo.html` vertaa verorasitusta ja julkisia
+terveysmenoja palvelujen saatavuuteen, henkilöstöön ja terveystuloksiin. Eurostat-
+snapshot voidaan päivittää ja tarkistaa näin:
+
+```bash
+.venv/bin/python scripts/load_sote_demo_reference.py
+.venv/bin/python scripts/test_sote_demo.py
+ruby -run -e httpd . -p 8503
+```
+
+Vuoden 2025 aineisto on osittainen. Arvio ei oleta kaikkien verojen rahoittavan
+sotea eikä tulkitse panosten ja terveystulosten yhteyttä kausaaliseksi.
+
+### Perusterveydenhuollon laatu ja ohjausriski 2020–2025
+
+`perusterveydenhuollon-palveluarvo.html` yhdistää nykyisten hyvinvointialueiden
+rajoilla reaaliset kustannukset, henkilöstön, lääkärikäynnit, hoitoonpääsyn,
+jatkuvuuden, tyydyttämättömän palvelutarpeen, päivystyskäynnit, vältettävissä
+olevat sairaalahoidot ja koetun terveyden. Vuodet 2020–2022 ovat
+kuntakauden havaintoja koottuna nykyisille aluerajoille; vuoden 2023 kohdalla
+näytetään siksi järjestämisvastuun muutos. Vuosi 2025 pidetään näkyvissä
+osittaisena eikä puuttuvia havaintoja täytetä.
+
+`vantaa-kerava-sote.html` rajaa samat mittarit Vantaa–Keravan
+hyvinvointialueeseen ja vertaa niitä koko maahan. Näkymä merkitsee tunnetun
+käyntikirjausten vajauksen eikä käytä käyntituotoksen muutosta alueen
+tehokkuusarviona.
+
+```bash
+.venv/bin/python scripts/load_primary_care_value_reference.py
+.venv/bin/python scripts/test_primary_care_value.py
+.venv/bin/python scripts/test_vantaa_kerava_visualization.py
+ruby -run -e httpd . -p 8503
+```
+
+Käyntien ja kustannusten suhde esitetään käyntituotoksena, ei tehokkuutena.
+Palveluarvoa ei julkaista ennen ratkaistun palvelutarpeen ja koko hoitoketjun
+kustannuksen saatavuutta. Aluekohtainen ohjausriski tunnistaa ristiriitaiset
+mittarisignaalit, mutta ei ole paremmuusjärjestys tai kausaalinen arvio.
+Määritelmät, säännöt, kattavuus ja rajaukset:
+[docs/primary_care_service_value.md](./docs/primary_care_service_value.md).
+
+### Lastensuojelun sijoitukset ja HVA-budjetit
+
+`lastensuojelu-budjetti-hva.html` vertaa 22 järjestäjän kodin ulkopuolelle
+sijoitettujen 0–17-vuotiaiden määrää ja osuutta hyvinvointialueiden koko
+talousarvion toimintamenoihin. Sijoitustiedot kattavat vuodet 2021–2024 ja
+nimelliset talousarviot vuodet 2023–2026. Vain vuodet 2023–2024 ovat aineistoissa
+päällekkäiset, joten rinnastus on kuvaileva eikä osoita syy-yhteyttä tai
+lastensuojelun kustannustehokkuutta.
+
+```bash
+.venv/bin/python scripts/load_child_welfare_budget_reference.py
+.venv/bin/python scripts/test_child_welfare_budget_reference.py
+ruby -run -e httpd . -p 8503
+```
 
 ---
 
@@ -167,6 +278,8 @@ cd /Users/harrijuntunen/budjettihaukka
 .venv/bin/python scripts/test_semantic_view_column_compat.py
 .venv/bin/python scripts/test_schema_drift_detection.py
 .venv/bin/python scripts/test_bigquery_integration.py
+.venv/bin/python scripts/test_visualization_data_mart.py
+.venv/bin/python scripts/test_official_enrichment_reference.py
 .venv/bin/python scripts/test_ui_no_crash_smoke.py
 # Optional screenshot-smoke (requires Playwright):
 # .venv/bin/python scripts/test_ui_no_crash_screenshots.py

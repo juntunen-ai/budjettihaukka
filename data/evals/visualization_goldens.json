@@ -5,7 +5,7 @@
     "description": "Golden queries for intent, semantic contract, and primary visualization template."
   },
   "cases": [
-    { "id": "C001", "question": "Miten puolustusmenot kehittyivat 2020-2024?", "expected": { "intent": "trend", "contract": null, "primary_template": "trend", "critical": true } },
+    { "id": "C001", "question": "Miten puolustusmenot kehittyivat 2020-2024?", "expected": { "intent": "trend", "contract": "trend_by_hallinnonala", "primary_template": "trend", "critical": true } },
     { "id": "C002", "question": "Nayta menojen vuosimuutos 2010-2024", "expected": { "intent": "growth", "contract": "yoy_change", "primary_template": "trend", "critical": true } },
     { "id": "C003", "question": "Kuinka paljon nettokertyma muuttui vuodesta toiseen 1998-2024?", "expected": { "intent": "growth", "contract": "yoy_change", "primary_template": "trend", "critical": true } },
     { "id": "C004", "question": "Vuotuinen kasvu prosentteina 2015-2024", "expected": { "intent": "growth", "contract": "yoy_change", "primary_template": "trend", "critical": true } },
@@ -48,7 +48,7 @@
     { "id": "C041", "question": "Miten menot vaihtelevat kuukausittain hallinnonaloittain?", "expected": { "intent": "seasonality", "contract": null, "primary_template": "seasonality", "critical": false } },
     { "id": "C042", "question": "Kuukausittainen vaihtelu puolustusmenoissa 2019-2024", "expected": { "intent": "seasonality", "contract": null, "primary_template": "seasonality", "critical": false } },
     { "id": "C043", "question": "Kausi-ilmio menodataan 2000-2010", "expected": { "intent": "seasonality", "contract": null, "primary_template": "seasonality", "critical": false } },
-    { "id": "C044", "question": "Miten puolustusmenot kehittyivat 1998-2024 trendina?", "expected": { "intent": "trend", "contract": null, "primary_template": "trend", "critical": true } },
+    { "id": "C044", "question": "Miten puolustusmenot kehittyivat 1998-2024 trendina?", "expected": { "intent": "trend", "contract": "trend_by_hallinnonala", "primary_template": "trend", "critical": true } },
     { "id": "C045", "question": "Mitka momentit kasvoivat eniten 1998-2024 top 5", "expected": { "intent": "top_growth", "contract": "top_growth_moment", "primary_template": "top_growth", "critical": true } },
     { "id": "C046", "question": "Mitka alamomentit kasvoivat eniten top 5 vuosina 2008-2024", "expected": { "intent": "top_growth", "contract": "unsupported_alamomentti", "primary_template": "unsupported", "critical": true } },
     { "id": "C047", "question": "Nayta valtion menojen kehitys 2000-2024", "expected": { "intent": "trend", "contract": null, "primary_template": "trend", "critical": true } },

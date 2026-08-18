@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Budjettihaukka – viisi visualisointia</title>
+  <style>
+    :root {
+      --yellow: #f6d84f;
+      --paper: #f5f1e8;
+      --paper-deep: #e9e2d3;
+      --ink: #171713;
+      --muted: #5f5b50;
+      --reference: #0067a3;
+      --comparison: #d45d18;
+      --positive: #22833a;
+      --obligation: #713b83;
+      --grid: #17171320;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+    .hero { background: var(--yellow); border-bottom: 2px solid var(--ink); }
+    .hero-inner, main { max-width: 1180px; margin: auto; padding-inline: 22px; }
+    .hero-inner { padding-top: 32px; padding-bottom: 42px; }
+    main { padding-bottom: 72px; }
+    h1, h2, h3 { font-family: Arial Black, system-ui, sans-serif; letter-spacing: -.035em; }
+    h1 { max-width: 980px; margin: 30px 0 18px; font-size: clamp(3rem, 7vw, 6.3rem); line-height: .91; text-transform: uppercase; }
+    h2 { margin: 0 0 10px; font-size: clamp(1.55rem, 3vw, 2.25rem); line-height: 1.1; }
+    h3 { margin: 8px 0 0; font-size: 1rem; letter-spacing: 0; }
+    section { padding: 48px 0 54px; border-bottom: 1.5px solid var(--ink); }
+    .back { display: inline-flex; align-items: center; padding: 8px 14px; border: 2px solid var(--ink); border-radius: 999px; background: #fff3b6; color: var(--ink); font-weight: 700; text-decoration: none; }
+    .lede { max-width: 850px; margin: 0; font-size: 1.08rem; }
+    .next-demo { display: inline-flex; margin-top: 22px; padding: 10px 16px; border: 2px solid var(--ink); background: var(--paper); color: var(--ink); font-weight: 800; text-decoration: none; box-shadow: 4px 4px 0 var(--ink); }
+    .next-demo:hover, .next-demo:focus-visible { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+    .eyebrow { margin: 0 0 7px; color: var(--muted); font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .chart { width: 100%; min-height: 270px; margin-top: 20px; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .grid { stroke: var(--grid); stroke-width: 1; }
+    .axis { stroke: var(--ink); stroke-width: 1.2; }
+    .tick, .label { fill: var(--ink); font-size: 12px; }
+    .axis-title { fill: var(--muted); font-size: 12px; font-weight: 700; }
+    .bar-label { fill: var(--ink); font-size: 13px; font-weight: 700; }
+    .direct-label { font-size: 12px; font-weight: 800; }
+    .source { margin: 10px 0 0; color: var(--muted); font-size: .83rem; }
+    .interpretation { max-width: 900px; margin-top: 24px; padding: 18px 20px; border-left: 5px solid var(--yellow); background: var(--paper-deep); }
+    .interpretation p { margin: 0; }
+    .interpretation p + p { margin-top: 10px; }
+    .subplots { display: grid; gap: 26px; margin-top: 18px; }
+    .region-key { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; font-size: .9rem; }
+    .key-line { display: inline-block; width: 26px; margin-right: 7px; border-top: 3px solid var(--ink); vertical-align: middle; }
+    .key-line.dashed { border-top-style: dashed; }
+    .key-line.dotted { border-top-style: dotted; }
+    @media (max-width: 720px) {
+      .hero-inner, main { padding-inline: 14px; }
+      h1 { font-size: clamp(2.7rem, 14vw, 4.2rem); }
+      section { padding-block: 38px; }
+      .tick, .label, .axis-title, .direct-label { font-size: 11px; }
+      .interpretation { padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <a class="back" href="http://127.0.0.1:8501/">← Takaisin Budjettihaukkaan</a>
+      <h1>Viisi tapaa nähdä julkinen data</h1>
+      <p class="lede">Sama rikastettu tietopohja voi näyttää kehityksen, rinnastaa tuotoksia ja tuloksia, paljastaa alue-eroja, kuvata valintaprosessin sekä antaa talouden luvuille yhteisen mittakaavan.</p>
+      <a class="next-demo" href="perusterveydenhuollon-palveluarvo.html">Avaa perusterveydenhuollon laatu- ja ohjausriskipilotti →</a>
+      <a class="next-demo" href="lastensuojelu-budjetti-hva.html">Avaa lastensuojelun sijoitus- ja budjettivertailu →</a>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <p class="eyebrow">01 · Ostovoima</p>
+      <h2>Mitä miljardilla saa eri vuosina?</h2>
+      <div id="deflator" class="chart"></div>
+      <div class="interpretation">
+        <p><strong>Päähavainto.</strong> Kiinteä miljardin euron nimellinen määräraha vastasi vuosikymmenen alussa selvästi suurempaa ostovoimaa kuin vuonna 2024. Julkisten palvelujen kustannuskehitys myös poikkeaa yleisestä kuluttajahintojen kehityksestä, joten deflaattorin valinta voi muuttaa käsitystä määrärahan todellisesta kehityksestä.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Tämä ei ole toteutunut budjettisarja eikä arvio toiminnan tehokkuudesta. Kuva pitää nimellisen summan samana jokaisena vuonna ja näyttää vain hintatason vaikutuksen vuoden 2024 rahassa.</p>
+      </div>
+      <p class="source">Lähde: Tilastokeskus, kuluttajahintaindeksi ja julkisten menojen hintaindeksi.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">02 · Koulutus</p>
+      <h2>Tuotokset ja tulokset rinnakkain</h2>
+      <div class="region-key"><span><i class="key-line"></i>Koko maa</span><span><i class="key-line dashed"></i>Uusimaa</span><span><i class="key-line dotted"></i>Lappi</span></div>
+      <div class="subplots">
+        <div><h3>Tutkinnon suorittaneet (2015=100)</h3><div id="graduates" class="chart"></div></div>
+        <div><h3>Työlliset vuoden kuluttua (%)</h3><div id="employment" class="chart"></div></div>
+      </div>
+      <div class="interpretation">
+        <p><strong>Päähavainto.</strong> Valmistuneiden määrän suhteellinen kehitys ja valmistumisen jälkeinen työllisyys eivät kulje automaattisesti samaan suuntaan. Alueiden rinnakkainen tarkastelu auttaa erottamaan, onko muutos valtakunnallinen vai painottuuko se esimerkiksi Uudellemaalle tai Lappiin.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Vuoteen 2015 indeksoitu valmistuneiden määrä peittää absoluuttiset kokoerot. Kaavio ei myöskään osoita, että valmistuneiden määrän muutos aiheuttaisi työllisyysasteen muutoksen; koulutusala, suhdanne, muuttoliike ja väestörakenne voivat vaikuttaa molempiin.</p>
+      </div>
+      <p class="source">Lähde: Tilastokeskus, tutkinnon suorittaneet ja sijoittuminen valmistumisen jälkeen.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">03 · Terveys</p>
+      <h2>Palvelujen käyttö ja koettu terveys vuonna 2024</h2>
+      <div id="health" class="chart"></div>
+      <div class="interpretation">
+        <p><strong>Päähavainto.</strong> Maakunnat sijoittuvat eri tavoin lääkärikäyntien ja heikommaksi koetun terveyden suhteen. Koko maan vertailupiste auttaa näkemään, mitkä alueet poikkeavat molemmilla mittareilla samaan suuntaan ja missä suuri palvelujen käyttö yhdistyy silti heikompaan koettuun terveyteen.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Pisteiden sijainti ei mittaa hoidon vaikuttavuutta. Ikärakenne, sairastavuus, palvelujen saatavuus, kirjaamiskäytännöt ja sosioekonomiset erot voivat selittää alueiden välistä yhteyttä, eikä poikkileikkaus osoita syy-seuraussuhdetta.</p>
+      </div>
+      <p class="source">Lähde: Tilastokeskus, alueelliset terveyden palvelu- ja kokemustiedot.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">04 · Valtionavustukset</p>
+      <h2>Miten hakemukset muuttuvat myönnöiksi?</h2>
+      <div id="grants" class="chart"></div>
+      <div class="interpretation">
+        <p><strong>Päähavainto.</strong> OKM:n koontiaineistossa myönteisen päätöksen saa noin kolme hakemusta viidestä, mutta myönnettyjen eurojen osuus jää hieman tätä pienemmäksi. Näin päätösmäärä ja euromäärä kertovat eri puolista avustusprosessia: moni hakemus voi menestyä, vaikka haettuja summia leikataan.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Koonti ei paljasta hakemusten laatua, avustuslajeja, hakijoiden kokoa tai päätösten alueellista jakautumista. Se ei myöskään kerro, ovatko haetut summat keskenään vertailukelpoisia tai milloin myönnetty raha lopulta käytetään.</p>
+      </div>
+      <p class="source">Lähde: Tutkiavustuksia-palvelun OKM-koontipilotti.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">05 · Tilinpäätös</p>
+      <h2>Valtion talous samassa mittakaavassa</h2>
+      <div id="accounts" class="chart"></div>
+      <div class="interpretation">
+        <p><strong>Päähavainto.</strong> Valtionvelka on mittakaavaltaan selvästi muita tässä esitettyjä eriä suurempi. Verotulot ja siirtomenot ovat lähellä toisiaan, kun taas nettolainanotto ja tilikauden alijäämä ovat pienempiä mutta edelleen kymmenien miljardien suuruusluokassa.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Palkit yhdistävät varantoja ja yhden vuoden virtoja vain mittakaavan havainnollistamiseksi. Valtionvelkaa, taseen loppusummaa, tuloja ja menoja ei voi laskea yhteen, eikä kaavio yksin arvioi velkakestävyyttä tai finanssipolitiikan laatua.</p>
+      </div>
+      <p class="source">Lähde: Valtion vuoden 2025 virallinen tilinpäätös.</p>
+    </section>
+  </main>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const palette = { reference: '#0067a3', comparison: '#d45d18', positive: '#22833a', obligation: '#713b83', ink: '#171713' };
+    const csv = async path => {
+      const text = await (await fetch(path)).text();
+      const [headers, ...rows] = text.trim().split(/\r?\n/).map(row => row.split(','));
+      return rows.map(values => Object.fromEntries(headers.map((key, index) => [key, values[index]])));
+    };
+    const svg = (id, height = 310, description = '') => {
+      const host = document.getElementById(id);
+      host.innerHTML = '';
+      const node = document.createElementNS(NS, 'svg');
+      node.setAttribute('viewBox', `0 0 900 ${height}`);
+      node.setAttribute('role', 'img');
+      node.setAttribute('aria-label', description);
+      host.appendChild(node);
+      return node;
+    };
+    const el = (parent, name, attrs = {}, text = '') => {
+      const node = document.createElementNS(NS, name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+      if (text) node.textContent = text;
+      parent.appendChild(node);
+      return node;
+    };
+    const extent = values => [Math.min(...values), Math.max(...values)];
+    const scale = (d0, d1, r0, r1) => value => r0 + (value - d0) * (r1 - r0) / (d1 - d0 || 1);
+    function axes(node, x0, x1, y0, y1, xTicks, yTicks, xFormat = value => value, yFormat = value => value) {
+      el(node, 'line', { x1: x0, y1, x2: x1, y2: y1, class: 'axis' });
+      el(node, 'line', { x1: x0, y1: y0, x2: x0, y2: y1, class: 'axis' });
+      xTicks.forEach(tick => {
+        el(node, 'line', { x1: tick.x, y1: y0, x2: tick.x, y2: y1, class: 'grid' });
+        el(node, 'text', { x: tick.x, y: y1 + 20, 'text-anchor': 'middle', class: 'tick' }, xFormat(tick.value));
+      });
+      yTicks.forEach(tick => {
+        el(node, 'line', { x1: x0, y1: tick.y, x2: x1, y2: tick.y, class: 'grid' });
+        el(node, 'text', { x: x0 - 10, y: tick.y + 4, 'text-anchor': 'end', class: 'tick' }, yFormat(tick.value));
+      });
+    }
+    function lineChartMulti(id, series, color, yFormat, description) {
+      const node = svg(id, 300, description);
+      const x0 = 70, x1 = 755, y0 = 20, y1 = 255;
+      const all = series.flatMap(item => item.rows);
+      const years = all.map(row => row.year);
+      const values = all.map(row => row.value);
+      const [yearMin, yearMax] = extent(years);
+      const [valueMin, valueMax] = extent(values);
+      const padding = (valueMax - valueMin) * .12 || 1;
+      const x = scale(yearMin, yearMax, x0, x1);
+      const y = scale(valueMin - padding, valueMax + padding, y1, y0);
+      axes(node, x0, x1, y0, y1,
+        [yearMin, yearMin + 2, yearMin + 4, yearMin + 6, yearMax].map(value => ({ value, x: x(value) })),
+        [0, .5, 1].map(q => { const value = valueMin - padding + q * (valueMax - valueMin + 2 * padding); return { value, y: y(value) }; }),
+        String, yFormat);
+      series.forEach((item, index) => {
+        const dash = index === 1 ? '10 7' : index === 2 ? '3 7' : '';
+        el(node, 'path', { d: item.rows.map((row, i) => `${i ? 'L' : 'M'}${x(row.year)},${y(row.value)}`).join(' '), fill: 'none', stroke: color, 'stroke-width': index === 0 ? 3.5 : 2.8, 'stroke-dasharray': dash });
+        item.rows.forEach(row => el(node, 'circle', { cx: x(row.year), cy: y(row.value), r: index === 0 ? 4 : 3, fill: color, stroke: palette.ink }));
+        const last = item.rows[item.rows.length - 1];
+        el(node, 'text', { x: x(last.year) + 10, y: y(last.value) + 4, fill: color, class: 'direct-label' }, item.name);
+      });
+    }
+
+    let deflators, sectors, grants, accounts;
+    async function init() {
+      [deflators, sectors, grants, accounts] = await Promise.all([
+        csv('data/reference/official_deflator_reference_v1.csv'),
+        csv('data/reference/official_sector_indicator_v1.csv'),
+        csv('data/reference/official_grants_okm_pilot_v1.csv'),
+        csv('data/reference/official_final_accounts_reference_v1.csv')
+      ]);
+      drawDeflator();
+      drawEducation();
+      drawHealth();
+      drawGrants();
+      drawAccounts();
+    }
+    function drawDeflator() {
+      const amount = 1000;
+      const ids = ['cpi_general_purchasing_power', 'public_service_cost_municipal'];
+      const names = ['Kuluttajahinnat', 'Julkiset palvelut'];
+      const series = ids.map(id => {
+        const rows = deflators.filter(row => row.deflator_id === id && +row.year >= 2015 && +row.year <= 2024);
+        const reference = +rows.find(row => +row.year === 2024).index_value;
+        return rows.map(row => ({ year: +row.year, value: amount * reference / +row.index_value }));
+      });
+      const all = series.flat();
+      const node = svg('deflator', 340, 'Miljardin euron ostovoima vuosina 2015–2024 kahdella hintaindeksillä.');
+      const x0 = 72, x1 = 745, y0 = 22, y1 = 285;
+      const x = scale(2015, 2024, x0, x1);
+      const [minimum, maximum] = extent(all.map(row => row.value));
+      const y = scale(minimum * .97, maximum * 1.03, y1, y0);
+      axes(node, x0, x1, y0, y1,
+        [2015, 2017, 2019, 2021, 2024].map(value => ({ value, x: x(value) })),
+        [minimum, minimum + (maximum - minimum) / 2, maximum].map(value => ({ value, y: y(value) })),
+        String, value => value.toFixed(0) + ' M€');
+      series.forEach((rows, index) => {
+        const color = index === 0 ? palette.reference : palette.comparison;
+        el(node, 'path', { d: rows.map((row, i) => `${i ? 'L' : 'M'}${x(row.year)},${y(row.value)}`).join(' '), fill: 'none', stroke: color, 'stroke-width': 3.5 });
+        rows.forEach(row => el(node, 'circle', { cx: x(row.year), cy: y(row.value), r: 4, fill: color, stroke: palette.ink }));
+        const last = rows[rows.length - 1];
+        el(node, 'text', { x: x(last.year) + 12, y: y(last.value) + (index ? 19 : -8), fill: color, class: 'direct-label' }, names[index]);
+      });
+    }
+    function drawEducation() {
+      const regions = ['Koko maa', 'Uusimaa', 'Lappi'];
+      const graduates = regions.map(name => {
+        const rows = sectors.filter(row => row.dashboard_id === 'education' && row.region_name_fi === name && row.metric_id === 'education_graduates_previous_year');
+        const baseline = +rows[0].value;
+        return { name, rows: rows.map(row => ({ year: +row.year, value: +row.value / baseline * 100 })) };
+      });
+      const employment = regions.map(name => ({
+        name,
+        rows: sectors.filter(row => row.dashboard_id === 'education' && row.region_name_fi === name && row.metric_id === 'education_employed_one_year_pct').map(row => ({ year: +row.year, value: +row.value }))
+      }));
+      lineChartMulti('graduates', graduates, palette.reference, value => value.toFixed(0), 'Valmistuneiden määrän indeksi kolmella alueella vuosina 2015–2024.');
+      lineChartMulti('employment', employment, palette.positive, value => value.toFixed(0) + ' %', 'Valmistumisen jälkeinen työllisyys kolmella alueella vuosina 2015–2024.');
+    }
+    function drawHealth() {
+      const year = 2024;
+      const rows = sectors.filter(row => row.dashboard_id === 'health' && +row.year === year);
+      const byRegion = {};
+      rows.forEach(row => (byRegion[row.region_name_fi] ??= { name: row.region_name_fi })[row.metric_id] = +row.value);
+      const points = Object.values(byRegion).filter(row => row.primary_care_doctor_contacts_per_1000 && row.self_rated_health_mediocre_or_worse_pct);
+      const node = svg('health', 440, 'Maakuntien lääkärikäynnit ja koettu terveys vuonna 2024.');
+      const x0 = 78, x1 = 860, y0 = 28, y1 = 365;
+      const [xMin, xMax] = extent(points.map(row => row.primary_care_doctor_contacts_per_1000));
+      const [yMin, yMax] = extent(points.map(row => row.self_rated_health_mediocre_or_worse_pct));
+      const x = scale(xMin * .97, xMax * 1.03, x0, x1);
+      const y = scale(yMin - 2, yMax + 2, y1, y0);
+      axes(node, x0, x1, y0, y1,
+        [xMin, (xMin + xMax) / 2, xMax].map(value => ({ value, x: x(value) })),
+        [yMin, (yMin + yMax) / 2, yMax].map(value => ({ value, y: y(value) })),
+        value => value.toFixed(0), value => value.toFixed(0) + ' %');
+      el(node, 'text', { x: (x0 + x1) / 2, y: 415, 'text-anchor': 'middle', class: 'axis-title' }, 'Lääkärikäynnit / 1 000 asukasta');
+      const notable = new Set(['Koko maa', points.reduce((a, b) => a.self_rated_health_mediocre_or_worse_pct < b.self_rated_health_mediocre_or_worse_pct ? a : b).name, points.reduce((a, b) => a.self_rated_health_mediocre_or_worse_pct > b.self_rated_health_mediocre_or_worse_pct ? a : b).name]);
+      points.forEach(row => {
+        const national = row.name === 'Koko maa';
+        el(node, national ? 'rect' : 'circle', national
+          ? { x: x(row.primary_care_doctor_contacts_per_1000) - 7, y: y(row.self_rated_health_mediocre_or_worse_pct) - 7, width: 14, height: 14, fill: palette.comparison, stroke: palette.ink }
+          : { cx: x(row.primary_care_doctor_contacts_per_1000), cy: y(row.self_rated_health_mediocre_or_worse_pct), r: 6, fill: palette.reference, stroke: palette.ink, opacity: .82 });
+        if (notable.has(row.name)) el(node, 'text', { x: x(row.primary_care_doctor_contacts_per_1000) + 10, y: y(row.self_rated_health_mediocre_or_worse_pct) + 4, class: 'label' }, row.name);
+      });
+    }
+    function drawGrants() {
+      const values = Object.fromEntries(grants.map(row => [row.metric_id, +row.value]));
+      const rows = [
+        ['Hakemukset', 'Saapuneet', 1, values.applications_received_count, palette.reference],
+        ['Hakemukset', 'Myönteiset', values.positive_decisions_count / values.applications_received_count, values.positive_decisions_count, palette.positive],
+        ['Eurot', 'Haettu', 1, values.applied_amount_eur, palette.reference],
+        ['Eurot', 'Myönnetty', values.granted_amount_eur / values.applied_amount_eur, values.granted_amount_eur, palette.positive]
+      ];
+      const node = svg('grants', 350, 'Hakemusten ja eurojen eteneminen haetuista myönnettyihin.');
+      rows.forEach((row, index) => {
+        const column = index < 2 ? 0 : 1, line = index % 2, x = 80 + column * 430, y = 65 + line * 105, width = 330 * row[2];
+        el(node, 'text', { x, y: y - 12, class: 'bar-label' }, `${row[0]} · ${row[1]}`);
+        el(node, 'rect', { x, y, width: 330, height: 42, rx: 7, fill: '#17171316' });
+        el(node, 'rect', { x, y, width, height: 42, rx: 7, fill: row[4] });
+        const value = row[0] === 'Eurot' ? (row[3] / 1e6).toFixed(1) + ' M€' : Math.round(row[3]).toLocaleString('fi-FI');
+        el(node, 'text', { x: x + 8, y: y + 27, class: 'bar-label' }, value + ' · ' + (row[2] * 100).toFixed(1) + ' %');
+      });
+    }
+    function drawAccounts() {
+      const labels = {
+        balance_sheet_government_debt_eur: 'Valtionvelka',
+        balance_sheet_total_eur: 'Taseen loppusumma',
+        transfer_expenses_eur: 'Siirtomenot',
+        tax_revenue_eur: 'Verotulot',
+        net_borrowing_eur: 'Nettolainanotto',
+        income_statement_deficit_eur: 'Tilikauden alijäämä'
+      };
+      const colors = {
+        balance_sheet_government_debt_eur: palette.obligation,
+        balance_sheet_total_eur: palette.reference,
+        transfer_expenses_eur: palette.comparison,
+        tax_revenue_eur: palette.positive,
+        net_borrowing_eur: palette.obligation,
+        income_statement_deficit_eur: palette.obligation
+      };
+      const rows = accounts.filter(row => labels[row.metric_id]).map(row => ({ id: row.metric_id, name: labels[row.metric_id], value: +row.official_value / 1e9 })).sort((a, b) => b.value - a.value);
+      const node = svg('accounts', 390, 'Valtion tilinpäätöksen kuuden erän mittakaavavertailu vuonna 2025.');
+      const maximum = rows[0].value;
+      rows.forEach((row, index) => {
+        const y = 25 + index * 58, width = 665 * row.value / maximum;
+        el(node, 'text', { x: 8, y: y + 25, class: 'bar-label' }, row.name);
+        el(node, 'rect', { x: 170, y, width, height: 34, rx: 6, fill: colors[row.id] });
+        el(node, 'text', { x: 178 + width, y: y + 23, class: 'bar-label' }, row.value.toFixed(1) + ' mrd. €');
+      });
+    }
+    init();
+  </script>
+</body>
+</html>

@@ -122,9 +122,14 @@ def _check_status(failed_count: int, total_rows: int, check: DQCheck) -> tuple[s
 def _numeric_parse_expr(raw_col: str) -> str:
     return (
         "SAFE_CAST(REPLACE(REPLACE(REPLACE(REPLACE("
-        f"REGEXP_REPLACE(NULLIF(TRIM({raw_col}), ''), r'\\s+', ''), "
+        f"REGEXP_REPLACE({_trimmed_string_expr(raw_col)}, r'\\s+', ''), "
         "'−', '-'), ' ', ''), ' ', ''), ',', '.') AS NUMERIC)"
     )
+
+
+def _trimmed_string_expr(raw_col: str) -> str:
+    """Normalize raw values without assuming the BigQuery source type is STRING."""
+    return f"NULLIF(TRIM(CAST({raw_col} AS STRING)), '')"
 
 
 def _detect_table_mode(columns: set[str]) -> str:
@@ -134,6 +139,8 @@ def _detect_table_mode(columns: set[str]) -> str:
         return "semantic"
     if {"quality_issue_count", "period_date", "is_valid_year", "is_valid_month"} <= columns:
         return "curated"
+    if {"vuosi", "kk", "hallinnonala", "momentti_tunnusp", "nettokertyma"} <= columns:
+        return "normalized_raw"
     return "raw"
 
 
@@ -148,19 +155,21 @@ SELECT
   MAX(period_date) AS max_period
 FROM `{table_ref}`
 """
+    year_col = "`vuosi`" if mode == "normalized_raw" else "`Vuosi`"
+    month_col = "`kk`" if mode == "normalized_raw" else "`Kk`"
     return f"""
 WITH typed AS (
   SELECT
-    SAFE_CAST(`Vuosi` AS INT64) AS vuosi,
-    SAFE_CAST(`Kk` AS INT64) AS kk
+    SAFE_CAST({year_col} AS INT64) AS vuosi,
+    SAFE_CAST({month_col} AS INT64) AS kk
   FROM `{table_ref}`
 )
 SELECT
   COUNT(*) AS row_count,
   COUNT(*) AS distinct_rows,
   COUNTIF(vuosi IS NULL OR kk IS NULL OR kk NOT BETWEEN 1 AND 12) AS rows_with_issues,
-  DATE(MIN(vuosi), 1, 1) AS min_period,
-  DATE(MAX(vuosi), 12, 1) AS max_period
+  MIN(IF(vuosi IS NOT NULL AND kk BETWEEN 1 AND 12, DATE(vuosi, kk, 1), NULL)) AS min_period,
+  MAX(IF(vuosi IS NOT NULL AND kk BETWEEN 1 AND 12, DATE(vuosi, kk, 1), NULL)) AS max_period
 FROM typed
 """
 
@@ -306,11 +315,38 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
             ),
         ]
 
+    normalized = mode == "normalized_raw"
+    col = lambda original, normalized_name: f"`{normalized_name if normalized else original}`"
+    year_col = col("Vuosi", "vuosi")
+    month_col = col("Kk", "kk")
+    hallinnonala_col = col("Hallinnonala", "hallinnonala")
+    moment_code_col = col("Momentti_TunnusP", "momentti_tunnusp")
+    moment_name_col = col("Momentti_sNimi", "momentti_snimi")
+    net_col = col("Nettokertymä", "nettokertyma")
+    key_columns = [
+        ("Ha_Tunnus", "ha_tunnus", "ha_tunnus"),
+        ("Tv_Tunnus", "tv_tunnus", "tv_tunnus"),
+        ("PaaluokkaOsasto_TunnusP", "paaluokkaosasto_tunnusp", "paaluokkaosasto_tunnusp"),
+        ("Luku_TunnusP", "luku_tunnusp", "luku_tunnusp"),
+        ("Momentti_TunnusP", "momentti_tunnusp", "momentti_tunnusp"),
+        ("TakpT_TunnusP", "takpt_tunnusp", "talousarviotili_tunnusp"),
+        ("TakpMrL_Tunnus", "takpmrl_tunnus", "maararahalaji_tunnus"),
+        ("Tililuokka_Tunnus", "tililuokka_tunnus", "tililuokka_tunnus"),
+        ("Ylatiliryhma_Tunnus", "ylatiliryhma_tunnus", "ylatiliryhma_tunnus"),
+        ("Tiliryhma_Tunnus", "tiliryhma_tunnus", "tiliryhma_tunnus"),
+        ("Tililaji_Tunnus", "tililaji_tunnus", "tililaji_tunnus"),
+        ("LkpT_Tunnus", "lkpt_tunnus", "lkpt_tunnus"),
+    ]
+    key_select = "".join(
+        f"    {_trimmed_string_expr(col(original, normalized_name))} AS {alias}, "
+        for original, normalized_name, alias in key_columns
+    )
+
     return [
         DQCheck(
             name="invalid_year_parse",
             description="Vuosi ei parsennu INT64-arvoksi.",
-            sql=f"SELECT COUNTIF(SAFE_CAST(`Vuosi` AS INT64) IS NULL) FROM `{table_ref}`",
+            sql=f"SELECT COUNTIF(SAFE_CAST({year_col} AS INT64) IS NULL) FROM `{table_ref}`",
             fail_ratio=0.001,
             warn_ratio=0.0001,
         ),
@@ -318,7 +354,7 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
             name="invalid_month_parse",
             description="Kk ei parsennu tai ei ole välillä 1-12.",
             sql=(
-                f"SELECT COUNTIF(SAFE_CAST(`Kk` AS INT64) IS NULL OR SAFE_CAST(`Kk` AS INT64) NOT BETWEEN 1 AND 12) "
+                f"SELECT COUNTIF(SAFE_CAST({month_col} AS INT64) IS NULL OR SAFE_CAST({month_col} AS INT64) NOT BETWEEN 1 AND 12) "
                 f"FROM `{table_ref}`"
             ),
             fail_ratio=0.001,
@@ -327,7 +363,7 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
         DQCheck(
             name="missing_hallinnonala",
             description="Hallinnonala puuttuu.",
-            sql=f"SELECT COUNTIF(NULLIF(TRIM(`Hallinnonala`), '') IS NULL) FROM `{table_ref}`",
+            sql=f"SELECT COUNTIF({_trimmed_string_expr(hallinnonala_col)} IS NULL) FROM `{table_ref}`",
             fail_ratio=0.02,
             warn_ratio=0.005,
         ),
@@ -336,8 +372,8 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
             description="Momentti tunnus ja nimi puuttuvat molemmat.",
             sql=(
                 "SELECT COUNTIF("
-                "NULLIF(TRIM(`Momentti_TunnusP`), '') IS NULL AND "
-                "NULLIF(TRIM(`Momentti_sNimi`), '') IS NULL"
+                f"{_trimmed_string_expr(moment_code_col)} IS NULL AND "
+                f"{_trimmed_string_expr(moment_name_col)} IS NULL"
                 f") FROM `{table_ref}`"
             ),
             fail_ratio=0.15,
@@ -348,8 +384,8 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
             description="Nettokertymä ei parsennu NUMERIC-arvoksi.",
             sql=(
                 "SELECT COUNTIF("
-                "NULLIF(TRIM(`Nettokertymä`), '') IS NOT NULL AND "
-                f"{_numeric_parse_expr('`Nettokertymä`')} IS NULL"
+                f"{_trimmed_string_expr(net_col)} IS NOT NULL AND "
+                f"{_numeric_parse_expr(net_col)} IS NULL"
                 f") FROM `{table_ref}`"
             ),
             fail_ratio=0.02,
@@ -361,20 +397,9 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
             sql=(
                 "WITH d AS ("
                 "  SELECT "
-                "    SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
-                "    SAFE_CAST(`Kk` AS INT64) AS kk, "
-                "    NULLIF(TRIM(`Ha_Tunnus`), '') AS ha_tunnus, "
-                "    NULLIF(TRIM(`Tv_Tunnus`), '') AS tv_tunnus, "
-                "    NULLIF(TRIM(`PaaluokkaOsasto_TunnusP`), '') AS paaluokkaosasto_tunnusp, "
-                "    NULLIF(TRIM(`Luku_TunnusP`), '') AS luku_tunnusp, "
-                "    NULLIF(TRIM(`Momentti_TunnusP`), '') AS momentti_tunnusp, "
-                "    NULLIF(TRIM(`TakpT_TunnusP`), '') AS talousarviotili_tunnusp, "
-                "    NULLIF(TRIM(`TakpMrL_Tunnus`), '') AS maararahalaji_tunnus, "
-                "    NULLIF(TRIM(`Tililuokka_Tunnus`), '') AS tililuokka_tunnus, "
-                "    NULLIF(TRIM(`Ylatiliryhma_Tunnus`), '') AS ylatiliryhma_tunnus, "
-                "    NULLIF(TRIM(`Tiliryhma_Tunnus`), '') AS tiliryhma_tunnus, "
-                "    NULLIF(TRIM(`Tililaji_Tunnus`), '') AS tililaji_tunnus, "
-                "    NULLIF(TRIM(`LkpT_Tunnus`), '') AS lkpt_tunnus, "
+                f"    SAFE_CAST({year_col} AS INT64) AS vuosi, "
+                f"    SAFE_CAST({month_col} AS INT64) AS kk, "
+                f"{key_select}"
                 "    COUNT(*) c "
                 f"  FROM `{table_ref}` "
                 "  GROUP BY vuosi, kk, ha_tunnus, tv_tunnus, paaluokkaosasto_tunnusp, luku_tunnusp, "
@@ -391,7 +416,7 @@ def _build_checks(table_ref: str, mode: str) -> list[DQCheck]:
             description="Puuttuvia kuukausia ennen viimeisintä vuotta.",
             sql=(
                 "WITH typed AS ("
-                "  SELECT SAFE_CAST(`Vuosi` AS INT64) AS vuosi, SAFE_CAST(`Kk` AS INT64) AS kk "
+                f"  SELECT SAFE_CAST({year_col} AS INT64) AS vuosi, SAFE_CAST({month_col} AS INT64) AS kk "
                 f"  FROM `{table_ref}`"
                 "), bounds AS ("
                 "  SELECT MIN(vuosi) min_year, MAX(vuosi) max_year FROM typed WHERE vuosi IS NOT NULL"
@@ -460,9 +485,11 @@ def main() -> int:
             f"SELECT COALESCE(DATE_DIFF(CURRENT_DATE(), MAX(period_date), DAY), 999999) FROM `{table_ref}`"
         )
     else:
+        year_col = "`vuosi`" if mode == "normalized_raw" else "`Vuosi`"
+        month_col = "`kk`" if mode == "normalized_raw" else "`Kk`"
         freshness_sql = (
             "WITH typed AS ("
-            "  SELECT SAFE_CAST(`Vuosi` AS INT64) AS vuosi, SAFE_CAST(`Kk` AS INT64) AS kk "
+            f"  SELECT SAFE_CAST({year_col} AS INT64) AS vuosi, SAFE_CAST({month_col} AS INT64) AS kk "
             f"  FROM `{table_ref}`"
             ") "
             "SELECT COALESCE(DATE_DIFF(CURRENT_DATE(), MAX(DATE(vuosi, kk, 1)), DAY), 999999) "

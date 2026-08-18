@@ -1,0 +1,169 @@
+{
+  "dataset_id": "primary_care_value_panel_v1",
+  "created_at": "2026-08-18T09:17:35Z",
+  "period": {
+    "from": 2020,
+    "to": 2025
+  },
+  "geography": "Current wellbeing-area boundaries as published by Sotkanet. Years 2020–2022 aggregate municipal-era observations to those boundaries.",
+  "reform_break": "The organising responsibility changed on 1 January 2023.",
+  "missing_data_policy": "No interpolation, carry-forward or synthetic observations.",
+  "service_value_index": {
+    "status": "retired_requires_whole_chain_value_data",
+    "reason": "Contacts per real-cost euro is an activity ratio, not efficiency or value. A value score remains unpublished until resolved need, whole-chain cost and safety guardrails are available."
+  },
+  "quality_balance_index": {
+    "baseline": "Finland 2020 = 100",
+    "method": "Equal-weight geometric mean of four consistently oriented quality indices.",
+    "components": [
+      "primary_care_doctor_continuity_coci",
+      "experienced_fast_access_pct",
+      "experienced_sufficient_doctor_services_pct",
+      "self_rated_healthy_pct"
+    ],
+    "excluded_but_displayed": [
+      "activity_per_real_cost",
+      "public_health_staff_per_10000",
+      "primary_care_wait_over_7d_pct",
+      "primary_care_emergency_visits_per_1000",
+      "avoidable_emergency_hospitalizations_per_100000"
+    ],
+    "reason": "Activity, personnel, realised-visit waiting time and spillover outcomes are safeguards or context, not interchangeable quality outcomes."
+  },
+  "activity_metric": {
+    "metric_id": "activity_per_real_cost_index_fi_2020_100",
+    "label_fi": "Käyntituotos suhteessa reaalikustannukseen",
+    "prohibited_labels": [
+      "efficiency",
+      "cost_effectiveness",
+      "value"
+    ]
+  },
+  "planned_guardrails": [
+    {
+      "metric_id": "care_request_count",
+      "status": "not_available_in_official_snapshot",
+      "definition": "All requests for care, including requests that do not lead to an appointment"
+    },
+    {
+      "metric_id": "no_appointment_share_pct",
+      "status": "not_available_in_official_snapshot",
+      "definition": "Share of assessed needs where no appointment or other resolution was provided"
+    },
+    {
+      "metric_id": "interrupted_care_path_share_pct",
+      "status": "not_available_in_official_snapshot",
+      "definition": "Share of started care paths ending without a documented resolution"
+    },
+    {
+      "metric_id": "median_wait_days",
+      "status": "not_available_in_official_snapshot",
+      "definition": "Median wait from needs assessment to first care event"
+    },
+    {
+      "metric_id": "whole_chain_cost_real_eur_per_resident",
+      "status": "not_available_in_official_snapshot",
+      "definition": "Risk-adjusted total cost across primary care, emergency care and specialised care"
+    }
+  ],
+  "steering_risk": {
+    "comparison_period": "2022-2024",
+    "meaning": "Contradictory metric signal; not evidence of intent, causality or gaming.",
+    "materiality_thresholds": {
+      "activity_index_increase": 3.0,
+      "quality_index_decrease": -2.0,
+      "wait_improvement_pct_points": -3.0,
+      "primary_care_real_cost_decrease_eur": -25.0,
+      "emergency_visits_increase_per_1000": 25.0,
+      "avoidable_hospitalizations_increase_per_100000": 50.0,
+      "continuity_index_decrease": -2.5
+    },
+    "rules": {
+      "activity_quality_conflict": "Activity per real-cost euro rises while continuity, experienced access or service adequacy falls.",
+      "wait_denominator_conflict": "The realised-visit waiting share improves while population experience worsens.",
+      "cost_shift_signal": "Primary-care real cost falls while emergency visits or avoidable hospitalisations rise.",
+      "continuity_countermeasure_breach": "Doctor continuity falls."
+    }
+  },
+  "sources": [
+    {
+      "source_id": "thl_sotkanet_indicator_3764",
+      "indicator_id": 3764,
+      "metric_id": "primary_care_inpatient_cost_eur_per_resident",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/3764"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_3766",
+      "indicator_id": 3766,
+      "metric_id": "primary_care_outpatient_cost_eur_per_resident",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/3766"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_4604",
+      "indicator_id": 4604,
+      "metric_id": "public_health_staff_per_10000",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/4604"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_1080",
+      "indicator_id": 1080,
+      "metric_id": "primary_care_doctor_visits_per_1000",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/1080"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_6411",
+      "indicator_id": 6411,
+      "metric_id": "primary_care_wait_over_7d_pct",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/6411"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_5502",
+      "indicator_id": 5502,
+      "metric_id": "primary_care_doctor_continuity_coci",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/5502"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_5186",
+      "indicator_id": 5186,
+      "metric_id": "experienced_fast_access_pct",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/5186"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_4333",
+      "indicator_id": 4333,
+      "metric_id": "self_rated_health_mediocre_or_worse_pct",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/4333"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_4909",
+      "indicator_id": 4909,
+      "metric_id": "experienced_insufficient_doctor_services_pct",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/4909"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_5081",
+      "indicator_id": 5081,
+      "metric_id": "primary_care_emergency_visits_per_1000",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/5081"
+    },
+    {
+      "source_id": "thl_sotkanet_indicator_5587",
+      "indicator_id": 5587,
+      "metric_id": "avoidable_emergency_hospitalizations_per_100000",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/5587"
+    },
+    {
+      "source_id": "statfin_public_expenditure_price_11m2",
+      "metric_id": "public_service_deflator_2015_100",
+      "url": "https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/jmhi/11m2.px",
+      "values": {
+        "2020": 103.0,
+        "2021": 105.6,
+        "2022": 110.4,
+        "2023": 116.4,
+        "2024": 119.6
+      },
+      "scope_note": "Kuntatalous total public-expenditure price index is used as a transparent public-service cost proxy; it is not a primary-care-specific deflator."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+organization_id,business_id,canonical_name,business_id_checksum_valid,municipality_code,postal_code,organization_status,master_scope,source_id,source_url,valid_from,valid_to,vintage_date
+FI-YT-0112038-9,0112038-9,Nokia Oyj,true,049,02610,2,reference_organizations_not_grant_joined,prh_ytj_v3,https://avoindata.prh.fi/opendata-ytj-api/v3/companies?businessId=0112038-9,1896-12-19,,2026-08-15
+FI-YT-1927400-1,1927400-1,KONE Oyj,true,091,00330,2,reference_organizations_not_grant_joined,prh_ytj_v3,https://avoindata.prh.fi/opendata-ytj-api/v3/companies?businessId=1927400-1,2005-06-01,,2026-08-15
+FI-YT-0128631-1,0128631-1,Wärtsilä Oyj Abp,true,091,00180,2,reference_organizations_not_grant_joined,prh_ytj_v3,https://avoindata.prh.fi/opendata-ytj-api/v3/companies?businessId=0128631-1,1914-10-29,,2026-08-15

@@ -17,9 +17,9 @@ from utils.analysis_spec_utils import AnalysisSpec, coverage_notice, infer_analy
 from utils.demo_data_utils import adapt_sql_to_demo_table, execute_demo_sql, get_demo_table_name
 from utils.ontology_utils import load_budget_ontology
 from utils.semantic_query_contracts import ALAMOMENTTI_UNAVAILABLE_MESSAGE, build_contract_sql
-from utils.vertex_ai_utils import PROJECT_ID, generate_query_plan_from_natural_language
 
 logger = logging.getLogger(__name__)
+PROJECT_ID = settings.project_id
 
 # Säilötään viimeisin BQ-virhe debuggausta varten.
 last_bq_error = None
@@ -2052,6 +2052,10 @@ def _execute_analysis_spec_impl(
 
     generated_sql = None
     if not settings.use_google_sheets_demo and allow_llm_query_plan and settings.enable_llm_query_plan:
+        # Vertex AI is optional. Import its large SDK only when the feature is
+        # actually enabled so deterministic contracts and offline tests stay fast.
+        from utils.vertex_ai_utils import generate_query_plan_from_natural_language
+
         fallback_plan = {
             "intent": analysis_spec.intent,
             "metric": analysis_spec.metric,

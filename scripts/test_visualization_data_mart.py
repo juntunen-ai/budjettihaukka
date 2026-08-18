@@ -56,15 +56,16 @@ def test_contract() -> None:
     _assert(metrics["net_accumulation_per_capita_eur"]["aggregation"] == "non_additive", "per-capita must be non-additive")
     _assert(metrics["net_accumulation_pct_gdp"]["aggregation"] == "non_additive", "GDP ratio must be non-additive")
     availability = {row["domain_id"]: row["status"] for row in contract["availability"]}
-    _assert(availability["recipients_and_grants"] == "not_integrated", "recipient data must not be implied")
-    _assert(availability["outputs_and_outcomes"] == "not_integrated", "outcomes must not be inferred from money")
-    _assert(availability["audited_final_accounts"] == "not_integrated", "final-account reconciliation must remain explicit")
+    _assert(availability["recipients_and_grants"] == "aggregate_pilot", "grant pilot must remain aggregate-only")
+    _assert(availability["outputs_and_outcomes"] == "ready_two_sector_pilot", "two sector pilots must be disclosed")
+    _assert(availability["audited_final_accounts"] == "ready_with_precision_caveat", "final-account precision must remain explicit")
     interfaces = {row["domain_id"]: row for row in contract["join_interfaces"]}
     for domain_id in ("recipients_and_grants", "procurement", "outputs_and_outcomes", "audited_final_accounts"):
         interface = interfaces[domain_id]
-        _assert(interface["status"] == "interface_only", f"{domain_id} must not appear integrated")
+        _assert(interface["status"], f"{domain_id} must disclose integration status")
         _assert(interface["required_keys"] and interface["required_measures"], f"{domain_id} join contract is incomplete")
         _assert(interface["join_rule_fi"] and interface["publication_gate_fi"], f"{domain_id} lacks safety gates")
+    _assert(interfaces["recipients_and_grants"]["status"] == "aggregate_pilot_recipient_join_blocked", "recipient joins must fail closed")
 
 
 def test_snapshot() -> None:

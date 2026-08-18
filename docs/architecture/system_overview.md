@@ -120,7 +120,7 @@ FAIL — designed to gate a future scheduled pipeline.
 |---|---|
 | `scripts/eval_robustness_suite.py` (320 goldens) | intent / contract / SQL-shape / viz template accuracy — gate ≥ 95.6% |
 | `scripts/eval_visualization_pipeline.py` (52 goldens) | visualization pipeline |
-| `scripts/test_semantic_view_column_compat.py` | every generated SQL column exists in the semantic layer (657 stmts) |
+| `scripts/test_semantic_view_column_compat.py` | every generated SQL column exists in the semantic layer; fail-closed alamomentti requests intentionally produce no SQL |
 | `scripts/test_schema_drift_detection.py` | drift detection unit tests |
 | `scripts/test_ui_no_crash_smoke.py` | UI renders without crashing |
 
@@ -185,8 +185,8 @@ visualization recipes, guardrails. Loaded to BigQuery `ontology_*` tables by
   deterministic contracts; only optional LLM query-plan assist is off.
 - The robustness eval has 14 known-hard golden cases that have never passed
   (spaced compounds like "ala momentit"); the gate baseline is 95.6%.
-- The visualization eval's critical gate (91.3% vs 95%) is a pre-existing
-  failure, tracked as future work.
+- The visualization eval currently passes all 52 cases, including all 23
+  critical cases. It is a blocking CI gate.
 
 ## 4. Runtime & deployment
 
