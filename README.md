@@ -207,6 +207,8 @@ tiedostossa [docs/municipal_finance_enrichment.md](./docs/municipal_finance_enri
 Tuotannon BigQuery-objektien tila ja 18.8.2026 havaittujen korjaustarpeiden
 priorisointi on dokumentoitu
 [BigQuery- ja järjestelmäauditointiin](./docs/reports/bigquery_system_audit_20260818.md).
+BigQuery-sandboxin ulkopuolisen, eheystarkistetun Parquet-varmistuksen käyttöohje:
+[docs/bigquery_huggingface_backup.md](./docs/bigquery_huggingface_backup.md).
 
 ### Sote-demonstratio 2008–2025
 

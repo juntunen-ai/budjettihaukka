@@ -33,6 +33,7 @@ jobs:
         run: |
           python scripts/test_dq_semantic_mode.py
           python scripts/test_bigquery_operational_audit.py
+          python scripts/test_bigquery_hf_backup.py
 
       - name: Concept code map validation
         run: python scripts/load_concept_code_map.py --validate-only

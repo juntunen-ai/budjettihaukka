@@ -32,3 +32,4 @@ application.log
 .tmp_*
 /outputs/
 /work/
+/backups/
