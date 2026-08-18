@@ -11,6 +11,8 @@ Data quality layer was added as reproducible scripts:
 - Builds dimensions:
   - `dim_hallinnonala`
   - `dim_momentti`
+  - `dim_maararahalaji`
+  - `dim_talousarviotili`
   - `dim_alamomentti`
   - `dim_topic_alias`
 - Builds semantic view: `valtiontalous_semantic_v1`
@@ -28,7 +30,9 @@ Data quality layer was added as reproducible scripts:
   - Original string raw fields are preserved for parse diagnostics (e.g. `nettokertyma_raw`)
 - Normalization:
   - String fields are trimmed and empty strings converted to `NULL`
-  - `TakpMrL_*` is mapped to `alamomentti_*`
+  - `TakpMrL_*` is mapped to `maararahalaji_*`
+  - `TakpT_*` is mapped to `talousarviotili_*`
+  - `alamomentti_*` is published only after a derived suffix has an exact year-specific match in the official chart registry
 - Data quality metadata:
   - `is_valid_year`
   - `is_valid_month`
@@ -39,7 +43,7 @@ Data quality layer was added as reproducible scripts:
   - `row_fingerprint`
 - Physical optimization:
   - Partitioned by `period_date`
-  - Clustered by `hallinnonala`, `momentti_tunnusp`, `alamomentti_tunnus`
+  - Clustered by `hallinnonala`, `momentti_tunnusp`, `talousarviotili_tunnusp`
 
 ## Checks included
 

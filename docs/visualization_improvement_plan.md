@@ -40,7 +40,7 @@ Improve chart relevance so visualizations match user intent reliably, especially
 ### Scope
 - Build stable query contracts per intent:
   - `top_growth_moment`
-  - `top_growth_alamoment`
+  - `unsupported_alamomentti` (no SQL or visualization until official validation is complete)
   - `trend_by_hallinnonala`
   - `yoy_change`
 - Move ad hoc SQL generation behind these contracts where possible.

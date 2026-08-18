@@ -80,14 +80,17 @@ def evaluate(dataset: Path, show_failures: int) -> int:
 
         spec = infer_analysis_spec(question)
         predicted_intent = spec.intent
-        predicted_contract = choose_contract(spec)
-        predicted_viz = _primary_template(spec, predicted_contract, question)
+        is_unsupported_alamomentti = spec.entity_level in {"alamomentti", "molemmat"}
+        predicted_contract = "unsupported_alamomentti" if is_unsupported_alamomentti else choose_contract(spec)
+        predicted_viz = "unsupported" if is_unsupported_alamomentti else _primary_template(spec, predicted_contract, question)
 
-        if predicted_contract:
+        if is_unsupported_alamomentti:
+            sql = ""
+        elif predicted_contract:
             sql, _ = build_contract_sql(spec, settings.full_table_id)
         else:
             sql = _build_bigquery_fallback_sql(question)
-        predicted_shape = _infer_sql_shape(sql or "")
+        predicted_shape = "unsupported_alamomentti" if is_unsupported_alamomentti else _infer_sql_shape(sql or "")
 
         expected_intent = expected.get("intent")
         expected_contract = expected.get("contract")

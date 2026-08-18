@@ -95,12 +95,15 @@ def get_data_overview() -> dict:
                 "usage": "SELECT year, label_fi, description_fi FROM ... WHERE 'koulutus' IN UNNEST(affects_concepts)",
             },
             f"{project}.{dataset}.valtiontalous_yearly_agg_v1": {
-                "description": "Yearly sums per momentti/alamomentti. Use for rankings, comparisons, specific moments.",
+                "description": "Yearly sums per momentti and talousarviotili. Alamomentti queries are disabled until official chart validation is complete.",
                 "columns": {
                     "vuosi": "year", "hallinnonala": "administrative branch name",
                     "momentti_tunnusp": "budget moment code, e.g. '29.10.30.'",
-                    "momentti_snimi": "moment name", "alamomentti_tunnus": "sub-moment code",
-                    "alamomentti_snimi": "sub-moment name",
+                    "momentti_snimi": "moment name",
+                    "talousarviotili_tunnusp": "full budget-account code below or equal to moment",
+                    "talousarviotili_snimi": "budget-account name",
+                    "maararahalaji_tunnus": "appropriation type code; never a sub-moment",
+                    "maararahalaji_snimi": "appropriation type name; never a sub-moment",
                     "nettokertyma_sum": "yearly actual net accrual in euros (NOT millions)",
                 },
             },
@@ -112,6 +115,8 @@ def get_data_overview() -> dict:
                 "columns": {
                     "`Vuosi`": "year (STRING, cast with SAFE_CAST)", "`Kk`": "month",
                     "`Momentti_TunnusP`": "moment code", "momentti_canonical": "canonical moment name",
+                    "talousarviotili_tunnusp": "budget-account code",
+                    "maararahalaji_tunnus": "appropriation type code, not sub-moment",
                     "`Nettokertymä`": "net accrual EUR", "hallinnonala_canonical": "canonical branch",
                 },
             },

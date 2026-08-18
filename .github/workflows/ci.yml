@@ -23,11 +23,16 @@ jobs:
       - name: Robustness eval (320 goldens, gate)
         run: python scripts/eval_robustness_suite.py --dataset data/evals/robustness_goldens.json
 
-      - name: Semantic view column compatibility (657 statements)
+      - name: Semantic view column compatibility
         run: python scripts/test_semantic_view_column_compat.py
 
       - name: Schema drift detection tests
         run: python scripts/test_schema_drift_detection.py
+
+      - name: BigQuery audit unit tests
+        run: |
+          python scripts/test_dq_semantic_mode.py
+          python scripts/test_bigquery_operational_audit.py
 
       - name: Concept code map validation
         run: python scripts/load_concept_code_map.py --validate-only
@@ -38,9 +43,27 @@ jobs:
       - name: Ontology loader validation
         run: python scripts/load_budget_ontology.py --match-question "Paljonko koulutukseen käytettiin rahaa 2023?"
 
-      - name: Visualization pipeline eval (known-failing critical gate, non-blocking)
-        continue-on-error: true
+      - name: Visualization pipeline eval
         run: python scripts/eval_visualization_pipeline.py
+
+      - name: Visualization mart contract tests
+        run: python scripts/test_visualization_data_mart.py
+
+      - name: Official enrichment regression tests
+        run: python scripts/test_official_enrichment_reference.py
+
+      - name: Municipal finance semantic regression tests
+        run: python scripts/test_municipal_finance_reference.py
+
+      - name: SOTE demo data and narrative tests
+        run: python scripts/test_sote_demo.py
+
+      - name: Service value and regional visualization tests
+        run: |
+          python scripts/test_primary_care_value.py
+          python scripts/test_vantaa_kerava_visualization.py
+          python scripts/test_child_welfare_budget_reference.py
+          python scripts/test_enrichment_visualization_demos.py
 
       - name: UI no-crash smoke test
         run: python scripts/test_ui_no_crash_smoke.py

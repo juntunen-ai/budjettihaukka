@@ -1133,9 +1133,9 @@
       "question": "Mitkä alamomentit kasvoivat eniten 1998-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1144,9 +1144,9 @@
       "question": "Mitk alamomentit kasvoivat eniten 1998-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1155,9 +1155,9 @@
       "question": "Mitkä alamomentit kasvoivat eniten 2000-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1166,9 +1166,9 @@
       "question": "Mitk alamomentit kasvoivat eniten 2000-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1177,9 +1177,9 @@
       "question": "Mitkä alamomentit kasvoivat eniten 2008-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1188,9 +1188,9 @@
       "question": "Mitk alamomentit kasvoivat eniten 2008-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1199,9 +1199,9 @@
       "question": "Mitkä alamomentit kasvoivat eniten 2010-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1210,9 +1210,9 @@
       "question": "Mitkä alamomentit kasvoivat eniten 2015-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1221,9 +1221,9 @@
       "question": "Mitk alamomentit kasvoivat eniten 2015-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1232,9 +1232,9 @@
       "question": "Mitkä alamomentit kasvoivat eniten 2020-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1243,9 +1243,9 @@
       "question": "Mitk alamomentit kasvoivat eniten 2020-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1254,9 +1254,9 @@
       "question": "Mitkä alamomentit kasvoivat eniten 2022-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1265,9 +1265,9 @@
       "question": "Mitk alamomentit kasvoivat eniten 2022-2024?",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1276,9 +1276,9 @@
       "question": "Top 5 eniten kasvaneet alamomentit vuosina 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1287,9 +1287,9 @@
       "question": "Top 10 eniten kasvaneet alamomentit vuosina 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1298,9 +1298,9 @@
       "question": "Top 15 eniten kasvaneet alamomentit vuosina 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1309,9 +1309,9 @@
       "question": "Top 20 eniten kasvaneet alamomentit vuosina 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1320,9 +1320,9 @@
       "question": "Top 5 eniten kasvaneet alamomentit vuosina 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1331,9 +1331,9 @@
       "question": "Top 10 eniten kasvaneet alamomentit vuosina 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1342,9 +1342,9 @@
       "question": "Top 15 eniten kasvaneet alamomentit vuosina 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1353,9 +1353,9 @@
       "question": "Top 20 eniten kasvaneet alamomentit vuosina 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1364,9 +1364,9 @@
       "question": "Top 5 eniten kasvaneet alamomentit vuosina 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1375,9 +1375,9 @@
       "question": "Top 10 eniten kasvaneet alamomentit vuosina 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1386,9 +1386,9 @@
       "question": "Top 15 eniten kasvaneet alamomentit vuosina 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1397,9 +1397,9 @@
       "question": "Top 20 eniten kasvaneet alamomentit vuosina 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1408,9 +1408,9 @@
       "question": "Top 5 eniten kasvaneet alamomentit vuosina 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1419,9 +1419,9 @@
       "question": "Top 10 eniten kasvaneet alamomentit vuosina 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1430,9 +1430,9 @@
       "question": "Top 15 eniten kasvaneet alamomentit vuosina 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1441,9 +1441,9 @@
       "question": "Top 20 eniten kasvaneet alamomentit vuosina 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1452,9 +1452,9 @@
       "question": "Top 5 eniten kasvaneet alamomentit vuosina 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1463,9 +1463,9 @@
       "question": "Top 10 eniten kasvaneet alamomentit vuosina 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1474,9 +1474,9 @@
       "question": "Top 15 eniten kasvaneet alamomentit vuosina 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1485,9 +1485,9 @@
       "question": "Top 20 eniten kasvaneet alamomentit vuosina 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1496,9 +1496,9 @@
       "question": "Top 5 eniten kasvaneet alamomentit vuosina 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1507,9 +1507,9 @@
       "question": "Top 10 eniten kasvaneet alamomentit vuosina 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1518,9 +1518,9 @@
       "question": "Top 15 eniten kasvaneet alamomentit vuosina 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1529,9 +1529,9 @@
       "question": "Top 20 eniten kasvaneet alamomentit vuosina 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1540,9 +1540,9 @@
       "question": "Top 5 eniten kasvaneet alamomentit vuosina 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1551,9 +1551,9 @@
       "question": "Top 10 eniten kasvaneet alamomentit vuosina 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1562,9 +1562,9 @@
       "question": "Top 15 eniten kasvaneet alamomentit vuosina 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1573,9 +1573,9 @@
       "question": "Top 20 eniten kasvaneet alamomentit vuosina 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1584,9 +1584,9 @@
       "question": "Suurimmat kasvaneet momentit ja alamomentit 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1595,9 +1595,9 @@
       "question": "Suurimmat kasvaneet momentit ja alamomentit 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1606,9 +1606,9 @@
       "question": "Suurimmat kasvaneet momentit ja alamomentit 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1617,9 +1617,9 @@
       "question": "Suurimmat kasvaneet momentit ja alamomentit 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1628,9 +1628,9 @@
       "question": "Suurimmat kasvaneet momentit ja alamomentit 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1639,9 +1639,9 @@
       "question": "Suurimmat kasvaneet momentit ja alamomentit 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1650,9 +1650,9 @@
       "question": "Suurimmat kasvaneet momentit ja alamomentit 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1661,9 +1661,9 @@
       "question": "mitkä alamomentit nousi eniten euroissa 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1672,9 +1672,9 @@
       "question": "mitkä alamomentit nousi eniten euroissa 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1683,9 +1683,9 @@
       "question": "mitkä alamomentit nousi eniten euroissa 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1694,9 +1694,9 @@
       "question": "mitkä alamomentit nousi eniten euroissa 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1705,9 +1705,9 @@
       "question": "mitkä alamomentit nousi eniten euroissa 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1716,9 +1716,9 @@
       "question": "mitkä alamomentit nousi eniten euroissa 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1727,9 +1727,9 @@
       "question": "mitkä alamomentit nousi eniten euroissa 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1738,9 +1738,9 @@
       "question": "top 5 alamomentit kasvuprosentin mukaan 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1749,9 +1749,9 @@
       "question": "top 10 alamomentit kasvuprosentin mukaan 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1760,9 +1760,9 @@
       "question": "top 15 alamomentit kasvuprosentin mukaan 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1771,9 +1771,9 @@
       "question": "top 20 alamomentit kasvuprosentin mukaan 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1782,9 +1782,9 @@
       "question": "top 5 alamomentit kasvuprosentin mukaan 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1793,9 +1793,9 @@
       "question": "top 10 alamomentit kasvuprosentin mukaan 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1804,9 +1804,9 @@
       "question": "top 15 alamomentit kasvuprosentin mukaan 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1815,9 +1815,9 @@
       "question": "top 20 alamomentit kasvuprosentin mukaan 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1826,9 +1826,9 @@
       "question": "top 5 alamomentit kasvuprosentin mukaan 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1837,9 +1837,9 @@
       "question": "top 10 alamomentit kasvuprosentin mukaan 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1848,9 +1848,9 @@
       "question": "top 15 alamomentit kasvuprosentin mukaan 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1859,9 +1859,9 @@
       "question": "top 20 alamomentit kasvuprosentin mukaan 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1870,9 +1870,9 @@
       "question": "top 5 alamomentit kasvuprosentin mukaan 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1881,9 +1881,9 @@
       "question": "top 10 alamomentit kasvuprosentin mukaan 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1892,9 +1892,9 @@
       "question": "top 15 alamomentit kasvuprosentin mukaan 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1903,9 +1903,9 @@
       "question": "top 20 alamomentit kasvuprosentin mukaan 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1914,9 +1914,9 @@
       "question": "top 5 alamomentit kasvuprosentin mukaan 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1925,9 +1925,9 @@
       "question": "top 10 alamomentit kasvuprosentin mukaan 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1936,9 +1936,9 @@
       "question": "top 15 alamomentit kasvuprosentin mukaan 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1947,9 +1947,9 @@
       "question": "top 20 alamomentit kasvuprosentin mukaan 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1958,9 +1958,9 @@
       "question": "top 5 alamomentit kasvuprosentin mukaan 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1969,9 +1969,9 @@
       "question": "top 10 alamomentit kasvuprosentin mukaan 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1980,9 +1980,9 @@
       "question": "top 15 alamomentit kasvuprosentin mukaan 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -1991,9 +1991,9 @@
       "question": "top 20 alamomentit kasvuprosentin mukaan 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2002,9 +2002,9 @@
       "question": "top 5 alamomentit kasvuprosentin mukaan 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2013,9 +2013,9 @@
       "question": "top 10 alamomentit kasvuprosentin mukaan 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2024,9 +2024,9 @@
       "question": "top 15 alamomentit kasvuprosentin mukaan 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2035,9 +2035,9 @@
       "question": "top 20 alamomentit kasvuprosentin mukaan 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2046,9 +2046,9 @@
       "question": "mitkä budjetin ala momentit kasvo eniten 1998-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2057,9 +2057,9 @@
       "question": "mitkä budjetin ala momentit kasvo eniten 2000-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2068,9 +2068,9 @@
       "question": "mitkä budjetin ala momentit kasvo eniten 2008-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2079,9 +2079,9 @@
       "question": "mitkä budjetin ala momentit kasvo eniten 2010-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2090,9 +2090,9 @@
       "question": "mitkä budjetin ala momentit kasvo eniten 2015-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2101,9 +2101,9 @@
       "question": "mitkä budjetin ala momentit kasvo eniten 2020-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },
@@ -2112,9 +2112,9 @@
       "question": "mitkä budjetin ala momentit kasvo eniten 2022-2024",
       "expected": {
         "intent": "top_growth",
-        "contract": "top_growth_alamoment",
-        "primary_template": "top_growth",
-        "sql_shape": "top_growth_alamoment",
+        "contract": "unsupported_alamomentti",
+        "primary_template": "unsupported",
+        "sql_shape": "unsupported_alamomentti",
         "critical": true
       }
     },

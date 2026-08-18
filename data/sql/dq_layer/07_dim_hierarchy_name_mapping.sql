@@ -1,7 +1,7 @@
 
-CREATE OR REPLACE VIEW `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.dim_hierarchy_name_mapping` AS
+CREATE OR REPLACE VIEW `valtion-budjetti-data.valtiodata.dim_hierarchy_name_mapping` AS
 WITH hierarchy AS (
-  
+
 SELECT
   'hallinnonala' AS level_name,
   vuosi,
@@ -9,7 +9,7 @@ SELECT
   hallinnonala AS alias_name,
   hallinnonala_display AS alias_display_name,
   hallinnonala_family_key AS alias_family_key
-FROM `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_curated_dq_v`
+FROM `valtion-budjetti-data.valtiodata.valtiontalous_curated_dq_v`
 WHERE ha_tunnus IS NOT NULL
   AND hallinnonala IS NOT NULL
 
@@ -22,7 +22,7 @@ SELECT
   kirjanpitoyksikko AS alias_name,
   kirjanpitoyksikko_display AS alias_display_name,
   kirjanpitoyksikko_family_key AS alias_family_key
-FROM `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_curated_dq_v`
+FROM `valtion-budjetti-data.valtiodata.valtiontalous_curated_dq_v`
 WHERE tv_tunnus IS NOT NULL
   AND kirjanpitoyksikko IS NOT NULL
 
@@ -35,7 +35,7 @@ SELECT
   paaluokkaosasto_snimi AS alias_name,
   paaluokkaosasto_display AS alias_display_name,
   paaluokkaosasto_family_key AS alias_family_key
-FROM `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_curated_dq_v`
+FROM `valtion-budjetti-data.valtiodata.valtiontalous_curated_dq_v`
 WHERE paaluokkaosasto_tunnusp IS NOT NULL
   AND paaluokkaosasto_snimi IS NOT NULL
 
@@ -48,7 +48,7 @@ SELECT
   luku_snimi AS alias_name,
   luku_display AS alias_display_name,
   luku_family_key AS alias_family_key
-FROM `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_curated_dq_v`
+FROM `valtion-budjetti-data.valtiodata.valtiontalous_curated_dq_v`
 WHERE luku_tunnusp IS NOT NULL
   AND luku_snimi IS NOT NULL
 
@@ -61,22 +61,9 @@ SELECT
   momentti_snimi AS alias_name,
   momentti_display AS alias_display_name,
   momentti_family_key AS alias_family_key
-FROM `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_curated_dq_v`
+FROM `valtion-budjetti-data.valtiodata.valtiontalous_curated_dq_v`
 WHERE momentti_tunnusp IS NOT NULL
   AND momentti_snimi IS NOT NULL
-
-UNION ALL
-
-SELECT
-  'alamomentti' AS level_name,
-  vuosi,
-  alamomentti_tunnus AS code,
-  alamomentti_snimi AS alias_name,
-  alamomentti_display AS alias_display_name,
-  alamomentti_family_key AS alias_family_key
-FROM `valtion-budjetti-data.valtiodata_ingest_tmp_20260308.valtiontalous_curated_dq_v`
-WHERE alamomentti_tunnus IS NOT NULL
-  AND alamomentti_snimi IS NOT NULL
 
 ),
 normalized AS (
@@ -179,4 +166,3 @@ LEFT JOIN family_summary
   USING(level_name, code)
 LEFT JOIN same_year_conflicts
   USING(level_name, code)
-

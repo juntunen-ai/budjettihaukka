@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Budjettihaukka – sote 2008–2025</title>
+  <style>
+    :root {
+      --yellow:#f6d84f; --paper:#f5f1e8; --paper-deep:#e9e2d3; --ink:#171713; --muted:#605b50;
+      --money:#713b83; --service:#0067a3; --good:#22833a; --warning:#c4512d; --demand:#c88400; --grid:#17171320;
+    }
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.58 system-ui,sans-serif}
+    .hero{background:var(--yellow);border-bottom:2px solid var(--ink)} .wrap{max-width:1180px;margin:auto;padding-inline:22px}
+    .hero .wrap{padding-top:32px;padding-bottom:44px} main.wrap{padding-bottom:76px}
+    h1,h2,h3{font-family:Arial Black,system-ui,sans-serif;letter-spacing:-.035em} h1{max-width:1040px;margin:30px 0 18px;font-size:clamp(3rem,7vw,6.2rem);line-height:.91;text-transform:uppercase}
+    h2{margin:0 0 10px;font-size:clamp(1.6rem,3vw,2.35rem);line-height:1.08} h3{margin:0 0 8px;font-size:1rem;letter-spacing:0}
+    p{max-width:900px}.back{display:inline-flex;padding:8px 14px;border:2px solid var(--ink);border-radius:999px;background:#fff3b6;color:var(--ink);font-weight:700;text-decoration:none}
+    .lede{font-size:1.08rem}.coverage{display:inline-block;margin-top:16px;padding:5px 9px;border:1.5px solid var(--ink);font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+    section{padding:50px 0 56px;border-bottom:1.5px solid var(--ink)}.eyebrow{margin:0 0 7px;color:var(--muted);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .chart{width:100%;min-height:270px;margin-top:20px}.chart svg{display:block;width:100%;height:auto;overflow:visible}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:22px}.panel{min-width:0}
+    .axis{stroke:var(--ink);stroke-width:1.1}.grid{stroke:var(--grid);stroke-width:1}.tick,.label{fill:var(--ink);font-size:12px}.axis-title{fill:var(--muted);font-size:12px;font-weight:700}.direct-label{font-size:12px;font-weight:800}.event{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 5}.event-label{fill:var(--muted);font-size:11px;font-weight:700}
+    .finding{max-width:930px;margin-top:24px;padding:18px 20px;border-left:5px solid var(--yellow);background:var(--paper-deep)}.finding p{margin:0}.finding p+p{margin-top:10px}.source{margin:10px 0 0;color:var(--muted);font-size:.83rem}
+    .balance{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:26px 0}.balance-column{padding-top:14px;border-top:4px solid var(--service)}.balance-column.outcomes{border-color:var(--good)}
+    .score-row{display:grid;grid-template-columns:1fr auto;gap:16px;padding:12px 0;border-bottom:1px solid #17171328}.score-value{font-weight:800;text-align:right}.better{color:var(--good)}.worse{color:var(--warning)}.neutral{color:var(--money)}
+    .verdict{margin-top:30px;padding:26px 28px;background:var(--yellow);border:2px solid var(--ink)}.verdict-label{margin:0;font-size:.82rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.verdict h2{max-width:900px;margin:8px 0 14px}.verdict p{margin-bottom:0}
+    @media(max-width:760px){.wrap{padding-inline:14px}.two,.balance{grid-template-columns:1fr}h1{font-size:clamp(2.7rem,14vw,4.3rem)}section{padding-block:38px}.finding,.verdict{padding:16px}.tick,.label,.axis-title,.direct-label{font-size:11px}}
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="wrap">
+    <a class="back" href="visualisointidemot.html">← Takaisin visualisointeihin</a>
+    <h1>Sote 2008–2025: enemmän rahaa, mutta saako kansalainen enemmän?</h1>
+    <p class="lede">Tarkastelemme verorasitusta, julkisia terveysmenoja, väestön ikääntymistä, henkilöstöä, hoitoon pääsyä ja terveystuloksia. Kyse on Suomen terveyspainotteisesta sote-kuvasta: pitkää, yhtenäistä aikasarjaa sosiaalipalvelujen tuloksista ei ole mukana.</p>
+    <span class="coverage">Vuoden 2025 tiedot ovat vielä osittaisia</span>
+  </div></header>
+
+  <main class="wrap">
+    <section>
+      <p class="eyebrow">01 · Mitä maksamme</p><h2>Julkiset terveysmenot kasvoivat verorasitusta nopeammin</h2>
+      <div id="finance" class="chart"></div>
+      <div class="finding"><p><strong>Päähavainto.</strong> Verojen ja pakollisten sosiaaliturvamaksujen määrä suhteessa Suomen talouden kokoon nousi 41,1 prosentista 42,2 prosenttiin vuosina 2008–2024. Julkiset terveysmenot nousivat samalla 6,7 prosentista 7,7 prosenttiin. Terveysmenojen osuus kasvoi siis suhteellisesti enemmän kuin kokonaisverorasitus.</p><p><strong>Mitä kuva ei kerro.</strong> Kaikki verot eivät rahoita sote-palveluja, eikä terveysmenojen kasvu yksin kerro palvelujen määrästä tai laadusta. Talouden koko muuttuu vuosittain, joten osuus voi nousta myös silloin, kun talous supistuu.</p></div>
+      <p class="source">Eurostat: gov_10a_taxag ja gov_10a_exp. Viimeisin yhteinen vuosi 2024.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">02 · Tarve ja henkilöstö</p><h2>Väestö ikääntyi lääkärimäärän kasvua nopeammin</h2>
+      <div id="capacity" class="chart"></div>
+      <div class="finding"><p><strong>Päähavainto.</strong> 65 vuotta täyttäneiden osuus väestöstä kasvoi 16,5 prosentista 23,6 prosenttiin. Potilastyötä tekevien lääkärien määrä nousi 287:stä 368:aan sataatuhatta asukasta kohden. Lääkäreitä on siis enemmän, mutta paljon palveluja tarvitsevan ikääntyneen väestön osuus kasvoi vielä nopeammin.</p><p><strong>Mitä kuva ei kerro.</strong> Ikä ei yksin määrää palvelutarvetta, eikä lääkärien lukumäärä kerro heidän työajastaan, sijoittumisestaan tai siitä, kuinka helposti vastaanotolle pääsee. Hoitajat, sosiaalipalvelujen henkilöstö ja yksityinen hoito eivät näy tässä rinnastuksessa.</p></div>
+      <p class="source">Eurostat: demo_pjanind ja hlth_rs_prs2. Tiedot ulottuvat vuoteen 2025.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">03 · Pääseekö hoitoon</p><h2>Koettu hoitoon pääsy heikkeni samalla kun lääkärikontaktit vähenivät</h2>
+      <div class="two"><div class="panel"><h3>Hoitotarve jäi täyttymättä (%)</h3><div id="unmet" class="chart"></div></div><div class="panel"><h3>Lääkärikontaktit asukasta kohden</h3><div id="consultations" class="chart"></div></div></div>
+      <div class="finding"><p><strong>Päähavainto.</strong> Niiden ihmisten osuus, jotka ilmoittivat jääneensä ilman tarvitsemaansa hoitoa hinnan, matkan tai jonon vuoksi, nousi 4,4 prosentista 7,8 prosenttiin vuosina 2021–2025. Lääkärikontaktien määrä väheni 4,76:sta 4,16:een asukasta kohden vuosina 2017–2024. Molemmat mittarit viittaavat viime vuosien heikompaan palveluun pääsyyn.</p><p><strong>Mitä kuva ei kerro.</strong> Kontaktien väheneminen ei automaattisesti tarkoita huonompaa hoitoa: osa käynneistä voi korvautua hoitajan vastaanotolla tai muulla palvelulla. Koettu hoitovaje perustuu kyselyyn, ja koko 2008–2025 sarjassa on mittaamiseen liittyviä muutoksia. Siksi viime vuosien muutos on varmempi tulkinta kuin ensimmäisen ja viimeisen vuoden suora vertailu.</p></div>
+      <p class="source">Eurostat: hlth_silc_08 ja hlth_hc_phys2. Katkoviiva merkitsee hyvinvointialueiden käynnistymistä vuonna 2023.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">04 · Kuinka pitkään ja terveenä</p><h2>Elinikä piteni, mutta terveiden elinvuosien määrä ei</h2>
+      <div id="lifeyears" class="chart"></div>
+      <div class="finding"><p><strong>Päähavainto.</strong> Suomalaisten odotettavissa oleva elinikä nousi 79,9 vuodesta 82,2 vuoteen vuosina 2008–2024. Arvio terveenä elettävistä vuosista laski samalla 59,1 vuodesta 57,3 vuoteen. Ihmiset elävät siis keskimäärin pidempään, mutta tämän mittarin perusteella lisävuodet eivät ole olleet terveitä vuosia.</p><p><strong>Mitä kuva ei kerro.</strong> Terveiden elinvuosien luku perustuu väestökyselyyn ja vaihtelee paljon vuodesta toiseen; vuoden 2021 poikkeuksellisen korkea arvo korostaa epävarmuutta. Elinajanodotteeseen vaikuttavat terveyspalvelujen lisäksi elintavat, tulot, koulutus, ympäristö ja tapaturmat.</p></div>
+      <p class="source">Eurostat: demo_mlexpec ja hlth_hlye. Terveiden elinvuosien vuodelta 2013 ei ole havaintoa.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">05 · Vakavat terveystulokset</p><h2>Ennenaikaisia kuolemia on pystytty vähentämään</h2>
+      <div id="mortality" class="chart"></div>
+      <div class="finding"><p><strong>Päähavainto.</strong> Hoidolla vältettävissä oleva kuolleisuus pieneni noin 21 prosenttia ja ennaltaehkäisyllä vältettävissä oleva kuolleisuus noin 18 prosenttia vuosina 2011–2023. Tämä on kokonaisuuden vahvin merkki siitä, että väestön terveyden kannalta kehitys on ollut parempaan suuntaan.</p><p><strong>Mitä kuva ei kerro.</strong> Kuolleisuuden laskua ei voi lukea yksin sote-järjestelmän ansioksi. Tupakointi, alkoholi, liikenneturvallisuus, lääkkeet, elintaso ja sairauksien aikaisempi havaitseminen vaikuttavat tuloksiin. Vuoden 2023 jälkeen ei vielä ole vertailukelpoisia lukuja.</p></div>
+      <p class="source">Eurostat: hlth_cd_apr. Ikävakioitu määrä sataatuhatta asukasta kohden, alle 75-vuotiaat.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">06 · Vastine veroille</p><h2>Panokset kasvoivat, mutta kansalaisen saama hyöty jakautui epätasaisesti</h2>
+      <div class="balance">
+        <div class="balance-column"><h3>Panokset ja palvelupaine</h3>
+          <div class="score-row"><span>Verot ja pakolliset maksut</span><span class="score-value neutral">+1,1 %-yks.</span></div>
+          <div class="score-row"><span>Julkiset terveysmenot</span><span class="score-value neutral">+1,0 %-yks.</span></div>
+          <div class="score-row"><span>Lääkäreitä / 100 000 asukasta</span><span class="score-value neutral">+28 %</span></div>
+          <div class="score-row"><span>65 vuotta täyttäneiden osuus</span><span class="score-value neutral">+43 %</span></div>
+        </div>
+        <div class="balance-column outcomes"><h3>Kansalaiselle näkyvät tulokset</h3>
+          <div class="score-row"><span>Elinajanodote</span><span class="score-value better">+2,3 vuotta</span></div>
+          <div class="score-row"><span>Hoidolla vältettävä kuolleisuus</span><span class="score-value better">−21 %</span></div>
+          <div class="score-row"><span>Terveet elinvuodet</span><span class="score-value worse">−1,8 vuotta</span></div>
+          <div class="score-row"><span>Ilman tarvitsemaansa hoitoa jääneet, 2021–2025</span><span class="score-value worse">+3,4 %-yks.</span></div>
+        </div>
+      </div>
+      <div class="verdict"><p class="verdict-label">Kokonaisarvio</p><h2>Vakavat terveystulokset paranivat, mutta palveluun pääsy heikkeni.</h2><p>Jos suunta on pakko tiivistää yhteen arvioon, kokonaisuus on kansalaisen arjen näkökulmasta kehittynyt <strong>lievästi huonompaan suuntaan</strong>. Perustelu ei ole se, että kaikki tulokset olisivat huonoja: ihmiset elävät pidempään ja vältettävissä olevia kuolemia on vähemmän. Ongelma on, ettei kasvaneiden terveysmenojen ja hieman suuremman verorasituksen rinnalla näy selvää parannusta terveinä eletyissä vuosissa, ja yhä useampi kertoo jäävänsä ilman tarvitsemaansa hoitoa. Arvio on kuvaileva, ei laskelma siitä, kuinka monta terveysvuotta yksittäinen veroeuro tuottaa.</p></div>
+      <p class="source">Muutosluvut vertaavat kunkin mittarin ensimmäistä ja viimeistä saatavilla olevaa vuotta. Alkamisvuodet vaihtelevat, joten rivejä ei pidä laskea yhteen yhdeksi pistemääräksi.</p>
+    </section>
+  </main>
+
+  <script>
+    const NS='http://www.w3.org/2000/svg';
+    const C={money:'#713b83',service:'#0067a3',good:'#22833a',warning:'#c4512d',demand:'#c88400',ink:'#171713',muted:'#605b50'};
+    let DATA=[];
+    const rows=id=>DATA.filter(d=>d.metric_id===id).map(d=>({year:+d.year,value:+d.value}));
+    const extent=a=>[Math.min(...a),Math.max(...a)]; const scale=(d0,d1,r0,r1)=>v=>r0+(v-d0)*(r1-r0)/(d1-d0||1);
+    const add=(p,n,a={},t='')=>{const x=document.createElementNS(NS,n);Object.entries(a).forEach(([k,v])=>x.setAttribute(k,v));if(t)x.textContent=t;p.appendChild(x);return x};
+    function canvas(id,height,description){const host=document.getElementById(id);host.innerHTML='';const width=Math.max(320,host.getBoundingClientRect().width||900);const node=document.createElementNS(NS,'svg');node.setAttribute('viewBox',`0 0 ${width} ${height}`);node.setAttribute('role','img');node.setAttribute('aria-label',description);host.appendChild(node);return{node,width}}
+    function chart(id,series,{height=320,yFormat=v=>v.toFixed(1),description='',eventYear=null,indexed=false}={}){
+      const {node,width}=canvas(id,height,description),x0=64,x1=width-(width<520?82:145),y0=24,y1=height-52;
+      const prepared=series.map(item=>{const values=indexed?item.data.map((d,i)=>({year:d.year,value:d.value/item.data[0].value*100})):item.data;return{...item,data:values}});
+      const all=prepared.flatMap(s=>s.data),[xmin,xmax]=extent(all.map(d=>d.year)),[rawMin,rawMax]=extent(all.map(d=>d.value)),pad=(rawMax-rawMin)*.1||1,ymin=rawMin-pad,ymax=rawMax+pad,x=scale(xmin,xmax,x0,x1),y=scale(ymin,ymax,y1,y0);
+      add(node,'line',{x1:x0,y1,x2:x1,y2:y1,class:'axis'});add(node,'line',{x1:x0,y1:y0,x2:x0,y2:y1,class:'axis'});
+      const years=[xmin,Math.round(xmin+(xmax-xmin)/3),Math.round(xmin+2*(xmax-xmin)/3),xmax].filter((v,i,a)=>a.indexOf(v)===i);
+      years.forEach(v=>{add(node,'line',{x1:x(v),y1:y0,x2:x(v),y2:y1,class:'grid'});add(node,'text',{x:x(v),y:y1+20,'text-anchor':'middle',class:'tick'},String(v))});
+      [0,.5,1].forEach(q=>{const v=ymin+q*(ymax-ymin);add(node,'line',{x1:x0,y1:y(v),x2:x1,y2:y(v),class:'grid'});add(node,'text',{x:x0-9,y:y(v)+4,'text-anchor':'end',class:'tick'},indexed?Math.round(v):yFormat(v))});
+      if(eventYear&&eventYear>=xmin&&eventYear<=xmax){add(node,'line',{x1:x(eventYear),y1:y0,x2:x(eventYear),y2:y1,class:'event'});add(node,'text',{x:x(eventYear)+5,y:y0+12,class:'event-label'},'Hyvinvointialueet')}
+      prepared.forEach((s,i)=>{add(node,'path',{d:s.data.map((d,j)=>`${j?'L':'M'}${x(d.year)},${y(d.value)}`).join(' '),fill:'none',stroke:s.color,'stroke-width':3.2,'stroke-dasharray':s.dash||''});s.data.forEach(d=>add(node,'circle',{cx:x(d.year),cy:y(d.value),r:3.6,fill:s.color,stroke:C.ink}));const last=s.data[s.data.length-1];add(node,'text',{x:x(last.year)+9,y:y(last.value)+(i%2?15:-7),fill:s.color,class:'direct-label'},`${s.name} ${indexed?Math.round(last.value):yFormat(last.value)}`)});
+      if(indexed)add(node,'text',{x:x0,y:y0-8,class:'axis-title'},'2008 = 100');
+    }
+    function draw(){
+      chart('finance',[{name:'Verorasitus',data:rows('tax_burden_pct_gdp'),color:C.money},{name:'Terveysmenot',data:rows('public_health_expenditure_pct_gdp'),color:C.service}],{indexed:true,description:'Verorasituksen ja julkisten terveysmenojen muutos, vuosi 2008 on 100.'});
+      chart('capacity',[{name:'65+ väestö',data:rows('population_65plus_pct'),color:C.demand},{name:'Lääkärit',data:rows('practising_physicians_per_100k'),color:C.service}],{indexed:true,description:'Ikääntyneen väestön osuuden ja lääkärimäärän muutos, vuosi 2008 on 100.'});
+      chart('unmet',[{name:'Ilman hoitoa',data:rows('unmet_medical_needs_pct'),color:C.warning}],{height:290,yFormat:v=>v.toFixed(1)+' %',eventYear:2023,description:'Ilman tarvitsemaansa hoitoa jääneiden osuus 2008–2025.'});
+      chart('consultations',[{name:'Kontaktit',data:rows('doctor_consultations_per_person'),color:C.service}],{height:290,yFormat:v=>v.toFixed(2),eventYear:2023,description:'Lääkärikontaktit asukasta kohden 2017–2024.'});
+      chart('lifeyears',[{name:'Elinajanodote',data:rows('life_expectancy_years'),color:C.good},{name:'Terveet vuodet',data:rows('healthy_life_years'),color:C.warning}],{yFormat:v=>v.toFixed(1)+' v',description:'Elinajanodote ja terveiden elinvuosien määrä 2008–2024.'});
+      chart('mortality',[{name:'Ennalta ehkäistävissä',data:rows('preventable_mortality_per_100k'),color:C.warning},{name:'Hoidolla vältettävissä',data:rows('treatable_mortality_per_100k'),color:C.good}],{yFormat:v=>v.toFixed(0),description:'Ennaltaehkäisyllä ja hoidolla vältettävissä oleva kuolleisuus 2011–2023.'});
+    }
+    fetch('data/reference/official_sote_demo_v1.json').then(r=>r.json()).then(data=>{DATA=data;draw()});
+    let timer;window.addEventListener('resize',()=>{clearTimeout(timer);timer=setTimeout(draw,120)});
+  </script>
+</body>
+</html>

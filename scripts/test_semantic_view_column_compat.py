@@ -117,6 +117,14 @@ def main() -> int:
     for question in _load_golden_questions():
         spec = infer_analysis_spec(question)
         contract_sql, contract_name = build_contract_sql(spec, MAIN_TABLE_ID)
+        if spec.entity_level in {"alamomentti", "molemmat"}:
+            if contract_sql is not None or contract_name is not None:
+                failures.append(
+                    f"unsupported alamomentti query unexpectedly produced contract q={question[:50]!r}"
+                )
+            # Fail-closed alamomentti requests intentionally produce no SQL,
+            # so there is no fallback statement whose columns could be checked.
+            continue
         if contract_sql:
             check_sql(contract_sql, f"contract={contract_name} q={question[:50]!r}")
         check_sql(

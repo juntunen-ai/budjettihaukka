@@ -1,0 +1,448 @@
+version: 1.2.0
+language: fi
+purpose: >-
+  Koneellisesti luettava sopimus Budjettihaukan visualisointivalmiille datalle.
+  Jokaisella julkaistulla mittarilla on yksiselitteinen määritelmä, yksikkö,
+  aggregointisääntö, hintaperusta, lähde ja käyttörajoitus.
+
+sources:
+  - source_id: valtiokonttori_monthly_central_government_finance
+    title_fi: Valtion taloushallinnon kuukausidata
+    organization: Valtiokonttori
+    url: https://www.tutkihallintoa.fi/valtiontalous/valtion-taloustiedot/
+    accounting_basis: valtion kirjanpito ja talousarvio
+    update_frequency: monthly
+    caveat_fi: >-
+      Kuukausikertymä ei ole sama asia kuin kansantalouden tilinpidon suoriteperusteinen meno.
+      Keskeneräistä vuotta ei saa verrata täyteen vuoteen ilman näkyvää osavuosimerkintää.
+  - source_id: statfin_cost_of_living_11xm
+    title_fi: Elinkustannusindeksi 1951:10=100
+    organization: Tilastokeskus
+    url: https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/khi/11xm.px
+    accounting_basis: kuluttajahintojen muutos
+    update_frequency: annual
+    caveat_fi: >-
+      CPI-oikaisu kuvaa rahan ostovoimaa. Se ei mittaa julkisten palvelujen tuotantokustannusten
+      tai tuotoksen volyymin muutosta.
+  - source_id: statfin_population_midyear_11s1
+    title_fi: Keskiväkiluku
+    organization: Tilastokeskus
+    url: https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/vaerak/11s1.px
+    accounting_basis: kalenterivuoden keskiväkiluku
+    update_frequency: annual
+    caveat_fi: Koko maan keskiväkiluku; ei sovellu aluekohtaisen henkeä kohti -luvun nimittäjäksi.
+  - source_id: statfin_national_accounts_15a9
+    title_fi: Bruttokansantuote markkinahintaan, käyvin hinnoin
+    organization: Tilastokeskus
+    url: https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px
+    accounting_basis: ESA 2010 kansantalouden tilinpito
+    update_frequency: annual
+    caveat_fi: >-
+      BKT ja valtion budjettikirjanpito ovat eri laskentakehikoita. BKT-osuus on vertailusuhde,
+      ei budjetin osuus kansantalouden tilinpidon valtionhallinnon menoista.
+  - source_id: statfin_central_government_edp_debt_11yv
+    title_fi: Valtionhallinnon EDP-velka
+    organization: Tilastokeskus
+    url: https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/jyev/11yv.px
+    accounting_basis: ESA 2010 / EDP, sulauttamaton valtionhallinnon sektori S1311
+    update_frequency: quarterly
+    caveat_fi: >-
+      EDP-velka ei ole sama käsite kuin Valtiokonttorin valtionvelka. Vuosiarvo on neljännen
+      vuosineljänneksen kanta, ei vuoden virta.
+  - source_id: vm_budget_documents
+    title_fi: Talousarvioesitykset ja lisätalousarviot
+    organization: Valtiovarainministeriö
+    url: https://budjetti.vm.fi/
+    accounting_basis: talousarvio
+    update_frequency: per budget document
+    caveat_fi: Budjetoitu määrä ei ole toteuma; lisätalousarviot esitetään erillisenä muutoksena.
+  - source_id: state_treasury_final_accounts_2025
+    title_fi: Valtion tilinpäätös 2025
+    organization: Valtiokonttori
+    url: https://www.tutkihallintoa.fi/valtio/taloustiedot/valtion-tilinpaatos/
+    accounting_basis: valtion talousarviotalouden tilinpäätös
+    update_frequency: annual
+    caveat_fi: Verkkosivun miljardiluvut ovat pyöristettyjä; täsmäytyksessä käytetään lähdekohtaista toleranssia.
+  - source_id: tutkiavustuksia_public_report
+    title_fi: Tutkiavustuksia.fi julkinen raportti
+    organization: Valtiokonttori
+    url: https://www.tutkihallintoa.fi/valtionavustukset/tutkiavustuksia/
+    accounting_basis: valtionavustushaut, hakemukset ja päätökset
+    update_frequency: continuous
+    caveat_fi: OKM-pilotti on raportin aggregaatti; päätös- ja saajatason liitos pidetään estettynä ilman raakadataa.
+  - source_id: prh_ytj_v3
+    title_fi: PRH:n avoin YTJ-rajapinta
+    organization: Patentti- ja rekisterihallitus
+    url: https://avoindata.prh.fi/en/ytj/swagger-ui
+    accounting_basis: rekisteritieto
+    update_frequency: daily
+    caveat_fi: Rekisteröity osoite ei osoita avustuksen käyttö- tai palveluntuotantopaikkaa.
+  - source_id: statfin_education_placement_111l
+    title_fi: Tutkinnon suorittaneiden sijoittuminen
+    organization: Tilastokeskus
+    url: https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/sijk/111l.px
+    accounting_basis: virallinen koulutustilasto
+    update_frequency: annual
+    caveat_fi: Mittarit kuvaavat tuotosta ja myöhempää tilaa, eivät menojen kausaalivaikutusta.
+  - source_id: thl_sotkanet_indicator_1080
+    title_fi: Perusterveydenhuollon lääkärikäynnit
+    organization: Terveyden ja hyvinvoinnin laitos
+    url: https://sotkanet.fi/sotkanet/fi/metadata/indicators/1080
+    accounting_basis: THL:n palvelujärjestelmäindikaattori
+    update_frequency: annual
+    caveat_fi: Käyntimäärän suurempi arvo ei yksin tarkoita parempaa tai heikompaa tulosta.
+  - source_id: thl_sotkanet_indicator_4333
+    title_fi: Koettu terveys
+    organization: Terveyden ja hyvinvoinnin laitos
+    url: https://sotkanet.fi/sotkanet/fi/metadata/indicators/4333
+    accounting_basis: THL:n väestöindikaattori
+    update_frequency: biennial
+    caveat_fi: Aikasarja on harvempi kuin vuosittainen eikä osoita menojen kausaalivaikutusta.
+  - source_id: statfin_building_cost_13g9
+    title_fi: Rakennuskustannusindeksi
+    organization: Tilastokeskus
+    url: https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/rki/13g9.px
+    accounting_basis: rakennuskustannusten hintakehitys
+    update_frequency: annual
+    caveat_fi: Käytä vain rakentamisinvestointeihin, joiden kohde on varmistettu.
+  - source_id: statfin_public_expenditure_price_11m2
+    title_fi: Julkisten menojen hintaindeksi
+    organization: Tilastokeskus
+    url: https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/jmhi/11m2.px
+    accounting_basis: kuntatalouden palvelukustannukset
+    update_frequency: annual
+    caveat_fi: Kuntatalouden indeksiä ei saa esittää valtion budjettimenojen yleisenä deflaattorina.
+  - source_id: state_treasury_municipal_finance_catalog
+    title_fi: Kuntien ja kuntayhtymien talousraportoinnin aineistoluettelo
+    organization: Valtiokonttori
+    url: https://prodkuntarest.westeurope.cloudapp.azure.com/rest/v1/json/aineistot
+    accounting_basis: kuntatalouden lakisääteinen talousraportointi
+    update_frequency: continuous
+    caveat_fi: >-
+      Aineistoluettelo sisältää talousarvioita, ennusteita, kumulatiivisia toteumia ja
+      vuositietoja. Raportointikokonaisuudet ja hyväksymisvaiheet on pidettävä erillään.
+  - source_id: state_treasury_municipal_ktas_facts
+    title_fi: Kuntien ja kuntayhtymien talousarvio ja -suunnitelma (KTAS)
+    organization: Valtiokonttori
+    url: https://prodkuntarest.westeurope.cloudapp.azure.com/
+    accounting_basis: hyväksytty talousarvio ja taloussuunnitelma
+    update_frequency: annual with corrections
+    caveat_fi: >-
+      KTAS-luvut eivät ole toteumia. Y-tunnuksesta ei päätellä automaattisesti, onko
+      raportoija kunta vai kuntayhtymä.
+
+metrics:
+  - metric_id: net_accumulation_nominal_eur
+    display_name_fi: Nettokertymä, käyvin hinnoin
+    definition_fi: Valtiokonttorin Nettokertymä-kentän vuosisumma valitulla hierarkiatasolla.
+    unit: EUR
+    aggregation: sum
+    price_basis: nominal
+    source_id: valtiokonttori_monthly_central_government_finance
+    sign_rule: Lähdejärjestelmän etumerkki säilytetään muuttamattomana.
+    missing_means: Havaintoa ei ole; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [year, fiscal_side, hallinnonala, kirjanpitoyksikko, momentti, maararahalaji, talousarviotili]
+    visualization_status: ready
+  - metric_id: net_accumulation_real_cpi_eur
+    display_name_fi: Nettokertymä, kiintein hinnoin
+    definition_fi: Nimellinen nettokertymä muunnettuna uusimman saatavilla olevan CPI-vuoden euroiksi.
+    unit: EUR
+    aggregation: sum
+    price_basis: constant_cpi
+    source_id: valtiokonttori_monthly_central_government_finance
+    sign_rule: Sama kuin nimellisessä nettokertymässä.
+    missing_means: Arvo puuttuu, jos nettokertymä tai hintakerroin puuttuu.
+    supported_dimensions: [year, fiscal_side, hallinnonala, kirjanpitoyksikko, momentti, maararahalaji, talousarviotili]
+    visualization_status: ready_with_caveat
+  - metric_id: net_accumulation_per_capita_eur
+    display_name_fi: Nettokertymä asukasta kohti
+    definition_fi: Nimellinen nettokertymä jaettuna koko maan keskiväkiluvulla.
+    unit: EUR_PER_PERSON
+    aggregation: non_additive
+    price_basis: nominal
+    source_id: valtiokonttori_monthly_central_government_finance
+    sign_rule: Sama kuin nimellisessä nettokertymässä.
+    missing_means: Arvo puuttuu, jos nettokertymä tai saman vuoden keskiväkiluku puuttuu.
+    supported_dimensions: [year, fiscal_side, hallinnonala, kirjanpitoyksikko, momentti, maararahalaji, talousarviotili]
+    visualization_status: ready
+  - metric_id: net_accumulation_pct_gdp
+    display_name_fi: Nettokertymä suhteessa BKT:hen
+    definition_fi: Nimellinen nettokertymä jaettuna saman vuoden käypähintaisella BKT:llä.
+    unit: PERCENT
+    aggregation: non_additive
+    price_basis: nominal
+    source_id: valtiokonttori_monthly_central_government_finance
+    sign_rule: Sama kuin nimellisessä nettokertymässä.
+    missing_means: Arvo puuttuu, jos nettokertymä tai saman vuoden BKT puuttuu.
+    supported_dimensions: [year, fiscal_side, hallinnonala, kirjanpitoyksikko, momentti, maararahalaji, talousarviotili]
+    visualization_status: ready_with_caveat
+  - metric_id: original_budget_eur
+    display_name_fi: Alkuperäinen talousarvio
+    definition_fi: Varsinaisen talousarvion momentille osoittama euromäärä.
+    unit: EUR
+    aggregation: sum
+    price_basis: nominal
+    source_id: vm_budget_documents
+    sign_rule: Määrä esitetään positiivisena; tulo- ja menopuoli erotetaan fiscal_side-kentällä.
+    missing_means: Budjettiriviä ei ole saatavilla; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [year, fiscal_side, momentti]
+    visualization_status: ready
+  - metric_id: current_budget_eur
+    display_name_fi: Voimassa oleva talousarvio
+    definition_fi: Alkuperäinen talousarvio ja lisätalousarviot yhteensä.
+    unit: EUR
+    aggregation: sum
+    price_basis: nominal
+    source_id: vm_budget_documents
+    sign_rule: Määrä esitetään positiivisena; tulo- ja menopuoli erotetaan fiscal_side-kentällä.
+    missing_means: Budjettiriviä ei ole saatavilla; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [year, fiscal_side, momentti]
+    visualization_status: ready
+  - metric_id: actual_to_budget_ratio
+    display_name_fi: Toteuma suhteessa budjettiin
+    definition_fi: Vuoden nettokertymä jaettuna voimassa olevalla talousarviolla.
+    unit: RATIO
+    aggregation: non_additive
+    price_basis: nominal
+    source_id: valtiokonttori_monthly_central_government_finance
+    sign_rule: Suhdeluku lasketaan vain ei-nollaiselle budjetille; lähde-etumerkki säilytetään.
+    missing_means: Toteuma, budjetti tai kelvollinen nimittäjä puuttuu.
+    supported_dimensions: [year, fiscal_side, momentti]
+    visualization_status: ready_with_caveat
+  - metric_id: granted_amount_eur
+    display_name_fi: Myönnetyt avustukset
+    definition_fi: Tutkiavustuksia-raportin OKM-suodatuksen myönnetty euromäärä raportin koko saatavuusjaksolta.
+    unit: EUR
+    aggregation: non_additive_snapshot
+    price_basis: nominal
+    source_id: tutkiavustuksia_public_report
+    sign_rule: Positiivinen myönnetty määrä.
+    missing_means: Pilotin suodatettua aggregaattia ei ole vahvistettu.
+    supported_dimensions: [pilot, granting_authority, period]
+    visualization_status: aggregate_pilot
+  - metric_id: education_graduates_previous_year
+    display_name_fi: Tutkinnon suorittaneet
+    definition_fi: Tilastovuotta edeltävänä vuonna tutkinnon suorittaneet yhteensä.
+    unit: PERSON
+    aggregation: sum_across_disjoint_regions_only
+    price_basis: not_applicable
+    source_id: statfin_education_placement_111l
+    sign_rule: Suurempi arvo merkitsee enemmän tutkinnon suorittaneita.
+    missing_means: Tilastoa ei ole julkaistu valitulle vuodelle tai alueelle.
+    supported_dimensions: [year, region]
+    visualization_status: ready
+  - metric_id: education_employed_one_year_pct
+    display_name_fi: Työlliset vuosi valmistumisen jälkeen
+    definition_fi: Työllisten osuus edellisenä vuonna tutkinnon suorittaneista.
+    unit: PERCENT
+    aggregation: non_additive
+    price_basis: not_applicable
+    source_id: statfin_education_placement_111l
+    sign_rule: Suurempi osuus tulkitaan tässä paremmaksi tulokseksi.
+    missing_means: Tilastoa ei ole julkaistu valitulle vuodelle tai alueelle.
+    supported_dimensions: [year, region]
+    visualization_status: ready_with_caveat
+  - metric_id: primary_care_doctor_contacts_per_1000
+    display_name_fi: Perusterveydenhuollon lääkärikäynnit
+    definition_fi: Kaikki yhteystavat kattavat lääkärikäynnit tuhatta asukasta kohti.
+    unit: PER_1000_PERSONS
+    aggregation: non_additive
+    price_basis: not_applicable
+    source_id: thl_sotkanet_indicator_1080
+    sign_rule: Suunnan tulkinta riippuu palvelutarpeesta eikä ole yksiselitteinen.
+    missing_means: THL ei ole julkaissut havaintoa valitulle vuodelle tai alueelle.
+    supported_dimensions: [year, region]
+    visualization_status: ready_with_caveat
+  - metric_id: self_rated_health_mediocre_or_worse_pct
+    display_name_fi: Terveytensä keskitasoiseksi tai huonommaksi kokevat
+    definition_fi: Osuus väestöstä, joka kokee terveytensä keskitasoiseksi tai sitä huonommaksi.
+    unit: PERCENT
+    aggregation: non_additive
+    price_basis: not_applicable
+    source_id: thl_sotkanet_indicator_4333
+    sign_rule: Pienempi osuus tulkitaan paremmaksi tulokseksi.
+    missing_means: THL ei ole julkaissut havaintoa; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [year, region]
+    visualization_status: ready_with_caveat
+  - metric_id: annual_margin_eur
+    display_name_fi: Kuntatalouden vuosikate, KTAS
+    definition_fi: Raportoijan KTAS-taksonomian VUOSIKATE valitussa budjetti- tai suunnitteluvaiheessa.
+    unit: EUR
+    aggregation: sum_across_verified_disjoint_reporters_only
+    price_basis: nominal
+    source_id: state_treasury_municipal_ktas_facts
+    sign_rule: Lähteen etumerkki säilytetään.
+    missing_means: Raportoija ei ole julkaissut arvoa; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [business_id, reporting_year, value_year, planning_stage]
+    visualization_status: ready_with_caveat
+  - metric_id: operating_expenses_eur
+    display_name_fi: Kuntatalouden toimintamenot, KTAS
+    definition_fi: Raportoijan KTAS-taksonomian Toimintamenot valitussa budjetti- tai suunnitteluvaiheessa.
+    unit: EUR
+    aggregation: sum_across_verified_disjoint_reporters_only
+    price_basis: nominal
+    source_id: state_treasury_municipal_ktas_facts
+    sign_rule: Lähteen etumerkki säilytetään.
+    missing_means: Raportoija ei ole julkaissut arvoa; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [business_id, reporting_year, value_year, planning_stage]
+    visualization_status: ready_with_caveat
+  - metric_id: operating_income_eur
+    display_name_fi: Kuntatalouden toimintatulot, KTAS
+    definition_fi: Raportoijan KTAS-taksonomian Toimintatulot valitussa budjetti- tai suunnitteluvaiheessa.
+    unit: EUR
+    aggregation: sum_across_verified_disjoint_reporters_only
+    price_basis: nominal
+    source_id: state_treasury_municipal_ktas_facts
+    sign_rule: Lähteen etumerkki säilytetään.
+    missing_means: Raportoija ei ole julkaissut arvoa; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [business_id, reporting_year, value_year, planning_stage]
+    visualization_status: ready_with_caveat
+  - metric_id: personnel_expenses_eur
+    display_name_fi: Kuntatalouden henkilöstömenot, KTAS
+    definition_fi: Raportoijan KTAS-taksonomian Henkilöstömenot valitussa budjetti- tai suunnitteluvaiheessa.
+    unit: EUR
+    aggregation: sum_across_verified_disjoint_reporters_only
+    price_basis: nominal
+    source_id: state_treasury_municipal_ktas_facts
+    sign_rule: Lähteen etumerkki säilytetään.
+    missing_means: Raportoija ei ole julkaissut arvoa; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [business_id, reporting_year, value_year, planning_stage]
+    visualization_status: ready_with_caveat
+  - metric_id: service_purchases_eur
+    display_name_fi: Kuntatalouden palvelujen ostot, KTAS
+    definition_fi: Raportoijan KTAS-taksonomian Palvelujen ostot valitussa budjetti- tai suunnitteluvaiheessa.
+    unit: EUR
+    aggregation: sum_across_verified_disjoint_reporters_only
+    price_basis: nominal
+    source_id: state_treasury_municipal_ktas_facts
+    sign_rule: Lähteen etumerkki säilytetään.
+    missing_means: Raportoija ei ole julkaissut arvoa; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [business_id, reporting_year, value_year, planning_stage]
+    visualization_status: ready_with_caveat
+  - metric_id: financial_year_result_eur
+    display_name_fi: Kuntatalouden tilikauden tulos, KTAS
+    definition_fi: Raportoijan KTAS-taksonomian TILIKAUDEN TULOS valitussa budjetti- tai suunnitteluvaiheessa.
+    unit: EUR
+    aggregation: sum_across_verified_disjoint_reporters_only
+    price_basis: nominal
+    source_id: state_treasury_municipal_ktas_facts
+    sign_rule: Lähteen etumerkki säilytetään.
+    missing_means: Raportoija ei ole julkaissut arvoa; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [business_id, reporting_year, value_year, planning_stage]
+    visualization_status: ready_with_caveat
+  - metric_id: loan_stock_end_year_eur
+    display_name_fi: Kuntatalouden lainakanta 31.12., KTAS
+    definition_fi: Raportoijan KTAS-taksonomian Lainakanta 31.12. valitussa budjetti- tai suunnitteluvaiheessa.
+    unit: EUR
+    aggregation: sum_across_verified_disjoint_reporters_only
+    price_basis: nominal
+    source_id: state_treasury_municipal_ktas_facts
+    sign_rule: Lähteen etumerkki säilytetään.
+    missing_means: Raportoija ei ole julkaissut arvoa; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [business_id, reporting_year, value_year, planning_stage]
+    visualization_status: ready_with_caveat
+  - metric_id: gross_investment_expenditure_eur
+    display_name_fi: Kuntatalouden bruttoinvestointimenot, KTAS
+    definition_fi: Raportoijan KTAS-taksonomian Investointimenot yhteensä (brutto) valitussa budjetti- tai suunnitteluvaiheessa.
+    unit: EUR
+    aggregation: sum_across_verified_disjoint_reporters_only
+    price_basis: nominal
+    source_id: state_treasury_municipal_ktas_facts
+    sign_rule: Lähteen etumerkki säilytetään.
+    missing_means: Raportoija ei ole julkaissut arvoa; puuttuva ei tarkoita nollaa.
+    supported_dimensions: [business_id, reporting_year, value_year, planning_stage]
+    visualization_status: ready_with_caveat
+
+availability:
+  - domain_id: fiscal_transactions
+    status: ready
+    grain: month and budget hierarchy
+    limitation_fi: Ei kerro maksun lopullista saajaa eikä toiminnan tulosta.
+  - domain_id: macro_denominators
+    status: ready
+    grain: national annual
+    limitation_fi: Vertailusarjat ovat eri laskentakehikosta kuin budjettikirjanpito.
+  - domain_id: budget_vs_actual
+    status: ready_with_caveat
+    grain: moment and year, 2014 onward
+    limitation_fi: Osavuoden toteuma-astetta ei saa esittää vuositoteumana.
+  - domain_id: recipients_and_grants
+    status: aggregate_pilot
+    grain: granting authority and report availability period
+    limitation_fi: OKM-aggregaatit ovat käytettävissä; saaja- ja päätöskyselyt ovat edelleen estettyjä.
+  - domain_id: procurement
+    status: not_integrated
+    grain: procurement notice or contract
+    limitation_fi: Lisää Hilma- tai Hansel-data ennen toimittaja- ja hankintavisualisointeja.
+  - domain_id: outputs_and_outcomes
+    status: ready_two_sector_pilot
+    grain: indicator, region and reporting year
+    limitation_fi: Koulutuksen ja terveyden mittarit ovat kuvailevia; rahamäärästä ei päätellä kausaalivaikutusta.
+  - domain_id: audited_final_accounts
+    status: ready_with_precision_caveat
+    grain: fiscal year
+    limitation_fi: Vuoden 2025 verkkoluvut täsmäytetään lähteen ilmoittamalla pyöristystarkkuudella.
+  - domain_id: organization_master
+    status: ready_reference_scope
+    grain: business ID
+    limitation_fi: Master todentaa Y-tunnuksen ja rekisteriosoitteen, mutta sitä ei ole vielä liitetty avustuspäätöksiin.
+  - domain_id: regional_allocation
+    status: ready_context_grants_unallocated
+    grain: indicator, region and year
+    limitation_fi: Sektorimittarit ovat alueellisia; OKM-avustuspilotti säilyy kansallisesti kohdentamattomana.
+  - domain_id: multiple_deflators
+    status: ready_with_scope_rules
+    grain: deflator and year
+    limitation_fi: Deflaattori valitaan käyttötarkoituksen mukaan; kuntatalouden indeksi on vain kontekstisarja.
+  - domain_id: source_revisions
+    status: ready
+    grain: source and fetched vintage
+    limitation_fi: Revisiohistoria alkaa tästä julkaisuversiosta eikä rekonstruoi aiempia julkaisuja.
+  - domain_id: municipal_finance
+    status: ready_budget_plan_catalog_actuals_pending
+    grain: reporter business ID, reporting package, reporting period and indicator
+    limitation_fi: >-
+      KTAS-budjetit ja suunnitelmat ovat analysoitavissa. KKNR-toteumat ja KKTPP-palveluluokat
+      odottavat erillistä suuren taksonomian putkea, eikä raportoijatyyppiä päätellä Y-tunnuksesta.
+
+join_interfaces:
+  - domain_id: recipients_and_grants
+    target_grain: grant decision × recipient × payment year
+    required_keys: [decision_id, recipient_business_id, payment_year]
+    required_measures: [granted_eur, paid_eur]
+    preferred_source: Tutkiavustuksia / Valtiokonttori
+    join_rule_fi: >-
+      Liitä budjettihierarkiaan vain lähteen eksplisiittisellä momenttikoodilla. Nimi- tai tekstiosumaa
+      ei saa käyttää rahamäärän automaattiseen kohdistamiseen.
+    publication_gate_fi: Saajan tunniste, päätös, euromäärä, vuosi ja lähde-URL on oltava saatavilla.
+    status: aggregate_pilot_recipient_join_blocked
+  - domain_id: procurement
+    target_grain: contract or procurement notice × supplier
+    required_keys: [procurement_id, buyer_business_id, supplier_business_id]
+    required_measures: [contract_value_eur]
+    preferred_source: Hilma and Hansel open data
+    join_rule_fi: >-
+      CPV-koodi ei ole budjettimomentti. Liitä momenttiin vain hankintayksikön julkaisemalla
+      kirjanpito- tai talousarviotunnisteella tai erillisellä auditoidulla siltataululla.
+    publication_gate_fi: Päällekkäiset ilmoitukset ja puuttuvat sopimusarvot on profiloitava ennen summausta.
+    status: interface_only
+  - domain_id: outputs_and_outcomes
+    target_grain: indicator × organization × reporting period
+    required_keys: [indicator_id, organization_id, period]
+    required_measures: [indicator_value]
+    preferred_source: agency performance agreements and official sector statistics
+    join_rule_fi: >-
+      Rahamäärä ja tulosindikaattori pidetään eri faktoina. Liitos tehdään organisaation ja ajanjakson
+      kautta, eikä korrelaatiota nimetä vaikuttavuudeksi.
+    publication_gate_fi: Mittarin määritelmä, yksikkö, suunta, tavoitearvo ja katkokset on dokumentoitava.
+    status: integrated_two_sector_pilot
+  - domain_id: audited_final_accounts
+    target_grain: fiscal year × accounting basis × fiscal side
+    required_keys: [fiscal_year, accounting_basis, fiscal_side]
+    required_measures: [official_total_eur]
+    preferred_source: Valtion tilinpäätös / Valtiokonttori
+    join_rule_fi: >-
+      Täsmäytä vain sama laskentaperusta ja rajaus. Säilytä sekä mart-summa, virallinen summa,
+      euromääräinen erotus että suhteellinen erotus.
+    publication_gate_fi: Virallinen lähde-URL, julkaisupäivä, tarkastusstatus ja täsmäytyspoikkeama vaaditaan.
+    status: integrated_2025_benchmark

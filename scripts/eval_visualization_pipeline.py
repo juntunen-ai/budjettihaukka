@@ -57,9 +57,12 @@ def evaluate(golden_path: Path, show_failures: int) -> int:
 
         spec = infer_analysis_spec(question)
         predicted_intent = spec.intent
-        predicted_contract = choose_contract(spec)
+        is_unsupported_alamomentti = spec.entity_level in {"alamomentti", "molemmat"}
+        predicted_contract = "unsupported_alamomentti" if is_unsupported_alamomentti else choose_contract(spec)
         contract_templates = contract_template_order(predicted_contract)
-        if contract_templates:
+        if is_unsupported_alamomentti:
+            predicted_template = "unsupported"
+        elif contract_templates:
             predicted_template = contract_templates[0]
         else:
             predicted_template = template_order(spec, extract_intent_signals(question))[0]

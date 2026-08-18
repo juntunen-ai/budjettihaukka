@@ -7,14 +7,17 @@ from utils.analysis_spec_utils import AnalysisSpec, DATA_MAX_YEAR, DATA_MIN_YEAR
 CANONICAL_COLUMNS = ("time", "entity", "metric", "delta", "pct")
 CONTRACT_TEMPLATE_MAP = {
     "top_growth_moment": ["top_growth", "top_categories"],
-    "top_growth_alamoment": ["top_growth", "top_categories"],
     "trend_by_hallinnonala": ["trend", "top_categories"],
     "yoy_change": ["trend", "growth"],
 }
 
 BQ_HALLINNONALA_EXPR = "COALESCE(NULLIF(hallinnonala_canonical, ''), `Hallinnonala`)"
 BQ_MOMENTTI_EXPR = "COALESCE(NULLIF(momentti_canonical, ''), NULLIF(`Momentti_sNimi`, ''))"
-BQ_ALAMOMENTTI_EXPR = "COALESCE(NULLIF(alamomentti_canonical, ''), NULLIF(`TakpMrL_sNimi`, ''))"
+ALAMOMENTTI_UNAVAILABLE_MESSAGE = (
+    "Alamomenttitason kyselyt on tilapäisesti poistettu käytöstä, koska momentin "
+    "alapuolista talousarviotiliä ei ole vielä validoitu vuosikohtaista virallista "
+    "talousarvion tilijaottelua vasten. Käytä toistaiseksi momenttitasoa."
+)
 
 
 def _effective_years(spec: AnalysisSpec) -> tuple[int, int]:
@@ -24,11 +27,11 @@ def _effective_years(spec: AnalysisSpec) -> tuple[int, int]:
 
 
 def choose_contract(spec: AnalysisSpec) -> str | None:
+    if spec.entity_level in {"alamomentti", "molemmat"}:
+        return None
     if spec.intent == "top_growth":
         if spec.entity_level == "momentti":
             return "top_growth_moment"
-        if spec.entity_level in {"alamomentti", "molemmat"}:
-            return "top_growth_alamoment"
     if spec.intent == "trend" and spec.entity_level == "hallinnonala":
         return "trend_by_hallinnonala"
     if spec.intent == "growth":
@@ -97,54 +100,6 @@ def _sql_top_growth_moment(spec: AnalysisSpec, table_id: str, extra_where: str |
     )
 
 
-def _sql_top_growth_alamoment(spec: AnalysisSpec, table_id: str, extra_where: str | None = None) -> str:
-    year_from, year_to = _effective_years(spec)
-    limit_n = _top_limit(spec)
-    order_expr = _order_expression(spec)
-    where_clause = _compose_where(
-        f"SAFE_CAST(`Vuosi` AS INT64) BETWEEN {year_from} AND {year_to}",
-        extra_where,
-    )
-    return (
-        "WITH yearly AS ("
-        "  SELECT "
-        "    SAFE_CAST(`Vuosi` AS INT64) AS vuosi, "
-        "    NULLIF(`Momentti_TunnusP`, '') AS momentti_tunnusp, "
-        f"    {BQ_MOMENTTI_EXPR} AS momentti_snimi, "
-        "    NULLIF(`TakpMrL_Tunnus`, '') AS alamomentti_tunnus, "
-        f"    {BQ_ALAMOMENTTI_EXPR} AS alamomentti_snimi, "
-        "    SUM(SAFE_CAST(`Nettokertymä` AS NUMERIC)) AS nettokertyma_sum "
-        f"  FROM `{table_id}` "
-        f"  {where_clause} "
-        "  GROUP BY vuosi, momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi"
-        "), "
-        "start_end AS ("
-        "  SELECT "
-        "    momentti_tunnusp, "
-        "    momentti_snimi, "
-        "    alamomentti_tunnus, "
-        "    alamomentti_snimi, "
-        f"    SUM(IF(vuosi = {year_from}, nettokertyma_sum, 0)) AS alkuvuosi_sum, "
-        f"    SUM(IF(vuosi = {year_to}, nettokertyma_sum, 0)) AS loppuvuosi_sum "
-        "  FROM yearly "
-        "  GROUP BY momentti_tunnusp, momentti_snimi, alamomentti_tunnus, alamomentti_snimi"
-        ") "
-        "SELECT "
-        "  momentti_tunnusp, "
-        "  momentti_snimi, "
-        "  alamomentti_tunnus, "
-        "  alamomentti_snimi, "
-        "  alkuvuosi_sum, "
-        "  loppuvuosi_sum, "
-        "  loppuvuosi_sum - alkuvuosi_sum AS kasvu_eur, "
-        "  SAFE_DIVIDE(loppuvuosi_sum - alkuvuosi_sum, NULLIF(ABS(alkuvuosi_sum), 0)) * 100 AS kasvu_pct "
-        "FROM start_end "
-        "WHERE (alamomentti_tunnus IS NOT NULL OR alamomentti_snimi IS NOT NULL OR momentti_tunnusp IS NOT NULL) "
-        f"ORDER BY {order_expr} "
-        f"LIMIT {limit_n}"
-    )
-
-
 def _sql_trend_by_hallinnonala(spec: AnalysisSpec, table_id: str, extra_where: str | None = None) -> str:
     year_from, year_to = _effective_years(spec)
     where_clause = _compose_where(
@@ -194,8 +149,6 @@ def build_contract_sql(spec: AnalysisSpec, table_id: str, extra_where: str | Non
     contract_name = choose_contract(spec)
     if contract_name == "top_growth_moment":
         return _sql_top_growth_moment(spec, table_id, extra_where=extra_where), contract_name
-    if contract_name == "top_growth_alamoment":
-        return _sql_top_growth_alamoment(spec, table_id, extra_where=extra_where), contract_name
     if contract_name == "trend_by_hallinnonala":
         return _sql_trend_by_hallinnonala(spec, table_id, extra_where=extra_where), contract_name
     if contract_name == "yoy_change":
@@ -234,22 +187,6 @@ def _coalesce_text(df: pd.DataFrame, columns: list[str], fallback: str) -> pd.Se
     return acc
 
 
-def _combine_entity_from_cols(
-    df: pd.DataFrame,
-    left_cols: list[str],
-    right_cols: list[str],
-    fallback: str,
-) -> pd.Series:
-    left = _coalesce_text(df, left_cols, "")
-    right = _coalesce_text(df, right_cols, "")
-    combined = left
-    both = (left != "") & (right != "")
-    combined = combined.mask(both, left + " / " + right)
-    combined = combined.mask((combined == "") & (right != ""), right)
-    combined = combined.mask(combined == "", fallback)
-    return combined
-
-
 def _empty_canonical_frame(df: pd.DataFrame) -> pd.DataFrame:
     empty = pd.DataFrame(index=df.index)
     for column in CANONICAL_COLUMNS:
@@ -264,23 +201,6 @@ def _canonical_top_growth_moment(df: pd.DataFrame, spec: AnalysisSpec) -> pd.Dat
         df,
         ["momentti_canonical", "momentti_snimi", "momentti_tunnusp"],
         "Tuntematon momentti",
-    )
-    if "kasvu_eur" in df.columns:
-        out["delta"] = _to_numeric(df["kasvu_eur"])
-    if "kasvu_pct" in df.columns:
-        out["pct"] = _to_numeric(df["kasvu_pct"])
-    out["metric"] = out["pct"] if spec.growth_type == "pct" else out["delta"]
-    return out
-
-
-def _canonical_top_growth_alamoment(df: pd.DataFrame, spec: AnalysisSpec) -> pd.DataFrame:
-    out = _empty_canonical_frame(df)
-    out["time"] = int(spec.time_to) if spec.time_to is not None else pd.NA
-    out["entity"] = _combine_entity_from_cols(
-        df,
-        left_cols=["momentti_canonical", "momentti_snimi", "momentti_tunnusp"],
-        right_cols=["alamomentti_canonical", "alamomentti_snimi", "alamomentti_tunnus"],
-        fallback="Tuntematon momentti/alamomentti",
     )
     if "kasvu_eur" in df.columns:
         out["delta"] = _to_numeric(df["kasvu_eur"])
@@ -328,8 +248,6 @@ def normalize_contract_result(
 
     if contract_name == "top_growth_moment":
         out = _canonical_top_growth_moment(df, spec)
-    elif contract_name == "top_growth_alamoment":
-        out = _canonical_top_growth_alamoment(df, spec)
     elif contract_name == "trend_by_hallinnonala":
         out = _canonical_trend_by_hallinnonala(df)
     elif contract_name == "yoy_change":

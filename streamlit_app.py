@@ -487,7 +487,8 @@ def render_top_nav(admin_mode: bool = False) -> None:
     link_label = "Etusivu" if admin_mode else "Admin"
     st.markdown(
         f"""
-        <div class="bh-topnav">
+        <div class="bh-topnav" style="gap:0.6rem;">
+          <a class="bh-topnav-link" href="/visualisointidemot" target="_self" rel="noopener noreferrer">Visualisointidemot</a>
           <a class="bh-topnav-link" href="{target_href}" target="_self" rel="noopener noreferrer">{link_label}</a>
         </div>
         """,
