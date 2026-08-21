@@ -1,0 +1,2622 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Budjettihaukka – valtion tuet 2025</title>
+  <style>
+    :root {
+      --yellow:#f6d84f; --paper:#f5f1e8; --paper-deep:#e9e2d3; --ink:#171713;
+      --muted:#5f5b50; --reference:#0067a3; --comparison:#d45d18;
+      --positive:#22833a; --obligation:#713b83; --grid:#17171320;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,sans-serif}
+    .hero{background:var(--yellow);border-bottom:2px solid var(--ink)}
+    .wrap{max-width:1180px;margin:auto;padding-inline:22px}
+    .hero .wrap{padding-top:32px;padding-bottom:42px}
+    main.wrap{padding-bottom:72px}
+    h1,h2{font-family:Arial Black,system-ui,sans-serif;letter-spacing:-.035em}
+    h1{max-width:1080px;margin:30px 0 18px;font-size:clamp(2.6rem,6.2vw,5.2rem);line-height:.92;text-transform:uppercase}
+    h2{margin:0 0 10px;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.1}
+    .back{display:inline-flex;padding:8px 14px;border:2px solid var(--ink);border-radius:999px;background:#fff3b6;color:var(--ink);font-weight:700;text-decoration:none;margin:0 8px 8px 0}
+    .lede{max-width:940px;margin:0;font-size:1.08rem}
+    .alert{max-width:940px;margin-top:16px;padding:12px 14px;border:2px solid var(--ink);background:#fff3b6;font-weight:700}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+    .stat{padding-top:12px;border-top:3px solid var(--ink)}
+    .stat strong{display:block;font:800 clamp(1.4rem,2.7vw,2.25rem)/1 Arial Black,system-ui,sans-serif}
+    .stat span{display:block;margin-top:7px;font-size:.88rem}
+    section{padding:48px 0 54px;border-bottom:1.5px solid var(--ink)}
+    .eyebrow{margin:0 0 7px;color:var(--muted);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .chart{width:100%;min-height:280px;margin-top:16px}
+    .chart svg{display:block;width:100%;height:auto;overflow:visible}
+    .grid{stroke:var(--grid)}.axis{stroke:var(--ink);stroke-width:1.2}
+    .tick,.label{fill:var(--ink);font-size:12px}
+    .axis-title{fill:var(--muted);font-size:12px;font-weight:700}
+    .bar-label{fill:var(--ink);font-size:12px;font-weight:700}
+    .legend{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:12px;font-size:.9rem}
+    .legend span{display:inline-flex;align-items:center;gap:7px}
+    .swatch{width:14px;height:14px;border:1px solid var(--ink)}
+    .finding{max-width:960px;margin-top:24px;padding:18px 20px;border-left:5px solid var(--yellow);background:var(--paper-deep)}
+    .finding p{margin:0}.finding p+p{margin-top:10px}
+    .source{margin:10px 0 0;color:var(--muted);font-size:.83rem}
+    .agency-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+    .agency{padding:14px;border-top:5px solid var(--c,#d45d18);background:#fff9e3}
+    .agency strong{display:block;font:800 1.45rem/1.05 Arial Black,system-ui,sans-serif}
+    .agency b{display:block;margin:6px 0 4px}
+    .agency span{font-size:.86rem;color:var(--muted)}
+    @media(max-width:760px){.agency-grid{grid-template-columns:1fr 1fr}}
+    .table-wrap{overflow-x:auto;margin-top:18px;border:1.5px solid var(--ink);background:#fff9e3}
+    table{width:100%;border-collapse:collapse;font-size:.88rem}
+    th,td{padding:8px 10px;border-bottom:1px solid #17171322;text-align:right}
+    th{background:var(--yellow);text-align:left}
+    td:first-child,th:first-child,td:nth-child(2),th:nth-child(2),td:nth-child(3),th:nth-child(3){text-align:left}
+    @media(max-width:760px){.wrap{padding-inline:14px}.stats{grid-template-columns:1fr 1fr}h1{font-size:clamp(2.2rem,11vw,3.8rem)}}
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="wrap">
+    <a class="back" href="visualisointidemot.html">← Visualisointeihin</a>
+    <a class="back" href="tuki-avustus.html">Tuki-nimihaku</a>
+    <a class="back" href="yritystuet-veroluokat.html">Yritystuet ja veroluokat</a>
+    <h1>Valtion tuet vuonna 2025</h1>
+    <p class="lede">Kaikki täyden vuoden menomomentit, joiden nimi viittaa tukeen, avustukseen, valtionosuuteen tai rahoitukseen, täydennettynä TKI-tuella ja energiaverotuella. Vuosi 2025 on kokonainen.</p>
+    <div class="alert">Tämä ei ole virallinen tukirekisteri. Hyvinvointialueiden sote-rahoitus (26,3 mrd €) on jätetty pois, koska se on palvelujen järjestämistä, ei tukea. Suurin osa verotuista puuttuu yhä.</div>
+    <div class="stats">
+      <div class="stat"><strong>31,9 mrd €</strong><span>mukaan otetut siirrot vuonna 2025</span></div>
+      <div class="stat"><strong>36 %</strong><span>osuus valtion menoista; HVA-rahoitus ei ole mukana</span></div>
+      <div class="stat"><strong>7,0 mrd €</strong><span>kohdennetut tuet: yritys, maatalous, alue, järjestöt, kehitys</span></div>
+      <div class="stat"><strong>119 momenttia</strong><span>plus energiaverotuki, joka on verotuki eikä meno</span></div>
+    </div>
+  </div></header>
+
+  <main class="wrap">
+    <section>
+      <p class="eyebrow">01 · Kymmenen perhettä</p>
+      <h2>Sama “tuki” on etuus, valtionosuus, yliopistoraha tai avustus</h2>
+      <div id="chart-families" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Vuonna 2025 mukaan otetut siirrot olivat 31,9 miljardia euroa. Suurimmat perheet ovat sosiaalivakuutuksen valtionosuudet (7,7 mrd €), kotitalouksien etuudet (6,8 mrd €) ja kuntien sekä koulutuksen valtionosuudet (6,5 mrd €). Yritykset, energia ja TKI ovat 2,05 miljardia, maatalous ja maaseutu 1,89 miljardia.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Palkkeja ei voi kutsua yhdeksi yritystukipotiksi. Kansaneläke ja yliopistojen perusrahoitus ovat lakisääteistä tai institutionaalista rahoitusta. Verotukia, EU:n suoraan viljelijöille maksamia eriä ja kuntien omia tukia ei ole tässä.</p>
+      </div>
+      <p class="source">Lähde: Valtiokonttori, vuoden 2025 täysi nettokertymä. Energiaverotuki 47 M€ on lisätty yritysperheeseen verotukena.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">02 · Kolme kerrosta</p>
+      <h2>Lakisääteinen siirto on neljä kertaa kohdennetut tuet</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#713b83"></i>Etuudet ja sosiaalivakuutus</span>
+        <span><i class="swatch" style="background:#0067a3"></i>Valtionosuudet ja korkeakoulut</span>
+        <span><i class="swatch" style="background:#d45d18"></i>Kohdennetut tuet ja avustukset</span>
+        <span><i class="swatch" style="background:#8a8476"></i>HVA-sote, ei mukana summassa</span>
+      </div>
+      <div id="chart-layers" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Kotitalouksien etuudet ja sosiaalivakuutus ovat yhdessä 14,6 miljardia, kuntien valtionosuudet ja korkeakoulurahoitus 10,3 miljardia. Kohdennetut tuet — yritys, maatalous, alue, järjestöt, kehitysyhteistyö ja muut avustukset — ovat 7,0 miljardia. Ulkopuolelle jätetty HVA-rahoitus on 26,3 miljardia, eli suurempi kuin koko tämä tukikokoelma.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Kerrokset eivät ole paremmuusjärjestys. Valtionosuus rahoittaa lakisääteisiä palveluja, TKI-tuki on harkinnanvaraista. HVA-palkki on mukana vain mittakaavan vuoksi; sitä ei ole laskettu 31,9 miljardiin.</p>
+      </div>
+      <p class="source">Kohdennetut = maatalous, alue- ja rakennetuet, yritykset-energia-TKI, järjestöt, kehitysyhteistyö ja muut avustukset.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">03 · Kohdennetut tuet</p>
+      <h2>TEM ja MMM myöntävät valtaosan, toteuttajat ovat Ruokavirasto, Business Finland ja ELY</h2>
+      <p>Palkki on momentin <strong>budjettivastuu</strong> (osasto). Värit kertovat tukiperheen. Kortit alla nimeävät toteuttavan viraston, kun se on momentin nimestä ilmeinen.</p>
+      <div class="legend" id="targeted-legend"></div>
+      <div id="chart-targeted" class="chart"></div>
+      <div class="agency-grid" id="agency-grid"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Kohdennetuista 7,0 miljardista työ- ja elinkeinoministeriö vastaa 2,43 miljardista ja maa- ja metsätalousministeriö 2,08 miljardista. Ulkoministeriö myöntää kehitysyhteistyön 0,74 miljardia. Toteuttajina erottuvat Ruokavirasto (1,62 mrd €, CAP ja kansalliset maataloustuet), Business Finland (0,62 mrd €, TKI) ja ELY-keskukset (0,62 mrd €, alue- ja rakennerahastot). STEA kanavoi 0,30 miljardia sote-järjestöille.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Osasto on budjetin omistaja, ei aina maksaja. Business Finland, Ruokavirasto ja ELY on päätelty momentin numerosta ja vakiintuneesta hallinnosta, ei maksupäätösrekisteristä. TEM:n yritystukitietopalvelu on tarkempi saaja- ja virastotasolla. Kehitysyhteistyö on merkitty ulkoministeriölle momentin 24-osaston perusteella, vaikka semanttinen hallinnonala-kenttä väitti osaa TEM:lle.</p>
+      </div>
+      <p class="source">Vuosi 2025. Budjettivastuu = momentin osasto. Toteuttava virasto merkitään vain, kun kytkentä on ilmeinen.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">04 · Suurimmat momentit</p>
+      <h2>Kärjessä kansaneläke, kuntien VOS ja yliopistot — ei yritystuki</h2>
+      <div id="chart-top" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Kolme suurinta momenttia ovat kansaneläkkeen valtionosuus (4,0 mrd €), kuntien peruspalvelujen valtionosuus (3,4 mrd €) ja yliopistojen perusrahoitus (2,3 mrd €). Ensimmäinen selvästi harkinnanvarainen yritystuki, TKI-toiminnan tukeminen, on 0,48 miljardia ja vasta sijalla, jossa etuudet ja valtionosuudet on jo käyty läpi.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Momentin koko ei kerro tuen saajaa. VOS menee kunnille ja koulutuksen järjestäjille, etuus kotitaloudelle, TKI yritykselle tai tutkimuslaitokselle. Nimien katkeaminen on lähdeaineiston ominaisuus.</p>
+      </div>
+      <p class="source">18 suurinta mukaan otettua momenttia. HVA-momentti 28.89.31 on tahallaan poissa.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">05 · Momenttiluettelo</p>
+      <h2>Kaikki 119 momenttia, suuruusjärjestyksessä</h2>
+      <p>Taulukossa on koko poiminta. Alle 20 miljoonan euron rivejä on paljon; ne näkyvät silti, jotta haku on tarkistettavissa.</p>
+      <div class="table-wrap">
+        <table id="moment-table" aria-label="Valtion tuet ja avustukset momentteittain vuonna 2025"></table>
+      </div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> 119 momenttia riittää täyttämään tuki-, avustus-, valtionosuus- ja rahoitushaun sekä täydennykset (TKI, energiaverotuki, perhe-etuudet, työttömyysturva, opintoraha). Silti lista ei ole “kaikki valtion tuet”: alemmat ALV-kannat, T&amp;K-verovähennys ja suurin osa muista verotuista ovat VM:n verotukilistassa, ei tässä kirjanpidossa.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Taulukko ei ole vaikuttavuusarvio eikä ranking. Negatiivinen nettokertymä tarkoittaa palautusta tai tilitystä, ei “negatiivista tukea” politiikkamielessä.</p>
+      </div>
+      <p class="source">Vuosi 2025, coverage_status = complete. Poiminta: scripts/load_state_supports_2025.py, taulu analytics_fiscal_yearly_core_v1.</p>
+    </section>
+  </main>
+
+  <script type="application/json" id="support-data">{
+  "meta": {
+    "year": 2025,
+    "coverage_status": "complete",
+    "metric": "nettokertymä, toteuma",
+    "unit": "EUR",
+    "source_fi": "Valtiokonttori, valtion taloushallinnon kuukausidata",
+    "source_url": "https://www.tutkihallintoa.fi/valtiontalous/valtion-taloustiedot/",
+    "caveat_fi": "Kokoelma momentteja, joiden nimi viittaa tukeen, avustukseen, valtionosuuteen tai rahoitukseen, täydennettynä TKI-tuella ja energiaverotuella. Ei ole virallinen tukirekisteri. Hyvinvointialueiden sote-rahoitus ja suurin osa verotuista puuttuvat."
+  },
+  "headline": {
+    "included_eur": 31866506818.34,
+    "expense_eur": 89474331446.64,
+    "hva_excluded_eur": 26252114400.66,
+    "discretionary_eur": 6982625051.25,
+    "moment_count": 119,
+    "energiaverotuki_eur": 47278679.2
+  },
+  "families": [
+    {
+      "id": "sosiaalivakuutus",
+      "label_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 7730638902.04,
+      "moment_count": 5
+    },
+    {
+      "id": "etuudet",
+      "label_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 6837354667.81,
+      "moment_count": 9
+    },
+    {
+      "id": "valtionosuudet",
+      "label_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 6532189227.12,
+      "moment_count": 11
+    },
+    {
+      "id": "korkeakoulu_tiede",
+      "label_fi": "Korkeakoulu- ja tiederahoitus",
+      "nominal_eur": 3783698970.12,
+      "moment_count": 4
+    },
+    {
+      "id": "yritykset_energia_tki",
+      "label_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 2050417750.72,
+      "moment_count": 20
+    },
+    {
+      "id": "maatalous_maaseutu",
+      "label_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 1892263239.35,
+      "moment_count": 11
+    },
+    {
+      "id": "muut_siirrot",
+      "label_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 955979460.26,
+      "moment_count": 37
+    },
+    {
+      "id": "kehitysyhteistyo",
+      "label_fi": "Kehitysyhteistyö",
+      "nominal_eur": 735303334.99,
+      "moment_count": 4
+    },
+    {
+      "id": "jarjestot_kulttuuri",
+      "label_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 724336138.45,
+      "moment_count": 16
+    },
+    {
+      "id": "alue_rakenne",
+      "label_fi": "Alue- ja rakennetuet",
+      "nominal_eur": 624325127.48,
+      "moment_count": 2
+    }
+  ],
+  "moments": [
+    {
+      "code": "33.40.60.",
+      "name": "Valtion osuus kansaneläkelaista ja eräistä muista laeista johtuvista menoista",
+      "name_short": "Kansaneläke, valtion osuus",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "sosiaalivakuutus",
+      "family_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 3987193694.11
+    },
+    {
+      "code": "28.90.30.",
+      "name": "Valtionosuus kunnille peruspalvelujen järjestämiseen",
+      "name_short": "Kuntien peruspalvelujen valtionosuus",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 3375455713.3
+    },
+    {
+      "code": "29.40.50.",
+      "name": "Valtionrahoitus yliopistojen toimintaan",
+      "name_short": "Yliopistojen perusrahoitus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "korkeakoulu_tiede",
+      "family_fi": "Korkeakoulu- ja tiederahoitus",
+      "nominal_eur": 2264295640.0
+    },
+    {
+      "code": "33.30.60.",
+      "name": "Valtion osuus sairausvakuutuslaista johtuvista menoista",
+      "name_short": "Sairausvakuutus, valtion osuus",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "sosiaalivakuutus",
+      "family_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 1842464210.93
+    },
+    {
+      "code": "33.10.50.",
+      "name": "Perhe-etuudet",
+      "name_short": "Perhe-etuudet",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 1594781777.83
+    },
+    {
+      "code": "33.20.52.",
+      "name": "Valtionosuus työttömyysetuuksien perusturvasta",
+      "name_short": "Työttömyysetuuksien perusturva",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 1309600000.0
+    },
+    {
+      "code": "33.10.54.",
+      "name": "Asumistuki",
+      "name_short": "Asumistuki",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 1212431733.35
+    },
+    {
+      "code": "33.10.57.",
+      "name": "Perustoimeentulotuki",
+      "name_short": "Perustoimeentulotuki",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 1045700000.0
+    },
+    {
+      "code": "29.20.30.",
+      "name": "Valtionosuus ja -avustus ammatillisen koulutuksen käyttökustannuksiin",
+      "name_short": "VOS ammatillinen koulutus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 1019362310.0
+    },
+    {
+      "code": "29.40.55.",
+      "name": "Valtionrahoitus ammattikorkeakoulujen toimintaan",
+      "name_short": "Ammattikorkeakoulujen perusrahoitus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "korkeakoulu_tiede",
+      "family_fi": "Korkeakoulu- ja tiederahoitus",
+      "nominal_eur": 1012990550.0
+    },
+    {
+      "code": "33.40.51.",
+      "name": "Valtion osuus maatalousyrittäjän eläkelaista johtuvista menoista",
+      "name_short": "Maatalousyrittäjien eläkkeet, valtion osuus",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "sosiaalivakuutus",
+      "family_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 841400000.0
+    },
+    {
+      "code": "29.70.55.",
+      "name": "Opintoraha ja asumislisä",
+      "name_short": "Opintoraha ja asumislisä",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 695256681.65
+    },
+    {
+      "code": "29.10.30.",
+      "name": "Valtionosuus ja -avustus esi- ja perusopetuksen ja varhaiska",
+      "name_short": "VOS esi- ja perusopetus ja varhaiskasvatus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 622775485.41
+    },
+    {
+      "code": "33.40.52.",
+      "name": "Valtion osuus yrittäjän eläkelaista johtuvista menoista",
+      "name_short": "Yrittäjäeläkkeet, valtion osuus",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "sosiaalivakuutus",
+      "family_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 598900997.0
+    },
+    {
+      "code": "33.20.50.",
+      "name": "Valtionosuus työttömyysetuuksien ansioturvasta ja vuorottelu",
+      "name_short": "Työttömyysetuuksien ansioturva",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 597800000.0
+    },
+    {
+      "code": "24.30.66.",
+      "name": "Varsinainen kehitysyhteistyö",
+      "name_short": "Varsinainen kehitysyhteistyö",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "um",
+      "authority_fi": "Ulkoministeriö",
+      "agency_id": "um",
+      "agency_fi": "Ulkoministeriö",
+      "agency_note": "Kehitysyhteistyö",
+      "family": "kehitysyhteistyo",
+      "family_fi": "Kehitysyhteistyö",
+      "nominal_eur": 563698769.98
+    },
+    {
+      "code": "28.90.35.",
+      "name": "Valtion korvaus kunnille veroperustemuutoksista aiheutuvista",
+      "name_short": "Korvaus kunnille veroperustemuutoksista",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 540499967.0
+    },
+    {
+      "code": "30.20.41.",
+      "name": "EU-tulotuki ja EU-markkinatuki",
+      "name_short": "EU-tulotuki ja EU-markkinatuki",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "ruokavirasto",
+      "agency_fi": "Ruokavirasto",
+      "agency_note": "CAP ja kansalliset maataloustuet",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 528964546.0
+    },
+    {
+      "code": "30.20.44.",
+      "name": "Luonnonhaittakorvaukset",
+      "name_short": "Luonnonhaittakorvaukset",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "ruokavirasto",
+      "agency_fi": "Ruokavirasto",
+      "agency_note": "CAP ja kansalliset maataloustuet",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 486489742.05
+    },
+    {
+      "code": "32.20.40.",
+      "name": "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen",
+      "name_short": "TKI-toiminnan tukeminen",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "business_finland",
+      "agency_fi": "Business Finland",
+      "agency_note": "TKI-avustukset ja -lainat, tyypillinen myöntäjä",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 477793541.83
+    },
+    {
+      "code": "33.10.60.",
+      "name": "Kansaneläkelaitoksen sosiaaliturvarahastojen toimintakulut",
+      "name_short": "Kansaneläkelaitoksen sosiaaliturvarahastojen toimintakulut",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "sosiaalivakuutus",
+      "family_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 460680000.0
+    },
+    {
+      "code": "29.40.51.",
+      "name": "Suomen Akatemian tutkimusmäärärahat",
+      "name_short": "Suomen Akatemian tutkimusmäärärahat",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "korkeakoulu_tiede",
+      "family_fi": "Korkeakoulu- ja tiederahoitus",
+      "nominal_eur": 416566814.26
+    },
+    {
+      "code": "32.30.64.",
+      "name": "EU:n ja valtion rahoitusosuus EU:n alue- ja rakennepolitiika",
+      "name_short": "EU:n alue- ja rakennepolitiikka",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "ely",
+      "agency_fi": "ELY / elinvoimakeskukset",
+      "agency_note": "EU:n alue- ja rakennerahastot",
+      "family": "alue_rakenne",
+      "family_fi": "Alue- ja rakennetuet",
+      "nominal_eur": 407330180.38
+    },
+    {
+      "code": "32.50.30.",
+      "name": "Valtion korvaukset kotouttamisesta",
+      "name_short": "Valtion korvaukset kotouttamisesta",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 377743683.05
+    },
+    {
+      "code": "30.20.40.",
+      "name": "Maa- ja puutarhatalouden kansallinen tuki",
+      "name_short": "Maa- ja puutarhatalouden kansallinen tuki",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "ruokavirasto",
+      "agency_fi": "Ruokavirasto",
+      "agency_note": "CAP ja kansalliset maataloustuet",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 352794466.1
+    },
+    {
+      "code": "29.20.35.",
+      "name": "Valtionosuus ja -avustus lukiokoulutuksen käyttökustannuksii",
+      "name_short": "Valtionosuus ja -avustus lukiokoulutuksen käyttökustannuksii",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 330664056.0
+    },
+    {
+      "code": "23.10.87.",
+      "name": "Pääomasijoitus Suomen Malmijalostus Oy:lle",
+      "name_short": "Pääomasijoitus Suomen Malmijalostus Oy:lle",
+      "hallinnonala": "Valtioneuvoston kanslia",
+      "authority_id": "vnk",
+      "authority_fi": "Valtioneuvoston kanslia",
+      "agency_id": "malmi",
+      "agency_fi": "Suomen Malmijalostus",
+      "agency_note": "VNK:n pääomasijoitus",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 310000000.0
+    },
+    {
+      "code": "33.90.50.",
+      "name": "Avustukset yhdistyksille ja säätiöille terveyden ja sosiaali",
+      "name_short": "Sote-järjestöjen avustukset",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stea",
+      "agency_fi": "STEA",
+      "agency_note": "Sote-järjestöjen avustukset",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 304088000.0
+    },
+    {
+      "code": "29.70.52.",
+      "name": "Opintolainojen valtiontakaus",
+      "name_short": "Opintolainojen valtiontakaus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 251217236.31
+    },
+    {
+      "code": "30.20.43.",
+      "name": "Ympäristökorvaukset, luonnonmukainen tuotanto, neuvonta ja e",
+      "name_short": "Ympäristökorvaukset, luonnonmukainen tuotanto, neuvonta ja e",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "ruokavirasto",
+      "agency_fi": "Ruokavirasto",
+      "agency_note": "CAP ja kansalliset maataloustuet",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 247136735.29
+    },
+    {
+      "code": "30.10.64.",
+      "name": "EU:n ja valtion rahoitusosuus alueelliseen ja paikalliseen m",
+      "name_short": "EU:n ja valtion rahoitusosuus alueelliseen ja paikalliseen m",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "ely",
+      "agency_fi": "ELY / elinvoimakeskukset",
+      "agency_note": "EU:n alue- ja rakennerahastot",
+      "family": "alue_rakenne",
+      "family_fi": "Alue- ja rakennetuet",
+      "nominal_eur": 216994947.1
+    },
+    {
+      "code": "32.20.48.",
+      "name": "Uusiutuvan energian tuotantotuki",
+      "name_short": "Uusiutuvan energian tuotantotuki",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem_energia",
+      "agency_fi": "TEM, energiatuet",
+      "agency_note": "Energiatuki ja sähköistäminen",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 212026146.5
+    },
+    {
+      "code": "28.80.30.",
+      "name": "Ahvenanmaan tasoitusmaksu",
+      "name_short": "Ahvenanmaan tasoitusmaksu",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 205680753.0
+    },
+    {
+      "code": "29.10.31.",
+      "name": "Valtionosuus ja -avustus vapaan sivistystyön oppilaitosten k",
+      "name_short": "Valtionosuus ja -avustus vapaan sivistystyön oppilaitosten k",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 182741914.0
+    },
+    {
+      "code": "32.20.43.",
+      "name": "Energiaintensiivisen teollisuuden sähköistämistuki",
+      "name_short": "Energiaintensiivisen teollisuuden sähköistämistuki",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem_energia",
+      "agency_fi": "TEM, energiatuet",
+      "agency_note": "Energiatuki ja sähköistäminen",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 149880352.98
+    },
+    {
+      "code": "29.80.31.",
+      "name": "Valtionosuus ja -avustus esittävän taiteen ja museoiden käyt",
+      "name_short": "Valtionosuus ja -avustus esittävän taiteen ja museoiden käyt",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 147062268.0
+    },
+    {
+      "code": "32.20.83.",
+      "name": "Lainat tutkimus- ja innovaatiotoimintaan",
+      "name_short": "Lainat tutkimus- ja innovaatiotoimintaan",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "business_finland",
+      "agency_fi": "Business Finland",
+      "agency_note": "TKI-avustukset ja -lainat, tyypillinen myöntäjä",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 140384597.0
+    },
+    {
+      "code": "32.01.49.",
+      "name": "Valtionavustus Teknologian tutkimuskeskus VTT Oy:n toimintaa",
+      "name_short": "Valtionavustus Teknologian tutkimuskeskus VTT Oy:n toimintaa",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "vtt",
+      "agency_fi": "VTT",
+      "agency_note": "TEM:n avustus tutkimuslaitokselle",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 131259000.0
+    },
+    {
+      "code": "24.30.89.",
+      "name": "Kehityspoliittiset lainat ja sijoitukset",
+      "name_short": "Kehityspoliittiset lainat ja sijoitukset",
+      "hallinnonala": "Ulkoministeriön",
+      "authority_id": "um",
+      "authority_fi": "Ulkoministeriö",
+      "agency_id": "um",
+      "agency_fi": "Ulkoministeriö",
+      "agency_note": "Kehitysyhteistyö",
+      "family": "kehitysyhteistyo",
+      "family_fi": "Kehitysyhteistyö",
+      "nominal_eur": 128210910.0
+    },
+    {
+      "code": "32.30.51.",
+      "name": "Julkiset työvoima- ja yrityspalvelut",
+      "name_short": "Julkiset työvoima- ja yrityspalvelut",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem_te",
+      "agency_fi": "TEM / työllisyysalueet",
+      "agency_note": "Työvoima- ja yrityspalvelut",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 126761542.76
+    },
+    {
+      "code": "32.20.41.",
+      "name": "Energiatuki",
+      "name_short": "Energiatuki",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem_energia",
+      "agency_fi": "TEM, energiatuet",
+      "agency_note": "Energiatuki ja sähköistäminen",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 119132771.0
+    },
+    {
+      "code": "33.80.40.",
+      "name": "Valtion korvaus maatalousyrittäjien lomituspalvelujen kustannuksiin",
+      "name_short": "Valtion korvaus maatalousyrittäjien lomituspalvelujen kustannuks",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 111021425.23
+    },
+    {
+      "code": "29.01.52.",
+      "name": "Valtion rahoitus evankelis-luterilaisen kirkon yhteiskunnall",
+      "name_short": "Valtion rahoitus evankelis-luterilaisen kirkon yhteiskunnall",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 105030000.0
+    },
+    {
+      "code": "32.40.88.",
+      "name": "Pääomasijoitus Suomen Teollisuussijoitus Oy:lle",
+      "name_short": "Pääomasijoitus Suomen Teollisuussijoitus Oy:lle",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tesi",
+      "agency_fi": "Tesi",
+      "agency_note": "Pääomasijoitukset",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 100000000.0
+    },
+    {
+      "code": "29.80.34.",
+      "name": "Valtionosuus ja -avustus taiteen perusopetuksen käyttökustan",
+      "name_short": "Valtionosuus ja -avustus taiteen perusopetuksen käyttökustan",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 98946760.41
+    },
+    {
+      "code": "25.15.50.",
+      "name": "Yksityisille oikeusavustajille maksettavat korvaukset",
+      "name_short": "Yksityisille oikeusavustajille maksettavat korvaukset",
+      "hallinnonala": "Oikeusministeriön",
+      "authority_id": "om",
+      "authority_fi": "Oikeusministeriö",
+      "agency_id": "om",
+      "agency_fi": "Oikeusministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 98563003.04
+    },
+    {
+      "code": "31.20.43.",
+      "name": "Meriliikenteessä käytettävien alusten kilpailukyvyn parantam",
+      "name_short": "Meriliikenteessä käytettävien alusten kilpailukyvyn parantam",
+      "hallinnonala": "Liikenne- ja viestintäministeriön",
+      "authority_id": "lvm",
+      "authority_fi": "Liikenne- ja viestintäministeriö",
+      "agency_id": "lvm",
+      "agency_fi": "Liikenne- ja viestintäministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 96422102.71
+    },
+    {
+      "code": "29.70.59.",
+      "name": "Koulumatkatuki",
+      "name_short": "Koulumatkatuki",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 96258594.06
+    },
+    {
+      "code": "29.40.20.",
+      "name": "Korkeakoululaitoksen ja tieteen yhteiset menot",
+      "name_short": "Korkeakoululaitoksen ja tieteen yhteiset menot",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "korkeakoulu_tiede",
+      "family_fi": "Korkeakoulu- ja tiederahoitus",
+      "nominal_eur": 89845965.86
+    },
+    {
+      "code": "32.40.48.",
+      "name": "Korko- ja muu tuki julkisesti tuetuille vienti- ja alusluoto",
+      "name_short": "Korko- ja muu tuki julkisesti tuetuille vienti- ja alusluoto",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "finnvera",
+      "agency_fi": "Finnvera",
+      "agency_note": "Vienti- ja takaustuet",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 74384445.66
+    },
+    {
+      "code": "30.10.43.",
+      "name": "Eläinten hyvinvointikorvaukset",
+      "name_short": "Eläinten hyvinvointikorvaukset",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 70231024.61
+    },
+    {
+      "code": "33.60.35.",
+      "name": "Valtionosuus korkeakouluopiskelijoiden terveydenhuoltoon",
+      "name_short": "Valtionosuus korkeakouluopiskelijoiden terveydenhuoltoon",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 69780361.84
+    },
+    {
+      "code": "29.80.56.",
+      "name": "Valtionrahoitus kansallisten taidelaitosten toimintaan",
+      "name_short": "Valtionrahoitus kansallisten taidelaitosten toimintaan",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 68338000.0
+    },
+    {
+      "code": "29.80.89.",
+      "name": "Rahoitus Suomen arkkitehtuuri- ja designmuseosäätiölle ja ki",
+      "name_short": "Rahoitus Suomen arkkitehtuuri- ja designmuseosäätiölle ja ki",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 59660000.0
+    },
+    {
+      "code": "29.90.51.",
+      "name": "Liikunnallisen elämäntavan ja liikuntaolosuhteiden edistämin",
+      "name_short": "Liikunnallisen elämäntavan ja liikuntaolosuhteiden edistämin",
+      "hallinnonala": "Ympäristöministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 56617698.4
+    },
+    {
+      "code": "29.90.50.",
+      "name": "Liikunnan ja urheilun edistäminen",
+      "name_short": "Liikunnan ja urheilun edistäminen",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 56312234.85
+    },
+    {
+      "code": "28.91.41.",
+      "name": "Energiaverotuki",
+      "name_short": "Energiaverotuki (verotuki)",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Verotuki, ei menomomentin maksatus",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 47278679.2
+    },
+    {
+      "code": "30.40.46.",
+      "name": "Valtionavustus Suomen metsäkeskukselle",
+      "name_short": "Valtionavustus Suomen metsäkeskukselle",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 45132000.0
+    },
+    {
+      "code": "26.40.63.",
+      "name": "Vastaanottotoiminnan asiakkaille maksettavat tuet",
+      "name_short": "Vastaanottotoiminnan asiakkaille maksettavat tuet",
+      "hallinnonala": "Sisäministeriön",
+      "authority_id": "sm",
+      "authority_fi": "Sisäministeriö",
+      "agency_id": "sm",
+      "agency_fi": "Sisäministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 43036205.87
+    },
+    {
+      "code": "24.30.69.",
+      "name": "Tuki Ukrainalle",
+      "name_short": "Tuki Ukrainalle",
+      "hallinnonala": "Ulkoministeriön",
+      "authority_id": "um",
+      "authority_fi": "Ulkoministeriö",
+      "agency_id": "um",
+      "agency_fi": "Ulkoministeriö",
+      "agency_note": "Kehitysyhteistyö",
+      "family": "kehitysyhteistyo",
+      "family_fi": "Kehitysyhteistyö",
+      "nominal_eur": 40892780.61
+    },
+    {
+      "code": "33.50.52.",
+      "name": "Sotilasvammalain mukaiset korvaukset",
+      "name_short": "Sotilasvammalain mukaiset korvaukset",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 39789970.34
+    },
+    {
+      "code": "28.50.50.",
+      "name": "Vahingonkorvaukset",
+      "name_short": "Vahingonkorvaukset",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 37448661.55
+    },
+    {
+      "code": "30.40.44.",
+      "name": "Tuki puuntuotannon kestävyyden turvaamiseen",
+      "name_short": "Tuki puuntuotannon kestävyyden turvaamiseen",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 37276295.88
+    },
+    {
+      "code": "29.70.57.",
+      "name": "Korkeakouluopiskelijoiden ateriatuki",
+      "name_short": "Korkeakouluopiskelijoiden ateriatuki",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 34308644.61
+    },
+    {
+      "code": "30.10.54.",
+      "name": "Hevostalouden edistäminen",
+      "name_short": "Hevostalouden edistäminen",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 33970271.01
+    },
+    {
+      "code": "30.10.41.",
+      "name": "Maaseutuelinkeinotoiminnan korkotuki",
+      "name_short": "Maaseutuelinkeinotoiminnan korkotuki",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 31325772.05
+    },
+    {
+      "code": "29.80.53.",
+      "name": "Valtionavustus tilakustannuksiin",
+      "name_short": "Valtionavustus tilakustannuksiin",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 31311664.0
+    },
+    {
+      "code": "32.40.47.",
+      "name": "Finnvera Oyj:n tappiokorvaukset",
+      "name_short": "Finnvera Oyj:n tappiokorvaukset",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "finnvera",
+      "agency_fi": "Finnvera",
+      "agency_note": "Vienti- ja takaustuet",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 27149644.56
+    },
+    {
+      "code": "29.40.66.",
+      "name": "Rahoitusosuudet kansainvälisille järjestöille",
+      "name_short": "Rahoitusosuudet kansainvälisille järjestöille",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 27077489.93
+    },
+    {
+      "code": "33.03.50.",
+      "name": "Valtionosuus Työterveyslaitoksen toimintaan",
+      "name_short": "Valtionosuus Työterveyslaitoksen toimintaan",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 23556000.0
+    },
+    {
+      "code": "33.10.53.",
+      "name": "Sotilasavustus",
+      "name_short": "Sotilasavustus",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 22996632.65
+    },
+    {
+      "code": "29.80.41.",
+      "name": "Eräät käyttöoikeuskorvaukset",
+      "name_short": "Eräät käyttöoikeuskorvaukset",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 22901838.76
+    },
+    {
+      "code": "32.01.66.",
+      "name": "Kansainvälisten järjestöjen jäsenmaksut ja rahoitusosuudet",
+      "name_short": "Kansainvälisten järjestöjen jäsenmaksut ja rahoitusosuudet",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 19896785.25
+    },
+    {
+      "code": "25.01.51.",
+      "name": "Eräät valtion maksamat korvaukset",
+      "name_short": "Eräät valtion maksamat korvaukset",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "om",
+      "authority_fi": "Oikeusministeriö",
+      "agency_id": "om",
+      "agency_fi": "Oikeusministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 17781621.98
+    },
+    {
+      "code": "31.10.76.",
+      "name": "Maa- ja vesialueiden hankinnat ja korvaukset",
+      "name_short": "Maa- ja vesialueiden hankinnat ja korvaukset",
+      "hallinnonala": "Liikenne- ja viestintäministeriön",
+      "authority_id": "lvm",
+      "authority_fi": "Liikenne- ja viestintäministeriö",
+      "agency_id": "lvm",
+      "agency_fi": "Liikenne- ja viestintäministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 17469763.44
+    },
+    {
+      "code": "33.80.50.",
+      "name": "Valtion korvaus maatalousyrittäjien ja turkistuottajien lomituspalvelujen hallintomenoihin",
+      "name_short": "Valtion korvaus maatalousyrittäjien ja turkistuottajien lomitusp",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 17439999.32
+    },
+    {
+      "code": "32.20.46.",
+      "name": "Laivanrakennuksen innovaatiotuki",
+      "name_short": "Laivanrakennuksen innovaatiotuki",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 15382571.0
+    },
+    {
+      "code": "30.10.42.",
+      "name": "Luopumistuet ja -eläkkeet",
+      "name_short": "Luopumistuet ja -eläkkeet",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 13493905.89
+    },
+    {
+      "code": "32.01.41.",
+      "name": "Erityisavustus Teknologian tutkimuskeskus VTT Oy:n tutkimusi",
+      "name_short": "Erityisavustus Teknologian tutkimuskeskus VTT Oy:n tutkimusi",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "vtt",
+      "agency_fi": "VTT",
+      "agency_note": "TEM:n avustus tutkimuslaitokselle",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 12089000.0
+    },
+    {
+      "code": "27.10.50.",
+      "name": "Maanpuolustus- ja veteraanijärjestöjen toiminnan tukeminen",
+      "name_short": "Maanpuolustus- ja veteraanijärjestöjen toiminnan tukeminen",
+      "hallinnonala": "Puolustusministeriön",
+      "authority_id": "plm",
+      "authority_fi": "Puolustusministeriö",
+      "agency_id": "plm",
+      "agency_fi": "Puolustusministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 11675000.0
+    },
+    {
+      "code": "33.40.54.",
+      "name": "Valtion osuus maatalousyrittäjien tapaturmavakuutuksen kustannuksista",
+      "name_short": "Valtion osuus maatalousyrittäjien tapaturmavakuutuksen kustannuk",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 11328335.24
+    },
+    {
+      "code": "32.20.89.",
+      "name": "Pääomasijoitus Lääkekehityskeskus Oy:lle",
+      "name_short": "Pääomasijoitus Lääkekehityskeskus Oy:lle",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 10000000.0
+    },
+    {
+      "code": "29.10.51.",
+      "name": "Valtionavustus järjestöille",
+      "name_short": "Valtionavustus järjestöille",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 8403600.0
+    },
+    {
+      "code": "21.10.51.",
+      "name": "Avustajatuki eduskuntaryhmille",
+      "name_short": "Avustajatuki eduskuntaryhmille",
+      "hallinnonala": "Eduskunta",
+      "authority_id": "eduskunta",
+      "authority_fi": "Eduskunta",
+      "agency_id": "eduskunta",
+      "agency_fi": "Eduskunta",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 7710576.0
+    },
+    {
+      "code": "28.90.31.",
+      "name": "Kuntien yhdistymisen taloudellinen tuki",
+      "name_short": "Kuntien yhdistymisen taloudellinen tuki",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 5500000.0
+    },
+    {
+      "code": "32.30.44.",
+      "name": "Alueellinen kuljetustuki",
+      "name_short": "Alueellinen kuljetustuki",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 5325177.0
+    },
+    {
+      "code": "32.30.42.",
+      "name": "Yritysten kehittämishankkeiden tukeminen",
+      "name_short": "Yritysten kehittämishankkeiden tukeminen",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 5281256.0
+    },
+    {
+      "code": "31.20.50.",
+      "name": "Valtionavustus valtakunnallisen laajakaistahankkeen toteutta",
+      "name_short": "Valtionavustus valtakunnallisen laajakaistahankkeen toteutta",
+      "hallinnonala": "Liikenne- ja viestintäministeriön",
+      "authority_id": "lvm",
+      "authority_fi": "Liikenne- ja viestintäministeriö",
+      "agency_id": "lvm",
+      "agency_fi": "Liikenne- ja viestintäministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 5161220.3
+    },
+    {
+      "code": "30.10.50.",
+      "name": "Valtionavustus maatalouden neuvontapalveluihin ja eräisiin m",
+      "name_short": "Valtionavustus maatalouden neuvontapalveluihin ja eräisiin m",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 4710914.36
+    },
+    {
+      "code": "32.20.20.",
+      "name": "Energiatehokkuuden ja uusiutuvan energian käytön edistäminen",
+      "name_short": "Energiatehokkuuden ja uusiutuvan energian käytön edistäminen",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem_energia",
+      "agency_fi": "TEM, energiatuet",
+      "agency_note": "Energiatuki ja sähköistäminen",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 4613851.42
+    },
+    {
+      "code": "30.10.55.",
+      "name": "Valtionavustus 4H-toimintaan",
+      "name_short": "Valtionavustus 4H-toimintaan",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 4005000.0
+    },
+    {
+      "code": "28.90.32.",
+      "name": "Valtionavustus kuntien kannustinjärjestelmiin",
+      "name_short": "Valtionavustus kuntien kannustinjärjestelmiin",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 3500000.0
+    },
+    {
+      "code": "32.01.40.",
+      "name": "Valtionavustus kestävää kasvupolitiikkaa edistäville toimijo",
+      "name_short": "Valtionavustus kestävää kasvupolitiikkaa edistäville toimijo",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 3179990.15
+    },
+    {
+      "code": "24.30.67.",
+      "name": "Demokratia- ja oikeusvaltiotuki",
+      "name_short": "Demokratia- ja oikeusvaltiotuki",
+      "hallinnonala": "Ulkoministeriön",
+      "authority_id": "um",
+      "authority_fi": "Ulkoministeriö",
+      "agency_id": "um",
+      "agency_fi": "Ulkoministeriö",
+      "agency_note": "Kehitysyhteistyö",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 2906000.0
+    },
+    {
+      "code": "33.60.36.",
+      "name": "Valtionavustus sosiaali- ja terveyspalvelujen turvaamiseksi",
+      "name_short": "Valtionavustus sosiaali- ja terveyspalvelujen turvaamiseksi",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 2662000.0
+    },
+    {
+      "code": "24.30.68.",
+      "name": "Kehitysyhteistyön yhteistoimintahankkeet",
+      "name_short": "Kehitysyhteistyön yhteistoimintahankkeet",
+      "hallinnonala": "Ulkoministeriön",
+      "authority_id": "um",
+      "authority_fi": "Ulkoministeriö",
+      "agency_id": "um",
+      "agency_fi": "Ulkoministeriö",
+      "agency_note": "Kehitysyhteistyö",
+      "family": "kehitysyhteistyo",
+      "family_fi": "Kehitysyhteistyö",
+      "nominal_eur": 2500874.4
+    },
+    {
+      "code": "35.01.65.",
+      "name": "Avustukset järjestöille ja ympäristönhoitoon",
+      "name_short": "Avustukset järjestöille ja ympäristönhoitoon",
+      "hallinnonala": "Ympäristöministeriön",
+      "authority_id": "ym",
+      "authority_fi": "Ympäristöministeriö",
+      "agency_id": "ym",
+      "agency_fi": "Ympäristöministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 2321945.77
+    },
+    {
+      "code": "29.01.66.",
+      "name": "Rahoitusosuudet kansainvälisille järjestöille",
+      "name_short": "Rahoitusosuudet kansainvälisille järjestöille",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 2169232.79
+    },
+    {
+      "code": "32.30.41.",
+      "name": "Valtionavustus Työkanava Oy:n toimintaan",
+      "name_short": "Valtionavustus Työkanava Oy:n toimintaan",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 2000000.0
+    },
+    {
+      "code": "32.30.32.",
+      "name": "Valtionavustus kunnille Ohjaamoiden monialaisuuden vahvistam",
+      "name_short": "Valtionavustus kunnille Ohjaamoiden monialaisuuden vahvistam",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 1780349.1
+    },
+    {
+      "code": "30.40.47.",
+      "name": "Tuki joutoalueiden metsitykseen",
+      "name_short": "Tuki joutoalueiden metsitykseen",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 1707819.5
+    },
+    {
+      "code": "30.40.40.",
+      "name": "Eräät luonnonvaratalouden korvaukset",
+      "name_short": "Eräät luonnonvaratalouden korvaukset",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "mmm",
+      "agency_fi": "Maa- ja metsätalousministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 1686383.7
+    },
+    {
+      "code": "33.80.41.",
+      "name": "Valtion korvaus turkistuottajien lomituspalvelujen kustannuksiin",
+      "name_short": "Valtion korvaus turkistuottajien lomituspalvelujen kustannuksiin",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 1560922.45
+    },
+    {
+      "code": "33.60.63.",
+      "name": "Valtionavustus sosiaalialan osaamiskeskusten toimintaan",
+      "name_short": "Valtionavustus sosiaalialan osaamiskeskusten toimintaan",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 1450000.0
+    },
+    {
+      "code": "28.01.66.",
+      "name": "Kansainvälisten järjestöjen jäsenmaksut ja rahoitusosuudet",
+      "name_short": "Kansainvälisten järjestöjen jäsenmaksut ja rahoitusosuudet",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 1189305.12
+    },
+    {
+      "code": "28.70.23.",
+      "name": "Valtionavustustoiminnan kehittämis- ja digitalisointihanke",
+      "name_short": "Valtionavustustoiminnan kehittämis- ja digitalisointihanke",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 1091000.0
+    },
+    {
+      "code": "26.01.66.",
+      "name": "Kansainvälisten järjestöjen jäsenmaksut ja maksuosuudet ulkomaille",
+      "name_short": "Kansainvälisten järjestöjen jäsenmaksut ja maksuosuudet ulkomail",
+      "hallinnonala": "Sisäministeriön",
+      "authority_id": "sm",
+      "authority_fi": "Sisäministeriö",
+      "agency_id": "sm",
+      "agency_fi": "Sisäministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 927147.31
+    },
+    {
+      "code": "33.70.52.",
+      "name": "Valtionavustus UKK-instituutin toimintaan",
+      "name_short": "Valtionavustus UKK-instituutin toimintaan",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 918000.0
+    },
+    {
+      "code": "32.40.42.",
+      "name": "Valtiontuki sähköhuollon varmistamiseksi",
+      "name_short": "Valtiontuki sähköhuollon varmistamiseksi",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 811697.62
+    },
+    {
+      "code": "32.40.43.",
+      "name": "Yritysten kustannustuki",
+      "name_short": "Yritysten kustannustuki",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 635642.1
+    },
+    {
+      "code": "23.90.50.",
+      "name": "Avustukset järjestöille",
+      "name_short": "Avustukset järjestöille",
+      "hallinnonala": "Valtioneuvoston kanslia",
+      "authority_id": "vnk",
+      "authority_fi": "Valtioneuvoston kanslia",
+      "agency_id": "vnk",
+      "agency_fi": "Valtioneuvoston kanslia",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 400000.0
+    },
+    {
+      "code": "32.01.53.",
+      "name": "Matkustajien paluukuljetukset ja korvaukset",
+      "name_short": "Matkustajien paluukuljetukset ja korvaukset",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 400000.0
+    },
+    {
+      "code": "29.90.56.",
+      "name": "Liikunnan ja huippu-urheilun edistäminen",
+      "name_short": "Liikunnan ja huippu-urheilun edistäminen",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Kulttuuri, liikunta ja järjestöt",
+      "family": "jarjestot_kulttuuri",
+      "family_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+      "nominal_eur": 229699.03
+    },
+    {
+      "code": "32.01.95.",
+      "name": "Eräät oikeudenkäyntikulut ja korvaukset",
+      "name_short": "Eräät oikeudenkäyntikulut ja korvaukset",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 81661.59
+    },
+    {
+      "code": "33.30.50.",
+      "name": "Korvaukset rajat ylittävästä terveydenhuollosta",
+      "name_short": "Korvaukset rajat ylittävästä terveydenhuollosta",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 43668.65
+    },
+    {
+      "code": "33.50.54.",
+      "name": "Rintama-avustus eräille ulkomaalaisille vapaaehtoisille rintamasotilaille",
+      "name_short": "Rintama-avustus eräille ulkomaalaisille vapaaehtoisille rintamas",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 9000.0
+    },
+    {
+      "code": "32.20.44.",
+      "name": "Kiertotalouden investointituki",
+      "name_short": "Kiertotalouden investointituki",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 0.0
+    },
+    {
+      "code": "32.30.50.",
+      "name": "Valtionavustus nuorten rekrytointitukeen",
+      "name_short": "Valtionavustus nuorten rekrytointitukeen",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "tem",
+      "agency_fi": "Työ- ja elinkeinoministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "muut_siirrot",
+      "family_fi": "Muut avustukset ja korvaukset",
+      "nominal_eur": 0.0
+    },
+    {
+      "code": "32.40.82.",
+      "name": "Lainat Finnvera Oyj:n varainhankintaan",
+      "name_short": "Lainat Finnvera Oyj:n varainhankintaan",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "tem",
+      "authority_fi": "Työ- ja elinkeinoministeriö",
+      "agency_id": "finnvera",
+      "agency_fi": "Finnvera",
+      "agency_note": "Vienti- ja takaustuet",
+      "family": "yritykset_energia_tki",
+      "family_fi": "Yritykset, energia ja TKI",
+      "nominal_eur": 0.0
+    }
+  ],
+  "top_moments": [
+    {
+      "code": "33.40.60.",
+      "name": "Valtion osuus kansaneläkelaista ja eräistä muista laeista johtuvista menoista",
+      "name_short": "Kansaneläke, valtion osuus",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "sosiaalivakuutus",
+      "family_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 3987193694.11
+    },
+    {
+      "code": "28.90.30.",
+      "name": "Valtionosuus kunnille peruspalvelujen järjestämiseen",
+      "name_short": "Kuntien peruspalvelujen valtionosuus",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 3375455713.3
+    },
+    {
+      "code": "29.40.50.",
+      "name": "Valtionrahoitus yliopistojen toimintaan",
+      "name_short": "Yliopistojen perusrahoitus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "korkeakoulu_tiede",
+      "family_fi": "Korkeakoulu- ja tiederahoitus",
+      "nominal_eur": 2264295640.0
+    },
+    {
+      "code": "33.30.60.",
+      "name": "Valtion osuus sairausvakuutuslaista johtuvista menoista",
+      "name_short": "Sairausvakuutus, valtion osuus",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "sosiaalivakuutus",
+      "family_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 1842464210.93
+    },
+    {
+      "code": "33.10.50.",
+      "name": "Perhe-etuudet",
+      "name_short": "Perhe-etuudet",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 1594781777.83
+    },
+    {
+      "code": "33.20.52.",
+      "name": "Valtionosuus työttömyysetuuksien perusturvasta",
+      "name_short": "Työttömyysetuuksien perusturva",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 1309600000.0
+    },
+    {
+      "code": "33.10.54.",
+      "name": "Asumistuki",
+      "name_short": "Asumistuki",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 1212431733.35
+    },
+    {
+      "code": "33.10.57.",
+      "name": "Perustoimeentulotuki",
+      "name_short": "Perustoimeentulotuki",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 1045700000.0
+    },
+    {
+      "code": "29.20.30.",
+      "name": "Valtionosuus ja -avustus ammatillisen koulutuksen käyttökustannuksiin",
+      "name_short": "VOS ammatillinen koulutus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 1019362310.0
+    },
+    {
+      "code": "29.40.55.",
+      "name": "Valtionrahoitus ammattikorkeakoulujen toimintaan",
+      "name_short": "Ammattikorkeakoulujen perusrahoitus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "korkeakoulu_tiede",
+      "family_fi": "Korkeakoulu- ja tiederahoitus",
+      "nominal_eur": 1012990550.0
+    },
+    {
+      "code": "33.40.51.",
+      "name": "Valtion osuus maatalousyrittäjän eläkelaista johtuvista menoista",
+      "name_short": "Maatalousyrittäjien eläkkeet, valtion osuus",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "sosiaalivakuutus",
+      "family_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 841400000.0
+    },
+    {
+      "code": "29.70.55.",
+      "name": "Opintoraha ja asumislisä",
+      "name_short": "Opintoraha ja asumislisä",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 695256681.65
+    },
+    {
+      "code": "29.10.30.",
+      "name": "Valtionosuus ja -avustus esi- ja perusopetuksen ja varhaiska",
+      "name_short": "VOS esi- ja perusopetus ja varhaiskasvatus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön",
+      "authority_id": "okm",
+      "authority_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_id": "okm",
+      "agency_fi": "Opetus- ja kulttuuriministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 622775485.41
+    },
+    {
+      "code": "33.40.52.",
+      "name": "Valtion osuus yrittäjän eläkelaista johtuvista menoista",
+      "name_short": "Yrittäjäeläkkeet, valtion osuus",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "sosiaalivakuutus",
+      "family_fi": "Sosiaalivakuutuksen valtionosuudet",
+      "nominal_eur": 598900997.0
+    },
+    {
+      "code": "33.20.50.",
+      "name": "Valtionosuus työttömyysetuuksien ansioturvasta ja vuorottelu",
+      "name_short": "Työttömyysetuuksien ansioturva",
+      "hallinnonala": "Sosiaali- ja terveysministeriön",
+      "authority_id": "stm",
+      "authority_fi": "Sosiaali- ja terveysministeriö",
+      "agency_id": "stm",
+      "agency_fi": "Sosiaali- ja terveysministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "etuudet",
+      "family_fi": "Kotitalouksien etuudet",
+      "nominal_eur": 597800000.0
+    },
+    {
+      "code": "24.30.66.",
+      "name": "Varsinainen kehitysyhteistyö",
+      "name_short": "Varsinainen kehitysyhteistyö",
+      "hallinnonala": "Työ- ja elinkeinoministeriön",
+      "authority_id": "um",
+      "authority_fi": "Ulkoministeriö",
+      "agency_id": "um",
+      "agency_fi": "Ulkoministeriö",
+      "agency_note": "Kehitysyhteistyö",
+      "family": "kehitysyhteistyo",
+      "family_fi": "Kehitysyhteistyö",
+      "nominal_eur": 563698769.98
+    },
+    {
+      "code": "28.90.35.",
+      "name": "Valtion korvaus kunnille veroperustemuutoksista aiheutuvista",
+      "name_short": "Korvaus kunnille veroperustemuutoksista",
+      "hallinnonala": "Valtiovarainministeriön",
+      "authority_id": "vm",
+      "authority_fi": "Valtiovarainministeriö",
+      "agency_id": "vm",
+      "agency_fi": "Valtiovarainministeriö",
+      "agency_note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "family": "valtionosuudet",
+      "family_fi": "Kuntien ja koulutuksen valtionosuudet",
+      "nominal_eur": 540499967.0
+    },
+    {
+      "code": "30.20.41.",
+      "name": "EU-tulotuki ja EU-markkinatuki",
+      "name_short": "EU-tulotuki ja EU-markkinatuki",
+      "hallinnonala": "Maa- ja metsätalousministeriön",
+      "authority_id": "mmm",
+      "authority_fi": "Maa- ja metsätalousministeriö",
+      "agency_id": "ruokavirasto",
+      "agency_fi": "Ruokavirasto",
+      "agency_note": "CAP ja kansalliset maataloustuet",
+      "family": "maatalous_maaseutu",
+      "family_fi": "Maatalous ja maaseutu",
+      "nominal_eur": 528964546.0
+    }
+  ],
+  "targeted_by_authority": [
+    {
+      "id": "tem",
+      "label_fi": "Työ- ja elinkeinoministeriö",
+      "nominal_eur": 2425323886.95,
+      "families": [
+        {
+          "id": "yritykset_energia_tki",
+          "label_fi": "Yritykset, energia ja TKI",
+          "nominal_eur": 1596716968.81
+        },
+        {
+          "id": "alue_rakenne",
+          "label_fi": "Alue- ja rakennetuet",
+          "nominal_eur": 407330180.38
+        },
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 401379952.51
+        },
+        {
+          "id": "jarjestot_kulttuuri",
+          "label_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+          "nominal_eur": 19896785.25
+        }
+      ]
+    },
+    {
+      "id": "mmm",
+      "label_fi": "Maa- ja metsätalousministeriö",
+      "nominal_eur": 2075919823.54,
+      "families": [
+        {
+          "id": "maatalous_maaseutu",
+          "label_fi": "Maatalous ja maaseutu",
+          "nominal_eur": 1750912557.11
+        },
+        {
+          "id": "alue_rakenne",
+          "label_fi": "Alue- ja rakennetuet",
+          "nominal_eur": 216994947.1
+        },
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 108012319.33
+        }
+      ]
+    },
+    {
+      "id": "um",
+      "label_fi": "Ulkoministeriö",
+      "nominal_eur": 738209334.99,
+      "families": [
+        {
+          "id": "kehitysyhteistyo",
+          "label_fi": "Kehitysyhteistyö",
+          "nominal_eur": 735303334.99
+        },
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 2906000.0
+        }
+      ]
+    },
+    {
+      "id": "stm",
+      "label_fi": "Sosiaali- ja terveysministeriö",
+      "nominal_eur": 606644315.72,
+      "families": [
+        {
+          "id": "jarjestot_kulttuuri",
+          "label_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+          "nominal_eur": 304088000.0
+        },
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 161205633.48
+        },
+        {
+          "id": "maatalous_maaseutu",
+          "label_fi": "Maatalous ja maaseutu",
+          "nominal_eur": 141350682.24
+        }
+      ]
+    },
+    {
+      "id": "okm",
+      "label_fi": "Opetus- ja kulttuuriministeriö",
+      "nominal_eur": 438051457.76,
+      "families": [
+        {
+          "id": "jarjestot_kulttuuri",
+          "label_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+          "nominal_eur": 383837955.0
+        },
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 54213502.76
+        }
+      ]
+    },
+    {
+      "id": "vnk",
+      "label_fi": "Valtioneuvoston kanslia",
+      "nominal_eur": 310400000.0,
+      "families": [
+        {
+          "id": "yritykset_energia_tki",
+          "label_fi": "Yritykset, energia ja TKI",
+          "nominal_eur": 310000000.0
+        },
+        {
+          "id": "jarjestot_kulttuuri",
+          "label_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+          "nominal_eur": 400000.0
+        }
+      ]
+    },
+    {
+      "id": "lvm",
+      "label_fi": "Liikenne- ja viestintäministeriö",
+      "nominal_eur": 119053086.45,
+      "families": [
+        {
+          "id": "yritykset_energia_tki",
+          "label_fi": "Yritykset, energia ja TKI",
+          "nominal_eur": 96422102.71
+        },
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 22630983.74
+        }
+      ]
+    },
+    {
+      "id": "om",
+      "label_fi": "Oikeusministeriö",
+      "nominal_eur": 116344625.02,
+      "families": [
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 116344625.02
+        }
+      ]
+    },
+    {
+      "id": "vm",
+      "label_fi": "Valtiovarainministeriö",
+      "nominal_eur": 87007645.87,
+      "families": [
+        {
+          "id": "yritykset_energia_tki",
+          "label_fi": "Yritykset, energia ja TKI",
+          "nominal_eur": 47278679.2
+        },
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 38539661.55
+        },
+        {
+          "id": "jarjestot_kulttuuri",
+          "label_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+          "nominal_eur": 1189305.12
+        }
+      ]
+    },
+    {
+      "id": "sm",
+      "label_fi": "Sisäministeriö",
+      "nominal_eur": 43963353.18,
+      "families": [
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 43036205.87
+        },
+        {
+          "id": "jarjestot_kulttuuri",
+          "label_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+          "nominal_eur": 927147.31
+        }
+      ]
+    },
+    {
+      "id": "plm",
+      "label_fi": "Puolustusministeriö",
+      "nominal_eur": 11675000.0,
+      "families": [
+        {
+          "id": "jarjestot_kulttuuri",
+          "label_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+          "nominal_eur": 11675000.0
+        }
+      ]
+    },
+    {
+      "id": "eduskunta",
+      "label_fi": "Eduskunta",
+      "nominal_eur": 7710576.0,
+      "families": [
+        {
+          "id": "muut_siirrot",
+          "label_fi": "Muut avustukset ja korvaukset",
+          "nominal_eur": 7710576.0
+        }
+      ]
+    },
+    {
+      "id": "ym",
+      "label_fi": "Ympäristöministeriö",
+      "nominal_eur": 2321945.77,
+      "families": [
+        {
+          "id": "jarjestot_kulttuuri",
+          "label_fi": "Järjestö-, kulttuuri- ja liikunta-avustukset",
+          "nominal_eur": 2321945.77
+        }
+      ]
+    }
+  ],
+  "targeted_by_agency": [
+    {
+      "id": "ruokavirasto",
+      "label_fi": "Ruokavirasto",
+      "note": "CAP ja kansalliset maataloustuet",
+      "nominal_eur": 1615385489.44,
+      "moment_count": 4
+    },
+    {
+      "id": "um",
+      "label_fi": "Ulkoministeriö",
+      "note": "Kehitysyhteistyö",
+      "nominal_eur": 738209334.99,
+      "moment_count": 5
+    },
+    {
+      "id": "ely",
+      "label_fi": "ELY / elinvoimakeskukset",
+      "note": "EU:n alue- ja rakennerahastot",
+      "nominal_eur": 624325127.48,
+      "moment_count": 2
+    },
+    {
+      "id": "business_finland",
+      "label_fi": "Business Finland",
+      "note": "TKI-avustukset ja -lainat, tyypillinen myöntäjä",
+      "nominal_eur": 618178138.83,
+      "moment_count": 2
+    },
+    {
+      "id": "tem_energia",
+      "label_fi": "TEM, energiatuet",
+      "note": "Energiatuki ja sähköistäminen",
+      "nominal_eur": 485653121.9,
+      "moment_count": 4
+    },
+    {
+      "id": "tem",
+      "label_fi": "Työ- ja elinkeinoministeriö",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 442518812.86,
+      "moment_count": 15
+    },
+    {
+      "id": "okm",
+      "label_fi": "Opetus- ja kulttuuriministeriö",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 438051457.76,
+      "moment_count": 11
+    },
+    {
+      "id": "malmi",
+      "label_fi": "Suomen Malmijalostus",
+      "note": "VNK:n pääomasijoitus",
+      "nominal_eur": 310000000.0,
+      "moment_count": 1
+    },
+    {
+      "id": "stea",
+      "label_fi": "STEA",
+      "note": "Sote-järjestöjen avustukset",
+      "nominal_eur": 304088000.0,
+      "moment_count": 1
+    },
+    {
+      "id": "stm",
+      "label_fi": "Sosiaali- ja terveysministeriö",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 302556315.72,
+      "moment_count": 13
+    },
+    {
+      "id": "mmm",
+      "label_fi": "Maa- ja metsätalousministeriö",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 243539387.0,
+      "moment_count": 10
+    },
+    {
+      "id": "vtt",
+      "label_fi": "VTT",
+      "note": "TEM:n avustus tutkimuslaitokselle",
+      "nominal_eur": 143348000.0,
+      "moment_count": 2
+    },
+    {
+      "id": "tem_te",
+      "label_fi": "TEM / työllisyysalueet",
+      "note": "Työvoima- ja yrityspalvelut",
+      "nominal_eur": 126761542.76,
+      "moment_count": 1
+    },
+    {
+      "id": "lvm",
+      "label_fi": "Liikenne- ja viestintäministeriö",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 119053086.45,
+      "moment_count": 3
+    },
+    {
+      "id": "om",
+      "label_fi": "Oikeusministeriö",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 116344625.02,
+      "moment_count": 2
+    },
+    {
+      "id": "finnvera",
+      "label_fi": "Finnvera",
+      "note": "Vienti- ja takaustuet",
+      "nominal_eur": 101534090.22,
+      "moment_count": 3
+    },
+    {
+      "id": "tesi",
+      "label_fi": "Tesi",
+      "note": "Pääomasijoitukset",
+      "nominal_eur": 100000000.0,
+      "moment_count": 1
+    },
+    {
+      "id": "vm",
+      "label_fi": "Valtiovarainministeriö",
+      "note": "Verotuki, ei menomomentin maksatus",
+      "nominal_eur": 87007645.87,
+      "moment_count": 4
+    },
+    {
+      "id": "sm",
+      "label_fi": "Sisäministeriö",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 43963353.18,
+      "moment_count": 2
+    },
+    {
+      "id": "plm",
+      "label_fi": "Puolustusministeriö",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 11675000.0,
+      "moment_count": 1
+    },
+    {
+      "id": "eduskunta",
+      "label_fi": "Eduskunta",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 7710576.0,
+      "moment_count": 1
+    },
+    {
+      "id": "ym",
+      "label_fi": "Ympäristöministeriö",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 2321945.77,
+      "moment_count": 1
+    },
+    {
+      "id": "vnk",
+      "label_fi": "Valtioneuvoston kanslia",
+      "note": "Momentin budjettivastuu, toteuttavaa virastoa ei nimetty",
+      "nominal_eur": 400000.0,
+      "moment_count": 1
+    }
+  ]
+}</script>
+  <script>
+    const NS='http://www.w3.org/2000/svg';
+    const DATA=JSON.parse(document.getElementById('support-data').textContent);
+    const palette={reference:'#0067a3',comparison:'#d45d18',positive:'#22833a',obligation:'#713b83',other:'#8a8476',ink:'#171713'};
+    const familyColor={
+      sosiaalivakuutus:'#713b83', etuudet:'#5b3d8a', valtionosuudet:'#0067a3', korkeakoulu_tiede:'#1b6b7a',
+      yritykset_energia_tki:'#d45d18', maatalous_maaseutu:'#22833a', alue_rakenne:'#2f7d4a',
+      jarjestot_kulttuuri:'#b08900', kehitysyhteistyo:'#9b311c', muut_siirrot:'#8a8476'
+    };
+    const fmtMrd=(v,d=2)=> (v/1e9).toLocaleString('fi-FI',{minimumFractionDigits:d,maximumFractionDigits:d});
+    const fmtMeur=v=>(v/1e6).toLocaleString('fi-FI',{maximumFractionDigits:0});
+    const svg=(id,height,label)=>{const host=document.getElementById(id);host.innerHTML='';const n=document.createElementNS(NS,'svg');n.setAttribute('viewBox',`0 0 900 ${height}`);n.setAttribute('role','img');n.setAttribute('aria-label',label);host.appendChild(n);return n};
+    const el=(p,name,attrs={},text='')=>{const n=document.createElementNS(NS,name);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;p.appendChild(n);return n};
+
+    function bars(id, rows, valueKey, labelKey, colorFn, height, label, unit='mrd') {
+      const node=svg(id,height,label);
+      const max=Math.max(...rows.map(r=>r[valueKey]));
+      rows.forEach((row,i)=>{
+        const y=12+i*42, width=520*row[valueKey]/max, val=row[valueKey];
+        el(node,'text',{x:8,y:y+22,class:'label'}, row[labelKey]);
+        el(node,'rect',{x:310,y:y,width,height:28,rx:5,fill:colorFn(row)});
+        el(node,'text',{x:318+width,y:y+19,class:'bar-label'}, unit==='mrd'?fmtMrd(val)+' mrd €':fmtMeur(val)+' M€');
+      });
+    }
+
+    bars('chart-families', DATA.families, 'nominal_eur', 'label_fi', r=>familyColor[r.id]||palette.other, 40+DATA.families.length*42, 'Tukiperheet vuonna 2025');
+
+    function chartLayers(){
+      const f=Object.fromEntries(DATA.families.map(r=>[r.id,r.nominal_eur]));
+      const rows=[
+        {label:'Etuudet ja sosiaalivakuutus', value:(f.etuudet||0)+(f.sosiaalivakuutus||0), color:palette.obligation},
+        {label:'Valtionosuudet ja korkeakoulut', value:(f.valtionosuudet||0)+(f.korkeakoulu_tiede||0), color:palette.reference},
+        {label:'Kohdennetut tuet ja avustukset', value:DATA.headline.discretionary_eur, color:palette.comparison},
+        {label:'HVA-sote, ei mukana summassa', value:DATA.headline.hva_excluded_eur, color:palette.other}
+      ];
+      bars('chart-layers', rows, 'value', 'label', r=>r.color, 220, 'Kolme kerrosta ja pois jätetty HVA-rahoitus');
+    }
+
+    const familyOrder=['yritykset_energia_tki','maatalous_maaseutu','alue_rakenne','kehitysyhteistyo','jarjestot_kulttuuri','muut_siirrot'];
+    document.getElementById('targeted-legend').innerHTML=familyOrder.map(id=>{
+      const fam=DATA.families.find(r=>r.id===id);
+      return fam?`<span><i class="swatch" style="background:${familyColor[id]}"></i>${fam.label_fi}</span>`:'';
+    }).join('');
+
+    function chartTargeted(){
+      const rows=DATA.targeted_by_authority.filter(r=>r.nominal_eur>=20e6);
+      const rest=DATA.targeted_by_authority.filter(r=>r.nominal_eur<20e6);
+      if(rest.length){
+        const merged={label_fi:'Muut ministeriöt', nominal_eur:rest.reduce((s,r)=>s+r.nominal_eur,0), families:[]};
+        const bag={};
+        rest.forEach(r=>r.families.forEach(f=>{bag[f.id]=(bag[f.id]||0)+f.nominal_eur}));
+        merged.families=Object.entries(bag).map(([id,nominal_eur])=>({id,nominal_eur}));
+        rows.push(merged);
+      }
+      const height=24+rows.length*48;
+      const node=svg('chart-targeted', height, 'Kohdennetut tuet myöntäjäministeriöittäin vuonna 2025');
+      const max=rows[0].nominal_eur;
+      rows.forEach((row,i)=>{
+        const y=10+i*48, x0=250;
+        el(node,'text',{x:8,y:y+22,class:'label'}, row.label_fi);
+        let x=x0;
+        familyOrder.forEach(fid=>{
+          const part=row.families.find(f=>f.id===fid);
+          if(!part||part.nominal_eur<=0) return;
+          const w=560*part.nominal_eur/max;
+          el(node,'rect',{x,y,width:w,height:30,fill:familyColor[fid]});
+          x+=w;
+        });
+        el(node,'text',{x:x+8,y:y+21,class:'bar-label'}, fmtMrd(row.nominal_eur)+' mrd €');
+      });
+    }
+
+    const agencyColor={ruokavirasto:'#22833a',um:'#9b311c',ely:'#2f7d4a',business_finland:'#d45d18',tem_energia:'#d45d18',tem:'#d45d18',okm:'#b08900',malmi:'#713b83',stea:'#713b83',stm:'#713b83',tesi:'#d45d18',finnvera:'#d45d18',vtt:'#d45d18',vm:'#8a8476'};
+    document.getElementById('agency-grid').innerHTML=DATA.targeted_by_agency.slice(0,8).map(r=>`<div class="agency" style="--c:${agencyColor[r.id]||'#8a8476'}"><b>${r.label_fi}</b><strong>${fmtMrd(r.nominal_eur)} mrd €</strong><span>${r.moment_count} momenttia · ${r.note}</span></div>`).join('');
+
+    bars('chart-top', DATA.top_moments.slice(0,12).map(m=>({...m,label:m.name_short})), 'nominal_eur', 'label', r=>familyColor[r.family], 40+12*42, 'Suurimmat momentit 2025', 'mrd');
+
+    function table(){
+      const heads=['Momentti','Nimi','Perhe','Myöntäjä','Toteuttaja','M€'];
+      const body=DATA.moments.map(m=>`<tr><td>${m.code}</td><td>${m.name_short}</td><td>${m.family_fi}</td><td>${m.authority_fi||'—'}</td><td>${m.agency_fi||'—'}</td><td>${fmtMeur(m.nominal_eur)}</td></tr>`).join('');
+      document.getElementById('moment-table').innerHTML=`<thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${body}</tbody>`;
+    }
+    chartLayers(); chartTargeted(); table();
+  </script>
+</body>
+</html>

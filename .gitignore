@@ -5,6 +5,8 @@ __pycache__/
 *.log
 .env
 .env.local
+.env.local*
+.env*.bak*
 .venv/
 data/**/*.csv
 !data/reference/official_deflator_reference_v1.csv
@@ -33,3 +35,10 @@ application.log
 /outputs/
 /work/
 /backups/
+
+# Claude Code -tyokansio (vanhat worktree-kopiot, 137 MB)
+.claude/
+
+# Node-riippuvuudet ja frontendin build-artefaktit (CI rakentaa dist:n)
+node_modules/
+frontend/dist/
