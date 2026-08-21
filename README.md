@@ -208,6 +208,49 @@ Tuotannon BigQuery-objektien tila ja 18.8.2026 havaittujen korjaustarpeiden
 priorisointi on dokumentoitu
 [BigQuery- ja järjestelmäauditointiin](./docs/reports/bigquery_system_audit_20260818.md).
 
+### Tuet ja avustukset, nimihaku 1998–2025
+
+Staattinen `tuki-avustus.html` näyttää valtion menomomentit, joiden nimessä on
+tuki, tuet, tuen, tukia tai avustus. Viisi kuvaa erottaa valtionosuudet,
+kotitalouksien etuudet ja sivuun jäävät erät, kuten opintorahan ja kuntien
+peruspalvelujen valtionosuuden. Nimihaku ei ole virallinen tukirekisteri, eikä
+verotukia ole mukana.
+
+```bash
+.venv/bin/python scripts/load_subsidy_name_search.py
+.venv/bin/python scripts/test_subsidy_name_search.py
+ruby -run -e httpd . -p 8503
+```
+
+Sivu avautuu osoitteessa `http://127.0.0.1:8503/tuki-avustus.html`. Vuoden 2010
+pudotus merkitään VOS-uudistukseksi, ei automaattisesti tukien leikkaukseksi.
+
+### Yritystuet ja budjetin veroluokat 2015–2025
+
+`yritystuet-veroluokat.html` erottaa suorat yritystuet, energiaverotuen ja
+verojen kertymät. Alemmat ALV-kannat ja yhteisöverokannan “hinta” eivät ole
+omia momentejaan.
+
+```bash
+.venv/bin/python scripts/load_firm_support_tax.py
+.venv/bin/python scripts/test_firm_support_tax.py
+```
+
+Sivu: `http://127.0.0.1:8503/yritystuet-veroluokat.html`.
+
+### Valtion tuet 2025
+
+`valtion-tuet-2025.html` kokoaa vuoden 2025 tuki-, avustus-, valtionosuus- ja
+rahoitusmomentit. Hyvinvointialueiden sote-rahoitus on rajattu ulos;
+energiaverotuki on mukana verotukena.
+
+```bash
+.venv/bin/python scripts/load_state_supports_2025.py
+.venv/bin/python scripts/test_state_supports_2025.py
+```
+
+Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
+
 ### Sote-demonstratio 2008–2025
 
 Staattinen, selkokielinen `sote-demo.html` vertaa verorasitusta ja julkisia
