@@ -554,6 +554,13 @@ def _run(command: list[str], *, stdin: str | None = None) -> None:
         raise RuntimeError(result.stderr or result.stdout or "command failed")
 
 
+# Columns the mart compares against string literals such as '2022C03'. CSV
+# autodetection types them as INT64 whenever a snapshot happens to contain only
+# plain years, which makes analytics_municipal_finance_quality_v1 fail to
+# compile. Pin them to STRING so the data contract does not depend on the sample.
+STRING_CONTRACT_COLUMNS = ("reporting_period",)
+
+
 def load_bigquery(snapshots: list[Snapshot], *, project: str, dataset: str, location: str) -> None:
     for snapshot in snapshots:
         table_id = f"{dataset}.{snapshot.table_name}"
@@ -561,7 +568,24 @@ def load_bigquery(snapshots: list[Snapshot], *, project: str, dataset: str, loca
             "bq", f"--project_id={project}", f"--location={location}", "load", "--replace", "--autodetect",
             "--source_format=CSV", "--skip_leading_rows=1", table_id, str(REFERENCE_DIR / snapshot.filename),
         ])
+        _enforce_string_columns(snapshot, project=project, dataset=dataset, location=location)
         print(f"BigQuery table -> {table_id} ({len(snapshot.rows)} rows)")
+
+
+def _enforce_string_columns(snapshot: Snapshot, *, project: str, dataset: str, location: str) -> None:
+    columns = [name for name in STRING_CONTRACT_COLUMNS if name in snapshot.fields]
+    if not columns:
+        return
+    replacements = ", ".join(f"CAST({name} AS STRING) AS {name}" for name in columns)
+    table_ref = f"`{project}.{dataset}.{snapshot.table_name}`"
+    sql = (
+        f"CREATE OR REPLACE TABLE {table_ref} AS "
+        f"SELECT * REPLACE ({replacements}) FROM {table_ref}"
+    )
+    _run(
+        ["bq", f"--project_id={project}", f"--location={location}", "query", "--nouse_legacy_sql"],
+        stdin=sql,
+    )
 
 
 def parse_args() -> argparse.Namespace:
