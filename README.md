@@ -253,6 +253,29 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Miksi velkasuhde nousee nyt
+
+`velkasuhteen-ajurit.html` vastaa kysymykseen, miksi velkasuhde nousi
+2024–2025 vaikka talous kasvoi. Kaksi kuvaa:
+
+1. Velkasuhteen muutoksen hajotelma 2019–2025. Vuonna 2022 nimellinen BKT
+   painoi suhdetta −3,9 prosenttiyksikköä ja piilotti velanoton; vuonna 2024
+   apu oli enää −0,7, koska inflaatio hiipui. Vuonna 2020 nimittäjä jopa
+   nosti suhdetta, koska talous kutistui.
+2. Valtiontalouden erien muutos 2023→2025. Menojen ja tulojen ero kaventui
+   19,4 miljardista 14,0 miljardiin, mutta valtionvelan korot kasvoivat
+   0,8 miljardia ja olivat 3,0 miljardia vuonna 2025 — 3,9-kertaisesti
+   vuoteen 2021 verrattuna.
+
+Vertailuvuodet ovat 2023 ja 2025, koska molemmat ovat sote-uudistuksen
+jälkeisiä. Rakennemuutos on kirjattu tauluun `structural_events_v1`
+tunnuksella `sote_uudistus_2023`.
+
+```bash
+.venv/bin/python scripts/load_debt_ratio_drivers.py
+.venv/bin/python scripts/test_debt_ratio_drivers.py
+```
+
 ### Talouskasvu ja valtionvelka 2001–2025
 
 `kasvu-ja-velka.html` on yhden kuvan sivu: hajontakuvio, jossa vaaka-akselilla

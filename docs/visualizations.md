@@ -29,6 +29,7 @@ arvot ja rajaukset näkyvät suoraan sivulla.
 | `puoluevelka.html` | Kumulatiivinen nettovelanotto 2001– pääministeripuolueen mukaan; kokonaissumma ja kuukausivauhti rinnakkain | `scripts/test_party_debt_cumulative.py` |
 | `velkavauhti.html` | Kuukausia kutakin 10 mrd € velkalisäystä kohti; askelmat kumulatiivisen kertymän pohjalta 9/2008, lyhennysvaihe erikseen | `scripts/test_debt_speed_steps.py` |
 | `kasvu-ja-velka.html` | BKT:n volyymikasvu ja valtionvelan velkasuhteen muutos 2001–2025 nelikenttänä; velkasuhteen muutos hajotettu velanottoon ja nimittäjään | `scripts/test_growth_debt_relation.py` |
+| `velkasuhteen-ajurit.html` | Velkasuhteen nousun kaksi mekanismia 2019–2025 ja valtiontalouden erien muutos 2023→2025 | `scripts/test_debt_ratio_drivers.py` |
 | `/visualisointidemot` (`pages/visualisointidemot.py`) | Samojen virallisten rikastusten kokeellinen vuorovaikutteinen Streamlit-näkymä | `scripts/test_official_enrichment_reference.py` ja UI-smoke |
 | `sote-demo.html` | Sote 2008–2025; vuoden 2025 havaintoja käsitellään osittaisina | `scripts/test_sote_demo.py` |
 | `perusterveydenhuollon-palveluarvo.html` | HVA-tason palvelujen käyttö, saatavuus, kustannukset ja vastamittarit; ei julkaise tehokkuusindeksiä | `scripts/test_primary_care_value.py` |

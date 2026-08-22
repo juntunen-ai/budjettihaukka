@@ -192,12 +192,21 @@ def fiscal_side_case_sql(
     hallinnonala_expr: str | None = None,
 ) -> str:
     hall_expr = hallinnonala_expr or "''"
+    # Tekniset erät johdetaan TECHNICAL_NAME_KEYWORDS-listasta eikä kirjoiteta
+    # tähän erikseen. Aiemmin lista ja SQL olivat eri linjoilla: lista
+    # tunnisti sekä yksikön "peruutus" että monikon "peruutukset", mutta SQL
+    # vain yksikön. Koska "peruutukset" ei sisällä merkkijonoa "peruutus",
+    # 19,4 miljardin tekninen erä luettiin tuloksi vuosina 1998-2026.
+    technical_conditions = " ".join(
+        f"WHEN LOWER(COALESCE(CAST({name_expr} AS STRING), '')) LIKE '%{keyword}%' THEN 'technical' "
+        for keyword in TECHNICAL_NAME_KEYWORDS
+    )
     return (
         "CASE "
         f"WHEN COALESCE(CAST({code_expr} AS STRING), '') = '' AND COALESCE(CAST({name_expr} AS STRING), '') = '' THEN 'technical' "
         f"WHEN LOWER(COALESCE(CAST({code_expr} AS STRING), '')) = 'tapahtumia' THEN 'technical' "
-        f"WHEN LOWER(COALESCE(CAST({name_expr} AS STRING), '')) LIKE '%vain liikekirjanpidossa%' THEN 'technical' "
-        f"WHEN LOWER(COALESCE(CAST({name_expr} AS STRING), '')) LIKE '%siirrettyjen määrärahojen peruutus%' THEN 'technical' "
+        + technical_conditions
+        +
         f"WHEN LOWER(COALESCE(CAST({name_expr} AS STRING), '')) LIKE '%nettolainanotto%' THEN 'financing' "
         f"WHEN LOWER(COALESCE(CAST({name_expr} AS STRING), '')) LIKE '%velanhallinta%' THEN 'financing' "
         f"WHEN CAST({code_expr} AS STRING) LIKE '15.%' THEN 'financing' "
