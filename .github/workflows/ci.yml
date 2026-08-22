@@ -68,6 +68,7 @@ jobs:
           python scripts/test_subsidy_name_search.py
           python scripts/test_firm_support_tax.py
           python scripts/test_state_supports_2025.py
+          python scripts/test_government_cabinet.py
 
       - name: UI no-crash smoke test
         run: python scripts/test_ui_no_crash_smoke.py

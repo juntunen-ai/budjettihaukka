@@ -253,6 +253,28 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Suomen hallitukset 1917–
+
+`government_cabinet_v1` sisältää kaikki 77 hallitusta itsenäisyydestä alkaen:
+nimi, pääministerin puolue, hallitustyyppi sekä tarkat alku- ja
+loppupäivämäärät. Lähde on valtioneuvoston hallituslistaus, ja ketju on
+katkeamaton — jokaisen hallituksen päättymispäivä on seuraavan aloituspäivä.
+
+Näkymä `dim_government_by_year_v1` purkaa vallassaolon vuosiksi. Se käyttää
+puoliavointa väliä `[start_date, end_date)`, jotta vallanvaihtopäivää ei
+lasketa kahdesti; täysinä vuosina osuudet summautuvat tasan yhteen. Vuosi voi
+siis sisältää useamman hallituksen omalla osuudellaan, kuten 2019
+(Sipilä 43 %, Rinne 51 %, Marin 6 %).
+
+```bash
+.venv/bin/python scripts/load_government_cabinet.py --load-bigquery
+.venv/bin/python scripts/test_government_cabinet.py
+```
+
+Huom: lähteen `hallituspäivät` laskee molemmat päätepäivät mukaan, joten se on
+yhden suurempi kuin `end_date - start_date`. Istuvan hallituksen luku on elävä
+laskuri, joka vastaa `vintage_date`-päivää.
+
 ### Sote-demonstratio 2008–2025
 
 Staattinen, selkokielinen `sote-demo.html` vertaa verorasitusta ja julkisia
