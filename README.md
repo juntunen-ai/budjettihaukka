@@ -253,6 +253,41 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Suomen talouskasvu neljästä lähteestä
+
+`gdp_growth_outlook_v1` kokoaa BKT:n volyymin muutoksen eli sen, mitä
+talouskasvulla tarkoitetaan. Nimellinen BKT ei kelpaa kasvun mittariksi, eikä
+elinkustannusindeksillä deflatointi tuota samaa lukua: vuoden 2023 volyymi oli
+−1,3 %, mutta CPI-deflatoituna −3,5 %.
+
+| Lähde | Rooli | Kattavuus | Haku |
+|---|---|---|---|
+| Tilastokeskus | kansallinen toteuma | 1976– | StatFin PxWeb |
+| Suomen Pankki | ennuste | 2026–2028 | verkkosivu, kirjattu käsin |
+| OECD | toteuma ja ennuste | 1961–2027 | SDMX |
+| IMF | toteuma ja ennuste | 1980–2031 | DataMapper |
+
+Saman vuoden luvut eroavat lähteittäin, koska aineistoversiot ovat eri
+ikäisiä. Vuosina 2024–2025 OECD ja IMF jäävät noin 0,5 prosenttiyksikköä
+Tilastokeskuksesta, koska ne eivät ole päivittäneet tarkistettua tilinpitoa.
+Eroa ei tasoiteta: jokainen rivi kantaa oman lähteensä, vintagensa ja
+osoitteensa.
+
+Suomen Pankilla ei ole avointa data-rajapintaa, joten sen ennusteluvut on
+luettu julkaisusta ja kirjattu lataajaan julkaisupäivineen. Mukana on kaksi
+vintagea, jotta ennusteen tarkistuminen näkyy.
+
+Lisäksi `official_macro_reference_v1` sai kolme uutta sarjaa samasta
+Tilastokeskuksen taulusta: `gdp_volume_change_pct`, `gdp_volume_index_2015_100`
+ja `gdp_price_index_2015_100`. Viimeinen on BKT:n oma deflaattori, toisin kuin
+aiemmat kolme indeksiä.
+
+```bash
+.venv/bin/python scripts/load_visualization_reference_series.py --load-bigquery
+.venv/bin/python scripts/load_gdp_growth_outlook.py --load-bigquery
+.venv/bin/python scripts/test_gdp_growth_outlook.py
+```
+
 ### Velkaantumisen nopeus 2001–
 
 `velkavauhti.html` on yhden kuvan sivu: montako kuukautta kului kunkin

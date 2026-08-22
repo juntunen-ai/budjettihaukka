@@ -27,6 +27,7 @@ data/**/*.csv
 !data/reference/municipal_finance_taxonomy_index_v1.csv
 !data/reference/child_welfare_budget_panel_v1.csv
 !data/reference/government_cabinet_v1.csv
+!data/reference/gdp_growth_outlook_v1.csv
 data/ontology/rendered_phase1/
 agent_data/query_observability.jsonl
 agent_data/question_library.jsonl

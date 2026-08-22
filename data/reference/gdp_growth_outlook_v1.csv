@@ -1,0 +1,176 @@
+source_id,institution,year,gdp_volume_change_pct,is_national_official,is_beyond_national_actual,vintage_label,vintage_date,source_url,fetched_at
+bank_of_finland_forecast,Suomen Pankki,2026,0.6,False,True,"Suomen Pankki, maaliskuun 2026 väliennuste",2026-03-24,https://www.suomenpankki.fi/en/news-and-topical/press-releases-and-news/releases/2026/bank-of-finlands-interim-forecast-economic-performance-overshadowed-by-rising-energy-prices/,2026-08-22T20:22:38Z
+bank_of_finland_forecast,Suomen Pankki,2027,1.4,False,True,"Suomen Pankki, maaliskuun 2026 väliennuste",2026-03-24,https://www.suomenpankki.fi/en/news-and-topical/press-releases-and-news/releases/2026/bank-of-finlands-interim-forecast-economic-performance-overshadowed-by-rising-energy-prices/,2026-08-22T20:22:38Z
+bank_of_finland_forecast,Suomen Pankki,2028,1.5,False,True,"Suomen Pankki, maaliskuun 2026 väliennuste",2026-03-24,https://www.suomenpankki.fi/en/news-and-topical/press-releases-and-news/releases/2026/bank-of-finlands-interim-forecast-economic-performance-overshadowed-by-rising-energy-prices/,2026-08-22T20:22:38Z
+bank_of_finland_forecast,Suomen Pankki,2026,0.7,False,True,"Suomen Pankki, kesäkuun 2026 ennuste",2026-06-12,https://www.suomenpankki.fi/en/news-and-topical/press-releases-and-news/releases/2026/finlands-economy-at-a-turning-point/,2026-08-22T20:22:38Z
+bank_of_finland_forecast,Suomen Pankki,2027,1.2,False,True,"Suomen Pankki, kesäkuun 2026 ennuste",2026-06-12,https://www.suomenpankki.fi/en/news-and-topical/press-releases-and-news/releases/2026/finlands-economy-at-a-turning-point/,2026-08-22T20:22:38Z
+bank_of_finland_forecast,Suomen Pankki,2028,1.4,False,True,"Suomen Pankki, kesäkuun 2026 ennuste",2026-06-12,https://www.suomenpankki.fi/en/news-and-topical/press-releases-and-news/releases/2026/finlands-economy-at-a-turning-point/,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1980,5.7,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1981,1.3,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1982,3.1,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1983,3.1,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1984,3.2,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1985,3.5,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1986,2.7,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1987,3.6,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1988,5.2,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1989,5.1,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1990,0.2,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1991,-5.9,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1992,-3.3,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1993,-0.8,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1994,4.0,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1995,4.2,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1996,3.7,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1997,6.4,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1998,5.5,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,1999,4.4,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2000,5.8,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2001,2.6,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2002,1.7,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2003,2.0,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2004,4.0,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2005,2.8,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2006,4.0,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2007,5.3,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2008,0.8,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2009,-8.1,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2010,3.2,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2011,2.4,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2012,-1.5,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2013,-1.0,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2014,-0.5,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2015,0.5,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2016,2.6,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2017,3.3,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2018,1.2,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2019,1.3,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2020,-2.5,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2021,2.7,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2022,0.8,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2023,-1.3,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2024,0.4,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2025,0.2,False,False,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2026,1.0,False,True,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2027,1.5,False,True,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2028,1.4,False,True,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2029,1.4,False,True,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2030,1.2,False,True,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+imf_world_economic_outlook,IMF,2031,1.2,False,True,"World Economic Outlook, DataMapper NGDP_RPCH",2026-08-22,https://www.imf.org/external/datamapper/api/v1/NGDP_RPCH/FIN,2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1961,7.61,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1962,2.98,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1963,3.28,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1964,5.24,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1965,5.3,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1966,2.37,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1967,2.17,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1968,2.3,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1969,9.59,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1970,7.47,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1971,2.06,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1972,7.6,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1973,6.6,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1974,3.07,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1975,1.07,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1976,0.17,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1977,0.6,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1978,2.5,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1979,6.72,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1980,5.09,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1981,1.27,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1982,3.1,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1983,3.07,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1984,2.99,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1985,3.23,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1986,2.75,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1987,3.62,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1988,5.15,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1989,5.42,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1990,0.14,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1991,-5.88,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1992,-3.31,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1993,-0.78,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1994,3.97,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1995,4.23,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1996,3.66,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1997,6.4,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1998,5.45,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,1999,4.39,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2000,5.75,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2001,2.64,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2002,1.69,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2003,2.01,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2004,4.01,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2005,2.78,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2006,4.02,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2007,5.31,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2008,0.79,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2009,-8.08,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2010,3.17,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2011,2.39,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2012,-1.52,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2013,-0.98,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2014,-0.48,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2015,0.47,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2016,2.57,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2017,3.3,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2018,1.19,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2019,1.35,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2020,-2.49,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2021,2.68,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2022,0.76,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2023,-1.29,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2024,0.37,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2025,0.17,False,False,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2026,0.83,False,True,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+oecd_economic_outlook,OECD,2027,1.19,False,True,Economic Outlook 119,2026-08-22,"https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO/FIN.GDPV_ANNPCT.A",2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1976,0.5,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1977,0.4,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1978,3.1,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1979,7.2,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1980,5.6,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1981,1.3,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1982,3.1,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1983,3.1,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1984,3.2,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1985,3.5,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1986,2.8,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1987,3.6,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1988,5.2,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1989,5.1,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1990,0.7,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1991,-5.9,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1992,-3.3,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1993,-0.8,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1994,4.0,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1995,4.2,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1996,3.7,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1997,6.4,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1998,5.5,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,1999,4.4,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2000,5.8,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2001,2.6,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2002,1.7,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2003,2.0,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2004,4.0,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2005,2.8,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2006,4.0,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2007,5.3,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2008,0.8,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2009,-8.1,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2010,3.2,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2011,2.4,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2012,-1.5,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2013,-1.0,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2014,-0.5,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2015,0.5,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2016,2.6,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2017,3.3,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2018,1.2,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2019,1.3,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2020,-2.5,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2021,2.7,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2022,0.8,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2023,-1.3,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2024,0.9,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
+statfin_national_accounts_15a9,Tilastokeskus,2025,0.8,True,False,"Kansantalouden tilinpito, vuositilinpito",2026-08-22,https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px,2026-08-22T20:22:38Z
