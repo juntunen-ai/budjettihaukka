@@ -253,6 +253,35 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Miksi elintaso asukasta kohden ei ole palannut vuoden 2008 tasolle
+
+`scripts/build_living_standard_decomposition.py` piirtää tiedoston
+`docs/figures/elintason_hajotelma_2008_2025.png` (300 dpi). Vastaus saadaan
+identiteetistä, joka pätee tarkalleen eikä ole malli:
+
+```
+BKT/väestö = (BKT/työtunnit) × (työtunnit/työlliset)
+           × (työlliset/työikäiset) × (työikäiset/väestö)
+```
+
+Muutos 2008 → 2025: tuottavuus +5,0 %, tunnit työllistä kohden −6,5 %,
+työllisyysaste +7,5 %, työikäisten osuus −7,1 %, yhteensä −1,9 %. Kaksi
+jälkimmäistä kumoavat lähes tarkalleen toisensa, joten jäljelle jää
+työpanoksen ja tuottavuuden yhtälö.
+
+Tuottavuus kasvoi 2,34 % vuodessa 1995–2008 mutta vain 0,29 % vuodessa
+2008–2025. Vanhalla vauhdilla taso olisi nyt 148 eikä 105.
+
+Hajotelmaa varten `official_macro_reference_v1` sai kaksi uutta sarjaa:
+`employed_persons_thousands` ja `hours_worked_millions`. Työikäiset lasketaan
+summaamalla keskiväkiluku ikävuosilta 15–64, koska rajapinta ei tarjoa valmista
+ikäryhmäsummaa.
+
+```bash
+.venv/bin/python scripts/build_living_standard_decomposition.py
+.venv/bin/python scripts/test_living_standard_decomposition.py
+```
+
 ### Elintaso ja talouskasvu 2008–2025
 
 `scripts/build_living_standard_chart.py` piirtää tiedoston

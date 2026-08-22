@@ -125,6 +125,40 @@ SERIES = (
         time_filter=_annual,
         year_from_time=int,
     ),
+    # Tyopanos: elintason hajotelma asukasta kohden vaatii seka tyollisten
+    # maaran etta tehdyt tunnit. Pelkka tyollisyysaste ei riita, koska
+    # tunnit tyollista kohden ovat laskeneet samaan aikaan kun tyollisyys
+    # on noussut.
+    SeriesSpec(
+        series_id="employed_persons_thousands",
+        source_id="statfin_national_accounts_15ab",
+        url="https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15ab.px",
+        unit="THOUSAND_PERSONS",
+        period_basis="calendar_year_domestic_employment",
+        dimensions={
+            "taloustoimi_1_20180101": "E1",
+            "sektoriluokitus_7_20230101": "S1",
+            "toimiala_79_20180101": "SSS",
+        },
+        time_dimension="timeperiod_y",
+        time_filter=_annual,
+        year_from_time=int,
+    ),
+    SeriesSpec(
+        series_id="hours_worked_millions",
+        source_id="statfin_national_accounts_15ab",
+        url="https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15ab.px",
+        unit="MILLION_HOURS",
+        period_basis="calendar_year_hours_worked",
+        dimensions={
+            "taloustoimi_1_20180101": "E2",
+            "sektoriluokitus_7_20230101": "S1",
+            "toimiala_79_20180101": "SSS",
+        },
+        time_dimension="timeperiod_y",
+        time_filter=_annual,
+        year_from_time=int,
+    ),
     SeriesSpec(
         series_id="central_government_edp_debt_q4_meur",
         source_id="statfin_central_government_edp_debt_11yv",
