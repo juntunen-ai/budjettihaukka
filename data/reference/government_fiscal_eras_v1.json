@@ -1,0 +1,2338 @@
+{
+  "meta": {
+    "dataset_id": "government_fiscal_eras_v1",
+    "attribution_rule": "kuukausi kuuluu hallitukselle, joka piti valtaa suurimman osan kuukauden päivistä",
+    "first_observed_month": "1998-01-01",
+    "last_observed_month": "2026-07-01",
+    "observed_months": 340,
+    "missing_months": [
+      "2017-03-01",
+      "2019-03-01",
+      "2023-03-01"
+    ],
+    "real_base_year": 2025,
+    "real_deflator_id": "cpi_general_purchasing_power",
+    "sources": [
+      {
+        "source_id": "valtiokonttori_kuukausidata",
+        "label": "Valtiokonttori, valtion taloushallinnon kuukausidata"
+      },
+      {
+        "source_id": "valtioneuvosto_hallitukset",
+        "label": "Valtioneuvosto, hallitukset ja ministerit"
+      },
+      {
+        "source_id": "statfin_cost_of_living_11xm",
+        "label": "Tilastokeskus, elinkustannusindeksi"
+      }
+    ]
+  },
+  "eras": [
+    {
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "1995-04-13",
+      "end_date": "1999-04-15",
+      "observed_months": 15,
+      "first_observed_month": "1998-01-01",
+      "last_observed_month": "1999-03-01",
+      "net_nominal_eur": -1856378576.21,
+      "net_real_eur": -3037478373.342552,
+      "net_nominal_deflated_scope_eur": -1856378576.21,
+      "deflated_months": 15,
+      "expense_nominal_eur": 41571937868.1,
+      "revenue_nominal_eur": -40295443412.94,
+      "financing_nominal_eur": -1203634805.61,
+      "technical_nominal_eur": -1929238225.76,
+      "is_truncated_start": true,
+      "is_ongoing": false,
+      "is_complete_term": false
+    },
+    {
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "1999-04-15",
+      "end_date": "2003-04-17",
+      "observed_months": 49,
+      "first_observed_month": "1999-04-01",
+      "last_observed_month": "2003-04-01",
+      "net_nominal_eur": -6446125421.29,
+      "net_real_eur": -10048531009.021326,
+      "net_nominal_deflated_scope_eur": -6446125421.29,
+      "deflated_months": 49,
+      "expense_nominal_eur": 147200646143.02,
+      "revenue_nominal_eur": -148713683179.16,
+      "financing_nominal_eur": 6098382036.69,
+      "technical_nominal_eur": -11031470421.84,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 68,
+      "cabinet_name": "Jäätteenmäki",
+      "pm_party_fi": "Suomen Keskusta",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2003-04-17",
+      "end_date": "2003-06-24",
+      "observed_months": 2,
+      "first_observed_month": "2003-05-01",
+      "last_observed_month": "2003-06-01",
+      "net_nominal_eur": -486403328.83,
+      "net_real_eur": -721431443.3312429,
+      "net_nominal_deflated_scope_eur": -486403328.83,
+      "deflated_months": 2,
+      "expense_nominal_eur": 5092611533.54,
+      "revenue_nominal_eur": -5960415148.8,
+      "financing_nominal_eur": -4427526810.14,
+      "technical_nominal_eur": 4808927096.57,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2003-06-24",
+      "end_date": "2007-04-19",
+      "observed_months": 46,
+      "first_observed_month": "2003-07-01",
+      "last_observed_month": "2007-04-01",
+      "net_nominal_eur": -7793072061.96,
+      "net_real_eur": -11389641475.287458,
+      "net_nominal_deflated_scope_eur": -7793072061.96,
+      "deflated_months": 46,
+      "expense_nominal_eur": 145588194269.73,
+      "revenue_nominal_eur": -149581461016.72,
+      "financing_nominal_eur": 9481184282.22,
+      "technical_nominal_eur": -13280989597.19,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2007-04-19",
+      "end_date": "2010-06-22",
+      "observed_months": 38,
+      "first_observed_month": "2007-05-01",
+      "last_observed_month": "2010-06-01",
+      "net_nominal_eur": 6961759123.5,
+      "net_real_eur": 9249933224.645283,
+      "net_nominal_deflated_scope_eur": 6961759123.5,
+      "deflated_months": 38,
+      "expense_nominal_eur": 140381950422.61,
+      "revenue_nominal_eur": -129782655955.76,
+      "financing_nominal_eur": -17373047050.45,
+      "technical_nominal_eur": 13735511707.1,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2010-06-22",
+      "end_date": "2011-06-22",
+      "observed_months": 12,
+      "first_observed_month": "2010-07-01",
+      "last_observed_month": "2011-06-01",
+      "net_nominal_eur": 7310630342.8,
+      "net_real_eur": 9637806645.35579,
+      "net_nominal_deflated_scope_eur": 7310630342.8,
+      "deflated_months": 12,
+      "expense_nominal_eur": 50325489884.91,
+      "revenue_nominal_eur": -40739481942.83,
+      "financing_nominal_eur": -3668364709.12,
+      "technical_nominal_eur": 1392987109.84,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2011-06-22",
+      "end_date": "2014-06-24",
+      "observed_months": 36,
+      "first_observed_month": "2011-07-01",
+      "last_observed_month": "2014-06-01",
+      "net_nominal_eur": 19558719793.33,
+      "net_real_eur": 24427667779.431576,
+      "net_nominal_deflated_scope_eur": 19558719793.33,
+      "deflated_months": 36,
+      "expense_nominal_eur": 159754511494.46,
+      "revenue_nominal_eur": -135797952675.88,
+      "financing_nominal_eur": -23784024487.38,
+      "technical_nominal_eur": 19386185462.13,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2014-06-24",
+      "end_date": "2015-05-29",
+      "observed_months": 11,
+      "first_observed_month": "2014-07-01",
+      "last_observed_month": "2015-05-01",
+      "net_nominal_eur": 4807297121.81,
+      "net_real_eur": 5891615335.168679,
+      "net_nominal_deflated_scope_eur": 4807297121.81,
+      "deflated_months": 11,
+      "expense_nominal_eur": 50135438714.99,
+      "revenue_nominal_eur": -44614317486.36,
+      "financing_nominal_eur": -5219398955.12,
+      "technical_nominal_eur": 4505574848.3,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2015-05-29",
+      "end_date": "2019-06-06",
+      "observed_months": 46,
+      "first_observed_month": "2015-06-01",
+      "last_observed_month": "2019-05-01",
+      "net_nominal_eur": 9379458503.82,
+      "net_real_eur": 11456635366.517118,
+      "net_nominal_deflated_scope_eur": 9379458503.82,
+      "deflated_months": 46,
+      "expense_nominal_eur": 208733259918.69,
+      "revenue_nominal_eur": -194726157370.15,
+      "financing_nominal_eur": -11173748900.92,
+      "technical_nominal_eur": 6546104856.2,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2019-06-06",
+      "end_date": "2019-12-10",
+      "observed_months": 6,
+      "first_observed_month": "2019-06-01",
+      "last_observed_month": "2019-11-01",
+      "net_nominal_eur": 755066246.79,
+      "net_real_eur": 897408511.8098631,
+      "net_nominal_deflated_scope_eur": 755066246.79,
+      "deflated_months": 6,
+      "expense_nominal_eur": 25704095912.77,
+      "revenue_nominal_eur": -24119246202.35,
+      "financing_nominal_eur": -24430730.15,
+      "technical_nominal_eur": -805352733.48,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2019-12-10",
+      "end_date": "2023-06-20",
+      "observed_months": 42,
+      "first_observed_month": "2019-12-01",
+      "last_observed_month": "2023-06-01",
+      "net_nominal_eur": 30611619617.73,
+      "net_real_eur": 34637184395.6726,
+      "net_nominal_deflated_scope_eur": 30611619617.73,
+      "deflated_months": 42,
+      "expense_nominal_eur": 235529420616.01,
+      "revenue_nominal_eur": -201061426403.68,
+      "financing_nominal_eur": -41642413409.38,
+      "technical_nominal_eur": 37786038814.78,
+      "is_truncated_start": false,
+      "is_ongoing": false,
+      "is_complete_term": true
+    },
+    {
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "cabinet_type_fi": "Enemmistö",
+      "start_date": "2023-06-20",
+      "end_date": null,
+      "observed_months": 37,
+      "first_observed_month": "2023-07-01",
+      "last_observed_month": "2026-07-01",
+      "net_nominal_eur": 30545732125.69,
+      "net_real_eur": 25158070421.632206,
+      "net_nominal_deflated_scope_eur": 25111025140.37,
+      "deflated_months": 30,
+      "expense_nominal_eur": 280657835847.18,
+      "revenue_nominal_eur": -245317047102.44,
+      "financing_nominal_eur": -44603033986.65,
+      "technical_nominal_eur": 39807977367.6,
+      "is_truncated_start": false,
+      "is_ongoing": true,
+      "is_complete_term": false
+    }
+  ],
+  "monthly": [
+    {
+      "month": "1998-01-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": 818200057.31
+    },
+    {
+      "month": "1998-02-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": -835945477.77
+    },
+    {
+      "month": "1998-03-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": 815760325.71
+    },
+    {
+      "month": "1998-04-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": 613643803.56
+    },
+    {
+      "month": "1998-05-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": -330988304.47
+    },
+    {
+      "month": "1998-06-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": 578357370.15
+    },
+    {
+      "month": "1998-07-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": 331152612.51
+    },
+    {
+      "month": "1998-08-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": -806257864.07
+    },
+    {
+      "month": "1998-09-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": 939434266.87
+    },
+    {
+      "month": "1998-10-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": -2516595284.33
+    },
+    {
+      "month": "1998-11-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": -1105672775.25
+    },
+    {
+      "month": "1998-12-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": -967727828.51
+    },
+    {
+      "month": "1999-01-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": 276289027.45
+    },
+    {
+      "month": "1999-02-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": -461303531.34
+    },
+    {
+      "month": "1999-03-01",
+      "cabinet_ordinal": 66,
+      "cabinet_name": "Lipponen",
+      "net_eur": 795275025.97
+    },
+    {
+      "month": "1999-04-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 770255088.29
+    },
+    {
+      "month": "1999-05-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -862657095.96
+    },
+    {
+      "month": "1999-06-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 273060398.39
+    },
+    {
+      "month": "1999-07-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 9352135.95
+    },
+    {
+      "month": "1999-08-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -415200960.3
+    },
+    {
+      "month": "1999-09-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 819792239.33
+    },
+    {
+      "month": "1999-10-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -2973417528.89
+    },
+    {
+      "month": "1999-11-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -146006731.78
+    },
+    {
+      "month": "1999-12-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 857711151.6
+    },
+    {
+      "month": "2000-01-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 128377515.52
+    },
+    {
+      "month": "2000-02-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -142597963.8
+    },
+    {
+      "month": "2000-03-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -1958865568.28
+    },
+    {
+      "month": "2000-04-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 390647409.81
+    },
+    {
+      "month": "2000-05-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -393712308.25
+    },
+    {
+      "month": "2000-06-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -836328154.7
+    },
+    {
+      "month": "2000-07-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -382578451.84
+    },
+    {
+      "month": "2000-08-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -100019382.75
+    },
+    {
+      "month": "2000-09-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 432212702.38
+    },
+    {
+      "month": "2000-10-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 389937031.42
+    },
+    {
+      "month": "2000-11-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -12732871.72
+    },
+    {
+      "month": "2000-12-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -1234385252.79
+    },
+    {
+      "month": "2001-01-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 256485649.81
+    },
+    {
+      "month": "2001-02-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -465333716.6
+    },
+    {
+      "month": "2001-03-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -47181703.28
+    },
+    {
+      "month": "2001-04-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 409836061.29
+    },
+    {
+      "month": "2001-05-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -667006468.75
+    },
+    {
+      "month": "2001-06-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -276558527.66
+    },
+    {
+      "month": "2001-07-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -122064914.08
+    },
+    {
+      "month": "2001-08-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -503552461.69
+    },
+    {
+      "month": "2001-09-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 3293579797.29
+    },
+    {
+      "month": "2001-10-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -13855940.65
+    },
+    {
+      "month": "2001-11-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 49867721.92
+    },
+    {
+      "month": "2001-12-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -787072868.31
+    },
+    {
+      "month": "2002-01-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 209492755.82
+    },
+    {
+      "month": "2002-02-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -112213440.03
+    },
+    {
+      "month": "2002-03-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -524829672.46
+    },
+    {
+      "month": "2002-04-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 449834098.01
+    },
+    {
+      "month": "2002-05-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -960338816.89
+    },
+    {
+      "month": "2002-06-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -211958608.01
+    },
+    {
+      "month": "2002-07-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 143203544.29
+    },
+    {
+      "month": "2002-08-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -207326706.21
+    },
+    {
+      "month": "2002-09-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 654319443.7
+    },
+    {
+      "month": "2002-10-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 396657265.36
+    },
+    {
+      "month": "2002-11-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 374646544.25
+    },
+    {
+      "month": "2002-12-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -2974433574.28
+    },
+    {
+      "month": "2003-01-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 503820627.79
+    },
+    {
+      "month": "2003-02-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 261439328.71
+    },
+    {
+      "month": "2003-03-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": 81368549.8
+    },
+    {
+      "month": "2003-04-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "net_eur": -269792792.06
+    },
+    {
+      "month": "2003-05-01",
+      "cabinet_ordinal": 68,
+      "cabinet_name": "Jäätteenmäki",
+      "net_eur": -84763704.17
+    },
+    {
+      "month": "2003-06-01",
+      "cabinet_ordinal": 68,
+      "cabinet_name": "Jäätteenmäki",
+      "net_eur": -401639624.66
+    },
+    {
+      "month": "2003-07-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 543249949.44
+    },
+    {
+      "month": "2003-08-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -303700928.0
+    },
+    {
+      "month": "2003-09-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 535959734.03
+    },
+    {
+      "month": "2003-10-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 52460590.68
+    },
+    {
+      "month": "2003-11-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 73545753.05
+    },
+    {
+      "month": "2003-12-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -945354540.07
+    },
+    {
+      "month": "2004-01-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 781946297.32
+    },
+    {
+      "month": "2004-02-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -83050342.59
+    },
+    {
+      "month": "2004-03-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -210442814.06
+    },
+    {
+      "month": "2004-04-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 300225818.46
+    },
+    {
+      "month": "2004-05-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -1219088418.46
+    },
+    {
+      "month": "2004-06-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 155071071.91
+    },
+    {
+      "month": "2004-07-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 708074062.4
+    },
+    {
+      "month": "2004-08-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -391561544.48
+    },
+    {
+      "month": "2004-09-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 472804795.28
+    },
+    {
+      "month": "2004-10-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -80228061.55
+    },
+    {
+      "month": "2004-11-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 154141707.9
+    },
+    {
+      "month": "2004-12-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -2213021792.99
+    },
+    {
+      "month": "2005-01-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 843211390.7
+    },
+    {
+      "month": "2005-02-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -31346287.82
+    },
+    {
+      "month": "2005-03-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -115096564.58
+    },
+    {
+      "month": "2005-04-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 517745421.27
+    },
+    {
+      "month": "2005-05-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -1400392667.6
+    },
+    {
+      "month": "2005-06-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -2032516019.48
+    },
+    {
+      "month": "2005-07-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 248277644.75
+    },
+    {
+      "month": "2005-08-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -557315679.25
+    },
+    {
+      "month": "2005-09-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 552264126.07
+    },
+    {
+      "month": "2005-10-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -166307544.98
+    },
+    {
+      "month": "2005-11-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -62552565.96
+    },
+    {
+      "month": "2005-12-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -2189874134.2
+    },
+    {
+      "month": "2006-01-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 458353446.81
+    },
+    {
+      "month": "2006-02-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -502391402.64
+    },
+    {
+      "month": "2006-03-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 105202285.91
+    },
+    {
+      "month": "2006-04-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -238988887.9
+    },
+    {
+      "month": "2006-05-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -876954336.52
+    },
+    {
+      "month": "2006-06-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -371119707.92
+    },
+    {
+      "month": "2006-07-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 310236562.79
+    },
+    {
+      "month": "2006-08-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -200791768.39
+    },
+    {
+      "month": "2006-09-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 301589267.26
+    },
+    {
+      "month": "2006-10-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -76434131.97
+    },
+    {
+      "month": "2006-11-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -168217284.39
+    },
+    {
+      "month": "2006-12-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 213184428.29
+    },
+    {
+      "month": "2007-01-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 657868476.7
+    },
+    {
+      "month": "2007-02-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -458261012.05
+    },
+    {
+      "month": "2007-03-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": 40422669.3
+    },
+    {
+      "month": "2007-04-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "net_eur": -923899124.43
+    },
+    {
+      "month": "2007-05-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -1091604409.43
+    },
+    {
+      "month": "2007-06-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -268808466.23
+    },
+    {
+      "month": "2007-07-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 316808234.44
+    },
+    {
+      "month": "2007-08-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -491181362.16
+    },
+    {
+      "month": "2007-09-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 429787771.57
+    },
+    {
+      "month": "2007-10-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -139904555.69
+    },
+    {
+      "month": "2007-11-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -234685833.45
+    },
+    {
+      "month": "2007-12-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -111729837.43
+    },
+    {
+      "month": "2008-01-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 647742493.85
+    },
+    {
+      "month": "2008-02-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -870453213.72
+    },
+    {
+      "month": "2008-03-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -283343721.28
+    },
+    {
+      "month": "2008-04-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -909243725.3
+    },
+    {
+      "month": "2008-05-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -1209031474.62
+    },
+    {
+      "month": "2008-06-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -439147945.39
+    },
+    {
+      "month": "2008-07-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 185911663.9
+    },
+    {
+      "month": "2008-08-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -564250091.42
+    },
+    {
+      "month": "2008-09-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 733397573.87
+    },
+    {
+      "month": "2008-10-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -3947067.71
+    },
+    {
+      "month": "2008-11-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -91459350.65
+    },
+    {
+      "month": "2008-12-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -972233663.15
+    },
+    {
+      "month": "2009-01-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 353601042.4
+    },
+    {
+      "month": "2009-02-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -237753972.3
+    },
+    {
+      "month": "2009-03-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 720608392.36
+    },
+    {
+      "month": "2009-04-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 410700940.65
+    },
+    {
+      "month": "2009-05-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -702905378.89
+    },
+    {
+      "month": "2009-06-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 1284803805.36
+    },
+    {
+      "month": "2009-07-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 989754981.7
+    },
+    {
+      "month": "2009-08-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 98334251.17
+    },
+    {
+      "month": "2009-09-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 1560252886.54
+    },
+    {
+      "month": "2009-10-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 773009623.38
+    },
+    {
+      "month": "2009-11-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 380437030.39
+    },
+    {
+      "month": "2009-12-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 2103881704.16
+    },
+    {
+      "month": "2010-01-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 2997238982.36
+    },
+    {
+      "month": "2010-02-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 438322564.84
+    },
+    {
+      "month": "2010-03-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 506053457.27
+    },
+    {
+      "month": "2010-04-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 98707821.5
+    },
+    {
+      "month": "2010-05-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": -558322744.19
+    },
+    {
+      "month": "2010-06-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "net_eur": 1112410714.8
+    },
+    {
+      "month": "2010-07-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 759465435.8
+    },
+    {
+      "month": "2010-08-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 48438364.04
+    },
+    {
+      "month": "2010-09-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 1121301849.45
+    },
+    {
+      "month": "2010-10-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 518209396.89
+    },
+    {
+      "month": "2010-11-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 438791036.86
+    },
+    {
+      "month": "2010-12-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 1582646116.84
+    },
+    {
+      "month": "2011-01-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 2993114493.8
+    },
+    {
+      "month": "2011-02-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 33750798.05
+    },
+    {
+      "month": "2011-03-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 306534557.86
+    },
+    {
+      "month": "2011-04-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": 16374552.88
+    },
+    {
+      "month": "2011-05-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": -337839298.02
+    },
+    {
+      "month": "2011-06-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "net_eur": -170156961.65
+    },
+    {
+      "month": "2011-07-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 544204442.34
+    },
+    {
+      "month": "2011-08-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 22372109.69
+    },
+    {
+      "month": "2011-09-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 366083353.25
+    },
+    {
+      "month": "2011-10-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 300680425.38
+    },
+    {
+      "month": "2011-11-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 438685463.26
+    },
+    {
+      "month": "2011-12-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 1035432426.83
+    },
+    {
+      "month": "2012-01-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 2739575134.16
+    },
+    {
+      "month": "2012-02-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": -424774648.05
+    },
+    {
+      "month": "2012-03-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 635388025.58
+    },
+    {
+      "month": "2012-04-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 47497398.7
+    },
+    {
+      "month": "2012-05-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": -455888355.63
+    },
+    {
+      "month": "2012-06-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 672182640.46
+    },
+    {
+      "month": "2012-07-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 752180271.55
+    },
+    {
+      "month": "2012-08-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": -87662363.93
+    },
+    {
+      "month": "2012-09-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 702673165.92
+    },
+    {
+      "month": "2012-10-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 870460389.51
+    },
+    {
+      "month": "2012-11-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 497119564.42
+    },
+    {
+      "month": "2012-12-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 666839632.48
+    },
+    {
+      "month": "2013-01-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 3421923301.14
+    },
+    {
+      "month": "2013-02-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": -268756138.8
+    },
+    {
+      "month": "2013-03-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 224965780.53
+    },
+    {
+      "month": "2013-04-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 7175482.63
+    },
+    {
+      "month": "2013-05-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": -805433683.03
+    },
+    {
+      "month": "2013-06-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 317032814.54
+    },
+    {
+      "month": "2013-07-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 158773646.54
+    },
+    {
+      "month": "2013-08-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 1039031671.67
+    },
+    {
+      "month": "2013-09-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 807872944.84
+    },
+    {
+      "month": "2013-10-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 890240870.46
+    },
+    {
+      "month": "2013-11-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 86999308.81
+    },
+    {
+      "month": "2013-12-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 1235904545.96
+    },
+    {
+      "month": "2014-01-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 2949757682.61
+    },
+    {
+      "month": "2014-02-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": -583354789.96
+    },
+    {
+      "month": "2014-03-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": -131295525.9
+    },
+    {
+      "month": "2014-04-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 1052218995.26
+    },
+    {
+      "month": "2014-05-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": -481798006.77
+    },
+    {
+      "month": "2014-06-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "net_eur": 314411816.88
+    },
+    {
+      "month": "2014-07-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": 1112837759.64
+    },
+    {
+      "month": "2014-08-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": -987114753.23
+    },
+    {
+      "month": "2014-09-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": 1114748317.87
+    },
+    {
+      "month": "2014-10-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": 279316160.54
+    },
+    {
+      "month": "2014-11-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": 17741631.2
+    },
+    {
+      "month": "2014-12-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": 1493879140.37
+    },
+    {
+      "month": "2015-01-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": 3098431438.46
+    },
+    {
+      "month": "2015-02-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": -461517452.31
+    },
+    {
+      "month": "2015-03-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": 354201716.53
+    },
+    {
+      "month": "2015-04-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": -289741266.71
+    },
+    {
+      "month": "2015-05-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "net_eur": -925485570.55
+    },
+    {
+      "month": "2015-06-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 330259167.67
+    },
+    {
+      "month": "2015-07-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 463089379.47
+    },
+    {
+      "month": "2015-08-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 270897544.04
+    },
+    {
+      "month": "2015-09-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 182726284.14
+    },
+    {
+      "month": "2015-10-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 435975593.63
+    },
+    {
+      "month": "2015-11-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -11909333.44
+    },
+    {
+      "month": "2015-12-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 1290096615.93
+    },
+    {
+      "month": "2016-01-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 2941939292.05
+    },
+    {
+      "month": "2016-02-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -1453017458.57
+    },
+    {
+      "month": "2016-03-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 158658270.14
+    },
+    {
+      "month": "2016-04-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 373274610.71
+    },
+    {
+      "month": "2016-05-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -587406874.67
+    },
+    {
+      "month": "2016-06-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 571807431.64
+    },
+    {
+      "month": "2016-07-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 179049820.68
+    },
+    {
+      "month": "2016-08-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -658720107.59
+    },
+    {
+      "month": "2016-09-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 269210342.35
+    },
+    {
+      "month": "2016-10-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 522486592.76
+    },
+    {
+      "month": "2016-11-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -1373075078.01
+    },
+    {
+      "month": "2016-12-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 2981604285.46
+    },
+    {
+      "month": "2017-01-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 3771346595.65
+    },
+    {
+      "month": "2017-02-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -1568254233.26
+    },
+    {
+      "month": "2017-04-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -228585718.32
+    },
+    {
+      "month": "2017-05-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -903663683.33
+    },
+    {
+      "month": "2017-06-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 77462182.29
+    },
+    {
+      "month": "2017-07-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 370979949.72
+    },
+    {
+      "month": "2017-08-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -551426061.93
+    },
+    {
+      "month": "2017-09-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -4632827.17
+    },
+    {
+      "month": "2017-10-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 620129180.02
+    },
+    {
+      "month": "2017-11-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 446486456.93
+    },
+    {
+      "month": "2017-12-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 766590071.42
+    },
+    {
+      "month": "2018-01-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 3001849997.18
+    },
+    {
+      "month": "2018-02-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -1745000491.05
+    },
+    {
+      "month": "2018-03-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 88063332.93
+    },
+    {
+      "month": "2018-04-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -335398360.46
+    },
+    {
+      "month": "2018-05-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -183967108.37
+    },
+    {
+      "month": "2018-06-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -619530951.7
+    },
+    {
+      "month": "2018-07-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -122585331.83
+    },
+    {
+      "month": "2018-08-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -206645741.99
+    },
+    {
+      "month": "2018-09-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -232253783.02
+    },
+    {
+      "month": "2018-10-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 267010668.33
+    },
+    {
+      "month": "2018-11-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 270958585.38
+    },
+    {
+      "month": "2018-12-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -1030417463.94
+    },
+    {
+      "month": "2019-01-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 2907262136.5
+    },
+    {
+      "month": "2019-02-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -1654614867.23
+    },
+    {
+      "month": "2019-04-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": 5119045.09
+    },
+    {
+      "month": "2019-05-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "net_eur": -713769452.41
+    },
+    {
+      "month": "2019-06-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "net_eur": 183606674.15
+    },
+    {
+      "month": "2019-07-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "net_eur": -98999811.57
+    },
+    {
+      "month": "2019-08-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "net_eur": -165359570.72
+    },
+    {
+      "month": "2019-09-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "net_eur": 385127275.69
+    },
+    {
+      "month": "2019-10-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "net_eur": 570170120.62
+    },
+    {
+      "month": "2019-11-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "net_eur": -119478441.38
+    },
+    {
+      "month": "2019-12-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 792267435.95
+    },
+    {
+      "month": "2020-01-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 3618003510.56
+    },
+    {
+      "month": "2020-02-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -1465727461.97
+    },
+    {
+      "month": "2020-03-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -459160366.64
+    },
+    {
+      "month": "2020-04-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 1125334316.98
+    },
+    {
+      "month": "2020-05-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 423889979.73
+    },
+    {
+      "month": "2020-06-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 1928653877.37
+    },
+    {
+      "month": "2020-07-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 960152857.61
+    },
+    {
+      "month": "2020-08-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 133941593.61
+    },
+    {
+      "month": "2020-09-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 1047542784.92
+    },
+    {
+      "month": "2020-10-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 1175982072.8
+    },
+    {
+      "month": "2020-11-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 1300081605.11
+    },
+    {
+      "month": "2020-12-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 2966556828.94
+    },
+    {
+      "month": "2021-01-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 2852577018.34
+    },
+    {
+      "month": "2021-02-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -466462004.64
+    },
+    {
+      "month": "2021-03-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 1134113118.75
+    },
+    {
+      "month": "2021-04-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 141717896.49
+    },
+    {
+      "month": "2021-05-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -265689735.07
+    },
+    {
+      "month": "2021-06-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 586933614.33
+    },
+    {
+      "month": "2021-07-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 336996973.1
+    },
+    {
+      "month": "2021-08-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 56181865.03
+    },
+    {
+      "month": "2021-09-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 398901357.44
+    },
+    {
+      "month": "2021-10-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 321454298.22
+    },
+    {
+      "month": "2021-11-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -750561522.05
+    },
+    {
+      "month": "2021-12-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 2003330348.07
+    },
+    {
+      "month": "2022-01-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 3685459621.51
+    },
+    {
+      "month": "2022-02-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -1903952823.11
+    },
+    {
+      "month": "2022-03-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -346915369.52
+    },
+    {
+      "month": "2022-04-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 622660194.43
+    },
+    {
+      "month": "2022-05-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -680895814.8
+    },
+    {
+      "month": "2022-06-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 714920642.1
+    },
+    {
+      "month": "2022-07-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -684657966.12
+    },
+    {
+      "month": "2022-08-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -467876738.34
+    },
+    {
+      "month": "2022-09-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 778662112.68
+    },
+    {
+      "month": "2022-10-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 854500910.13
+    },
+    {
+      "month": "2022-11-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 323558115.81
+    },
+    {
+      "month": "2022-12-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 1871864561.49
+    },
+    {
+      "month": "2023-01-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 5799025838.57
+    },
+    {
+      "month": "2023-02-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -2992169404.62
+    },
+    {
+      "month": "2023-04-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 226608130.45
+    },
+    {
+      "month": "2023-05-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": -747460571.5
+    },
+    {
+      "month": "2023-06-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "net_eur": 3661275915.59
+    },
+    {
+      "month": "2023-07-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -485344394.18
+    },
+    {
+      "month": "2023-08-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -324517359.44
+    },
+    {
+      "month": "2023-09-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 936524317.27
+    },
+    {
+      "month": "2023-10-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 161928900.66
+    },
+    {
+      "month": "2023-11-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 334821006.57
+    },
+    {
+      "month": "2023-12-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -151552564.55
+    },
+    {
+      "month": "2024-01-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 7721862282.0
+    },
+    {
+      "month": "2024-02-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -2430816939.95
+    },
+    {
+      "month": "2024-03-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 922794161.67
+    },
+    {
+      "month": "2024-04-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -331044197.16
+    },
+    {
+      "month": "2024-05-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -786704973.92
+    },
+    {
+      "month": "2024-06-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 3369163855.73
+    },
+    {
+      "month": "2024-07-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 472780023.78
+    },
+    {
+      "month": "2024-08-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -263475092.75
+    },
+    {
+      "month": "2024-09-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 3500300831.29
+    },
+    {
+      "month": "2024-10-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 365309759.01
+    },
+    {
+      "month": "2024-11-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 188529085.32
+    },
+    {
+      "month": "2024-12-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 84693.48
+    },
+    {
+      "month": "2025-01-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 7574680164.18
+    },
+    {
+      "month": "2025-02-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -2020439245.68
+    },
+    {
+      "month": "2025-03-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 864639721.94
+    },
+    {
+      "month": "2025-04-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -1211366494.08
+    },
+    {
+      "month": "2025-05-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -357526829.32
+    },
+    {
+      "month": "2025-06-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 4573674440.39
+    },
+    {
+      "month": "2025-07-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 316238392.89
+    },
+    {
+      "month": "2025-08-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -383774600.28
+    },
+    {
+      "month": "2025-09-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 2208408222.82
+    },
+    {
+      "month": "2025-10-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 625012174.93
+    },
+    {
+      "month": "2025-11-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 423178564.77
+    },
+    {
+      "month": "2025-12-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -702342767.02
+    },
+    {
+      "month": "2026-01-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 6148540752.58
+    },
+    {
+      "month": "2026-02-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -4672062937.44
+    },
+    {
+      "month": "2026-03-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 840931146.72
+    },
+    {
+      "month": "2026-04-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -115205416.15
+    },
+    {
+      "month": "2026-05-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": -948194256.13
+    },
+    {
+      "month": "2026-06-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 4136780249.81
+    },
+    {
+      "month": "2026-07-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "net_eur": 43917445.93
+    }
+  ]
+}

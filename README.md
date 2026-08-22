@@ -253,6 +253,28 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Hallituskaudet ja valtion talous 1998–
+
+`hallituskaudet.html` esittää valtion kuukausitoteuman hallituskausittain.
+Kohdennussääntö: kuukausi kuuluu sille hallitukselle, joka piti valtaa
+suurimman osan kuukauden päivistä. Vaihtoehto olisi jakaa vuosisumma
+päiväosuuksilla, mutta se olettaisi menojen jakautuvan tasaisesti vuoden
+sisällä.
+
+Sivu merkitsee näkyvästi kolme asiaa, joita ilman luvut johtaisivat harhaan:
+kausien pituudet eroavat (vertailu tehdään kuukausikeskiarvona), Lipposen
+ensimmäisestä kaudesta puuttuu alku ja Orpon kausi on kesken, ja kolmelta
+kuukaudelta (3/2017, 3/2019, 3/2023) lähdeaineistossa ei ole yhtään
+nettokertymän arvoa — ne on jätetty pois summista eikä korvattu nollalla.
+
+```bash
+.venv/bin/python scripts/load_government_fiscal_eras.py
+.venv/bin/python scripts/test_government_fiscal_eras.py
+```
+
+Sivu: `http://127.0.0.1:8503/hallituskaudet.html`. Huom: kuva kertoo kuka oli
+vallassa, ei kuka päätti — talousarvio päätetään edellisenä syksynä.
+
 ### Suomen hallitukset 1917–
 
 `government_cabinet_v1` sisältää kaikki 77 hallitusta itsenäisyydestä alkaen:
