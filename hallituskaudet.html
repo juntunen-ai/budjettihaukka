@@ -101,13 +101,17 @@
       <div class="legend">
         <span><i class="swatch" style="background:#713b83"></i>Menot kuukaudessa</span>
         <span><i class="swatch" style="background:#0067a3"></i>Tulot kuukaudessa</span>
+        <span><i class="swatch" style="background:#22833a"></i>Erotus tulot − menot, ylijäämä</span>
+        <span><i class="swatch" style="background:#d45d18"></i>Erotus tulot − menot, alijäämä</span>
       </div>
       <div id="chart-sides" class="chart"></div>
       <div class="finding">
         <p><strong>Päähavainto.</strong> <span id="f2"></span></p>
-        <p><strong>Mitä kuva ei kerro.</strong> Menojen ja tulojen erotus ei ole sama kuin kuvassa 01
-          esitetty alijäämä, koska nettolainanotto ja velanhallinta on eroteltu omaksi
-          rahoituseräkseen eikä lasketa kumpaankaan pylvääseen. Luvut ovat nimellisiä euroja,
+        <p><strong>Mitä kuva ei kerro.</strong> Pylväiden yllä oleva erotus ei ole sama luku kuin
+          kuvassa 01 esitetty saldo. Nettolainanotto ja velanhallinta on eroteltu omaksi
+          rahoituseräkseen ja liikekirjanpidon tekniset kirjaukset omakseen, eikä kumpikaan
+          sisälly näihin pylväisiin — erotus on siis menojen ja tulojen väli, ei koko
+          budjettisaldo. Luvut ovat nimellisiä euroja,
           eivätkä siksi vertaudu suoraan kausien välillä — inflaatiokorjaus on kuvassa 04.</p>
       </div>
       <p class="source">Lähde: Valtiokonttori, kuukausidata. Meno- ja tuloerottelu repon jaetulla
@@ -277,7 +281,12 @@
         expense: mrd(era.expense_nominal_eur / era.observed_months),
         revenue: mrd(Math.abs(era.revenue_nominal_eur) / era.observed_months)
       }));
-      const max = Math.max(...rows.flatMap(row => [row.expense, row.revenue])) * 1.15;
+      /* Erotus tulot miinus menot, sama merkkisaanto kuin kuvassa 01:
+         positiivinen on ylijaama. Tama ei ole sama luku kuin kuvan 01 saldo,
+         koska rahoituserat ja tekniset kirjaukset eivat sisally kumpaankaan
+         pylvaaseen. */
+      rows.forEach(row => { row.gap = row.revenue - row.expense; });
+      const max = Math.max(...rows.flatMap(row => [row.expense, row.revenue])) * 1.22;
       const y = axes(node, x0, x1, y0, y1, 0, max, 'mrd €/kk');
       const step = (x1 - x0) / rows.length;
       rows.forEach((row, index) => {
@@ -291,10 +300,30 @@
           x: cx + 2, y: y(row.revenue), width, height: y(0) - y(row.revenue),
           fill: palette.reference, stroke: palette.ink, 'stroke-width': 1.2
         });
+
+        /* Erotus nakyviin: hakasulje pylvaiden huippujen valilla ja luku sen ylla. */
+        const top = Math.min(y(row.expense), y(row.revenue));
+        const bottom = Math.max(y(row.expense), y(row.revenue));
+        const gapColor = row.gap >= 0 ? palette.positive : palette.comparison;
+        if (bottom - top > 2) {
+          el(node, 'line', {
+            x1: cx, x2: cx, y1: top, y2: bottom,
+            stroke: gapColor, 'stroke-width': 2
+          });
+          el(node, 'line', {
+            x1: cx - width - 2, x2: cx + width + 2, y1: top, y2: top,
+            stroke: gapColor, 'stroke-width': 1, 'stroke-dasharray': '3 2'
+          });
+        }
+        el(node, 'text', {
+          x: cx, y: top - 9, 'text-anchor': 'middle', class: 'bar-label', fill: gapColor
+        }, `${row.gap >= 0 ? '+' : '\u2212'}${fmt(Math.abs(row.gap))}`);
+
         tiltedLabel(node, cx, y1 + 22, row.era);
       });
       el(node, 'text', { x: (x0 + x1) / 2, y: 418, 'text-anchor': 'middle', class: 'axis-title' },
-        'Menot vasemmalla, tulot oikealla. Rahoituserät eivät sisälly kumpaankaan.');
+        'Menot vasemmalla, tulot oikealla. Luku pylväiden yllä on erotus tulot − menot. '
+        + 'Rahoituserät eivät sisälly kumpaankaan.');
     }
 
     function chartTimeline() {
@@ -421,6 +450,11 @@
         ? surplus[surplus.length - 1].end_date.slice(0, 7).replace('-', '/')
         : 'ei yhtään';
       const orpo = ERAS[ERAS.length - 1];
+      /* Erotus tulot miinus menot kuukautta kohti, sama kuin kuvassa 02. */
+      const gapOf = era =>
+        mrd(Math.abs(era.revenue_nominal_eur) / era.observed_months)
+        - mrd(era.expense_nominal_eur / era.observed_months);
+      const widest = [...ERAS].sort((a, b) => gapOf(a) - gapOf(b))[0];
 
       document.getElementById('stat-eras').textContent = ERAS.length;
       document.getElementById('stat-months').textContent = DATA.meta.observed_months;
@@ -445,7 +479,12 @@
         `eli noin ${fmt((orpo.expense_nominal_eur / orpo.observed_months) / (ERAS[1].expense_nominal_eur / ERAS[1].observed_months), 1)}-kertaisiksi. ` +
         `Tulot ovat kasvaneet samassa ajassa ` +
         `${fmt(Math.abs(orpo.revenue_nominal_eur / orpo.observed_months) / Math.abs(ERAS[1].revenue_nominal_eur / ERAS[1].observed_months), 1)}-kertaisiksi, ` +
-        `eli hitaammin kuin menot.`;
+        `eli hitaammin kuin menot. Siksi erotus on levinnyt: ${ERAS[1].cabinet_name} ` +
+        `${eraYears(ERAS[1])} -kaudella tulot ylittivät menot ${fmt(Math.abs(gapOf(ERAS[1])), 2)} ` +
+        `miljardilla kuukaudessa, ${orpo.cabinet_name} ${eraYears(orpo)} -kaudella menot ylittävät ` +
+        `tulot ${fmt(Math.abs(gapOf(orpo)), 2)} miljardilla. Levein menojen ja tulojen väli on ` +
+        `${widest.cabinet_name} ${eraYears(widest)}, ${fmt(Math.abs(gapOf(widest)), 2)} mrd €/kk ` +
+        `menojen hyväksi.`;
 
       /* Saldon aariarvo alaspain on syvin yksittainen alijaamakuukausi. */
       const peak = DATA.monthly.reduce((a, b) => (balance(b.net_eur) < balance(a.net_eur) ? b : a));

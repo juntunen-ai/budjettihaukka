@@ -71,6 +71,16 @@ def main() -> None:
         )
         assert abs(parts - era["net_nominal_eur"]) < 1.0, era["cabinet_name"]
 
+    # Kuvan 02 erotus (tulot - menot) ja kuvan 01 saldo eroavat tasan
+    # rahoitus- ja teknisten erien verran. Jos ero on jotain muuta, toinen
+    # kuvista laskee vaarin tai rajaus on muuttunut kertomatta.
+    for era in eras:
+        months = era["observed_months"]
+        saldo = -era["net_nominal_eur"] / months
+        gap = (abs(era["revenue_nominal_eur"]) - era["expense_nominal_eur"]) / months
+        rest = -(era["financing_nominal_eur"] + era["technical_nominal_eur"]) / months
+        assert abs((saldo - gap) - rest) < 1.0, era["cabinet_name"]
+
     monthly = payload["monthly"]
     assert len(monthly) == meta["observed_months"]
     assert not set(row["month"] for row in monthly) & set(KNOWN_MISSING)
@@ -93,6 +103,11 @@ def main() -> None:
     # Jokaisella kaudella on nimen lisäksi vuosiluvut.
     assert "const eraYears = era =>" in html
     assert html.count("tiltedLabel(node") == 3
+    # Kuvassa 02 nakyy menojen ja tulojen erotus, ja sen rajaus on kerrottu.
+    assert "Erotus tulot − menot, ylijäämä" in html
+    assert "Erotus tulot − menot, alijäämä" in html
+    assert "Luku pylväiden yllä on erotus tulot − menot" in html
+    assert "ei ole sama luku kuin" in html
 
     embedded = re.search(r'<script type="application/json" id="era-data">(.*?)</script>', html, re.S)
     assert embedded, "upotettu snapshot puuttuu"
