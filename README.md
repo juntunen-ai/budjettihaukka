@@ -253,6 +253,30 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Nettovelanotto pääministeripuolueittain 2001–
+
+`puoluevelka.html` on yhden kuvan sivu: kumulatiivinen nettovelanotto, jonka
+käyrän väri vaihtuu pääministerin puolueen mukaan. Mittari muodostuu kahdesta
+velanhallintamomentista, `15.03.01. Nettolainanotto ja velanhallinta` (2003–)
+ja `37.01.94. Nettokuoletukset ja velanhallinta` (2001–2008). Positiivinen luku
+kasvattaa velkaa, negatiivinen lyhentää.
+
+Kolme rajoitetta, jotka sivu kertoo näkyvästi:
+
+- Pääministerin puolue ei ole hallitus. Kaikki kaudet olivat koalitioita, ja
+  samat puolueet istuivat toistensa hallituksissa.
+- Kausien pituudet eroavat rajusti (83–143 kuukautta), joten kokonaissummat
+  eivät vertaudu. Sivu esittää kuukausivauhdin niiden rinnalla.
+- Sarja alkaa 1/2001, koska sitä ennen velanhallintamomenttia ei ole lainkaan.
+  Vuosien 1998–2000 velanlyhennys jää siis pois.
+
+```bash
+.venv/bin/python scripts/load_party_debt_cumulative.py
+.venv/bin/python scripts/test_party_debt_cumulative.py
+```
+
+Sivu: `http://127.0.0.1:8503/puoluevelka.html`.
+
 ### Hallituskaudet ja valtion talous 1998–
 
 `hallituskaudet.html` esittää valtion kuukausitoteuman hallituskausittain.

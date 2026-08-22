@@ -26,6 +26,7 @@ arvot ja rajaukset näkyvät suoraan sivulla.
 | `yritystuet-veroluokat.html` | Yrityksille suunnatut suorat tuet, energiaverotuki ja verokertymät; alemmat ALV-kannat merkitään puuttuviksi | `scripts/test_firm_support_tax.py` |
 | `valtion-tuet-2025.html` | Vuoden 2025 tuki-, avustus-, valtionosuus- ja rahoitusmomentit; HVA-sote ja verotuet rajattu | `scripts/test_state_supports_2025.py` |
 | `hallituskaudet.html` | Kuukausitoteuma hallituskausittain 1998–; kohdennus enemmistösäännöllä, ylijäämä nollaviivan yläpuolella, nimellinen ja reaalinen erikseen | `scripts/test_government_fiscal_eras.py` |
+| `puoluevelka.html` | Kumulatiivinen nettovelanotto 2001– pääministeripuolueen mukaan; kokonaissumma ja kuukausivauhti rinnakkain | `scripts/test_party_debt_cumulative.py` |
 | `/visualisointidemot` (`pages/visualisointidemot.py`) | Samojen virallisten rikastusten kokeellinen vuorovaikutteinen Streamlit-näkymä | `scripts/test_official_enrichment_reference.py` ja UI-smoke |
 | `sote-demo.html` | Sote 2008–2025; vuoden 2025 havaintoja käsitellään osittaisina | `scripts/test_sote_demo.py` |
 | `perusterveydenhuollon-palveluarvo.html` | HVA-tason palvelujen käyttö, saatavuus, kustannukset ja vastamittarit; ei julkaise tehokkuusindeksiä | `scripts/test_primary_care_value.py` |
