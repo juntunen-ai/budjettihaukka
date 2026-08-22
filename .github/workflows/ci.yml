@@ -33,6 +33,7 @@ jobs:
         run: |
           python scripts/test_dq_semantic_mode.py
           python scripts/test_bigquery_operational_audit.py
+          python scripts/test_bigquery_hf_backup.py
 
       - name: Concept code map validation
         run: python scripts/load_concept_code_map.py --validate-only
@@ -64,6 +65,9 @@ jobs:
           python scripts/test_vantaa_kerava_visualization.py
           python scripts/test_child_welfare_budget_reference.py
           python scripts/test_enrichment_visualization_demos.py
+          python scripts/test_subsidy_name_search.py
+          python scripts/test_firm_support_tax.py
+          python scripts/test_state_supports_2025.py
 
       - name: UI no-crash smoke test
         run: python scripts/test_ui_no_crash_smoke.py

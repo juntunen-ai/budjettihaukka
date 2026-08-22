@@ -1,0 +1,1241 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Budjettihaukka – tuet ja avustukset</title>
+  <style>
+    :root {
+      --yellow: #f6d84f;
+      --paper: #f5f1e8;
+      --paper-deep: #e9e2d3;
+      --ink: #171713;
+      --muted: #5f5b50;
+      --reference: #0067a3;
+      --comparison: #d45d18;
+      --positive: #22833a;
+      --obligation: #713b83;
+      --grid: #17171320;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+    .hero { background: var(--yellow); border-bottom: 2px solid var(--ink); }
+    .wrap { max-width: 1180px; margin: auto; padding-inline: 22px; }
+    .hero .wrap { padding-top: 32px; padding-bottom: 42px; }
+    main.wrap { padding-bottom: 72px; }
+    h1, h2, h3 { font-family: Arial Black, system-ui, sans-serif; letter-spacing: -.035em; }
+    h1 { max-width: 1040px; margin: 30px 0 18px; font-size: clamp(2.8rem, 6.5vw, 5.6rem); line-height: .92; text-transform: uppercase; }
+    h2 { margin: 0 0 10px; font-size: clamp(1.55rem, 3vw, 2.25rem); line-height: 1.1; }
+    .back { display: inline-flex; padding: 8px 14px; border: 2px solid var(--ink); border-radius: 999px; background: #fff3b6; color: var(--ink); font-weight: 700; text-decoration: none; }
+    .lede { max-width: 900px; margin: 0; font-size: 1.08rem; }
+    .alert { max-width: 900px; margin-top: 16px; padding: 12px 14px; border: 2px solid var(--ink); background: #fff3b6; font-weight: 700; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+    .stat { padding-top: 12px; border-top: 3px solid var(--ink); }
+    .stat strong { display: block; font: 800 clamp(1.5rem, 3vw, 2.4rem)/1 Arial Black, system-ui, sans-serif; }
+    .stat span { display: block; margin-top: 7px; font-size: .88rem; }
+    section { padding: 48px 0 54px; border-bottom: 1.5px solid var(--ink); }
+    .eyebrow { margin: 0 0 7px; color: var(--muted); font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .chart { width: 100%; min-height: 300px; margin-top: 18px; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .grid { stroke: var(--grid); stroke-width: 1; }
+    .axis { stroke: var(--ink); stroke-width: 1.2; }
+    .tick, .label { fill: var(--ink); font-size: 12px; }
+    .axis-title { fill: var(--muted); font-size: 12px; font-weight: 700; }
+    .bar-label, .direct-label { fill: var(--ink); font-size: 12px; font-weight: 700; }
+    .event { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 5; }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 12px; font-size: .9rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .swatch { width: 14px; height: 14px; border: 1px solid var(--ink); }
+    .finding { max-width: 930px; margin-top: 24px; padding: 18px 20px; border-left: 5px solid var(--yellow); background: var(--paper-deep); }
+    .finding p { margin: 0; }
+    .finding p + p { margin-top: 10px; }
+    .source { margin: 10px 0 0; color: var(--muted); font-size: .83rem; }
+    @media (max-width: 760px) {
+      .wrap { padding-inline: 14px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: clamp(2.4rem, 12vw, 4rem); }
+      section { padding-block: 38px; }
+      .finding { padding: 15px; }
+      .tick, .label, .direct-label, .axis-title { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="wrap">
+    <a class="back" href="visualisointidemot.html">← Takaisin visualisointeihin</a>
+    <a class="back" href="yritystuet-veroluokat.html" style="margin-left:8px">Yritystuet ja veroluokat →</a>
+    <h1>Tuki ja avustus valtion budjetissa</h1>
+    <p class="lede">Viisi kuvaa näyttää, mitä valtion menomomenteista löytyy, kun nimeen sisältyy sana tuki, tuet, tuen, tukia tai avustus. Haku on kielellinen, ei virallinen tukirekisteri.</p>
+    <div class="alert">Sama sana peittää erilaisia asioita: kotitalouden etuuden, kunnan valtionosuuden, maataloustuen ja yritykselle maksetun avustuksen. Yritystuet ja ainoa tässä erillinen verotuki, energiaverotuki, on omalla sivullaan.</div>
+    <div class="stats">
+      <div class="stat"><strong>6,7 mrd €</strong><span>nimihakuun osuneet menot vuonna 2025, toteuma</span></div>
+      <div class="stat"><strong>7,5 %</strong><span>osuus valtion menoista samana vuonna</span></div>
+      <div class="stat"><strong>6,2 mrd €</strong><span>läheisiä tukia, joiden nimessä ei ole hakusanaa</span></div>
+      <div class="stat"><strong>50 momenttia</strong><span>erillistä menomomenttia nimihaussa vuonna 2025</span></div>
+    </div>
+  </div></header>
+
+  <main class="wrap">
+    <section>
+      <p class="eyebrow">01 · Nimihaku</p>
+      <h2>Tuki-sana ei kerää kaikkia tukia</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#0067a3"></i>Nimessä tuki tai avustus</span>
+        <span><i class="swatch" style="background:#d45d18"></i>Samaan aihepiiriin kuuluu, nimi ei osu</span>
+      </div>
+      <div id="chart-gap" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Vuonna 2025 nimihakuun osui 6,7 miljardia euroa. Samaan aihepiiriin kuuluu lisäksi 6,2 miljardia, koska kuntien peruspalvelujen valtionosuus, työttömyysetuudet ja opintoraha on nimetty ilman tuki- tai avustus-sanaa. Suurin sivuun jäänyt erä on kuntien peruspalvelujen valtionosuus, 3,4 miljardia euroa.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Palkit eivät ole virallinen tukien kokonaissumma. Verotuet, EU:n suoraan viljelijöille maksamat erät ja harkinnanvaraiset valtionavustukset ilman näitä sanoja jäävät edelleen ulkopuolelle. Kuntien valtionosuus on lakisääteistä perusrahoitusta, ei harkinnanvaraista avustushakua.</p>
+      </div>
+      <p class="source">Lähde: Valtiokonttori, valtion taloushallinnon kuukausidata, täyden vuoden 2025 nettokertymä. Nimihaku: tuki, tuen, tuet, tukia, avustus.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">02 · Aiheet 2025</p>
+      <h2>Nimi osuu etenkin valtionosuuksiin ja etuuksiin</h2>
+      <div id="chart-topics" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Nimihauun 6,7 miljardista 2,4 miljardia on kuntien valtionosuuksia, joiden nimessä lukee myös avustus. Seuraavina ovat asumistuki 1,2 miljardia ja perustoimeentulotuki 1,0 miljardia. Maatalous- ja maaseututuet ovat 0,9 miljardia ja energiatuet 0,5 miljardia. Nimellä löytyvät yritys- ja vientituet jäävät 80 miljoonaan euroon.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Pieni yritystukipalkki ei tarkoita, että yritystuet olisivat pienet. Moni elinkeinotuki on nimetty ilman tuki-sanaa tai se on verotuki, joka ei näy momenttien nettokertymässä. Valtionosuus ei myöskään ole sama asia kuin harkinnanvarainen valtionavustus.</p>
+      </div>
+      <p class="source">Lähde: sama vuositason nettokertymä. Luokitus on momentin nimen perusteella, ei erillistä tukirekisteriä.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">03 · Aikasarja 1998–2025</p>
+      <h2>Vuoden 2010 nimenmuutos pudottaa käyrän, ei välttämättä tukia</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#0067a3"></i>Nimellinen toteuma</span>
+        <span><i class="swatch" style="background:#0067a3; outline: 2px dashed #0067a3; outline-offset: -3px; background: transparent;"></i>Vuoden 2025 hinnoissa (KHI)</span>
+      </div>
+      <div id="chart-trend" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Nimihakuun osuneet menot olivat 10,5 miljardia euroa vuonna 2009 ja 5,9 miljardia vuonna 2010. Osuus valtion menoista laski 23 prosentista 12 prosenttiin. Murros osuu kuntien peruspalvelujen valtionosuusuudistukseen: sote-valtionosuus siirtyi momentille, jonka nimessä ei ole avustus-sanaa. Vuonna 2025 nimihaku on 6,7 miljardia euroa eli 7,5 prosenttia menoista.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Käyrän lasku ei ole todiste tukien leikkauksesta. Se mittaa ensisijaisesti sitä, miten momentit on nimetty. Nimellinen kasvu ei myöskään kerro ostovoimaa; katkoviiva on kuluttajahintaindeksillä vuoden 2025 rahaan korjattu sarja, ei julkisten palvelujen kustannus.</p>
+      </div>
+      <p class="source">Lähde: Valtiokonttori, täydet vuodet 1998–2025. Reaalisarjan perusvuosi 2025, Tilastokeskuksen elinkustannusindeksi.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">04 · Suurimmat momentit 2025</p>
+      <h2>Kaksi etuutta ja koulutuksen valtionosuudet vievät kärjen</h2>
+      <div id="chart-top" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Suurimmat yksittäiset momentit ovat asumistuki (1,2 mrd €), perustoimeentulotuki (1,0 mrd €) ja ammatillisen koulutuksen valtionosuus (1,0 mrd €). Maatalouden kärjessä ovat EU-tulotuki ja -markkinatuki (0,5 mrd €) sekä kansallinen maa- ja puutarhatalouden tuki (0,4 mrd €). Energiatuista erottuvat uusiutuvan energian tuotantotuki ja teollisuuden sähköistämistuki.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Momentti on kirjanpidon otsikko, ei tuen saajaa. VOS-palkki menee koulutuksen järjestäjille, etuus kotitaloudelle ja maataloustuki viljelijöille tai markkinajärjestelyyn. Kuva ei kerro, kuka rahan lopulta saa tai mihin se käytetään.</p>
+      </div>
+      <p class="source">Lähde: vuoden 2025 täysi nettokertymä momenttitasolla. Osa lähdenimistä on katkaistu aineistossa; otsakkeita on lyhennetty luettavuuden vuoksi.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">05 · Neljä erilaista tukea</p>
+      <h2>Etuudet elävät omaa elämäänsä, maatalous pysyy tasaisena</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#0067a3"></i>Asumistuki</span>
+        <span><i class="swatch" style="background:#713b83"></i>Perustoimeentulotuki</span>
+        <span><i class="swatch" style="background:#22833a"></i>Opintoraha ja asumislisä</span>
+        <span><i class="swatch" style="background:#d45d18"></i>Maatalous- ja maaseututuet</span>
+      </div>
+      <div id="chart-series" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Asumistuki kasvoi 0,9 miljardista vuonna 2015 1,7 miljardiin vuonna 2024 ja laski 1,2 miljardiin vuonna 2025. Perustoimeentulotuki ilmestyy valtion kirjanpitoon vuonna 2017, kun perustoimeentulotuki siirtyi Kelalle, ja nousee 1,0 miljardiin vuonna 2025. Opintoraha laskee vuonna 2017 ja nousee uudelleen vuonna 2025. Maatalous- ja maaseututuet pysyvät noin 0,8–0,9 miljardissa.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Tasomuutokset voivat olla uudistuksia, ei tuen tarpeen muutosta. Vuonna 2017 opiskelijoiden asumislisä siirtyi yleiseen asumistukeen; vuonna 2025 opintorahan nousu osuu päinvastaiseen uudistukseen. Perustoimeentulotuen nolla ennen vuotta 2017 ei tarkoita, etteikö tukea olisi maksettu: se oli kuntien vastuulla. Nimellinen euro ei ole ostovoima, eikä rinnakkainen liike ole syy–seuraus.</p>
+      </div>
+      <p class="source">Lähde: momentit 33.10.54 (asumistuki), 33.10.57 (perustoimeentulotuki), 29.70.55 (opintoraha ja asumislisä) sekä nimihakuun osuvat maatalous- ja maaseutumomentit. Täydet vuodet 2015–2025.</p>
+    </section>
+  </main>
+
+  <script type="application/json" id="subsidy-data">{
+  "meta": {
+    "title_fi": "Valtion tuet ja avustukset nimihakuna",
+    "year_from": 1998,
+    "year_to": 2025,
+    "latest_complete_year": 2025,
+    "metric": "nettokertymä, toteuma",
+    "unit": "EUR",
+    "price_basis_nominal": "nominal",
+    "price_basis_real": "constant_cpi",
+    "real_base_year": 2025,
+    "coverage_status": "complete",
+    "name_pattern": "(tuki|tuen|tuet|tukia|avustus)",
+    "source_id": "valtiokonttori_monthly_central_government_finance",
+    "source_fi": "Valtiokonttori, valtion taloushallinnon kuukausidata, vuositason nettokertymä",
+    "source_url": "https://www.tutkihallintoa.fi/valtiontalous/valtion-taloustiedot/",
+    "extracted_from": "analytics_fiscal_yearly_core_v1",
+    "caveat_fi": "Nimihaku ei ole virallinen tukien määritelmä. Verotuet, EU:n suoraan maksamat erät ja ilman tuki/avustus-sanaa nimetyt valtionosuudet jäävät haun ulkopuolelle."
+  },
+  "headline_2025": {
+    "name_match_eur": 6715842326.37,
+    "related_missed_eur": 6229329631.26,
+    "expense_eur": 89474331446.64,
+    "name_match_share": 0.075059,
+    "moment_count": 50
+  },
+  "trend": [
+    {
+      "year": 1998,
+      "name_match_nominal_eur": 6828860745.43,
+      "name_match_real_cpi_eur": 11130805075.65,
+      "expense_eur": 32523360077.53,
+      "name_match_share": 0.209968,
+      "valtionosuus_in_name_eur": 1578527916.75,
+      "related_missed_eur": 0.0
+    },
+    {
+      "year": 1999,
+      "name_match_nominal_eur": 7600431836.21,
+      "name_match_real_cpi_eur": 12243395361.5,
+      "expense_eur": 36562814484.76,
+      "name_match_share": 0.207873,
+      "valtionosuus_in_name_eur": 1725563023.92,
+      "related_missed_eur": 535945876.78
+    },
+    {
+      "year": 2000,
+      "name_match_nominal_eur": 7772421074.5,
+      "name_match_real_cpi_eur": 12111720781.65,
+      "expense_eur": 38925188119.28,
+      "name_match_share": 0.199676,
+      "valtionosuus_in_name_eur": 1810701561.45,
+      "related_missed_eur": 569423809.5
+    },
+    {
+      "year": 2001,
+      "name_match_nominal_eur": 8189108605.58,
+      "name_match_real_cpi_eur": 12445955184.18,
+      "expense_eur": 33711371765.93,
+      "name_match_share": 0.242918,
+      "valtionosuus_in_name_eur": 2126291044.58,
+      "related_missed_eur": 636803466.68
+    },
+    {
+      "year": 2002,
+      "name_match_nominal_eur": 8688103852.06,
+      "name_match_real_cpi_eur": 13001583435.68,
+      "expense_eur": 34513569967.41,
+      "name_match_share": 0.25173,
+      "valtionosuus_in_name_eur": 2317886751.61,
+      "related_missed_eur": 652771216.53
+    },
+    {
+      "year": 2003,
+      "name_match_nominal_eur": 8796190480.26,
+      "name_match_real_cpi_eur": 13046474022.4,
+      "expense_eur": 36857548904.86,
+      "name_match_share": 0.238654,
+      "valtionosuus_in_name_eur": 2508454033.57,
+      "related_missed_eur": 663138216.02
+    },
+    {
+      "year": 2004,
+      "name_match_nominal_eur": 8916865670.66,
+      "name_match_real_cpi_eur": 13200347344.1,
+      "expense_eur": 36080339900.61,
+      "name_match_share": 0.247139,
+      "valtionosuus_in_name_eur": 2545618308.33,
+      "related_missed_eur": 664729455.68
+    },
+    {
+      "year": 2005,
+      "name_match_nominal_eur": 9119323859.86,
+      "name_match_real_cpi_eur": 13381492163.25,
+      "expense_eur": 37191331879.56,
+      "name_match_share": 0.2452,
+      "valtionosuus_in_name_eur": 2623196417.56,
+      "related_missed_eur": 660656233.48
+    },
+    {
+      "year": 2006,
+      "name_match_nominal_eur": 9669820269.46,
+      "name_match_real_cpi_eur": 13944333915.08,
+      "expense_eur": 39164783624.77,
+      "name_match_share": 0.246901,
+      "valtionosuus_in_name_eur": 2980498703.87,
+      "related_missed_eur": 666227336.13
+    },
+    {
+      "year": 2007,
+      "name_match_nominal_eur": 9605421690.52,
+      "name_match_real_cpi_eur": 13518099479.02,
+      "expense_eur": 40360267032.57,
+      "name_match_share": 0.237992,
+      "valtionosuus_in_name_eur": 3031748008.17,
+      "related_missed_eur": 644984116.95
+    },
+    {
+      "year": 2008,
+      "name_match_nominal_eur": 9834357076.45,
+      "name_match_real_cpi_eur": 13296278151.34,
+      "expense_eur": 43201113454.55,
+      "name_match_share": 0.227641,
+      "valtionosuus_in_name_eur": 3166117263.59,
+      "related_missed_eur": 1284937373.1
+    },
+    {
+      "year": 2009,
+      "name_match_nominal_eur": 10506974131.69,
+      "name_match_real_cpi_eur": 14205671961.86,
+      "expense_eur": 46516606990.12,
+      "name_match_share": 0.225876,
+      "valtionosuus_in_name_eur": 3335719980.11,
+      "related_missed_eur": 1487865484.85
+    },
+    {
+      "year": 2010,
+      "name_match_nominal_eur": 5931130451.19,
+      "name_match_real_cpi_eur": 7922852156.1,
+      "expense_eur": 48888003773.25,
+      "name_match_share": 0.121321,
+      "valtionosuus_in_name_eur": 2156102743.14,
+      "related_missed_eur": 9422025095.82
+    },
+    {
+      "year": 2011,
+      "name_match_nominal_eur": 5233196829.34,
+      "name_match_real_cpi_eur": 6755213787.98,
+      "expense_eur": 50512357771.54,
+      "name_match_share": 0.103602,
+      "valtionosuus_in_name_eur": 2219888012.15,
+      "related_missed_eur": 10532867347.15
+    },
+    {
+      "year": 2012,
+      "name_match_nominal_eur": 5341502867.41,
+      "name_match_real_cpi_eur": 6706266885.06,
+      "expense_eur": 53844996001.48,
+      "name_match_share": 0.099201,
+      "valtionosuus_in_name_eur": 2341799315.67,
+      "related_missed_eur": 11229964880.53
+    },
+    {
+      "year": 2013,
+      "name_match_nominal_eur": 5319711028.37,
+      "name_match_real_cpi_eur": 6583494230.35,
+      "expense_eur": 53640599908.55,
+      "name_match_share": 0.099173,
+      "valtionosuus_in_name_eur": 2328170317.47,
+      "related_missed_eur": 11753676960.78
+    },
+    {
+      "year": 2014,
+      "name_match_nominal_eur": 5487808022.86,
+      "name_match_real_cpi_eur": 6720409929.57,
+      "expense_eur": 54103136254.87,
+      "name_match_share": 0.101432,
+      "valtionosuus_in_name_eur": 2303058304.78,
+      "related_missed_eur": 11939521078.78
+    },
+    {
+      "year": 2015,
+      "name_match_nominal_eur": 4534803125.66,
+      "name_match_real_cpi_eur": 5565007613.28,
+      "expense_eur": 54137274232.87,
+      "name_match_share": 0.083765,
+      "valtionosuus_in_name_eur": 1489251895.5,
+      "related_missed_eur": 11728064839.78
+    },
+    {
+      "year": 2016,
+      "name_match_nominal_eur": 4689846862.77,
+      "name_match_real_cpi_eur": 5734214224.79,
+      "expense_eur": 53207500736.69,
+      "name_match_share": 0.088143,
+      "valtionosuus_in_name_eur": 1453787918.8,
+      "related_missed_eur": 12331258006.34
+    },
+    {
+      "year": 2017,
+      "name_match_nominal_eur": 5577186328.77,
+      "name_match_real_cpi_eur": 6769610183.18,
+      "expense_eur": 50311140151.67,
+      "name_match_share": 0.110854,
+      "valtionosuus_in_name_eur": 1695770453.7,
+      "related_missed_eur": 10691019384.11
+    },
+    {
+      "year": 2018,
+      "name_match_nominal_eur": 6050088038.87,
+      "name_match_real_cpi_eur": 7264453759.2,
+      "expense_eur": 54547613772.09,
+      "name_match_share": 0.110914,
+      "valtionosuus_in_name_eur": 1690060968.35,
+      "related_missed_eur": 11320350240.22
+    },
+    {
+      "year": 2019,
+      "name_match_nominal_eur": 5588906681.72,
+      "name_match_real_cpi_eur": 6642506467.76,
+      "expense_eur": 51574316060.62,
+      "name_match_share": 0.108366,
+      "valtionosuus_in_name_eur": 1592838177.94,
+      "related_missed_eur": 10455655669.51
+    },
+    {
+      "year": 2020,
+      "name_match_nominal_eur": 7036141636.47,
+      "name_match_real_cpi_eur": 8337150601.67,
+      "expense_eur": 63548207722.4,
+      "name_match_share": 0.110721,
+      "valtionosuus_in_name_eur": 2085832711.52,
+      "related_missed_eur": 12221573943.2
+    },
+    {
+      "year": 2021,
+      "name_match_nominal_eur": 8128470434.73,
+      "name_match_real_cpi_eur": 9426124118.41,
+      "expense_eur": 63113453893.98,
+      "name_match_share": 0.128791,
+      "valtionosuus_in_name_eur": 2074486350.8,
+      "related_missed_eur": 10797015249.34
+    },
+    {
+      "year": 2022,
+      "name_match_nominal_eur": 7344528064.44,
+      "name_match_real_cpi_eur": 7949491505.19,
+      "expense_eur": 66923476511.24,
+      "name_match_share": 0.109745,
+      "valtionosuus_in_name_eur": 2247620015.34,
+      "related_missed_eur": 10663372163.42
+    },
+    {
+      "year": 2023,
+      "name_match_nominal_eur": 6169422632.96,
+      "name_match_real_cpi_eur": 6284964955.79,
+      "expense_eur": 85639322015.25,
+      "name_match_share": 0.07204,
+      "valtionosuus_in_name_eur": 2056660928.41,
+      "related_missed_eur": 5120986422.29
+    },
+    {
+      "year": 2024,
+      "name_match_nominal_eur": 6839364535.05,
+      "name_match_real_cpi_eur": 6859894359.98,
+      "expense_eur": 87029205203.03,
+      "name_match_share": 0.078587,
+      "valtionosuus_in_name_eur": 2343917019.72,
+      "related_missed_eur": 5409581804.87
+    },
+    {
+      "year": 2025,
+      "name_match_nominal_eur": 6715842326.37,
+      "name_match_real_cpi_eur": 6715842326.37,
+      "expense_eur": 89474331446.64,
+      "name_match_share": 0.075059,
+      "valtionosuus_in_name_eur": 2401552793.82,
+      "related_missed_eur": 6229329631.26
+    }
+  ],
+  "topics_2025": [
+    {
+      "id": "kuntien_valtionosuudet",
+      "label_fi": "Kuntien valtionosuudet",
+      "nominal_eur": 2401552793.82
+    },
+    {
+      "id": "asumistuki",
+      "label_fi": "Asumistuki",
+      "nominal_eur": 1212431733.35
+    },
+    {
+      "id": "toimeentulotuki",
+      "label_fi": "Perustoimeentulotuki",
+      "nominal_eur": 1045700000.0
+    },
+    {
+      "id": "maatalous_maaseutu",
+      "label_fi": "Maatalous- ja maaseututuet",
+      "nominal_eur": 913084784.15
+    },
+    {
+      "id": "energia",
+      "label_fi": "Energiatuet",
+      "nominal_eur": 481039270.48
+    },
+    {
+      "id": "muut_avustukset",
+      "label_fi": "Muut avustukset",
+      "nominal_eur": 281659370.56
+    },
+    {
+      "id": "muut_tuet",
+      "label_fi": "Muut tuet",
+      "nominal_eur": 213194122.77
+    },
+    {
+      "id": "kansainvalinen_tuki",
+      "label_fi": "Kansainvälinen tuki",
+      "nominal_eur": 86834986.48
+    },
+    {
+      "id": "yritykset_vienti",
+      "label_fi": "Yritys- ja vientituet",
+      "nominal_eur": 80345264.76
+    }
+  ],
+  "top_moments_2025": [
+    {
+      "code": "33.10.54.",
+      "name": "Asumistuki",
+      "name_short": "Asumistuki",
+      "hallinnonala": "Sosiaali- ja terveysministeriön hallinnonala",
+      "topic": "asumistuki",
+      "topic_fi": "Asumistuki",
+      "nominal_eur": 1212431733.35
+    },
+    {
+      "code": "33.10.57.",
+      "name": "Perustoimeentulotuki",
+      "name_short": "Perustoimeentulotuki",
+      "hallinnonala": "Sosiaali- ja terveysministeriön hallinnonala",
+      "topic": "toimeentulotuki",
+      "topic_fi": "Perustoimeentulotuki",
+      "nominal_eur": 1045700000.0
+    },
+    {
+      "code": "29.20.30.",
+      "name": "Valtionosuus ja -avustus ammatillisen koulutuksen käyttökustannuksiin",
+      "name_short": "VOS ammatillinen koulutus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön hallinnonala",
+      "topic": "kuntien_valtionosuudet",
+      "topic_fi": "Kuntien valtionosuudet",
+      "nominal_eur": 1019362310.0
+    },
+    {
+      "code": "29.10.30.",
+      "name": "Valtionosuus ja -avustus esi- ja perusopetuksen ja varhaiska",
+      "name_short": "VOS esi- ja perusopetus ja varhaiskasvatus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön hallinnonala",
+      "topic": "kuntien_valtionosuudet",
+      "topic_fi": "Kuntien valtionosuudet",
+      "nominal_eur": 622775485.41
+    },
+    {
+      "code": "30.20.41.",
+      "name": "EU-tulotuki ja EU-markkinatuki",
+      "name_short": "EU-tulotuki ja EU-markkinatuki",
+      "hallinnonala": "Maa- ja metsätalousministeriön hallinnonala",
+      "topic": "maatalous_maaseutu",
+      "topic_fi": "Maatalous- ja maaseututuet",
+      "nominal_eur": 528964546.0
+    },
+    {
+      "code": "30.20.40.",
+      "name": "Maa- ja puutarhatalouden kansallinen tuki",
+      "name_short": "Maa- ja puutarhatalouden kansallinen tuki",
+      "hallinnonala": "Maa- ja metsätalousministeriön hallinnonala",
+      "topic": "maatalous_maaseutu",
+      "topic_fi": "Maatalous- ja maaseututuet",
+      "nominal_eur": 352794466.1
+    },
+    {
+      "code": "29.20.35.",
+      "name": "Valtionosuus ja -avustus lukiokoulutuksen käyttökustannuksii",
+      "name_short": "VOS lukiokoulutus",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön hallinnonala",
+      "topic": "kuntien_valtionosuudet",
+      "topic_fi": "Kuntien valtionosuudet",
+      "nominal_eur": 330664056.0
+    },
+    {
+      "code": "32.20.48.",
+      "name": "Uusiutuvan energian tuotantotuki",
+      "name_short": "Uusiutuvan energian tuotantotuki",
+      "hallinnonala": "Työ- ja elinkeinoministeriön hallinnonala",
+      "topic": "energia",
+      "topic_fi": "Energiatuet",
+      "nominal_eur": 212026146.5
+    },
+    {
+      "code": "29.10.31.",
+      "name": "Valtionosuus ja -avustus vapaan sivistystyön oppilaitosten k",
+      "name_short": "VOS vapaa sivistystyö",
+      "hallinnonala": "Opetus- ja kulttuuriministeriön hallinnonala",
+      "topic": "kuntien_valtionosuudet",
+      "topic_fi": "Kuntien valtionosuudet",
+      "nominal_eur": 182741914.0
+    },
+    {
+      "code": "32.20.43.",
+      "name": "Energiaintensiivisen teollisuuden sähköistämistuki",
+      "name_short": "Teollisuuden sähköistämistuki",
+      "hallinnonala": "Työ- ja elinkeinoministeriön hallinnonala",
+      "topic": "energia",
+      "topic_fi": "Energiatuet",
+      "nominal_eur": 149880352.98
+    }
+  ],
+  "related_missed_2025": [
+    {
+      "code": "28.90.30.",
+      "name": "Valtionosuus kunnille peruspalvelujen järjestämiseen",
+      "label_fi": "Kuntien peruspalvelujen valtionosuus",
+      "nominal_eur": 3375455713.3
+    },
+    {
+      "code": "33.20.52.",
+      "name": "Valtionosuus työttömyysetuuksien perusturvasta",
+      "label_fi": "Työttömyysetuuksien perusturva",
+      "nominal_eur": 1309600000.0
+    },
+    {
+      "code": "29.70.55.",
+      "name": "Opintoraha ja asumislisä",
+      "label_fi": "Opintoraha ja asumislisä",
+      "nominal_eur": 695256681.65
+    },
+    {
+      "code": "33.20.50.",
+      "name": "Valtionosuus työttömyysetuuksien ansioturvasta ja vuorottelu",
+      "label_fi": "Työttömyysetuuksien ansioturva",
+      "nominal_eur": 597800000.0
+    },
+    {
+      "code": "29.70.52.",
+      "name": "Opintolainojen valtiontakaus",
+      "label_fi": "Opintolainojen valtiontakaus",
+      "nominal_eur": 251217236.31
+    }
+  ],
+  "topic_series": {
+    "asumistuki": [
+      {
+        "year": 1998,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 1999,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2000,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2001,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2002,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2003,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2004,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2005,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2006,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2007,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2008,
+        "nominal_eur": 426502963.2
+      },
+      {
+        "year": 2009,
+        "nominal_eur": 476000000.0
+      },
+      {
+        "year": 2010,
+        "nominal_eur": 530400000.0
+      },
+      {
+        "year": 2011,
+        "nominal_eur": 549500000.0
+      },
+      {
+        "year": 2012,
+        "nominal_eur": 603900000.0
+      },
+      {
+        "year": 2013,
+        "nominal_eur": 670000000.0
+      },
+      {
+        "year": 2014,
+        "nominal_eur": 740100000.0
+      },
+      {
+        "year": 2015,
+        "nominal_eur": 924300000.0
+      },
+      {
+        "year": 2016,
+        "nominal_eur": 1075310000.0
+      },
+      {
+        "year": 2017,
+        "nominal_eur": 1173400000.0
+      },
+      {
+        "year": 2018,
+        "nominal_eur": 1492000000.0
+      },
+      {
+        "year": 2019,
+        "nominal_eur": 1348300000.0
+      },
+      {
+        "year": 2020,
+        "nominal_eur": 1582400000.0
+      },
+      {
+        "year": 2021,
+        "nominal_eur": 1610400000.0
+      },
+      {
+        "year": 2022,
+        "nominal_eur": 1558700000.0
+      },
+      {
+        "year": 2023,
+        "nominal_eur": 1599100000.0
+      },
+      {
+        "year": 2024,
+        "nominal_eur": 1696100000.0
+      },
+      {
+        "year": 2025,
+        "nominal_eur": 1212431733.35
+      }
+    ],
+    "toimeentulotuki": [
+      {
+        "year": 1998,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 1999,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2000,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2001,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2002,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2003,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2004,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2005,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2006,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2007,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2008,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2009,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2010,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2011,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2012,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2013,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2014,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2015,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2016,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 2017,
+        "nominal_eur": 699521373.83
+      },
+      {
+        "year": 2018,
+        "nominal_eur": 719811107.0
+      },
+      {
+        "year": 2019,
+        "nominal_eur": 640500000.0
+      },
+      {
+        "year": 2020,
+        "nominal_eur": 750000000.0
+      },
+      {
+        "year": 2021,
+        "nominal_eur": 705000000.0
+      },
+      {
+        "year": 2022,
+        "nominal_eur": 700000000.0
+      },
+      {
+        "year": 2023,
+        "nominal_eur": 667000000.0
+      },
+      {
+        "year": 2024,
+        "nominal_eur": 789805000.0
+      },
+      {
+        "year": 2025,
+        "nominal_eur": 1045700000.0
+      }
+    ],
+    "opintoraha": [
+      {
+        "year": 1998,
+        "nominal_eur": 0.0
+      },
+      {
+        "year": 1999,
+        "nominal_eur": 535945876.78
+      },
+      {
+        "year": 2000,
+        "nominal_eur": 569423809.5
+      },
+      {
+        "year": 2001,
+        "nominal_eur": 636803466.68
+      },
+      {
+        "year": 2002,
+        "nominal_eur": 652771216.53
+      },
+      {
+        "year": 2003,
+        "nominal_eur": 663138216.02
+      },
+      {
+        "year": 2004,
+        "nominal_eur": 664729455.68
+      },
+      {
+        "year": 2005,
+        "nominal_eur": 660656233.48
+      },
+      {
+        "year": 2006,
+        "nominal_eur": 666227336.13
+      },
+      {
+        "year": 2007,
+        "nominal_eur": 644984116.95
+      },
+      {
+        "year": 2008,
+        "nominal_eur": 678314013.1
+      },
+      {
+        "year": 2009,
+        "nominal_eur": 765921243.85
+      },
+      {
+        "year": 2010,
+        "nominal_eur": 780593872.96
+      },
+      {
+        "year": 2011,
+        "nominal_eur": 754804079.87
+      },
+      {
+        "year": 2012,
+        "nominal_eur": 734550378.94
+      },
+      {
+        "year": 2013,
+        "nominal_eur": 727064276.39
+      },
+      {
+        "year": 2014,
+        "nominal_eur": 748398133.25
+      },
+      {
+        "year": 2015,
+        "nominal_eur": 764374187.67
+      },
+      {
+        "year": 2016,
+        "nominal_eur": 767736705.52
+      },
+      {
+        "year": 2017,
+        "nominal_eur": 520012971.94
+      },
+      {
+        "year": 2018,
+        "nominal_eur": 414096918.06
+      },
+      {
+        "year": 2019,
+        "nominal_eur": 422666076.95
+      },
+      {
+        "year": 2020,
+        "nominal_eur": 449220499.37
+      },
+      {
+        "year": 2021,
+        "nominal_eur": 456086355.53
+      },
+      {
+        "year": 2022,
+        "nominal_eur": 467864816.71
+      },
+      {
+        "year": 2023,
+        "nominal_eur": 494099439.65
+      },
+      {
+        "year": 2024,
+        "nominal_eur": 515503552.25
+      },
+      {
+        "year": 2025,
+        "nominal_eur": 695256681.65
+      }
+    ],
+    "maatalous": [
+      {
+        "year": 1998,
+        "nominal_eur": 678468370.54
+      },
+      {
+        "year": 1999,
+        "nominal_eur": 953275278.09
+      },
+      {
+        "year": 2000,
+        "nominal_eur": 1055197368.23
+      },
+      {
+        "year": 2001,
+        "nominal_eur": 1110764524.7
+      },
+      {
+        "year": 2002,
+        "nominal_eur": 1141694663.48
+      },
+      {
+        "year": 2003,
+        "nominal_eur": 1149247174.3
+      },
+      {
+        "year": 2004,
+        "nominal_eur": 1183308647.13
+      },
+      {
+        "year": 2005,
+        "nominal_eur": 1131940218.33
+      },
+      {
+        "year": 2006,
+        "nominal_eur": 1261715805.77
+      },
+      {
+        "year": 2007,
+        "nominal_eur": 1181249565.1
+      },
+      {
+        "year": 2008,
+        "nominal_eur": 1168981969.12
+      },
+      {
+        "year": 2009,
+        "nominal_eur": 1167223956.27
+      },
+      {
+        "year": 2010,
+        "nominal_eur": 1145413243.47
+      },
+      {
+        "year": 2011,
+        "nominal_eur": 1121881092.56
+      },
+      {
+        "year": 2012,
+        "nominal_eur": 1094572684.57
+      },
+      {
+        "year": 2013,
+        "nominal_eur": 1043350440.96
+      },
+      {
+        "year": 2014,
+        "nominal_eur": 1033487540.59
+      },
+      {
+        "year": 2015,
+        "nominal_eur": 804698496.43
+      },
+      {
+        "year": 2016,
+        "nominal_eur": 940942350.1
+      },
+      {
+        "year": 2017,
+        "nominal_eur": 845011070.15
+      },
+      {
+        "year": 2018,
+        "nominal_eur": 873836509.66
+      },
+      {
+        "year": 2019,
+        "nominal_eur": 828867656.44
+      },
+      {
+        "year": 2020,
+        "nominal_eur": 850631020.22
+      },
+      {
+        "year": 2021,
+        "nominal_eur": 848619714.99
+      },
+      {
+        "year": 2022,
+        "nominal_eur": 883650159.11
+      },
+      {
+        "year": 2023,
+        "nominal_eur": 789797380.57
+      },
+      {
+        "year": 2024,
+        "nominal_eur": 908820345.62
+      },
+      {
+        "year": 2025,
+        "nominal_eur": 913084784.15
+      }
+    ]
+  }
+}</script>
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const DATA = JSON.parse(document.getElementById('subsidy-data').textContent);
+    const palette = {
+      reference: '#0067a3', comparison: '#d45d18', positive: '#22833a',
+      obligation: '#713b83', ink: '#171713', muted: '#5f5b50', other: '#8a8476'
+    };
+    const topicColor = {
+      kuntien_valtionosuudet: palette.obligation,
+      asumistuki: palette.reference,
+      toimeentulotuki: '#1b6b7a',
+      maatalous_maaseutu: palette.positive,
+      energia: palette.comparison,
+      yritykset_vienti: '#b08900',
+      kansainvalinen_tuki: '#9b311c',
+      muut_avustukset: palette.other,
+      muut_tuet: '#6b6356'
+    };
+    const mrd = value => value / 1e9;
+    const fmtMrd = (value, digits = 1) => mrd(value).toLocaleString('fi-FI', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    const svg = (id, height, description) => {
+      const host = document.getElementById(id);
+      host.innerHTML = '';
+      const node = document.createElementNS(NS, 'svg');
+      node.setAttribute('viewBox', `0 0 900 ${height}`);
+      node.setAttribute('role', 'img');
+      node.setAttribute('aria-label', description);
+      host.appendChild(node);
+      return node;
+    };
+    const el = (parent, name, attrs = {}, text = '') => {
+      const node = document.createElementNS(NS, name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+      if (text) node.textContent = text;
+      parent.appendChild(node);
+      return node;
+    };
+    const scale = (d0, d1, r0, r1) => value => r0 + (value - d0) * (r1 - r0) / (d1 - d0 || 1);
+
+    function chartGap() {
+      const node = svg('chart-gap', 420, 'Nimihakuun osuneet menot ja sivuun jääneet läheiset tuet vuonna 2025.');
+      const groups = [
+        {
+          title: 'Nimessä tuki tai avustus · ' + fmtMrd(DATA.headline_2025.name_match_eur) + ' mrd €',
+          color: palette.reference,
+          rows: [{ label: '50 momenttia yhteensä', value: DATA.headline_2025.name_match_eur }]
+        },
+        {
+          title: 'Sivuun jääneet läheiset erät · ' + fmtMrd(DATA.headline_2025.related_missed_eur) + ' mrd €',
+          color: palette.comparison,
+          rows: DATA.related_missed_2025
+        }
+      ];
+      const max = Math.max(DATA.headline_2025.name_match_eur, ...DATA.related_missed_2025.map(row => row.nominal_eur));
+      let y = 18;
+      groups.forEach(group => {
+        el(node, 'text', { x: 8, y: y + 2, class: 'bar-label' }, group.title);
+        y += 18;
+        group.rows.forEach(row => {
+          const value = row.nominal_eur ?? row.value;
+          const width = 620 * value / max;
+          const label = row.label_fi || row.label;
+          el(node, 'text', { x: 8, y: y + 22, class: 'label' }, label);
+          el(node, 'rect', { x: 250, y: y, width, height: 28, rx: 5, fill: group.color });
+          el(node, 'text', { x: 258 + width, y: y + 19, class: 'bar-label' }, fmtMrd(value) + ' mrd €');
+          y += 40;
+        });
+        y += 16;
+      });
+    }
+
+    function chartTopics() {
+      const rows = DATA.topics_2025;
+      const height = 54 + rows.length * 42;
+      const node = svg('chart-topics', height, 'Nimihakuun osuneiden menojen aiheet vuonna 2025.');
+      const max = rows[0].nominal_eur;
+      rows.forEach((row, index) => {
+        const y = 18 + index * 42;
+        const width = 560 * row.nominal_eur / max;
+        el(node, 'text', { x: 8, y: y + 22, class: 'label' }, row.label_fi);
+        el(node, 'rect', { x: 250, y: y, width, height: 28, rx: 5, fill: topicColor[row.id] || palette.other });
+        el(node, 'text', { x: 258 + width, y: y + 19, class: 'bar-label' }, fmtMrd(row.nominal_eur) + ' mrd €');
+      });
+    }
+
+    function chartTrend() {
+      const rows = DATA.trend;
+      const node = svg('chart-trend', 340, 'Nimihakuun osuneet menot vuosina 1998–2025, nimellisenä ja vuoden 2025 hinnoissa.');
+      const x0 = 70, x1 = 760, y0 = 22, y1 = 275;
+      const years = rows.map(row => row.year);
+      const values = rows.flatMap(row => [row.name_match_nominal_eur, row.name_match_real_cpi_eur]);
+      const x = scale(1998, 2025, x0, x1);
+      const y = scale(0, Math.max(...values) * 1.08, y1, y0);
+      ;[0, 4, 8, 12, 16].forEach(value => {
+        const py = y(value * 1e9);
+        el(node, 'line', { x1: x0, y1: py, x2: x1, y2: py, class: 'grid' });
+        el(node, 'text', { x: x0 - 10, y: py + 4, 'text-anchor': 'end', class: 'tick' }, String(value));
+      });
+      ;[1998, 2005, 2010, 2015, 2020, 2025].forEach(year => {
+        el(node, 'text', { x: x(year), y: y1 + 22, 'text-anchor': 'middle', class: 'tick' }, String(year));
+      });
+      el(node, 'line', { x1: x0, y1: y1, x2: x1, y2: y1, class: 'axis' });
+      el(node, 'line', { x1: x0, y1: y0, x2: x0, y2: y1, class: 'axis' });
+      el(node, 'line', { x1: x(2010), y1: y0, x2: x(2010), y2: y1, class: 'event' });
+      el(node, 'text', { x: x(2010) + 8, y: y0 + 14, class: 'axis-title' }, '2010 VOS-uudistus');
+      const path = (key, dash, width) => {
+        const d = rows.map((row, index) => `${index ? 'L' : 'M'}${x(row.year)},${y(row[key])}`).join(' ');
+        el(node, 'path', { d, fill: 'none', stroke: palette.reference, 'stroke-width': width, 'stroke-dasharray': dash });
+      };
+      path('name_match_real_cpi_eur', '8 7', 2.6);
+      path('name_match_nominal_eur', '', 3.4);
+      el(node, 'text', { x: (x0 + x1) / 2, y: 328, 'text-anchor': 'middle', class: 'axis-title' }, 'Miljardia euroa, täydet vuodet');
+    }
+
+    function chartTop() {
+      const rows = DATA.top_moments_2025;
+      const height = 40 + rows.length * 44;
+      const node = svg('chart-top', height, 'Kymmenen suurinta tuki- tai avustusmomenttia vuonna 2025.');
+      const max = rows[0].nominal_eur;
+      rows.forEach((row, index) => {
+        const y = 12 + index * 44;
+        const width = 520 * row.nominal_eur / max;
+        el(node, 'text', { x: 8, y: y + 22, class: 'label' }, row.name_short);
+        el(node, 'rect', { x: 300, y: y, width, height: 28, rx: 5, fill: topicColor[row.topic] || palette.reference });
+        el(node, 'text', { x: 308 + width, y: y + 19, class: 'bar-label' }, fmtMrd(row.nominal_eur) + ' mrd €');
+      });
+    }
+
+    function chartSeries() {
+      const node = svg('chart-series', 340, 'Asumistuki, perustoimeentulotuki, opintoraha ja maataloustuet 2015–2025.');
+      const colors = {
+        asumistuki: palette.reference,
+        toimeentulotuki: palette.obligation,
+        opintoraha: palette.positive,
+        maatalous: palette.comparison
+      };
+      const labels = {
+        asumistuki: 'Asumistuki',
+        toimeentulotuki: 'Perustoimeentulotuki',
+        opintoraha: 'Opintoraha',
+        maatalous: 'Maatalous'
+      };
+      const series = Object.entries(DATA.topic_series).map(([key, rows]) => ({
+        key,
+        rows: rows.filter(row => row.year >= 2015)
+      }));
+      const x0 = 70, x1 = 760, y0 = 22, y1 = 275;
+      const x = scale(2015, 2025, x0, x1);
+      const max = Math.max(...series.flatMap(item => item.rows.map(row => row.nominal_eur)));
+      const y = scale(0, max * 1.12, y1, y0);
+      ;[0, 0.5, 1, 1.5, 2].forEach(value => {
+        const py = y(value * 1e9);
+        if (py < y0) return;
+        el(node, 'line', { x1: x0, y1: py, x2: x1, y2: py, class: 'grid' });
+        el(node, 'text', { x: x0 - 10, y: py + 4, 'text-anchor': 'end', class: 'tick' }, value.toLocaleString('fi-FI'));
+      });
+      ;[2015, 2017, 2020, 2023, 2025].forEach(year => {
+        el(node, 'text', { x: x(year), y: y1 + 22, 'text-anchor': 'middle', class: 'tick' }, String(year));
+      });
+      el(node, 'line', { x1: x0, y1: y1, x2: x1, y2: y1, class: 'axis' });
+      el(node, 'line', { x1: x0, y1: y0, x2: x0, y2: y1, class: 'axis' });
+      el(node, 'line', { x1: x(2017), y1: y0, x2: x(2017), y2: y1, class: 'event' });
+      el(node, 'text', { x: x(2017) + 8, y: y0 + 14, class: 'axis-title' }, '2017 Kela / opintotuki');
+      series.forEach(item => {
+        const d = item.rows.map((row, index) => `${index ? 'L' : 'M'}${x(row.year)},${y(row.nominal_eur)}`).join(' ');
+        el(node, 'path', { d, fill: 'none', stroke: colors[item.key], 'stroke-width': 3.2 });
+        item.rows.forEach(row => el(node, 'circle', { cx: x(row.year), cy: y(row.nominal_eur), r: 3.5, fill: colors[item.key], stroke: palette.ink }));
+        const last = item.rows[item.rows.length - 1];
+        const bump = item.key === 'maatalous' ? 16 : item.key === 'opintoraha' ? -12 : 4;
+        el(node, 'text', { x: x(last.year) + 10, y: y(last.nominal_eur) + bump, fill: colors[item.key], class: 'direct-label' }, labels[item.key]);
+      });
+      el(node, 'text', { x: (x0 + x1) / 2, y: 328, 'text-anchor': 'middle', class: 'axis-title' }, 'Miljardia euroa, nimellinen toteuma');
+    }
+
+    chartGap();
+    chartTopics();
+    chartTrend();
+    chartTop();
+    chartSeries();
+  </script>
+</body>
+</html>
