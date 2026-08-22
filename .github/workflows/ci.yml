@@ -77,6 +77,7 @@ jobs:
           python scripts/test_debt_ratio_drivers.py
           python scripts/test_living_standard_index.py
           python scripts/test_living_standard_decomposition.py
+          python scripts/test_population_projection.py
 
       - name: UI no-crash smoke test
         run: python scripts/test_ui_no_crash_smoke.py

@@ -253,6 +253,36 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Väestöennuste 2024–2045
+
+`population_projection_v1` sisältää Tilastokeskuksen väestöennusteen kahtena
+laskelmana samalta ennustekierrokselta:
+
+| Laskelma | Sisältää nettomaahanmuuton |
+|---|---|
+| `vaestoennuste_2024` | kyllä, virallinen ennuste |
+| `omavaraisennuste_2024` | ei, laskennallinen vertailukohta |
+
+Omavaraisennuste ei ole vaihtoehtoinen ennuste vaan vertailulaskelma. Se on
+mukana, koska ilman sitä virallista ennustetta voisi lukea niin, että
+ikärakenne vakautuu itsestään. Ero on suuri: vuonna 2045 työikäisiä olisi
+ilman nettomaahanmuuttoa **791 000 vähemmän** eli noin viidennes.
+
+| Vuosi | Työikäisten osuus, virallinen | Ilman maahanmuuttoa |
+|---|---|---|
+| 2025 | 62,0 % | 61,7 % |
+| 2035 | 62,3 % | 60,7 % |
+| 2045 | 62,5 % | 58,9 % |
+
+Ikävuodet summataan viiteen ryhmään (0–14, 15–64, 65–74, 75+) ja
+huoltosuhteet lasketaan samoista luvuista. Validointi vaatii, että ryhmät
+kattavat kokonaisväestön ilman päällekkäisyyttä.
+
+```bash
+.venv/bin/python scripts/load_population_projection.py --load-bigquery
+.venv/bin/python scripts/test_population_projection.py
+```
+
 ### Miksi elintaso asukasta kohden ei ole palannut vuoden 2008 tasolle
 
 `scripts/build_living_standard_decomposition.py` piirtää tiedoston
