@@ -253,6 +253,29 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Elintaso ja talouskasvu 2008–2025
+
+`scripts/build_living_standard_chart.py` piirtää tiedoston
+`docs/figures/elintaso_2008_2025.png` (300 dpi). Indeksi, 2008 = 100, kolme
+sarjaa: kokonais-BKT:n volyymi, BKT asukasta kohden ja BKT asukasta kohden
+ilman laskennallista asuntotuloa.
+
+Kolmas sarja johdetaan vähentämällä toimialan 68201–68202 (asuntojen vuokraus
+ja hallinta) arvonlisäys kokonais-BKT:stä. Toimiala sisältää omistusasumisen
+laskennallisen asuntotulon, jonka osuus nousi 8,3 prosentista 10,3 prosenttiin
+2008–2024. Rajaus seuraa Etlan havaintoa ja tuottaa saman lopputuloksen.
+
+Kaksi rajoitetta: ketjutetut volyymisarjat eivät ole tarkasti
+yhteenlaskettavia ja BKT on markkinahintaan mutta toimialan arvonlisäys
+perushintaan, joten kolmas sarja on rajauslaskelma eikä virallinen suure.
+Sarja päättyy vuoteen 2024, koska toimialatietoa vuodelle 2025 ei ole vielä
+julkaistu — sitä ei jatketa arvaamalla.
+
+```bash
+.venv/bin/python scripts/build_living_standard_chart.py
+.venv/bin/python scripts/test_living_standard_index.py
+```
+
 ### Miksi velkasuhde nousee nyt
 
 `velkasuhteen-ajurit.html` vastaa kysymykseen, miksi velkasuhde nousi
