@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "dataset_id": "productivity_counterfactual_v1",
+    "base_year": 2008,
+    "trend_from": 1995,
+    "end_year": 2025,
+    "trend_rate_pct": 2.342427122164259,
+    "modest_rate_pct": 1.0,
+    "actual_rate_pct": 0.29015897080399977,
+    "benchmark_rates_pct": {
+      "1975-1995": 3.073839108425891,
+      "1975-2008": 2.785085178109825,
+      "1995-2008": 2.342427122164259
+    },
+    "counterfactual_note": "työtunnit pidetään toteutuneina ja vain tuottavuus korvataan; mekaaninen laskelma eikä ennuste",
+    "price_basis": "vuoden 2015 hinnat, ketjutettu volyymisarja",
+    "sources": [
+      {
+        "label": "Tilastokeskus, kansantalouden tilinpito (BKT:n volyymi)",
+        "url": "https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px"
+      },
+      {
+        "label": "Tilastokeskus, tehdyt työtunnit",
+        "url": "https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15ab.px"
+      }
+    ]
+  },
+  "years": [
+    {
+      "year": 1995,
+      "productivity_index": 74.00750094540041,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 137606000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 1996,
+      "productivity_index": 75.50716267466781,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 142646000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 1997,
+      "productivity_index": 77.88760887327476,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 151772000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 1998,
+      "productivity_index": 81.01042435163562,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 160049000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 1999,
+      "productivity_index": 82.87575010028237,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 167074000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2000,
+      "productivity_index": 86.44819155471777,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 176687000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2001,
+      "productivity_index": 88.13938255345533,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 181352000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2002,
+      "productivity_index": 88.9213926301995,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 184412000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2003,
+      "productivity_index": 90.82446849756889,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 188122000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2004,
+      "productivity_index": 93.89514792060726,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 195657000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2005,
+      "productivity_index": 95.65858695581929,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 201092000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2006,
+      "productivity_index": 97.97774392288906,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 209175000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2007,
+      "productivity_index": 101.17693680994465,
+      "trend_index": null,
+      "modest_index": null,
+      "gdp_actual_eur": 220288000000.0,
+      "gdp_trend_eur": null,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2008,
+      "productivity_index": 100.0,
+      "trend_index": 100.0,
+      "modest_index": 100.0,
+      "gdp_actual_eur": 222016000000.0,
+      "gdp_trend_eur": 222016000000.0,
+      "annual_gap_eur": 0.0,
+      "cumulative_gap_eur": 0.0
+    },
+    {
+      "year": 2009,
+      "productivity_index": 95.54505701931816,
+      "trend_index": 102.34242712216425,
+      "modest_index": 101.0,
+      "gdp_actual_eur": 204086000000.0,
+      "gdp_trend_eur": 218605307623.9304,
+      "annual_gap_eur": 14519307623.930378,
+      "cumulative_gap_eur": 14519307623.930378
+    },
+    {
+      "year": 2010,
+      "productivity_index": 98.9561943316298,
+      "trend_index": 104.73972389255503,
+      "modest_index": 102.01,
+      "gdp_actual_eur": 210552000000.0,
+      "gdp_trend_eur": 222857785649.26376,
+      "annual_gap_eur": 12305785649.263773,
+      "cumulative_gap_eur": 26825093273.194153
+    },
+    {
+      "year": 2011,
+      "productivity_index": 100.3158841455085,
+      "trend_index": 107.19317559269419,
+      "modest_index": 103.0301,
+      "gdp_actual_eur": 215584000000.0,
+      "gdp_trend_eur": 230363653411.6124,
+      "annual_gap_eur": 14779653411.612394,
+      "cumulative_gap_eur": 41604746684.80655
+    },
+    {
+      "year": 2012,
+      "productivity_index": 98.92021345434486,
+      "trend_index": 109.70409761088663,
+      "modest_index": 104.060401,
+      "gdp_actual_eur": 212301000000.0,
+      "gdp_trend_eur": 235445201881.19208,
+      "annual_gap_eur": 23144201881.192066,
+      "cumulative_gap_eur": 64748948565.99861
+    },
+    {
+      "year": 2013,
+      "productivity_index": 99.21387879440164,
+      "trend_index": 112.27383614744959,
+      "modest_index": 105.10100501000002,
+      "gdp_actual_eur": 210221000000.0,
+      "gdp_trend_eur": 237893310850.8284,
+      "annual_gap_eur": 27672310850.828392,
+      "cumulative_gap_eur": 92421259416.827
+    },
+    {
+      "year": 2014,
+      "productivity_index": 99.53794903306262,
+      "trend_index": 114.9037689364617,
+      "modest_index": 106.15201506010001,
+      "gdp_actual_eur": 209216000000.0,
+      "gdp_trend_eur": 241512982288.04895,
+      "annual_gap_eur": 32296982288.048946,
+      "cumulative_gap_eur": 124718241704.87595
+    },
+    {
+      "year": 2015,
+      "productivity_index": 99.78697223474815,
+      "trend_index": 117.59530598441832,
+      "modest_index": 107.213535210701,
+      "gdp_actual_eur": 210192000000.0,
+      "gdp_trend_eur": 247703603004.69778,
+      "annual_gap_eur": 37511603004.697784,
+      "cumulative_gap_eur": 162229844709.57373
+    },
+    {
+      "year": 2016,
+      "productivity_index": 101.80165024227556,
+      "trend_index": 120.34989032618938,
+      "modest_index": 108.28567056280802,
+      "gdp_actual_eur": 215598000000.0,
+      "gdp_trend_eur": 254879911993.5149,
+      "annual_gap_eur": 39281911993.51489,
+      "cumulative_gap_eur": 201511756703.08862
+    },
+    {
+      "year": 2017,
+      "productivity_index": 104.95268740231599,
+      "trend_index": 123.168998798685,
+      "modest_index": 109.3685272684361,
+      "gdp_actual_eur": 222720000000.0,
+      "gdp_trend_eur": 261376817415.70895,
+      "annual_gap_eur": 38656817415.708954,
+      "cumulative_gap_eur": 240168574118.79758
+    },
+    {
+      "year": 2018,
+      "productivity_index": 103.63090674804415,
+      "trend_index": 126.05414283264355,
+      "modest_index": 110.46221254112045,
+      "gdp_actual_eur": 225377000000.0,
+      "gdp_trend_eur": 274143162891.20847,
+      "annual_gap_eur": 48766162891.20847,
+      "cumulative_gap_eur": 288934737010.00604
+    },
+    {
+      "year": 2019,
+      "productivity_index": 104.1929523279521,
+      "trend_index": 129.0068692629671,
+      "modest_index": 111.56683466653166,
+      "gdp_actual_eur": 228419000000.0,
+      "gdp_trend_eur": 282817785769.4922,
+      "annual_gap_eur": 54398785769.49221,
+      "cumulative_gap_eur": 343333522779.4982
+    },
+    {
+      "year": 2020,
+      "productivity_index": 104.55623148539787,
+      "trend_index": 132.0287611580378,
+      "modest_index": 112.68250301319698,
+      "gdp_actual_eur": 222729000000.0,
+      "gdp_trend_eur": 281251853918.19977,
+      "annual_gap_eur": 58522853918.19979,
+      "cumulative_gap_eur": 401856376697.698
+    },
+    {
+      "year": 2021,
+      "productivity_index": 105.07366260211019,
+      "trend_index": 135.12143866846117,
+      "modest_index": 113.80932804332895,
+      "gdp_actual_eur": 228690000000.0,
+      "gdp_trend_eur": 294088176274.059,
+      "annual_gap_eur": 65398176274.05903,
+      "cumulative_gap_eur": 467254552971.757
+    },
+    {
+      "year": 2022,
+      "productivity_index": 103.24176307304683,
+      "trend_index": 138.28655989568975,
+      "modest_index": 114.94742132376224,
+      "gdp_actual_eur": 230435000000.0,
+      "gdp_trend_eur": 308654777689.30597,
+      "annual_gap_eur": 78219777689.30595,
+      "cumulative_gap_eur": 545474330661.063
+    },
+    {
+      "year": 2023,
+      "productivity_index": 101.75380756140206,
+      "trend_index": 141.5258217809943,
+      "modest_index": 116.09689553699987,
+      "gdp_actual_eur": 227464000000.0,
+      "gdp_trend_eur": 316371743692.8953,
+      "annual_gap_eur": 88907743692.89532,
+      "cumulative_gap_eur": 634382074353.9583
+    },
+    {
+      "year": 2024,
+      "productivity_index": 103.52524137107608,
+      "trend_index": 144.84096101525816,
+      "modest_index": 117.25786449236988,
+      "gdp_actual_eur": 229481000000.0,
+      "gdp_trend_eur": 321064197818.223,
+      "annual_gap_eur": 91583197818.223,
+      "cumulative_gap_eur": 725965272172.1813
+    },
+    {
+      "year": 2025,
+      "productivity_index": 105.0488821133114,
+      "trend_index": 148.23375497008294,
+      "modest_index": 118.43044313729355,
+      "gdp_actual_eur": 231325000000.0,
+      "gdp_trend_eur": 326421116328.17957,
+      "annual_gap_eur": 95096116328.17953,
+      "cumulative_gap_eur": 821061388500.3608
+    }
+  ]
+}

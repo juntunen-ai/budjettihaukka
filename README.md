@@ -253,6 +253,35 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Tuottavuuskuilu 1995–2025
+
+`scripts/build_productivity_counterfactual.py` piirtää tiedoston
+`docs/figures/tuottavuuskuilu_1995_2025.png` (300 dpi): toteutunut
+tuottavuusura ja vertailu-ura, joka jatkaa vuosien 1995–2008 vauhtia
+2,34 %/v vuodesta 2008 eteenpäin.
+
+Vertailu-ura on Suomen omaan historiaan nähden **varovainen**, ei
+paisuteltu: 1975–1995 tuottavuus kasvoi 3,07 %/v ja 1975–2008 keskimäärin
+2,79 %/v. Vertailu ei siis nojaa poikkeukselliseen ICT-nousuun — se jakso
+oli itse asiassa pre-2008-jaksoista hitain.
+
+| | 2025 |
+|---|---|
+| Toteutunut tuottavuus | 105 |
+| Vaatimaton ura, 1,0 %/v | 118 |
+| Vuosien 1995–2008 vauhti | 148 |
+
+Euromääräinen ero saadaan pitämällä työtunnit toteutuneina ja korvaamalla
+vain tuottavuus: 95 mrd € vuonna 2025 ja 821 mrd € kumulatiivisesti
+2009–2025 (vuoden 2015 hinnoin). Tämä on mekaaninen laskelma eikä ennuste
+siitä mitä olisi tapahtunut — korkeampi tuottavuus olisi muuttanut myös
+työtunteja, investointeja ja hintoja.
+
+```bash
+.venv/bin/python scripts/build_productivity_counterfactual.py
+.venv/bin/python scripts/test_productivity_counterfactual.py
+```
+
 ### Väestöennuste 2024–2045
 
 `population_projection_v1` sisältää Tilastokeskuksen väestöennusteen kahtena
