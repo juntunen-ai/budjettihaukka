@@ -79,6 +79,7 @@ jobs:
           python scripts/test_living_standard_decomposition.py
           python scripts/test_population_projection.py
           python scripts/test_productivity_counterfactual.py
+          python scripts/test_scenario_ai_displacement.py
 
       - name: UI no-crash smoke test
         run: python scripts/test_ui_no_crash_smoke.py

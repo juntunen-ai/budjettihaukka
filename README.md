@@ -253,6 +253,26 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Skenaario: automaatio ja työvoima
+
+`scripts/scenario_ai_labour_displacement.py` laskee, mitä seuraa jos
+automaatio syrjäyttää annetun osuuden työllisistä. Oletukset ovat
+tiedostossa näkyvissä ja muutettavissa (`--displaced-share`).
+
+Tuottavuusvaatimus on aritmetiikkaa, ei oletus: jos työtunnit vähenevät
+osuudella s, tuottavuuden on noustava kertoimella 1/(1−s) jotta BKT säilyy.
+15 prosentin syrjäytys vaatii **+17,6 %** tuottavuutta.
+
+Valtiontalouden puoli on epävarmempi ja esitetään haarukkana. Skripti
+tarkistaa ajossa, että käsin kirjatut lähtöluvut vastaavat varastoa
+1 prosentin tarkkuudella, jotta skenaario ei jää vanhentuneiden lukujen
+varaan.
+
+```bash
+.venv/bin/python scripts/scenario_ai_labour_displacement.py
+.venv/bin/python scripts/test_scenario_ai_displacement.py
+```
+
 ### Tuottavuuskuilu 1995–2025
 
 `scripts/build_productivity_counterfactual.py` piirtää tiedoston
