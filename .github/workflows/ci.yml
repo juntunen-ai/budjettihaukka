@@ -71,6 +71,7 @@ jobs:
           python scripts/test_government_cabinet.py
           python scripts/test_government_fiscal_eras.py
           python scripts/test_party_debt_cumulative.py
+          python scripts/test_debt_speed_steps.py
 
       - name: UI no-crash smoke test
         run: python scripts/test_ui_no_crash_smoke.py

@@ -27,6 +27,7 @@ arvot ja rajaukset näkyvät suoraan sivulla.
 | `valtion-tuet-2025.html` | Vuoden 2025 tuki-, avustus-, valtionosuus- ja rahoitusmomentit; HVA-sote ja verotuet rajattu | `scripts/test_state_supports_2025.py` |
 | `hallituskaudet.html` | Kuukausitoteuma hallituskausittain 1998–; kohdennus enemmistösäännöllä, ylijäämä nollaviivan yläpuolella, nimellinen ja reaalinen erikseen | `scripts/test_government_fiscal_eras.py` |
 | `puoluevelka.html` | Kumulatiivinen nettovelanotto 2001– pääministeripuolueen mukaan; kokonaissumma ja kuukausivauhti rinnakkain | `scripts/test_party_debt_cumulative.py` |
+| `velkavauhti.html` | Kuukausia kutakin 10 mrd € velkalisäystä kohti; askelmat kumulatiivisen kertymän pohjalta 9/2008, lyhennysvaihe erikseen | `scripts/test_debt_speed_steps.py` |
 | `/visualisointidemot` (`pages/visualisointidemot.py`) | Samojen virallisten rikastusten kokeellinen vuorovaikutteinen Streamlit-näkymä | `scripts/test_official_enrichment_reference.py` ja UI-smoke |
 | `sote-demo.html` | Sote 2008–2025; vuoden 2025 havaintoja käsitellään osittaisina | `scripts/test_sote_demo.py` |
 | `perusterveydenhuollon-palveluarvo.html` | HVA-tason palvelujen käyttö, saatavuus, kustannukset ja vastamittarit; ei julkaise tehokkuusindeksiä | `scripts/test_primary_care_value.py` |

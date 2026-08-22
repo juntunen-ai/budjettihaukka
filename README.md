@@ -253,6 +253,26 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Velkaantumisen nopeus 2001–
+
+`velkavauhti.html` on yhden kuvan sivu: montako kuukautta kului kunkin
+10 miljardin euron velkalisäyksen kertymiseen. Lyhyt palkki tarkoittaa nopeaa
+velkaantumista. Velan määritelmä tulee sellaisenaan tiedostosta
+`scripts/load_party_debt_cumulative.py`, jotta samasta asiasta on yksi sääntö.
+
+Askelmat lasketaan kumulatiivisen kertymän pohjalta 9/2008, ei jakson alusta.
+Valtio lyhensi velkaa vuoteen 2008 asti ja kertymä painui 17,8 miljardia
+miinukselle. Jakson alusta laskettuna ensimmäinen askelma olisi 127 kuukautta
+ja näyttäisi hitaalta velkaantumiselta, vaikka valtio tosiasiassa maksoi velkaa
+pois. Lyhennysvaihe esitetään omana rivinään.
+
+```bash
+.venv/bin/python scripts/load_debt_speed_steps.py
+.venv/bin/python scripts/test_debt_speed_steps.py
+```
+
+Sivu: `http://127.0.0.1:8503/velkavauhti.html`.
+
 ### Nettovelanotto pääministeripuolueittain 2001–
 
 `puoluevelka.html` on yhden kuvan sivu: kumulatiivinen nettovelanotto, jonka
