@@ -73,6 +73,7 @@ jobs:
           python scripts/test_party_debt_cumulative.py
           python scripts/test_debt_speed_steps.py
           python scripts/test_gdp_growth_outlook.py
+          python scripts/test_growth_debt_relation.py
 
       - name: UI no-crash smoke test
         run: python scripts/test_ui_no_crash_smoke.py

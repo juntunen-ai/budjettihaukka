@@ -253,6 +253,29 @@ energiaverotuki on mukana verotukena.
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
 
+### Talouskasvu ja valtionvelka 2001–2025
+
+`kasvu-ja-velka.html` on yhden kuvan sivu: hajontakuvio, jossa vaaka-akselilla
+on BKT:n volyymin muutos ja pystyakselilla valtionvelan velkasuhteen muutos
+prosenttiyksikköinä. Velka on valtionhallinnon EDP-velkakanta, ei budjetin
+nettovelanotto eikä koko julkisen talouden velka.
+
+Velkasuhteen vuosimuutos hajotetaan kahteen osaan, jotka summautuvat siihen
+tarkalleen: velanoton vaikutus ja nimellisen BKT:n vaikutus. Hajotelma erottaa
+sen, nousiko velkasuhde koska velkaa otettiin vai koska talous kutistui.
+Vuosina 2024–2025 nousu tuli velanotosta, ja kasvava nimellinen BKT jopa
+hillitsi sitä — toisin kuin 2009 ja 2020.
+
+Kuva näyttää yhteyden, ei syytä. Kasvu ja velkaantuminen vaikuttavat toisiinsa
+molempiin suuntiin, ja suhdanteet liikuttavat molempia yhtä aikaa.
+
+```bash
+.venv/bin/python scripts/load_growth_debt_relation.py
+.venv/bin/python scripts/test_growth_debt_relation.py
+```
+
+Sivu: `http://127.0.0.1:8503/kasvu-ja-velka.html`.
+
 ### Suomen talouskasvu neljästä lähteestä
 
 `gdp_growth_outlook_v1` kokoaa BKT:n volyymin muutoksen eli sen, mitä
