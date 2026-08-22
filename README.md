@@ -261,6 +261,11 @@ suurimman osan kuukauden päivistä. Vaihtoehto olisi jakaa vuosisumma
 päiväosuuksilla, mutta se olettaisi menojen jakautuvan tasaisesti vuoden
 sisällä.
 
+Saldo esitetään julkisen taloudenpidon tapaan: ylijäämä nollaviivan
+yläpuolella, alijäämä alapuolella. Lähdeaineiston nettokertymässä menot ovat
+positiivisia, joten merkki käännetään esitystä varten. Jokainen hallitus on
+merkitty nimellä ja vuosiluvuilla.
+
 Sivu merkitsee näkyvästi kolme asiaa, joita ilman luvut johtaisivat harhaan:
 kausien pituudet eroavat (vertailu tehdään kuukausikeskiarvona), Lipposen
 ensimmäisestä kaudesta puuttuu alku ja Orpon kausi on kesken, ja kolmelta

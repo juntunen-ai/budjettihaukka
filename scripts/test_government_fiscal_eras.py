@@ -84,7 +84,15 @@ def main() -> None:
     # Sivun on kerrottava kohdennussääntö ja päätösvallan rajoite näkyvästi.
     assert "enemmistön ajan" in html
     assert "kuka oli vallassa, ei kuka päätti" in html
-    assert "Positiivinen = alijäämä" in html
+    # Saldon esitystapa: ylijäämä nollaviivan yläpuolelle. Jos merkki
+    # käännetään takaisin, nämä väitteet kaatuvat ennen julkaisua.
+    assert "Nollaviivan yläpuolella ylijäämä" in html
+    assert "positiivinen luku on ylijäämä" in html
+    assert "Positiivinen = alijäämä" not in html
+    assert "const balance = value => -value;" in html
+    # Jokaisella kaudella on nimen lisäksi vuosiluvut.
+    assert "const eraYears = era =>" in html
+    assert html.count("tiltedLabel(node") == 3
 
     embedded = re.search(r'<script type="application/json" id="era-data">(.*?)</script>', html, re.S)
     assert embedded, "upotettu snapshot puuttuu"
