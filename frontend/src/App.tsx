@@ -60,6 +60,9 @@ function TopNav({ adminMode }: { adminMode: boolean }) {
   const label = adminMode ? 'Etusivu' : 'Admin';
   return (
     <div className="topnav">
+      <a className="topnav-link" href="./liberaali-historiallinen-vastelaskelma.html">
+        Vaihtoehtolaskelma
+      </a>
       <a className="topnav-link" href={href}>
         {label}
       </a>
