@@ -63,6 +63,9 @@ function TopNav({ adminMode }: { adminMode: boolean }) {
       <a className="topnav-link" href="./liberaali-historiallinen-vastelaskelma.html">
         Vaihtoehtolaskelma
       </a>
+      <a className="topnav-link" href="./liberaali-vaihtoehtobudjetti-2026.html">
+        Vaiheistettu suunnitelma
+      </a>
       <a className="topnav-link" href={href}>
         {label}
       </a>
