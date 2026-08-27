@@ -75,6 +75,7 @@ jobs:
           python scripts/test_gdp_growth_outlook.py
           python scripts/test_growth_debt_relation.py
           python scripts/test_debt_ratio_drivers.py
+          python scripts/test_reporting_fiscal_split.py
           python scripts/test_living_standard_index.py
           python scripts/test_living_standard_decomposition.py
           python scripts/test_population_projection.py
