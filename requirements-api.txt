@@ -2,6 +2,7 @@ pandas>=2.2
 numpy>=1.26
 google-cloud-bigquery>=3.25
 google-cloud-firestore>=2.20
+firebase-admin>=6.6
 google-cloud-aiplatform>=1.71
 db-dtypes>=1.2
 google-genai>=1.0

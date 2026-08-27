@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 
 import { AdminView } from './components/AdminView';
 import { QueryComposer } from './components/QueryComposer';
@@ -6,6 +6,13 @@ import { TrustBadge } from './components/TrustBadge';
 import { ResultTable } from './components/ResultTable';
 import { UsedMomentsTable } from './components/UsedMomentsTable';
 import { analyzeQuestion } from './lib/api';
+import {
+  completeRedirectSignIn,
+  observeAuthState,
+  signInWithGoogle,
+  signOutUser,
+  type User,
+} from './lib/firebase';
 import { formatBytes, titleCaseWords } from './lib/format';
 import type { AnalyzeResponse } from './types';
 
@@ -64,21 +71,52 @@ function Footer() {
   );
 }
 
-function TopNav({ adminMode }: { adminMode: boolean }) {
+function TopNav({ adminMode, user, onSignOut }: { adminMode: boolean; user: User; onSignOut: () => void }) {
   const href = adminMode ? '?' : '?admin=1';
   const label = adminMode ? 'Etusivu' : 'Admin';
   return (
     <div className="topnav">
-      <a className="topnav-link" href="./liberaali-historiallinen-vastelaskelma.html">
-        Vaihtoehtolaskelma
-      </a>
-      <a className="topnav-link" href="./liberaali-vaihtoehtobudjetti-2026.html">
-        Vaiheistettu suunnitelma
-      </a>
-      <a className="topnav-link" href={href}>
-        {label}
-      </a>
+      <div className="topnav-links">
+        <a className="topnav-link" href="./liberaali-historiallinen-vastelaskelma.html">
+          Vaihtoehtolaskelma
+        </a>
+        <a className="topnav-link" href="./liberaali-vaihtoehtobudjetti-2026.html">
+          Vaiheistettu suunnitelma
+        </a>
+        <a className="topnav-link" href={href}>
+          {label}
+        </a>
+      </div>
+      <div className="account-menu">
+        {user.photoURL ? <img className="account-avatar" src={user.photoURL} alt="" referrerPolicy="no-referrer" /> : null}
+        <span className="account-name">{user.displayName || user.email || 'Google-käyttäjä'}</span>
+        <button className="topnav-link account-signout" type="button" onClick={onSignOut}>
+          Kirjaudu ulos
+        </button>
+      </div>
     </div>
+  );
+}
+
+function LoginScreen({ busy, error, onSignIn }: { busy: boolean; error: string | null; onSignIn: () => void }) {
+  return (
+    <main className="login-shell">
+      <section className="login-card">
+        <div className="login-kicker">Budjettihaukka</div>
+        <h1>Kirjaudu analytiikkaan</h1>
+        <p>
+          Käytä Google-tiliäsi Budjettihaukan analytiikan ja kysymyskirjaston avaamiseen.
+        </p>
+        <button className="google-login-button" type="button" onClick={onSignIn} disabled={busy}>
+          <span className="google-mark" aria-hidden="true">G</span>
+          {busy ? 'Kirjaudutaan…' : 'Kirjaudu Google-tilillä'}
+        </button>
+        {error ? <div className="login-error" role="alert">{error}</div> : null}
+        <p className="login-note">
+          Palvelu tallentaa esitetyt kysymykset palvelun laadun ja vastausten luotettavuuden kehittämistä varten.
+        </p>
+      </section>
+    </main>
   );
 }
 
@@ -142,10 +180,48 @@ function StatusBlock({ response }: { response: AnalyzeResponse }) {
 
 export default function App() {
   const adminMode = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('admin') === '1';
+  const [authReady, setAuthReady] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [authBusy, setAuthBusy] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
   const [question, setQuestion] = useState(DEFAULT_QUESTION);
   const [response, setResponse] = useState<AnalyzeResponse | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = observeAuthState((nextUser) => {
+      setUser(nextUser);
+      setAuthReady(true);
+    });
+    completeRedirectSignIn().catch((err) => {
+      setAuthError(err instanceof Error ? err.message : 'Google-kirjautuminen epäonnistui.');
+      setAuthReady(true);
+    });
+    return unsubscribe;
+  }, []);
+
+  async function signIn() {
+    setAuthBusy(true);
+    setAuthError(null);
+    try {
+      await signInWithGoogle();
+    } catch (err) {
+      setAuthError(err instanceof Error ? err.message : 'Google-kirjautuminen epäonnistui.');
+    } finally {
+      setAuthBusy(false);
+    }
+  }
+
+  async function signOut() {
+    setAuthError(null);
+    try {
+      await signOutUser();
+      setResponse(null);
+    } catch (err) {
+      setAuthError(err instanceof Error ? err.message : 'Uloskirjautuminen epäonnistui.');
+    }
+  }
 
   async function submit(nextQuestion: string) {
     setQuestion(nextQuestion);
@@ -166,9 +242,17 @@ export default function App() {
     }
   }
 
+  if (!authReady) {
+    return <LoginScreen busy error={null} onSignIn={() => undefined} />;
+  }
+
+  if (!user) {
+    return <LoginScreen busy={authBusy} error={authError} onSignIn={signIn} />;
+  }
+
   return (
     <div className="app-shell">
-      <TopNav adminMode={adminMode} />
+      <TopNav adminMode={adminMode} user={user} onSignOut={signOut} />
 
       <main className="content-grid">
         {adminMode ? (

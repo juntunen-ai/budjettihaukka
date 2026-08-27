@@ -11,6 +11,7 @@ existing Firebase project `valtion-budjetti-data`:
 
 - existing Firebase project and default Hosting site, imported into state
 - Firebase Web App registration
+- Firebase Authentication and Google sign-in configuration
 - dedicated `budjettihaukka-api` Cloud Run service
 - dedicated least-privilege runtime service account
 - read-only access to `budjettihaukka-gpt.valtiodata`
@@ -20,7 +21,9 @@ existing Firebase project `valtion-budjetti-data`:
 
 Hosting files and rewrites are declarative in `/firebase.json` and deployed
 with the Firebase CLI after Terraform has created the Cloud Run service.
-The public health endpoint is `/health`; `/healthz` is avoided because some
+The health endpoint remains public at `/health`. Analytics and admin API
+routes require a valid Firebase ID token in production; admin reads also
+require the Secret Manager key. `/healthz` is avoided because some
 Cloud Run URL paths ending in `z` are reserved by the platform.
 
 ## Prerequisites
@@ -42,10 +45,17 @@ Use the repository deployment script from the repository root:
 scripts/deploy_firebase.sh
 ```
 
-The script provisions the repository and identities first, builds an
-immutable container image, applies the Cloud Run service, smoke-tests it,
-and only then publishes Firebase Hosting. It intentionally refuses to run
+The script first provisions Identity Platform and enables Google sign-in,
+then builds an immutable container image, applies the token-protected Cloud
+Run service, smoke-tests it, and only then publishes Firebase Hosting. The
+Firebase CLI version is pinned by the script because declarative provider
+deployment requires a current CLI. The script intentionally refuses to run
 while billing is disabled.
+
+Firebase's default Hosting domains are authorized automatically by the Auth
+provider deploy. Local development domains are managed by Terraform's
+`google_identity_platform_config.authorized_domains`; do not duplicate either
+set in `auth.providers.googleSignIn.authorizedRedirectUris`.
 
 The default cost guardrails are:
 

@@ -1,4 +1,12 @@
 {
+  "auth": {
+    "providers": {
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Budjettihaukka",
+        "supportEmail": "vihreamiesjuntunen@gmail.com"
+      }
+    }
+  },
   "hosting": {
     "site": "valtion-budjetti-data",
     "public": "frontend/dist",

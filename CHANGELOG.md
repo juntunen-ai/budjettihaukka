@@ -3,6 +3,23 @@
 Tämä tiedosto kuvaa Budjettihaukan käyttäjille ja ylläpitäjille merkittävät
 muutokset. Versiot noudattavat semanttista versionumerointia.
 
+## [Unreleased]
+
+### Lisätty
+
+- Google-kirjautuminen Firebase Authenticationilla React-käyttöliittymään.
+- FastAPI:n Firebase ID token -varmennus analyysi- ja admin-reiteille sekä
+  autentikoinnin regressiotesti.
+- Identity Platformin, sallittujen verkkotunnusten ja Google-providerin
+  deklaratiivinen käyttöönotto Terraformilla ja Firebase CLI:llä.
+
+### Turvallisuus
+
+- Tuotannon `/v1/analyze` ja `/v1/admin/question-library` eivät enää hyväksy
+  kirjautumattomia pyyntöjä. `/health` säilyy julkisena valvontaa varten.
+- Admin-kysymyskirjasto vaatii jatkossa sekä Google-kirjautumisen että
+  Secret Managerissa säilytettävän admin-avaimen.
+
 ## [2.2.0] – 2026-08-27
 
 ### Lisätty

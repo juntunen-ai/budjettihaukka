@@ -1,12 +1,15 @@
 import type { AnalyzeRequest, AnalyzeResponse } from '../types';
+import { getAuthToken } from './firebase';
 
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
 
 export async function analyzeQuestion(payload: AnalyzeRequest): Promise<AnalyzeResponse> {
+  const token = await getAuthToken();
   const response = await fetch(`${API_BASE_URL}/v1/analyze`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(payload),
   });

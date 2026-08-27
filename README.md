@@ -21,6 +21,7 @@ Projektin pitkän aikavälin tavoite on tukea kansalaisia, tutkijoita ja toimitt
 - ❓ Pakollinen tarkennus matalalla luottamuksella ennen ajoa
 - ✅ Vastausten varmennus ja näkyvät tilat: `trusted`, `trusted_with_warning`, `needs_clarification`, `unsupported`
 - 📊 React/ECharts-käyttöliittymä Firebase Hostingissa ja FastAPI Cloud Runissa
+- 🔐 Google-kirjautuminen Firebase Authenticationilla; analyysi- ja admin-API tarkistavat ID tokenin
 - 🗂️ Firestore-kysymyskirjasto palvelun laadun kehittämistä varten; admin-luku vaatii salaisen avaimen
 - 📚 Datan lähteenä Valtiokonttorin ja VM:n aineistot, BigQueryn semanttinen kerros sekä dokumentoidut viralliset rikastukset
 
@@ -80,6 +81,8 @@ Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 - `BUDJETTIHAUKKA_QUESTION_LIBRARY_BACKEND` (`auto`, `firestore` tai paikallinen JSONL)
 - `BUDJETTIHAUKKA_FIRESTORE_DATABASE` (tuotannossa `(default)`)
 - `BUDJETTIHAUKKA_FIRESTORE_QUESTION_COLLECTION` (oletus `question_library`)
+- `BUDJETTIHAUKKA_REQUIRE_AUTH` (`true` tuotannossa; vaatiiko API varmennetun Firebase ID tokenin)
+- `BUDJETTIHAUKKA_FIREBASE_AUTH_PROJECT_ID` (Firebase Authentication -projektin tunnus)
 - `BUDJETTIHAUKKA_ADMIN_KEY` (Secret Managerista annettava admin-API:n avain)
 - `BUDJETTIHAUKKA_FREE_QUERIES_PER_SESSION` (ilmaiskäyttäjän kyselyraja / sessio; oletus: `25`)
 - `BUDJETTIHAUKKA_SHOW_ADS` (`true`/`false`, näytetäänkö mainospaikat UI:ssa)
@@ -109,7 +112,7 @@ Politiikkaskenaariot ja kontrafaktuaalit ovat ehdollisia mallilaskelmia, eivät 
 
 ## 🚀 Firebase-tuotanto
 
-Tuotantoinfrastruktuuri sijaitsee projektissa `valtion-budjetti-data` ja on määritelty Terraformilla hakemistossa [`infra/firebase`](./infra/firebase/README.md). Firebase Hosting ohjaa `/v1/**`- ja `/health`-pyynnöt Cloud Runin `budjettihaukka-api`-palveluun. API lukee vain BigQuery-projektin `budjettihaukka-gpt` semanttista kerrosta ja tallentaa kysymyskirjaston Firestoreen.
+Tuotantoinfrastruktuuri sijaitsee projektissa `valtion-budjetti-data` ja on määritelty Terraformilla hakemistossa [`infra/firebase`](./infra/firebase/README.md). Firebase Hosting ohjaa `/v1/**`- ja `/health`-pyynnöt Cloud Runin `budjettihaukka-api`-palveluun. Firebase Authentication hoitaa Google-kirjautumisen, ja API varmentaa bearer-tokenin ennen analyysi- tai admin-kutsua. API lukee vain BigQuery-projektin `budjettihaukka-gpt` semanttista kerrosta ja tallentaa kysymyskirjaston Firestoreen.
 
 ```bash
 scripts/deploy_firebase.sh

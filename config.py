@@ -92,6 +92,8 @@ class Settings:
         "BUDJETTIHAUKKA_FIRESTORE_QUESTION_COLLECTION",
         "question_library",
     )
+    require_auth: bool = _env_bool("BUDJETTIHAUKKA_REQUIRE_AUTH", False)
+    firebase_auth_project_id: str = os.getenv("BUDJETTIHAUKKA_FIREBASE_AUTH_PROJECT_ID", "")
     admin_api_key: str = os.getenv("BUDJETTIHAUKKA_ADMIN_KEY", "")
     free_queries_per_session: int = _env_int("BUDJETTIHAUKKA_FREE_QUERIES_PER_SESSION", 25)
     show_ads: bool = _env_bool("BUDJETTIHAUKKA_SHOW_ADS", True)
