@@ -1,0 +1,3350 @@
+{
+  "meta": {
+    "dataset_id": "policy_budget_evidence_v1",
+    "schema_version": "1.1.0",
+    "generated_at": "2026-08-26T04:36:56+00:00",
+    "source_project": "budjettihaukka-gpt",
+    "source_table": "budjettihaukka-gpt.valtiodata.analytics_fiscal_yearly_core_v1",
+    "source_metric_fi": "Valtion budjettitalouden toteutunut nettokertymä menopuolella",
+    "official_source_name": "Valtiokonttori, Tutkihallintoa.fi valtiontalouden kuukausidata",
+    "official_source_url": "https://api.tutkihallintoa.fi/valtiontalous/v1/",
+    "baseline_year": 2011,
+    "comparison_year": 2016,
+    "history_from_year": 2008,
+    "history_to_year": 2025,
+    "real_price_base_year": 2025,
+    "fiscal_side": "expense",
+    "query_dry_run_bytes": 13422314,
+    "selection_dataset": "policy_budget_moment_selection_v1",
+    "claim_rule_fi": "Toteuman lasku osoitetaan vain samalla momenttikoodilla, täydellä menopuolen vuosidatalla ja ilman rakenteellisen muutoksen varoitusta. Nimellinen vähennys erotetaan pelkästä reaaliarvon laskusta.",
+    "interpretation_fi": "Toteuman lasku ei yksin osoita päätöksen kausaalista vaikutusta talouskasvuun eikä vastaa talousarvion myönnettyä määrärahaa."
+  },
+  "rows": [
+    {
+      "momentti_tunnusp": "32.20.40.",
+      "canonical_label_fi": "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": [
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Yritysten ja yhteisöjen TKI-toiminnan keskeinen suora tukimomentti.",
+      "historical_members": [
+        {
+          "code": "32.20.40.",
+          "valid_from_year": 2008,
+          "valid_to_year": 2025
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "32.20.40.",
+        "source_name": "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen",
+        "nominal_meur": 450.56983774,
+        "real_meur": 581.6130521378919,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 89
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "32.20.40.",
+        "source_name": "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen",
+        "nominal_meur": 335.35178628,
+        "real_meur": 410.0302290166858,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 91
+      },
+      "nominal_change_meur": -115.218051,
+      "nominal_change_pct": -25.57163,
+      "real_change_meur": -171.582823,
+      "real_change_pct": -29.501199,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2008,
+          "nominal_meur": 177.655647,
+          "real_meur": 240.194543,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Avustukset teknologiseen tutkimukseen ja kehitykseen"
+          ],
+          "has_structural_guardrail": true,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "structural_break_review_required"
+          ]
+        },
+        {
+          "year": 2009,
+          "nominal_meur": 198.343544,
+          "real_meur": 268.165057,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Avustukset tutkimukseen, kehitykseen ja innovaatiotoimintaan"
+          ],
+          "has_structural_guardrail": true,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "structural_break_review_required"
+          ]
+        },
+        {
+          "year": 2010,
+          "nominal_meur": 316.999269,
+          "real_meur": 423.450194,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 450.569838,
+          "real_meur": 581.613052,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 431.513978,
+          "real_meur": 541.76661,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 430.6612,
+          "real_meur": 532.971717,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 386.295557,
+          "real_meur": 473.06037,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 367.194625,
+          "real_meur": 450.612921,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 335.351786,
+          "real_meur": 410.030229,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2017,
+          "nominal_meur": 289.546447,
+          "real_meur": 351.45259,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2018,
+          "nominal_meur": 260.362671,
+          "real_meur": 312.622324,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2019,
+          "nominal_meur": 226.02513,
+          "real_meur": 268.634542,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2020,
+          "nominal_meur": 979.578106,
+          "real_meur": 1160.70577,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2021,
+          "nominal_meur": 458.077628,
+          "real_meur": 531.206531,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2022,
+          "nominal_meur": 309.334374,
+          "real_meur": 334.814022,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2023,
+          "nominal_meur": 295.293035,
+          "real_meur": 300.823349,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2024,
+          "nominal_meur": 422.124446,
+          "real_meur": 423.391543,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2025,
+          "nominal_meur": 477.793542,
+          "real_meur": 477.793542,
+          "source_codes": [
+            "32.20.40."
+          ],
+          "source_names": [
+            "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": true
+    },
+    {
+      "momentti_tunnusp": "29.40.50.",
+      "canonical_label_fi": "Valtionrahoitus yliopistojen toimintaan",
+      "primary_policy_id": "higher_education_capacity_2000_2025",
+      "related_policy_ids": [
+        "rd_funding_cuts_2011_2016",
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Yliopistojen perusrahoituksen päämomentti; sisältää opetuksen lisäksi yliopistojen tutkimustoimintaa.",
+      "historical_members": [
+        {
+          "code": "29.40.50.",
+          "valid_from_year": 2010,
+          "valid_to_year": 2025
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "29.40.50.",
+        "source_name": "Valtionrahoitus yliopistojen toimintaan",
+        "nominal_meur": 1839.393,
+        "real_meur": 2374.359948675497,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 4
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "29.40.50.",
+        "source_name": "Valtionrahoitus yliopistojen toimintaan",
+        "nominal_meur": 1831.905,
+        "real_meur": 2239.8462075274438,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 15
+      },
+      "nominal_change_meur": -7.488,
+      "nominal_change_pct": -0.407091,
+      "real_change_meur": -134.513741,
+      "real_change_pct": -5.665263,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2010,
+          "nominal_meur": 1703.152,
+          "real_meur": 2275.084254,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 1839.393,
+          "real_meur": 2374.359949,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 1832.235,
+          "real_meur": 2300.374485,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 1859.957,
+          "real_meur": 2301.819801,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 1893.562,
+          "real_meur": 2318.869905,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 1902.555,
+          "real_meur": 2334.772374,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 1831.905,
+          "real_meur": 2239.846208,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2017,
+          "nominal_meur": 1795.884,
+          "real_meur": 2179.850896,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2018,
+          "nominal_meur": 1772.568,
+          "real_meur": 2128.35552,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2019,
+          "nominal_meur": 1762.449,
+          "real_meur": 2094.699294,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2020,
+          "nominal_meur": 1912.135,
+          "real_meur": 2265.69593,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2021,
+          "nominal_meur": 1916.668,
+          "real_meur": 2222.650695,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2022,
+          "nominal_meur": 1867.934,
+          "real_meur": 2021.794366,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2023,
+          "nominal_meur": 1955.422,
+          "real_meur": 1992.043579,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2024,
+          "nominal_meur": 2186.57236,
+          "real_meur": 2193.135828,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2025,
+          "nominal_meur": 2264.29564,
+          "real_meur": 2264.29564,
+          "source_codes": [
+            "29.40.50."
+          ],
+          "source_names": [
+            "Valtionrahoitus yliopistojen toimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": false
+    },
+    {
+      "momentti_tunnusp": "33.60.32.",
+      "canonical_label_fi": "Valtion rahoitus yliopistotasoiseen terveystutkimukseen",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": [
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Yliopistotasoisen terveystutkimuksen suora tutkimusrahoitus.",
+      "historical_members": [
+        {
+          "code": "33.60.32.",
+          "valid_from_year": 2008,
+          "valid_to_year": 2025
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "33.60.32.",
+        "source_name": "Valtion korvaus terveydenhuollon yksiköille erikoissairaanhoitolain mukaiseen tutkimustoimintaan",
+        "nominal_meur": 39.99306299,
+        "real_meur": 51.624599521859835,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 65
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "33.60.32.",
+        "source_name": "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen",
+        "nominal_meur": 16.83,
+        "real_meur": 20.57782017773131,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 12
+      },
+      "nominal_change_meur": -23.163063,
+      "nominal_change_pct": -57.917702,
+      "real_change_meur": -31.046779,
+      "real_change_pct": -60.139506,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2008,
+          "nominal_meur": 48.743005,
+          "real_meur": 65.901669,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion korvaus terveydenhuollon yksiköille erikoissairaanhoitolain mukaiseen tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": true,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "structural_break_review_required"
+          ]
+        },
+        {
+          "year": 2009,
+          "nominal_meur": 40.0,
+          "real_meur": 54.080925,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion korvaus terveydenhuollon yksiköille erikoissairaanhoitolain mukaiseen tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2010,
+          "nominal_meur": 39.997352,
+          "real_meur": 53.428787,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion korvaus terveydenhuollon yksiköille erikoissairaanhoitolain mukaiseen tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 39.993063,
+          "real_meur": 51.6246,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion korvaus terveydenhuollon yksiköille erikoissairaanhoitolain mukaiseen tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 36.0,
+          "real_meur": 45.198068,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 31.0,
+          "real_meur": 38.36455,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 31.2998,
+          "real_meur": 38.329965,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 21.7,
+          "real_meur": 26.629748,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 16.83,
+          "real_meur": 20.57782,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2017,
+          "nominal_meur": 18.983334,
+          "real_meur": 23.042044,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2018,
+          "nominal_meur": 21.0,
+          "real_meur": 25.215092,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2019,
+          "nominal_meur": 19.22049,
+          "real_meur": 22.843865,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2020,
+          "nominal_meur": 25.0,
+          "real_meur": 29.622594,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2021,
+          "nominal_meur": 25.0,
+          "real_meur": 28.991076,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2022,
+          "nominal_meur": 25.0,
+          "real_meur": 27.059232,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2023,
+          "nominal_meur": 26.5525,
+          "real_meur": 27.049781,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2024,
+          "nominal_meur": 34.95513,
+          "real_meur": 35.060055,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2025,
+          "nominal_meur": 39.996325,
+          "real_meur": 39.996325,
+          "source_codes": [
+            "33.60.32."
+          ],
+          "source_names": [
+            "Valtion rahoitus terveydenhuollon yksiköille yliopistotasoiseen tutkimukseen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": true
+    },
+    {
+      "momentti_tunnusp": "32.20.01.",
+      "canonical_label_fi": "Geologian tutkimuskeskuksen toimintamenot",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": [
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Valtion sektoritutkimuslaitoksen toimintamenot.",
+      "historical_members": [
+        {
+          "code": "32.20.01.",
+          "valid_from_year": 2008,
+          "valid_to_year": 2020
+        },
+        {
+          "code": "32.01.04.",
+          "valid_from_year": 2020,
+          "valid_to_year": 2025
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "32.20.01.",
+        "source_name": "Geologian tutkimuskeskuksen toimintamenot",
+        "nominal_meur": 42.42251419,
+        "real_meur": 54.76062952009383,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 935
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "32.20.01.",
+        "source_name": "Geologian tutkimuskeskuksen toimintamenot",
+        "nominal_meur": 32.37096332,
+        "real_meur": 39.57955211995819,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 900
+      },
+      "nominal_change_meur": -10.051551,
+      "nominal_change_pct": -23.693907,
+      "real_change_meur": -15.181077,
+      "real_change_pct": -27.722613,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2008,
+          "nominal_meur": 39.207462,
+          "real_meur": 53.009396,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": true,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "structural_break_review_required"
+          ]
+        },
+        {
+          "year": 2009,
+          "nominal_meur": 42.752396,
+          "real_meur": 57.802228,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2010,
+          "nominal_meur": 37.126277,
+          "real_meur": 49.593582,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 42.422514,
+          "real_meur": 54.76063,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 41.950415,
+          "real_meur": 52.668825,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 40.398,
+          "real_meur": 49.995197,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 36.974132,
+          "real_meur": 45.278793,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 35.830573,
+          "real_meur": 43.970467,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 32.370963,
+          "real_meur": 39.579552,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2017,
+          "nominal_meur": 27.418853,
+          "real_meur": 33.28111,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2018,
+          "nominal_meur": 29.068355,
+          "real_meur": 34.902917,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2019,
+          "nominal_meur": 28.92776,
+          "real_meur": 34.381114,
+          "source_codes": [
+            "32.20.01."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2020,
+          "nominal_meur": 30.995513,
+          "real_meur": 36.726699,
+          "source_codes": [
+            "32.20.01.",
+            "32.01.04."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot",
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": true,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "structural_break_review_required"
+          ]
+        },
+        {
+          "year": 2021,
+          "nominal_meur": 32.966397,
+          "real_meur": 38.229253,
+          "source_codes": [
+            "32.01.04."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2022,
+          "nominal_meur": 35.205177,
+          "real_meur": 38.105002,
+          "source_codes": [
+            "32.01.04."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2023,
+          "nominal_meur": 29.764225,
+          "real_meur": 30.321657,
+          "source_codes": [
+            "32.01.04."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2024,
+          "nominal_meur": 37.273997,
+          "real_meur": 37.385883,
+          "source_codes": [
+            "32.01.04."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2025,
+          "nominal_meur": 35.666213,
+          "real_meur": 35.666213,
+          "source_codes": [
+            "32.01.04."
+          ],
+          "source_names": [
+            "Geologian tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": true
+    },
+    {
+      "momentti_tunnusp": "32.20.45.",
+      "canonical_label_fi": "Yritysten tutkimus- ja kehittämishankkeiden valmistelu",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": [
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Yritysten T&K-hankkeiden käynnistämiseen kohdistunut suora momentti ennen myöhempää käyttötarkoituksen muutosta.",
+      "historical_members": [
+        {
+          "code": "32.20.45.",
+          "valid_from_year": 2009,
+          "valid_to_year": 2016
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "32.20.45.",
+        "source_name": "Yritysten tutkimus- ja kehittämishankkeiden valmistelu",
+        "nominal_meur": 7.223014,
+        "real_meur": 9.323747100441501,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 44
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "32.20.45.",
+        "source_name": "Yritysten tutkimus- ja kehittämishankkeiden valmistelu",
+        "nominal_meur": 0.562065,
+        "real_meur": 0.6872295007841087,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 7
+      },
+      "nominal_change_meur": -6.660949,
+      "nominal_change_pct": -92.218415,
+      "real_change_meur": -8.636518,
+      "real_change_pct": -92.629256,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2009,
+          "nominal_meur": 2.806488,
+          "real_meur": 3.794437,
+          "source_codes": [
+            "32.20.45."
+          ],
+          "source_names": [
+            "Yritysten tutkimus- ja kehittämishankkeiden valmistelu"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2010,
+          "nominal_meur": 5.984677,
+          "real_meur": 7.99438,
+          "source_codes": [
+            "32.20.45."
+          ],
+          "source_names": [
+            "Yritysten tutkimus- ja kehittämishankkeiden valmistelu"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 7.223014,
+          "real_meur": 9.323747,
+          "source_codes": [
+            "32.20.45."
+          ],
+          "source_names": [
+            "Yritysten tutkimus- ja kehittämishankkeiden valmistelu"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 8.32465,
+          "real_meur": 10.451614,
+          "source_codes": [
+            "32.20.45."
+          ],
+          "source_names": [
+            "Yritysten tutkimus- ja kehittämishankkeiden valmistelu"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 8.691901,
+          "real_meur": 10.756802,
+          "source_codes": [
+            "32.20.45."
+          ],
+          "source_names": [
+            "Yritysten tutkimus- ja kehittämishankkeiden valmistelu"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 4.985377,
+          "real_meur": 6.105129,
+          "source_codes": [
+            "32.20.45."
+          ],
+          "source_names": [
+            "Yritysten tutkimus- ja kehittämishankkeiden valmistelu"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 1.421828,
+          "real_meur": 1.744835,
+          "source_codes": [
+            "32.20.45."
+          ],
+          "source_names": [
+            "Yritysten tutkimus- ja kehittämishankkeiden valmistelu"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 0.562065,
+          "real_meur": 0.68723,
+          "source_codes": [
+            "32.20.45."
+          ],
+          "source_names": [
+            "Yritysten tutkimus- ja kehittämishankkeiden valmistelu"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": false
+    },
+    {
+      "momentti_tunnusp": "29.40.51.",
+      "canonical_label_fi": "Suomen Akatemian tutkimusmäärärahat",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": [
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Kilpaillun tieteellisen tutkimusrahoituksen päämomentti.",
+      "historical_members": [
+        {
+          "code": "29.40.51.",
+          "valid_from_year": 2010,
+          "valid_to_year": 2025
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "29.40.51.",
+        "source_name": "Suomen Akatemian tutkimusmäärärahat",
+        "nominal_meur": 221.60129228,
+        "real_meur": 286.0515577499558,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 374
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "29.40.51.",
+        "source_name": "Suomen Akatemian tutkimusmäärärahat",
+        "nominal_meur": 227.58681575,
+        "real_meur": 278.26741350718765,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 240
+      },
+      "nominal_change_meur": 5.985523,
+      "nominal_change_pct": 2.701033,
+      "real_change_meur": -7.784144,
+      "real_change_pct": -2.721238,
+      "evidence_class": "real_value_reduction_only",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2010,
+          "nominal_meur": 5.124855,
+          "real_meur": 6.845822,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": true,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "structural_break_review_required"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 221.601292,
+          "real_meur": 286.051558,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 243.0242,
+          "real_meur": 305.117339,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 258.170678,
+          "real_meur": 319.503289,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 220.901759,
+          "real_meur": 270.517913,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 225.663834,
+          "real_meur": 276.929542,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 227.586816,
+          "real_meur": 278.267414,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2017,
+          "nominal_meur": 218.084522,
+          "real_meur": 264.71183,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2018,
+          "nominal_meur": 245.175193,
+          "real_meur": 294.386435,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2019,
+          "nominal_meur": 244.983719,
+          "real_meur": 291.167134,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2020,
+          "nominal_meur": 331.081915,
+          "real_meur": 392.300202,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2021,
+          "nominal_meur": 307.774286,
+          "real_meur": 356.908307,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2022,
+          "nominal_meur": 331.877592,
+          "real_meur": 359.214109,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2023,
+          "nominal_meur": 325.723999,
+          "real_meur": 331.824231,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2024,
+          "nominal_meur": 385.388168,
+          "real_meur": 386.544994,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2025,
+          "nominal_meur": 416.566814,
+          "real_meur": 416.566814,
+          "source_codes": [
+            "29.40.51."
+          ],
+          "source_names": [
+            "Suomen Akatemian tutkimusmäärärahat"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": true
+    },
+    {
+      "momentti_tunnusp": "32.20.06.",
+      "canonical_label_fi": "Tekesin toimintamenot",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": [
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Valtion innovaatiorahoittajan toimintamenot; nimi muuttui vertailujaksolla, mutta momenttikoodi säilyi.",
+      "historical_members": [
+        {
+          "code": "32.20.06.",
+          "valid_from_year": 2008,
+          "valid_to_year": 2020
+        },
+        {
+          "code": "32.01.05.",
+          "valid_from_year": 2020,
+          "valid_to_year": 2025
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "32.20.06.",
+        "source_name": "Tekes - teknologian ja innovaatioiden kehittämiskeskuksen toimintamenot",
+        "nominal_meur": 42.196839839999996,
+        "real_meur": 54.469320301192056,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 810
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "32.20.06.",
+        "source_name": "Innovaatiorahoituskeskus Tekesin toimintamenot",
+        "nominal_meur": 39.123820949999995,
+        "real_meur": 47.836182541583895,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 795
+      },
+      "nominal_change_meur": -3.073019,
+      "nominal_change_pct": -7.282581,
+      "real_change_meur": -6.633138,
+      "real_change_pct": -12.17775,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2008,
+          "nominal_meur": 28.776986,
+          "real_meur": 38.907151,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Tekes - teknologian ja innovaatioiden kehittämiskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2009,
+          "nominal_meur": 36.759633,
+          "real_meur": 49.699873,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Tekes - teknologian ja innovaatioiden kehittämiskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2010,
+          "nominal_meur": 42.334629,
+          "real_meur": 56.550941,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Tekes - teknologian ja innovaatioiden kehittämiskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 42.19684,
+          "real_meur": 54.46932,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Tekes - teknologian ja innovaatioiden kehittämiskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 45.702761,
+          "real_meur": 57.379902,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Tekes - teknologian ja innovaatioiden kehittämiskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 42.574585,
+          "real_meur": 52.688865,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Tekes - teknologian ja innovaatioiden kehittämiskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 41.028168,
+          "real_meur": 50.243395,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Tekesin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 40.287682,
+          "real_meur": 49.44013,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Tekesin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 39.123821,
+          "real_meur": 47.836183,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Tekesin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2017,
+          "nominal_meur": 44.574212,
+          "real_meur": 54.10435,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Tekesin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2018,
+          "nominal_meur": 82.342087,
+          "real_meur": 98.869682,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Tekesin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2019,
+          "nominal_meur": 92.832865,
+          "real_meur": 110.333369,
+          "source_codes": [
+            "32.20.06."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Tekesin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2020,
+          "nominal_meur": 130.574958,
+          "real_meur": 154.718757,
+          "source_codes": [
+            "32.20.06.",
+            "32.01.05."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Tekesin toimintamenot",
+            "Innovaatiorahoituskeskus Business Finlandin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2021,
+          "nominal_meur": 99.48072,
+          "real_meur": 115.362124,
+          "source_codes": [
+            "32.01.05."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Business Finlandin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2022,
+          "nominal_meur": 109.766693,
+          "real_meur": 118.808096,
+          "source_codes": [
+            "32.01.05."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Business Finlandin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2023,
+          "nominal_meur": 103.79481,
+          "real_meur": 105.738702,
+          "source_codes": [
+            "32.01.05."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Business Finlandin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2024,
+          "nominal_meur": 103.630917,
+          "real_meur": 103.941987,
+          "source_codes": [
+            "32.01.05."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Business Finlandin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2025,
+          "nominal_meur": 68.719326,
+          "real_meur": 68.719326,
+          "source_codes": [
+            "32.01.05."
+          ],
+          "source_names": [
+            "Innovaatiorahoituskeskus Business Finlandin toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": false
+    },
+    {
+      "momentti_tunnusp": "30.01.22.",
+      "canonical_label_fi": "Maa- ja metsätalousministeriön tutkimus ja kehittäminen",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": [
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Hallinnonalan yhteisiin tutkimus- ja kehittämishankkeisiin kohdistunut momentti.",
+      "historical_members": [
+        {
+          "code": "30.01.22.",
+          "valid_from_year": 2011,
+          "valid_to_year": 2025
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "30.01.22.",
+        "source_name": "Tutkimus ja kehittäminen",
+        "nominal_meur": 4.25631844,
+        "real_meur": 5.4942212092494485,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 250
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "30.01.22.",
+        "source_name": "Tutkimus ja kehittäminen",
+        "nominal_meur": 1.5257915800000001,
+        "real_meur": 1.8655653453319394,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 77
+      },
+      "nominal_change_meur": -2.730527,
+      "nominal_change_pct": -64.152316,
+      "real_change_meur": -3.628656,
+      "real_change_pct": -66.044954,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2011,
+          "nominal_meur": 4.256318,
+          "real_meur": 5.494221,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 3.223967,
+          "real_meur": 4.047696,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 3.217069,
+          "real_meur": 3.981336,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 4.462463,
+          "real_meur": 5.464765,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 2.736165,
+          "real_meur": 3.357759,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 1.525792,
+          "real_meur": 1.865565,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2017,
+          "nominal_meur": 1.232769,
+          "real_meur": 1.49634,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2018,
+          "nominal_meur": 1.425869,
+          "real_meur": 1.712067,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2019,
+          "nominal_meur": 1.150968,
+          "real_meur": 1.367944,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2020,
+          "nominal_meur": 1.103473,
+          "real_meur": 1.307509,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2021,
+          "nominal_meur": 2.193146,
+          "real_meur": 2.543267,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2022,
+          "nominal_meur": 5.640995,
+          "real_meur": 6.105639,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2023,
+          "nominal_meur": 7.579715,
+          "real_meur": 7.721669,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2024,
+          "nominal_meur": 6.840905,
+          "real_meur": 6.861439,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2025,
+          "nominal_meur": 2.258452,
+          "real_meur": 2.258452,
+          "source_codes": [
+            "30.01.22."
+          ],
+          "source_names": [
+            "Tutkimus ja kehittäminen"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": false
+    },
+    {
+      "momentti_tunnusp": "29.40.01.",
+      "canonical_label_fi": "Suomen Akatemian toimintamenot",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": [
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Suomen Akatemian toiminnan suora menomomentti.",
+      "historical_members": [
+        {
+          "code": "29.40.01.",
+          "valid_from_year": 2010,
+          "valid_to_year": 2024
+        },
+        {
+          "code": "29.01.05.",
+          "valid_from_year": 2024,
+          "valid_to_year": 2025
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "29.40.01.",
+        "source_name": "Suomen Akatemian toimintamenot",
+        "nominal_meur": 13.47965946,
+        "real_meur": 17.400068144006624,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 625
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "29.40.01.",
+        "source_name": "Suomen Akatemian toimintamenot",
+        "nominal_meur": 12.401322460000001,
+        "real_meur": 15.162934257156298,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 517
+      },
+      "nominal_change_meur": -1.078337,
+      "nominal_change_pct": -7.999735,
+      "real_change_meur": -2.237134,
+      "real_change_pct": -12.857041,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2010,
+          "nominal_meur": 1.834939,
+          "real_meur": 2.451126,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": true,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "structural_break_review_required"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 13.479659,
+          "real_meur": 17.400068,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 12.800067,
+          "real_meur": 16.070508,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 11.928336,
+          "real_meur": 14.762104,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 12.290069,
+          "real_meur": 15.050508,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 12.55678,
+          "real_meur": 15.409395,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 12.401322,
+          "real_meur": 15.162934,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2017,
+          "nominal_meur": 10.62713,
+          "real_meur": 12.899251,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2018,
+          "nominal_meur": 11.615129,
+          "real_meur": 13.946502,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2019,
+          "nominal_meur": 11.051439,
+          "real_meur": 13.134815,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2020,
+          "nominal_meur": 11.896813,
+          "real_meur": 14.096579,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2021,
+          "nominal_meur": 13.259831,
+          "real_meur": 15.37667,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2022,
+          "nominal_meur": 13.497688,
+          "real_meur": 14.609483,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2023,
+          "nominal_meur": 12.328209,
+          "real_meur": 12.559094,
+          "source_codes": [
+            "29.40.01."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2024,
+          "nominal_meur": 13.075866,
+          "real_meur": 13.115116,
+          "source_codes": [
+            "29.40.01.",
+            "29.01.05."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot",
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": true,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "structural_break_review_required"
+          ]
+        },
+        {
+          "year": 2025,
+          "nominal_meur": 12.342971,
+          "real_meur": 12.342971,
+          "source_codes": [
+            "29.01.05."
+          ],
+          "source_names": [
+            "Suomen Akatemian toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": true
+    },
+    {
+      "momentti_tunnusp": "29.40.52.",
+      "canonical_label_fi": "Helsingin yliopiston ja Itä-Suomen yliopiston erityisrahoitus",
+      "primary_policy_id": "higher_education_capacity_2000_2025",
+      "related_policy_ids": [
+        "rd_funding_cuts_2011_2016",
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Kahden yliopiston opetus- ja tutkimustoiminnan lakisääteinen erityisrahoitus.",
+      "historical_members": [
+        {
+          "code": "29.40.52.",
+          "valid_from_year": 2010,
+          "valid_to_year": 2016
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "29.40.52.",
+        "source_name": "Erityinen valtionrahoitus Helsingin yliopiston ja Itä-Suomen yliopiston opetus- ja tutkimustoimintaan",
+        "nominal_meur": 31.707,
+        "real_meur": 40.92862748344371,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 4
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "29.40.52.",
+        "source_name": "Erityinen valtionrahoitus Helsingin yliopiston ja Itä-Suomen yliopiston opetus- ja tutkimustoimintaan",
+        "nominal_meur": 31.679,
+        "real_meur": 38.73349764767381,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 2
+      },
+      "nominal_change_meur": -0.028,
+      "nominal_change_pct": -0.088309,
+      "real_change_meur": -2.19513,
+      "real_change_pct": -5.363312,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2010,
+          "nominal_meur": 5.607,
+          "real_meur": 7.489876,
+          "source_codes": [
+            "29.40.52."
+          ],
+          "source_names": [
+            "Erityinen valtionrahoitus Helsingin yliopiston ja Itä-Suomen yliopiston opetus- ja tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 31.707,
+          "real_meur": 40.928627,
+          "source_codes": [
+            "29.40.52."
+          ],
+          "source_names": [
+            "Erityinen valtionrahoitus Helsingin yliopiston ja Itä-Suomen yliopiston opetus- ja tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 30.731,
+          "real_meur": 38.582828,
+          "source_codes": [
+            "29.40.52."
+          ],
+          "source_names": [
+            "Erityinen valtionrahoitus Helsingin yliopiston ja Itä-Suomen yliopiston opetus- ja tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 30.159,
+          "real_meur": 37.323757,
+          "source_codes": [
+            "29.40.52."
+          ],
+          "source_names": [
+            "Erityinen valtionrahoitus Helsingin yliopiston ja Itä-Suomen yliopiston opetus- ja tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 29.144,
+          "real_meur": 35.689956,
+          "source_codes": [
+            "29.40.52."
+          ],
+          "source_names": [
+            "Erityinen valtionrahoitus Helsingin yliopiston ja Itä-Suomen yliopiston opetus- ja tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 30.299,
+          "real_meur": 37.182246,
+          "source_codes": [
+            "29.40.52."
+          ],
+          "source_names": [
+            "Erityinen valtionrahoitus Helsingin yliopiston ja Itä-Suomen yliopiston opetus- ja tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 31.679,
+          "real_meur": 38.733498,
+          "source_codes": [
+            "29.40.52."
+          ],
+          "source_names": [
+            "Erityinen valtionrahoitus Helsingin yliopiston ja Itä-Suomen yliopiston opetus- ja tutkimustoimintaan"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": false
+    },
+    {
+      "momentti_tunnusp": "28.30.02.",
+      "canonical_label_fi": "Valtion taloudellisen tutkimuskeskuksen toimintamenot",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": [
+        "consolidation_composition_2011_2016"
+      ],
+      "selection_reason_fi": "Valtion taloudellisen tutkimuksen sektoritutkimusmomentti.",
+      "historical_members": [
+        {
+          "code": "28.30.02.",
+          "valid_from_year": 2008,
+          "valid_to_year": 2025
+        }
+      ],
+      "baseline": {
+        "year": 2011,
+        "momentti_tunnusp": "28.30.02.",
+        "source_name": "Valtion taloudellisen tutkimuskeskuksen toimintamenot",
+        "nominal_meur": 3.9163751899999997,
+        "real_meur": 5.055409254641281,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2011-12-01",
+        "source_rows": 536
+      },
+      "comparison": {
+        "year": 2016,
+        "momentti_tunnusp": "28.30.02.",
+        "source_name": "Valtion taloudellisen tutkimuskeskuksen toimintamenot",
+        "nominal_meur": 3.38778396,
+        "real_meur": 4.14219899761631,
+        "real_base_year": 2025,
+        "has_structural_guardrail": false,
+        "is_complete_year": true,
+        "comparability_statuses": [
+          "comparable_within_accounting_basis"
+        ],
+        "data_as_of": "2016-12-01",
+        "source_rows": 449
+      },
+      "nominal_change_meur": -0.528591,
+      "nominal_change_pct": -13.496951,
+      "real_change_meur": -0.91321,
+      "real_change_pct": -18.064022,
+      "evidence_class": "nominal_and_real_reduction",
+      "claim_status": "verified_actual_spending_decline",
+      "history": [
+        {
+          "year": 2008,
+          "nominal_meur": 3.04021,
+          "real_meur": 4.110434,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": true,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "structural_break_review_required"
+          ]
+        },
+        {
+          "year": 2009,
+          "nominal_meur": 3.816606,
+          "real_meur": 5.160139,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2010,
+          "nominal_meur": 3.913262,
+          "real_meur": 5.227367,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2011,
+          "nominal_meur": 3.916375,
+          "real_meur": 5.055409,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2012,
+          "nominal_meur": 4.188939,
+          "real_meur": 5.259221,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2013,
+          "nominal_meur": 4.274441,
+          "real_meur": 5.289903,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2014,
+          "nominal_meur": 4.442613,
+          "real_meur": 5.440457,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2015,
+          "nominal_meur": 3.735468,
+          "real_meur": 4.584082,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2016,
+          "nominal_meur": 3.387784,
+          "real_meur": 4.142199,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2017,
+          "nominal_meur": 3.075405,
+          "real_meur": 3.732938,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2018,
+          "nominal_meur": 3.26418,
+          "real_meur": 3.919362,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2019,
+          "nominal_meur": 3.863887,
+          "real_meur": 4.592292,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2020,
+          "nominal_meur": 4.143471,
+          "real_meur": 4.909615,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2021,
+          "nominal_meur": 3.605366,
+          "real_meur": 4.180938,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2022,
+          "nominal_meur": 3.756968,
+          "real_meur": 4.066427,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2023,
+          "nominal_meur": 3.984531,
+          "real_meur": 4.059154,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2024,
+          "nominal_meur": 4.26181,
+          "real_meur": 4.274603,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        },
+        {
+          "year": 2025,
+          "nominal_meur": 4.522459,
+          "real_meur": 4.522459,
+          "source_codes": [
+            "28.30.02."
+          ],
+          "source_names": [
+            "Valtion taloudellisen tutkimuskeskuksen toimintamenot"
+          ],
+          "has_structural_guardrail": false,
+          "is_complete_year": true,
+          "comparability_statuses": [
+            "comparable_within_accounting_basis"
+          ]
+        }
+      ],
+      "history_has_structural_guardrails": true
+    }
+  ],
+  "excluded_comparisons": [
+    {
+      "concept_id": "ammattikorkeakoulut",
+      "codes": [
+        "29.40.30.",
+        "29.40.55."
+      ],
+      "reason_fi": "Ammattikorkeakoulujen rahoitusvastuu ja momenttirakenne muuttuivat vuonna 2015. Koodeja ei yhdistetä suoraksi 2011–2016 leikkausluvuksi ilman erillistä siirto- ja rahoitusvastuun oikaisua."
+    }
+  ]
+}

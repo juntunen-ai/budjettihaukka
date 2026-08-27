@@ -52,6 +52,7 @@ _load_env_file(BASE_DIR / ".env")
 @dataclass(frozen=True)
 class Settings:
     project_id: str = os.getenv("BUDJETTIHAUKKA_PROJECT_ID", "budjettihaukka-gpt")
+    runtime_project_id: str = os.getenv("BUDJETTIHAUKKA_RUNTIME_PROJECT_ID", "")
     location: str = os.getenv("BUDJETTIHAUKKA_LOCATION", "us-central1")
     data_source: str = os.getenv("BUDJETTIHAUKKA_DATA_SOURCE", "bigquery").lower()
     dataset: str = os.getenv("BUDJETTIHAUKKA_DATASET", "valtiodata")
@@ -82,6 +83,16 @@ class Settings:
         "BUDJETTIHAUKKA_QUESTION_LIBRARY_LOG_PATH",
         "agent_data/question_library.jsonl",
     )
+    question_library_backend: str = os.getenv(
+        "BUDJETTIHAUKKA_QUESTION_LIBRARY_BACKEND",
+        "auto",
+    ).lower()
+    firestore_database: str = os.getenv("BUDJETTIHAUKKA_FIRESTORE_DATABASE", "(default)")
+    firestore_question_collection: str = os.getenv(
+        "BUDJETTIHAUKKA_FIRESTORE_QUESTION_COLLECTION",
+        "question_library",
+    )
+    admin_api_key: str = os.getenv("BUDJETTIHAUKKA_ADMIN_KEY", "")
     free_queries_per_session: int = _env_int("BUDJETTIHAUKKA_FREE_QUERIES_PER_SESSION", 25)
     show_ads: bool = _env_bool("BUDJETTIHAUKKA_SHOW_ADS", True)
     adsense_client_id: str = os.getenv("BUDJETTIHAUKKA_ADSENSE_CLIENT_ID", "")

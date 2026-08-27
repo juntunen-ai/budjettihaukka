@@ -1,9 +1,11 @@
 # Budjettihaukka – Tekoälypohjainen talouspoliittisen tiedon analysointisovellus
 
-**Nykyinen julkaisu: v2.0.0 (18.8.2026).** Julkaisun sisältö ja tunnetut
+**Nykyinen julkaisu: v2.2.0 (27.8.2026).** Julkaisun sisältö ja tunnetut
 operatiiviset rajoitteet on koottu tiedostoon [CHANGELOG.md](./CHANGELOG.md).
 
-Budjettihaukka on avoimen lähdekoodin web-sovellus, jonka tarkoituksena on tuoda **talouspolitiikkaan liittyvä tieto** helposti saataville, analysoitavaksi ja visualisoitavaksi. Sovelluksen käyttäjä voi esittää kysymyksiä **luonnollisella kielellä**, ja tekoälyn avulla saa kansantaloudelliseen optimaalisuuteen ja empiiriseen taloustutkimukseen perustubia analyyseja. Tulokset voidaan näyttää taulukkoina, dynaamisina visualisointeina sekä analyyttisinä raportteina.
+Tuotantopalvelu: [valtion-budjetti-data.web.app](https://valtion-budjetti-data.web.app)
+
+Budjettihaukka on avoimen lähdekoodin web-sovellus, jonka tarkoituksena on tuoda **talouspolitiikkaan liittyvä tieto** helposti saataville, analysoitavaksi ja visualisoitavaksi. Sovelluksen käyttäjä voi esittää kysymyksiä **luonnollisella kielellä**. Palvelu maadoittaa kysymyksen hallittuun käsite- ja analytiikkakerrokseen ennen BigQuery-hakua ja näyttää tuloksen taulukkona, visualisointina sekä selityksenä.
 
 Projektin pitkän aikavälin tavoite on tukea kansalaisia, tutkijoita ja toimittajia tarjoamalla **tietopohjainen, helppokäyttöinen työkalu poliittisten ja taloudellisten päätösten arviointiin**.
 
@@ -12,14 +14,15 @@ Projektin pitkän aikavälin tavoite on tukea kansalaisia, tutkijoita ja toimitt
 ## 🔍 Tärkeimmät ominaisuudet
 
 - 💬 Luonnollisen kielen kyselyt (esim. "Paljonko koulutukseen budjetoitiin vuonna 2023?")
-- 🔁 Contract-first NL→QueryPlan→SQL -ketju (deterministinen SQL ilman vapaata LLM-SQL:ää)
+- 🔁 AI-native analytiikkaputki: `AnalysisSpec → ResolvedAnalysisSpec → AnalyticsFrame`
+- 🧩 Ontologia- ja concept bridge -pohjainen käsiterajaus ilman vapaata text-to-SQL:ää
 - 🛡️ SQL-turvaportti ennen BigQuery-ajoa (`SELECT/WITH`, taulu-whitelist, aikarajaus, LIMIT-katto, `sqlglot`-lint)
-- 🔧 Auto-repair-loop BigQuery-virheille (1-2 korjausyritystä + deterministinen fallback-contract)
 - 🧭 Contract-pohjainen visualisointi vakioskeemalla (`time`, `entity`, `metric`, `delta`, `pct`)
 - ❓ Pakollinen tarkennus matalalla luottamuksella ennen ajoa
-- 📈 Observability + SLO-seuranta (`query_success`, `chart_render_success`, `clarification_rate`)
-- 📊 Dynaamiset visualisoinnit Streamlit-käyttöliittymässä
-- 📚 Datan lähteenä mm. `www.tutkihallintoa.fi`, BigQuery (tässä vaiheessa. Tarkoitus on lisätä **luotettavaa** dataa ajan myötä)
+- ✅ Vastausten varmennus ja näkyvät tilat: `trusted`, `trusted_with_warning`, `needs_clarification`, `unsupported`
+- 📊 React/ECharts-käyttöliittymä Firebase Hostingissa ja FastAPI Cloud Runissa
+- 🗂️ Firestore-kysymyskirjasto palvelun laadun kehittämistä varten; admin-luku vaatii salaisen avaimen
+- 📚 Datan lähteenä Valtiokonttorin ja VM:n aineistot, BigQueryn semanttinen kerros sekä dokumentoidut viralliset rikastukset
 
 ---
 
@@ -37,12 +40,15 @@ Tulevissa vaiheissa:
 
 ## 🛠️ Teknologiat
 
-- Python 3.12+ (Streamlit, FastAPI, pandas, sqlglot)
+- Python 3.12+ (FastAPI, pandas, sqlglot; Streamlit säilyy paikallisena legacy-käyttöliittymänä)
+- React, TypeScript, Vite ja Apache ECharts 6
 - Google Cloud Platform
-  - BigQuery (**sandbox/free tier** — rajoitukset ja niiden huomiointi
-    dokumentoitu arkkitehtuurikuvauksessa)
+  - Firebase Hosting
+  - Cloud Run ja Artifact Registry
+  - Firestore ja Secret Manager
+  - BigQuery
   - Vertex AI / AI Studio (Gemini; valinnainen QueryPlan-tuki)
-- Docker (Cloud Run -käyttöönotto, tulossa)
+- Docker ja Terraform-pohjainen tuotantokäyttöönotto
 
 📐 **Arkkitehtuuri ja GCP-asetukset:**
 [docs/architecture/system_overview.md](./docs/architecture/system_overview.md)
@@ -56,6 +62,7 @@ autentikointi ja tunnetut operatiiviset erikoisuudet.
 Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 
 - `BUDJETTIHAUKKA_PROJECT_ID` (oletus ja aktiivinen data-projekti: `budjettihaukka-gpt`)
+- `BUDJETTIHAUKKA_RUNTIME_PROJECT_ID` (ajoympäristön projekti; tuotannossa `valtion-budjetti-data`)
 - `BUDJETTIHAUKKA_LOCATION` (Vertex AI -sijainti; oletus: `us-central1`. Huom: BigQuery-datasetin sijainti on `europe-west1`)
 - `BUDJETTIHAUKKA_DATA_SOURCE` (`bigquery` tai `google_sheets`; oletus: `bigquery`)
 - `BUDJETTIHAUKKA_DATASET` (oletus: `valtiodata`)
@@ -70,6 +77,10 @@ Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 - `BUDJETTIHAUKKA_BQ_AUTO_REPAIR_ATTEMPTS` (kuinka monta SQL-korjausyritystä tehdään virheen jälkeen; oletus: `2`)
 - `BUDJETTIHAUKKA_CLARIFICATION_REQUIRED_CONFIDENCE` (luottamusraja pakolliselle tarkennukselle; oletus: `0.75`)
 - `BUDJETTIHAUKKA_OBSERVABILITY_LOG_PATH` (jsonl-loki kyselymetriikoille; oletus: `agent_data/query_observability.jsonl`)
+- `BUDJETTIHAUKKA_QUESTION_LIBRARY_BACKEND` (`auto`, `firestore` tai paikallinen JSONL)
+- `BUDJETTIHAUKKA_FIRESTORE_DATABASE` (tuotannossa `(default)`)
+- `BUDJETTIHAUKKA_FIRESTORE_QUESTION_COLLECTION` (oletus `question_library`)
+- `BUDJETTIHAUKKA_ADMIN_KEY` (Secret Managerista annettava admin-API:n avain)
 - `BUDJETTIHAUKKA_FREE_QUERIES_PER_SESSION` (ilmaiskäyttäjän kyselyraja / sessio; oletus: `25`)
 - `BUDJETTIHAUKKA_SHOW_ADS` (`true`/`false`, näytetäänkö mainospaikat UI:ssa)
 - `BUDJETTIHAUKKA_ADSENSE_CLIENT_ID` (Google AdSense client id, esim. `ca-pub-...`)
@@ -92,9 +103,19 @@ export GEMINI_API_KEY="your-gemini-api-key"
 
 ## 🚧 Nykytila
 
-Prototyyppi on toimiva, mutta ei vielä luotettava kaikissa kyselyissä. Kehitys on käynnissä AI-agenttirakenteen suuntaan. Projektia rakentaa kehittäjä, jolla on rajoitettu kokemus koodaamisesta ja pilvipalveluista, mutta vahva ymmärrys ongelmakentästä ja tekoälyn soveltamisesta.
+Versio 2.2.0 on ensimmäinen Firebaseen julkaistu tuotantoversio. Ydinkyselyt kulkevat semanttisen resolverin, rajattujen analyysifunktioiden ja vastausten varmennusportin kautta. Palvelu voi silti pyytää tarkennusta tai kieltäytyä vastaamasta, jos käsitteen havaittavuus tai historiallinen jatkuvuus ei riitä luotettavaan tulokseen.
 
-Koodia rakennetaan tekoälyapureiden (esim. ChatGPT) tuella vaihe vaiheelta — tavoite on **helppokäyttöinen ja läpinäkyvä järjestelmä**, jonka rakentaminen on dokumentoitu oppimisprosessina.
+Politiikkaskenaariot ja kontrafaktuaalit ovat ehdollisia mallilaskelmia, eivät havaittuja syy-seurausvaikutuksia. Niiden oletukset, lähteet ja epävarmuudet on pidettävä näkyvissä visualisoinneissa.
+
+## 🚀 Firebase-tuotanto
+
+Tuotantoinfrastruktuuri sijaitsee projektissa `valtion-budjetti-data` ja on määritelty Terraformilla hakemistossa [`infra/firebase`](./infra/firebase/README.md). Firebase Hosting ohjaa `/v1/**`- ja `/health`-pyynnöt Cloud Runin `budjettihaukka-api`-palveluun. API lukee vain BigQuery-projektin `budjettihaukka-gpt` semanttista kerrosta ja tallentaa kysymyskirjaston Firestoreen.
+
+```bash
+scripts/deploy_firebase.sh
+```
+
+Kustannuksia rajoittavat Cloud Runin kahden instanssin skaalauskatto, nollaan skaalautuminen ja BigQueryn oletusarvoinen 1 GB:n kyselykohtainen raja. Pilvilaskutuksen budjetti on hälytys, ei palvelun tekninen katkaisija.
 
 ---
 
@@ -252,6 +273,289 @@ energiaverotuki on mukana verotukena.
 ```
 
 Sivu: `http://127.0.0.1:8503/valtion-tuet-2025.html`.
+
+### Skenaario: automaatio ja työvoima
+
+`scripts/scenario_ai_labour_displacement.py` laskee, mitä seuraa jos
+automaatio syrjäyttää annetun osuuden työllisistä. Oletukset ovat
+tiedostossa näkyvissä ja muutettavissa (`--displaced-share`).
+
+Tuottavuusvaatimus on aritmetiikkaa, ei oletus: jos työtunnit vähenevät
+osuudella s, tuottavuuden on noustava kertoimella 1/(1−s) jotta BKT säilyy.
+15 prosentin syrjäytys vaatii **+17,6 %** tuottavuutta.
+
+Valtiontalouden puoli on epävarmempi ja esitetään haarukkana. Skripti
+tarkistaa ajossa, että käsin kirjatut lähtöluvut vastaavat varastoa
+1 prosentin tarkkuudella, jotta skenaario ei jää vanhentuneiden lukujen
+varaan.
+
+```bash
+.venv/bin/python scripts/scenario_ai_labour_displacement.py
+.venv/bin/python scripts/test_scenario_ai_displacement.py
+```
+
+### Tuottavuuskuilu 1995–2025
+
+`scripts/build_productivity_counterfactual.py` piirtää tiedoston
+`docs/figures/tuottavuuskuilu_1995_2025.png` (300 dpi): toteutunut
+tuottavuusura ja vertailu-ura, joka jatkaa vuosien 1995–2008 vauhtia
+2,34 %/v vuodesta 2008 eteenpäin.
+
+Vertailu-ura on Suomen omaan historiaan nähden **varovainen**, ei
+paisuteltu: 1975–1995 tuottavuus kasvoi 3,07 %/v ja 1975–2008 keskimäärin
+2,79 %/v. Vertailu ei siis nojaa poikkeukselliseen ICT-nousuun — se jakso
+oli itse asiassa pre-2008-jaksoista hitain.
+
+| | 2025 |
+|---|---|
+| Toteutunut tuottavuus | 105 |
+| Vaatimaton ura, 1,0 %/v | 118 |
+| Vuosien 1995–2008 vauhti | 148 |
+
+Euromääräinen ero saadaan pitämällä työtunnit toteutuneina ja korvaamalla
+vain tuottavuus: 95 mrd € vuonna 2025 ja 821 mrd € kumulatiivisesti
+2009–2025 (vuoden 2015 hinnoin). Tämä on mekaaninen laskelma eikä ennuste
+siitä mitä olisi tapahtunut — korkeampi tuottavuus olisi muuttanut myös
+työtunteja, investointeja ja hintoja.
+
+```bash
+.venv/bin/python scripts/build_productivity_counterfactual.py
+.venv/bin/python scripts/test_productivity_counterfactual.py
+```
+
+### Väestöennuste 2024–2045
+
+`population_projection_v1` sisältää Tilastokeskuksen väestöennusteen kahtena
+laskelmana samalta ennustekierrokselta:
+
+| Laskelma | Sisältää nettomaahanmuuton |
+|---|---|
+| `vaestoennuste_2024` | kyllä, virallinen ennuste |
+| `omavaraisennuste_2024` | ei, laskennallinen vertailukohta |
+
+Omavaraisennuste ei ole vaihtoehtoinen ennuste vaan vertailulaskelma. Se on
+mukana, koska ilman sitä virallista ennustetta voisi lukea niin, että
+ikärakenne vakautuu itsestään. Ero on suuri: vuonna 2045 työikäisiä olisi
+ilman nettomaahanmuuttoa **791 000 vähemmän** eli noin viidennes.
+
+| Vuosi | Työikäisten osuus, virallinen | Ilman maahanmuuttoa |
+|---|---|---|
+| 2025 | 62,0 % | 61,7 % |
+| 2035 | 62,3 % | 60,7 % |
+| 2045 | 62,5 % | 58,9 % |
+
+Ikävuodet summataan viiteen ryhmään (0–14, 15–64, 65–74, 75+) ja
+huoltosuhteet lasketaan samoista luvuista. Validointi vaatii, että ryhmät
+kattavat kokonaisväestön ilman päällekkäisyyttä.
+
+```bash
+.venv/bin/python scripts/load_population_projection.py --load-bigquery
+.venv/bin/python scripts/test_population_projection.py
+```
+
+### Miksi elintaso asukasta kohden ei ole palannut vuoden 2008 tasolle
+
+`scripts/build_living_standard_decomposition.py` piirtää tiedoston
+`docs/figures/elintason_hajotelma_2008_2025.png` (300 dpi). Vastaus saadaan
+identiteetistä, joka pätee tarkalleen eikä ole malli:
+
+```
+BKT/väestö = (BKT/työtunnit) × (työtunnit/työlliset)
+           × (työlliset/työikäiset) × (työikäiset/väestö)
+```
+
+Muutos 2008 → 2025: tuottavuus +5,0 %, tunnit työllistä kohden −6,5 %,
+työllisyysaste +7,5 %, työikäisten osuus −7,1 %, yhteensä −1,9 %. Kaksi
+jälkimmäistä kumoavat lähes tarkalleen toisensa, joten jäljelle jää
+työpanoksen ja tuottavuuden yhtälö.
+
+Tuottavuus kasvoi 2,34 % vuodessa 1995–2008 mutta vain 0,29 % vuodessa
+2008–2025. Vanhalla vauhdilla taso olisi nyt 148 eikä 105.
+
+Hajotelmaa varten `official_macro_reference_v1` sai kaksi uutta sarjaa:
+`employed_persons_thousands` ja `hours_worked_millions`. Työikäiset lasketaan
+summaamalla keskiväkiluku ikävuosilta 15–64, koska rajapinta ei tarjoa valmista
+ikäryhmäsummaa.
+
+```bash
+.venv/bin/python scripts/build_living_standard_decomposition.py
+.venv/bin/python scripts/test_living_standard_decomposition.py
+```
+
+### Elintaso ja talouskasvu 2008–2025
+
+`scripts/build_living_standard_chart.py` piirtää tiedoston
+`docs/figures/elintaso_2008_2025.png` (300 dpi). Indeksi, 2008 = 100, kolme
+sarjaa: kokonais-BKT:n volyymi, BKT asukasta kohden ja BKT asukasta kohden
+ilman laskennallista asuntotuloa.
+
+Kolmas sarja johdetaan vähentämällä toimialan 68201–68202 (asuntojen vuokraus
+ja hallinta) arvonlisäys kokonais-BKT:stä. Toimiala sisältää omistusasumisen
+laskennallisen asuntotulon, jonka osuus nousi 8,3 prosentista 10,3 prosenttiin
+2008–2024. Rajaus seuraa Etlan havaintoa ja tuottaa saman lopputuloksen.
+
+Kaksi rajoitetta: ketjutetut volyymisarjat eivät ole tarkasti
+yhteenlaskettavia ja BKT on markkinahintaan mutta toimialan arvonlisäys
+perushintaan, joten kolmas sarja on rajauslaskelma eikä virallinen suure.
+Sarja päättyy vuoteen 2024, koska toimialatietoa vuodelle 2025 ei ole vielä
+julkaistu — sitä ei jatketa arvaamalla.
+
+```bash
+.venv/bin/python scripts/build_living_standard_chart.py
+.venv/bin/python scripts/test_living_standard_index.py
+```
+
+### Miksi velkasuhde nousee nyt
+
+`velkasuhteen-ajurit.html` vastaa kysymykseen, miksi velkasuhde nousi
+2024–2025 vaikka talous kasvoi. Kaksi kuvaa:
+
+1. Velkasuhteen muutoksen hajotelma 2019–2025. Vuonna 2022 nimellinen BKT
+   painoi suhdetta −3,9 prosenttiyksikköä ja piilotti velanoton; vuonna 2024
+   apu oli enää −0,7, koska inflaatio hiipui. Vuonna 2020 nimittäjä jopa
+   nosti suhdetta, koska talous kutistui.
+2. Valtiontalouden erien muutos 2023→2025. Menojen ja tulojen ero kaventui
+   19,4 miljardista 14,0 miljardiin, mutta valtionvelan korot kasvoivat
+   0,8 miljardia ja olivat 3,0 miljardia vuonna 2025 — 3,9-kertaisesti
+   vuoteen 2021 verrattuna.
+
+Vertailuvuodet ovat 2023 ja 2025, koska molemmat ovat sote-uudistuksen
+jälkeisiä. Rakennemuutos on kirjattu tauluun `structural_events_v1`
+tunnuksella `sote_uudistus_2023`.
+
+```bash
+.venv/bin/python scripts/load_debt_ratio_drivers.py
+.venv/bin/python scripts/test_debt_ratio_drivers.py
+```
+
+### Talouskasvu ja valtionvelka 2001–2025
+
+`kasvu-ja-velka.html` on yhden kuvan sivu: hajontakuvio, jossa vaaka-akselilla
+on BKT:n volyymin muutos ja pystyakselilla valtionvelan velkasuhteen muutos
+prosenttiyksikköinä. Velka on valtionhallinnon EDP-velkakanta, ei budjetin
+nettovelanotto eikä koko julkisen talouden velka.
+
+Velkasuhteen vuosimuutos hajotetaan kahteen osaan, jotka summautuvat siihen
+tarkalleen: velanoton vaikutus ja nimellisen BKT:n vaikutus. Hajotelma erottaa
+sen, nousiko velkasuhde koska velkaa otettiin vai koska talous kutistui.
+Vuosina 2024–2025 nousu tuli velanotosta, ja kasvava nimellinen BKT jopa
+hillitsi sitä — toisin kuin 2009 ja 2020.
+
+Kuva näyttää yhteyden, ei syytä. Kasvu ja velkaantuminen vaikuttavat toisiinsa
+molempiin suuntiin, ja suhdanteet liikuttavat molempia yhtä aikaa.
+
+```bash
+.venv/bin/python scripts/load_growth_debt_relation.py
+.venv/bin/python scripts/test_growth_debt_relation.py
+```
+
+Sivu: `http://127.0.0.1:8503/kasvu-ja-velka.html`.
+
+### Suomen talouskasvu neljästä lähteestä
+
+`gdp_growth_outlook_v1` kokoaa BKT:n volyymin muutoksen eli sen, mitä
+talouskasvulla tarkoitetaan. Nimellinen BKT ei kelpaa kasvun mittariksi, eikä
+elinkustannusindeksillä deflatointi tuota samaa lukua: vuoden 2023 volyymi oli
+−1,3 %, mutta CPI-deflatoituna −3,5 %.
+
+| Lähde | Rooli | Kattavuus | Haku |
+|---|---|---|---|
+| Tilastokeskus | kansallinen toteuma | 1976– | StatFin PxWeb |
+| Suomen Pankki | ennuste | 2026–2028 | verkkosivu, kirjattu käsin |
+| OECD | toteuma ja ennuste | 1961–2027 | SDMX |
+| IMF | toteuma ja ennuste | 1980–2031 | DataMapper |
+
+Saman vuoden luvut eroavat lähteittäin, koska aineistoversiot ovat eri
+ikäisiä. Vuosina 2024–2025 OECD ja IMF jäävät noin 0,5 prosenttiyksikköä
+Tilastokeskuksesta, koska ne eivät ole päivittäneet tarkistettua tilinpitoa.
+Eroa ei tasoiteta: jokainen rivi kantaa oman lähteensä, vintagensa ja
+osoitteensa.
+
+Suomen Pankilla ei ole avointa data-rajapintaa, joten sen ennusteluvut on
+luettu julkaisusta ja kirjattu lataajaan julkaisupäivineen. Mukana on kaksi
+vintagea, jotta ennusteen tarkistuminen näkyy.
+
+Lisäksi `official_macro_reference_v1` sai kolme uutta sarjaa samasta
+Tilastokeskuksen taulusta: `gdp_volume_change_pct`, `gdp_volume_index_2015_100`
+ja `gdp_price_index_2015_100`. Viimeinen on BKT:n oma deflaattori, toisin kuin
+aiemmat kolme indeksiä.
+
+```bash
+.venv/bin/python scripts/load_visualization_reference_series.py --load-bigquery
+.venv/bin/python scripts/load_gdp_growth_outlook.py --load-bigquery
+.venv/bin/python scripts/test_gdp_growth_outlook.py
+```
+
+### Velkaantumisen nopeus 2001–
+
+`velkavauhti.html` on yhden kuvan sivu: montako kuukautta kului kunkin
+10 miljardin euron velkalisäyksen kertymiseen. Lyhyt palkki tarkoittaa nopeaa
+velkaantumista. Velan määritelmä tulee sellaisenaan tiedostosta
+`scripts/load_party_debt_cumulative.py`, jotta samasta asiasta on yksi sääntö.
+
+Askelmat lasketaan kumulatiivisen kertymän pohjalta 9/2008, ei jakson alusta.
+Valtio lyhensi velkaa vuoteen 2008 asti ja kertymä painui 17,8 miljardia
+miinukselle. Jakson alusta laskettuna ensimmäinen askelma olisi 127 kuukautta
+ja näyttäisi hitaalta velkaantumiselta, vaikka valtio tosiasiassa maksoi velkaa
+pois. Lyhennysvaihe esitetään omana rivinään.
+
+```bash
+.venv/bin/python scripts/load_debt_speed_steps.py
+.venv/bin/python scripts/test_debt_speed_steps.py
+```
+
+Sivu: `http://127.0.0.1:8503/velkavauhti.html`.
+
+### Nettovelanotto pääministeripuolueittain 2001–
+
+`puoluevelka.html` on yhden kuvan sivu: kumulatiivinen nettovelanotto, jonka
+käyrän väri vaihtuu pääministerin puolueen mukaan. Mittari muodostuu kahdesta
+velanhallintamomentista, `15.03.01. Nettolainanotto ja velanhallinta` (2003–)
+ja `37.01.94. Nettokuoletukset ja velanhallinta` (2001–2008). Positiivinen luku
+kasvattaa velkaa, negatiivinen lyhentää.
+
+Kolme rajoitetta, jotka sivu kertoo näkyvästi:
+
+- Pääministerin puolue ei ole hallitus. Kaikki kaudet olivat koalitioita, ja
+  samat puolueet istuivat toistensa hallituksissa.
+- Kausien pituudet eroavat rajusti (83–143 kuukautta), joten kokonaissummat
+  eivät vertaudu. Sivu esittää kuukausivauhdin niiden rinnalla.
+- Sarja alkaa 1/2001, koska sitä ennen velanhallintamomenttia ei ole lainkaan.
+  Vuosien 1998–2000 velanlyhennys jää siis pois.
+
+```bash
+.venv/bin/python scripts/load_party_debt_cumulative.py
+.venv/bin/python scripts/test_party_debt_cumulative.py
+```
+
+Sivu: `http://127.0.0.1:8503/puoluevelka.html`.
+
+### Hallituskaudet ja valtion talous 1998–
+
+`hallituskaudet.html` esittää valtion kuukausitoteuman hallituskausittain.
+Kohdennussääntö: kuukausi kuuluu sille hallitukselle, joka piti valtaa
+suurimman osan kuukauden päivistä. Vaihtoehto olisi jakaa vuosisumma
+päiväosuuksilla, mutta se olettaisi menojen jakautuvan tasaisesti vuoden
+sisällä.
+
+Saldo esitetään julkisen taloudenpidon tapaan: ylijäämä nollaviivan
+yläpuolella, alijäämä alapuolella. Lähdeaineiston nettokertymässä menot ovat
+positiivisia, joten merkki käännetään esitystä varten. Jokainen hallitus on
+merkitty nimellä ja vuosiluvuilla.
+
+Sivu merkitsee näkyvästi kolme asiaa, joita ilman luvut johtaisivat harhaan:
+kausien pituudet eroavat (vertailu tehdään kuukausikeskiarvona), Lipposen
+ensimmäisestä kaudesta puuttuu alku ja Orpon kausi on kesken, ja kolmelta
+kuukaudelta (3/2017, 3/2019, 3/2023) lähdeaineistossa ei ole yhtään
+nettokertymän arvoa — ne on jätetty pois summista eikä korvattu nollalla.
+
+```bash
+.venv/bin/python scripts/load_government_fiscal_eras.py
+.venv/bin/python scripts/test_government_fiscal_eras.py
+```
+
+Sivu: `http://127.0.0.1:8503/hallituskaudet.html`. Huom: kuva kertoo kuka oli
+vallassa, ei kuka päätti — talousarvio päätetään edellisenä syksynä.
 
 ### Suomen hallitukset 1917–
 

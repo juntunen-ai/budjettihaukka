@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "dataset_id": "living_standard_index_v1",
+    "base_year": 2008,
+    "index_note": "2008 = 100",
+    "volume_content": "ntp-vv_hinta_2015",
+    "housing_industry": "L68201_L68202",
+    "ex_housing_last_year": 2024,
+    "caveat": "ketjutetut volyymisarjat eivät ole tarkasti yhteenlaskettavia, ja BKT on markkinahintaan mutta toimialan arvonlisäys perushintaan, joten ilman asuntotuloa laskettu sarja on rajauslaskelma eikä virallinen suure",
+    "sources": [
+      {
+        "label": "Tilastokeskus, kansantalouden tilinpito (BKT ja toimialat)",
+        "url": "https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px"
+      },
+      {
+        "label": "Tilastokeskus, keskiväkiluku",
+        "url": "official_macro_reference_v1"
+      },
+      {
+        "label": "Etla, havainto laskennallisen asuntotulon vaikutuksesta",
+        "url": "https://www.etla.fi/"
+      }
+    ]
+  },
+  "years": [
+    {
+      "year": 2008,
+      "gdp_volume_index": 100.0,
+      "gdp_per_capita_index": 100.0,
+      "gdp_per_capita_ex_housing_index": 100.0,
+      "housing_share_pct": 8.25571130008648
+    },
+    {
+      "year": 2009,
+      "gdp_volume_index": 91.92400547708273,
+      "gdp_per_capita_index": 91.48544037131559,
+      "gdp_per_capita_ex_housing_index": 91.07342294525351,
+      "housing_share_pct": 8.668894485658006
+    },
+    {
+      "year": 2010,
+      "gdp_volume_index": 94.83640818679734,
+      "gdp_per_capita_index": 93.95313292878917,
+      "gdp_per_capita_ex_housing_index": 93.80311742302894,
+      "housing_share_pct": 8.402199931608344
+    },
+    {
+      "year": 2011,
+      "gdp_volume_index": 97.10291150187373,
+      "gdp_per_capita_index": 95.75362207920377,
+      "gdp_per_capita_ex_housing_index": 95.34453088206362,
+      "housing_share_pct": 8.647673296719608
+    },
+    {
+      "year": 2012,
+      "gdp_volume_index": 95.6241892476218,
+      "gdp_per_capita_index": 93.8478463309182,
+      "gdp_per_capita_ex_housing_index": 93.275412680039,
+      "housing_share_pct": 8.815314105915657
+    },
+    {
+      "year": 2013,
+      "gdp_volume_index": 94.68731983280485,
+      "gdp_per_capita_index": 92.50121355879483,
+      "gdp_per_capita_ex_housing_index": 91.77615100775175,
+      "housing_share_pct": 8.974840762816275
+    },
+    {
+      "year": 2014,
+      "gdp_volume_index": 94.23464975497261,
+      "gdp_per_capita_index": 91.67906975448496,
+      "gdp_per_capita_ex_housing_index": 90.82470896092362,
+      "housing_share_pct": 9.110679871520343
+    },
+    {
+      "year": 2015,
+      "gdp_volume_index": 94.67425771115596,
+      "gdp_per_capita_index": 91.80387010314082,
+      "gdp_per_capita_ex_housing_index": 90.86785342199755,
+      "housing_share_pct": 9.191120499352973
+    },
+    {
+      "year": 2016,
+      "gdp_volume_index": 97.10921735370424,
+      "gdp_per_capita_index": 93.89474344277767,
+      "gdp_per_capita_ex_housing_index": 92.97484894992874,
+      "housing_share_pct": 9.154537611666157
+    },
+    {
+      "year": 2017,
+      "gdp_volume_index": 100.3170942634765,
+      "gdp_per_capita_index": 96.76907918374293,
+      "gdp_per_capita_ex_housing_index": 95.99482389868092,
+      "housing_share_pct": 8.989762931034482
+    },
+    {
+      "year": 2018,
+      "gdp_volume_index": 101.51385485730758,
+      "gdp_per_capita_index": 97.79371207306998,
+      "gdp_per_capita_ex_housing_index": 96.75863206698884,
+      "housing_share_pct": 9.226762269441869
+    },
+    {
+      "year": 2019,
+      "gdp_volume_index": 102.88402637647737,
+      "gdp_per_capita_index": 99.00451650606847,
+      "gdp_per_capita_ex_housing_index": 97.8766270604498,
+      "housing_share_pct": 9.30089003103945
+    },
+    {
+      "year": 2020,
+      "gdp_volume_index": 100.32114802536753,
+      "gdp_per_capita_index": 96.39970894460797,
+      "gdp_per_capita_ex_housing_index": 94.8150069465128,
+      "housing_share_pct": 9.763883463760893
+    },
+    {
+      "year": 2021,
+      "gdp_volume_index": 103.0060896511963,
+      "gdp_per_capita_index": 98.77472921425378,
+      "gdp_per_capita_ex_housing_index": 97.14534700596964,
+      "housing_share_pct": 9.769119769119769
+    },
+    {
+      "year": 2022,
+      "gdp_volume_index": 103.79206904006918,
+      "gdp_per_capita_index": 99.25813608928674,
+      "gdp_per_capita_ex_housing_index": 97.39329173821334,
+      "housing_share_pct": 9.979386811899234
+    },
+    {
+      "year": 2023,
+      "gdp_volume_index": 102.45387719803978,
+      "gdp_per_capita_index": 97.49051827571151,
+      "gdp_per_capita_ex_housing_index": 95.20877555519114,
+      "housing_share_pct": 10.40296486476981
+    },
+    {
+      "year": 2024,
+      "gdp_volume_index": 103.36237027961948,
+      "gdp_per_capita_index": 97.72494882594403,
+      "gdp_per_capita_ex_housing_index": 95.56992862909686,
+      "housing_share_pct": 10.27884661475242
+    },
+    {
+      "year": 2025,
+      "gdp_volume_index": 104.19294104929375,
+      "gdp_per_capita_index": 98.08236812359242,
+      "gdp_per_capita_ex_housing_index": null,
+      "housing_share_pct": null
+    }
+  ]
+}

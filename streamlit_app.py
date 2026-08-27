@@ -18,6 +18,7 @@ import pandas as pd
 import random
 from uuid import uuid4
 from utils.question_library_utils import log_question_library_entry, read_question_library
+from utils.budget_semantics import classify_moment_fiscal_side, normalize_fiscal_side
 
 EURO_DISPLAY_SCALE = 1_000_000.0
 EURO_DISPLAY_UNIT = "milj. €"
@@ -49,6 +50,21 @@ TRUST_BADGE_META = {
         "css_class": "bh-trust-unsupported",
         "message": "Tätä kysymystä ei voida vastata nykyisestä datasta riittävän tarkasti ilman, että riski harhaanjohtavasta tuloksesta kasvaa liikaa.",
     },
+}
+
+FISCAL_SIDE_DISPLAY = {
+    "expense": "Menot",
+    "revenue": "Tulot",
+    "financing": "Rahoitus",
+    "technical": "Tekninen erä",
+    "mixed": "Sekoitettu",
+    "unknown": "Luokittelematon",
+}
+
+FISCAL_BUCKET_DISPLAY = {
+    "expense": "Menot",
+    "revenue": "Tulot",
+    "other": "Muut erät",
 }
 
 
@@ -578,6 +594,59 @@ def render_insight_cards(df: pd.DataFrame) -> None:
             )
 
 
+def _fiscal_side_bucket(value: str | None) -> str:
+    side = normalize_fiscal_side(value)
+    if side in {"expense", "revenue"}:
+        return side
+    return "other"
+
+
+def _fiscal_side_label(value: str | None) -> str:
+    return FISCAL_SIDE_DISPLAY.get(normalize_fiscal_side(value), "Luokittelematon")
+
+
+def _add_fiscal_side_columns(df: pd.DataFrame) -> pd.DataFrame:
+    if df is None or df.empty:
+        return df
+
+    work = df.copy()
+    if "fiscal_side" not in work.columns:
+        moment_code_col = _find_column(work, ["momentti_tunnusp", "Momentti_TunnusP"])
+        moment_name_col = _find_column(work, ["momentti_snimi", "Momentti_sNimi"])
+        hall_col = _find_column(work, ["hallinnonala", "Hallinnonala"])
+        if moment_code_col or moment_name_col:
+            work["fiscal_side"] = [
+                classify_moment_fiscal_side(
+                    row.get(moment_code_col) if moment_code_col else None,
+                    row.get(moment_name_col) if moment_name_col else None,
+                    row.get(hall_col) if hall_col else None,
+                )
+                for _, row in work.iterrows()
+            ]
+
+    if "fiscal_side" in work.columns:
+        work["budjettipuoli"] = work["fiscal_side"].map(_fiscal_side_label)
+        work["budjettiryhma"] = work["fiscal_side"].map(
+            lambda side: FISCAL_BUCKET_DISPLAY[_fiscal_side_bucket(side)]
+        )
+    return work
+
+
+def _pick_breakdown_value_column(df: pd.DataFrame) -> str | None:
+    return _find_column(
+        df,
+        [
+            "nettokertyma_sum",
+            "nettokertyma",
+            "Nettokertymä",
+            "loppuvuosi_sum",
+            "alkuvuosi_sum",
+            "muutos_eur",
+            "kasvu_eur",
+        ],
+    )
+
+
 def render_budget_moment_evidence(
     question: str,
     results_df: pd.DataFrame,
@@ -614,11 +683,15 @@ def render_budget_moment_evidence(
             f"Näytetään enintään {min(limit, len(evidence_df))} suurinta momenttia."
         )
 
+    evidence_df = _add_fiscal_side_columns(evidence_df)
+
     display_columns = [
         column
         for column in (
             "momentti_tunnusp",
             "momentti_snimi",
+            "budjettipuoli",
+            "budjettiryhma",
             "alamomentti_tunnus",
             "alamomentti_snimi",
             "nettokertyma_sum",

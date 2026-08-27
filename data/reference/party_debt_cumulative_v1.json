@@ -1,0 +1,2504 @@
+{
+  "meta": {
+    "dataset_id": "party_debt_cumulative_v1",
+    "measure": "valtion nettovelanotto, velanhallintamomenttien nettokertymän vastaluku",
+    "sign_rule": "positiivinen kasvattaa velkaa, negatiivinen lyhentää",
+    "attribution_rule": "kuukausi kuuluu hallitukselle, joka piti valtaa suurimman osan kuukauden päivistä; hallitus edelleen pääministerinsä puolueelle",
+    "first_month": "2001-01-01",
+    "last_month": "2026-07-01",
+    "observed_months": 302,
+    "span_months": 307,
+    "missing_months_in_span": 5,
+    "total_debt_change_eur": 127829728940.65001,
+    "moments": [
+      {
+        "momentti_tunnusp": "15.03.01.",
+        "momentti_snimi": "Nettolainanotto ja velanhallinta",
+        "first_year": 2003,
+        "last_year": 2026,
+        "debt_change_eur": 140732073552.26
+      },
+      {
+        "momentti_tunnusp": "37.01.94.",
+        "momentti_snimi": "Nettokuoletukset ja velanhallinta",
+        "first_year": 2001,
+        "last_year": 2008,
+        "debt_change_eur": -12902344611.61
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "valtiokonttori_kuukausidata",
+        "label": "Valtiokonttori, valtion taloushallinnon kuukausidata"
+      },
+      {
+        "source_id": "valtioneuvosto_hallitukset",
+        "label": "Valtioneuvosto, hallitukset ja ministerit"
+      }
+    ]
+  },
+  "parties": [
+    {
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "months": 83,
+      "debt_change_eur": 71076167500.08003,
+      "first_month": "2011-07-01",
+      "last_month": "2026-07-01",
+      "cabinets": [
+        "Katainen",
+        "Stubb",
+        "Orpo"
+      ],
+      "repayment_months": 33,
+      "debt_change_per_month_eur": 856339367.4708438
+    },
+    {
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "months": 76,
+      "debt_change_eur": 34395179142.92,
+      "first_month": "2001-01-01",
+      "last_month": "2023-06-01",
+      "cabinets": [
+        "Lipponen II",
+        "Rinne",
+        "Marin"
+      ],
+      "repayment_months": 33,
+      "debt_change_per_month_eur": 452568146.6173684
+    },
+    {
+      "pm_party_fi": "Suomen Keskusta",
+      "months": 143,
+      "debt_change_eur": 22358382297.649986,
+      "first_month": "2003-05-01",
+      "last_month": "2019-05-01",
+      "cabinets": [
+        "Jäätteenmäki",
+        "Vanhanen",
+        "Vanhanen II",
+        "Kiviniemi",
+        "Sipilä"
+      ],
+      "repayment_months": 73,
+      "debt_change_per_month_eur": 156352323.75979012
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2001-01-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -344671520.53,
+      "cumulative_eur": -344671520.53
+    },
+    {
+      "month": "2001-02-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -2316120771.02,
+      "cumulative_eur": -2660792291.55
+    },
+    {
+      "month": "2001-03-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 2710112313.32,
+      "cumulative_eur": 49320021.76999998
+    },
+    {
+      "month": "2001-04-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -817419911.07,
+      "cumulative_eur": -768099889.3000001
+    },
+    {
+      "month": "2001-05-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 981596360.59,
+      "cumulative_eur": 213496471.28999996
+    },
+    {
+      "month": "2001-06-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -872481262.12,
+      "cumulative_eur": -658984790.83
+    },
+    {
+      "month": "2001-07-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 77698294.56,
+      "cumulative_eur": -581286496.27
+    },
+    {
+      "month": "2001-08-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 159305732.58,
+      "cumulative_eur": -421980763.68999994
+    },
+    {
+      "month": "2001-09-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -1729884837.01,
+      "cumulative_eur": -2151865600.7
+    },
+    {
+      "month": "2001-10-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -950975960.96,
+      "cumulative_eur": -3102841561.66
+    },
+    {
+      "month": "2001-11-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1713831244.07,
+      "cumulative_eur": -1389010317.59
+    },
+    {
+      "month": "2001-12-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -918618974.04,
+      "cumulative_eur": -2307629291.63
+    },
+    {
+      "month": "2002-01-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -1062734885.13,
+      "cumulative_eur": -3370364176.76
+    },
+    {
+      "month": "2002-02-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -1330792581.4,
+      "cumulative_eur": -4701156758.16
+    },
+    {
+      "month": "2002-03-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -300418629.62,
+      "cumulative_eur": -5001575387.78
+    },
+    {
+      "month": "2002-04-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -62120920.16,
+      "cumulative_eur": -5063696307.94
+    },
+    {
+      "month": "2002-05-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1962512812.97,
+      "cumulative_eur": -3101183494.9699993
+    },
+    {
+      "month": "2002-06-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -885747026.93,
+      "cumulative_eur": -3986930521.899999
+    },
+    {
+      "month": "2002-07-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1094784368.73,
+      "cumulative_eur": -2892146153.169999
+    },
+    {
+      "month": "2002-08-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 17256350.55,
+      "cumulative_eur": -2874889802.619999
+    },
+    {
+      "month": "2002-09-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -327098217.83,
+      "cumulative_eur": -3201988020.449999
+    },
+    {
+      "month": "2002-10-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -495653622.37,
+      "cumulative_eur": -3697641642.8199987
+    },
+    {
+      "month": "2002-11-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -448471985.65,
+      "cumulative_eur": -4146113628.469999
+    },
+    {
+      "month": "2002-12-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 828614245.22,
+      "cumulative_eur": -3317499383.249999
+    },
+    {
+      "month": "2003-01-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -2269576853.01,
+      "cumulative_eur": -5587076236.259999
+    },
+    {
+      "month": "2003-02-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1423680713.09,
+      "cumulative_eur": -4163395523.169999
+    },
+    {
+      "month": "2003-03-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -123701859.25,
+      "cumulative_eur": -4287097382.419999
+    },
+    {
+      "month": "2003-04-01",
+      "cabinet_ordinal": 67,
+      "cabinet_name": "Lipponen II",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -2387874996.23,
+      "cumulative_eur": -6674972378.65
+    },
+    {
+      "month": "2003-05-01",
+      "cabinet_ordinal": 68,
+      "cabinet_name": "Jäätteenmäki",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 4508987431.97,
+      "cumulative_eur": -2165984946.6799994
+    },
+    {
+      "month": "2003-06-01",
+      "cabinet_ordinal": 68,
+      "cabinet_name": "Jäätteenmäki",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -90330198.22,
+      "cumulative_eur": -2256315144.899999
+    },
+    {
+      "month": "2003-07-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -768581933.97,
+      "cumulative_eur": -3024897078.869999
+    },
+    {
+      "month": "2003-08-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 249989664.73,
+      "cumulative_eur": -2774907414.139999
+    },
+    {
+      "month": "2003-09-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -251657069.48,
+      "cumulative_eur": -3026564483.619999
+    },
+    {
+      "month": "2003-10-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1199740630.88,
+      "cumulative_eur": -1826823852.7399988
+    },
+    {
+      "month": "2003-11-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -3312267013.31,
+      "cumulative_eur": -5139090866.049999
+    },
+    {
+      "month": "2003-12-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 2894920513.77,
+      "cumulative_eur": -2244170352.2799993
+    },
+    {
+      "month": "2004-01-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -3775771727.6,
+      "cumulative_eur": -6019942079.879999
+    },
+    {
+      "month": "2004-02-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -268749530.94,
+      "cumulative_eur": -6288691610.819999
+    },
+    {
+      "month": "2004-03-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -2115086313.09,
+      "cumulative_eur": -8403777923.909999
+    },
+    {
+      "month": "2004-04-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -569761278.54,
+      "cumulative_eur": -8973539202.449999
+    },
+    {
+      "month": "2004-05-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 4222308504.89,
+      "cumulative_eur": -4751230697.559999
+    },
+    {
+      "month": "2004-06-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1221001666.99,
+      "cumulative_eur": -5972232364.549999
+    },
+    {
+      "month": "2004-07-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -482971701.89,
+      "cumulative_eur": -6455204066.44
+    },
+    {
+      "month": "2004-08-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1432690099.16,
+      "cumulative_eur": -5022513967.28
+    },
+    {
+      "month": "2004-09-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 258383084.8,
+      "cumulative_eur": -4764130882.48
+    },
+    {
+      "month": "2004-10-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 585810240.24,
+      "cumulative_eur": -4178320642.24
+    },
+    {
+      "month": "2004-11-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 221089750.12,
+      "cumulative_eur": -3957230892.12
+    },
+    {
+      "month": "2004-12-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1744698537.84,
+      "cumulative_eur": -2212532354.2799997
+    },
+    {
+      "month": "2005-01-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -4847438259.07,
+      "cumulative_eur": -7059970613.349999
+    },
+    {
+      "month": "2005-02-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1425907702.35,
+      "cumulative_eur": -8485878315.699999
+    },
+    {
+      "month": "2005-03-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -823707497.94,
+      "cumulative_eur": -9309585813.64
+    },
+    {
+      "month": "2005-04-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -2251786916.42,
+      "cumulative_eur": -11561372730.06
+    },
+    {
+      "month": "2005-05-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 3705481352.28,
+      "cumulative_eur": -7855891377.779999
+    },
+    {
+      "month": "2005-06-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -707088765.69,
+      "cumulative_eur": -8562980143.469999
+    },
+    {
+      "month": "2005-07-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -178322298.39,
+      "cumulative_eur": -8741302441.859999
+    },
+    {
+      "month": "2005-08-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -976437499.92,
+      "cumulative_eur": -9717739941.779999
+    },
+    {
+      "month": "2005-09-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 842076665.84,
+      "cumulative_eur": -8875663275.939999
+    },
+    {
+      "month": "2005-10-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1097157698.97,
+      "cumulative_eur": -7778505576.969998
+    },
+    {
+      "month": "2005-11-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 458405931.76,
+      "cumulative_eur": -7320099645.209998
+    },
+    {
+      "month": "2005-12-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1327362780.3,
+      "cumulative_eur": -5992736864.909998
+    },
+    {
+      "month": "2006-01-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1940594106.76,
+      "cumulative_eur": -7933330971.669998
+    },
+    {
+      "month": "2006-02-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -2180450381.13,
+      "cumulative_eur": -10113781352.8
+    },
+    {
+      "month": "2006-03-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1298757706.61,
+      "cumulative_eur": -11412539059.41
+    },
+    {
+      "month": "2006-04-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1720143554.99,
+      "cumulative_eur": -13132682614.4
+    },
+    {
+      "month": "2006-05-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 4728722357.97,
+      "cumulative_eur": -8403960256.429999
+    },
+    {
+      "month": "2006-06-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1177968933.51,
+      "cumulative_eur": -7225991322.919999
+    },
+    {
+      "month": "2006-07-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -4136111915.92,
+      "cumulative_eur": -11362103238.84
+    },
+    {
+      "month": "2006-08-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 77658348.5,
+      "cumulative_eur": -11284444890.34
+    },
+    {
+      "month": "2006-09-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -260089524.63,
+      "cumulative_eur": -11544534414.97
+    },
+    {
+      "month": "2006-10-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 2298489293.9,
+      "cumulative_eur": -9246045121.07
+    },
+    {
+      "month": "2006-11-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1632071306.95,
+      "cumulative_eur": -7613973814.12
+    },
+    {
+      "month": "2006-12-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 134849044.52,
+      "cumulative_eur": -7479124769.599999
+    },
+    {
+      "month": "2007-01-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -2687536673.18,
+      "cumulative_eur": -10166661442.779999
+    },
+    {
+      "month": "2007-02-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1018310242.08,
+      "cumulative_eur": -11184971684.859999
+    },
+    {
+      "month": "2007-03-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -559319323.96,
+      "cumulative_eur": -11744291008.82
+    },
+    {
+      "month": "2007-04-01",
+      "cabinet_ordinal": 69,
+      "cabinet_name": "Vanhanen",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -728692894.28,
+      "cumulative_eur": -12472983903.1
+    },
+    {
+      "month": "2007-05-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 3721452708.79,
+      "cumulative_eur": -8751531194.310001
+    },
+    {
+      "month": "2007-06-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -944349319.25,
+      "cumulative_eur": -9695880513.560001
+    },
+    {
+      "month": "2007-07-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -4977171485.88,
+      "cumulative_eur": -14673051999.440002
+    },
+    {
+      "month": "2007-08-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 622421502.21,
+      "cumulative_eur": -14050630497.230003
+    },
+    {
+      "month": "2007-09-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 419808093.33,
+      "cumulative_eur": -13630822403.900003
+    },
+    {
+      "month": "2007-10-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1785927572.22,
+      "cumulative_eur": -11844894831.680004
+    },
+    {
+      "month": "2007-11-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1592339076.78,
+      "cumulative_eur": -10252555754.900003
+    },
+    {
+      "month": "2007-12-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -151300843.4,
+      "cumulative_eur": -10403856598.300003
+    },
+    {
+      "month": "2008-01-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1308605894.11,
+      "cumulative_eur": -11712462492.410004
+    },
+    {
+      "month": "2008-02-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -906730949.14,
+      "cumulative_eur": -12619193441.550003
+    },
+    {
+      "month": "2008-03-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 73736437.36,
+      "cumulative_eur": -12545457004.190002
+    },
+    {
+      "month": "2008-04-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 3192439261.34,
+      "cumulative_eur": -9353017742.850002
+    },
+    {
+      "month": "2008-05-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1248106796.78,
+      "cumulative_eur": -10601124539.630003
+    },
+    {
+      "month": "2008-06-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -687598422.5,
+      "cumulative_eur": -11288722962.130003
+    },
+    {
+      "month": "2008-07-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -6450357794.32,
+      "cumulative_eur": -17739080756.450005
+    },
+    {
+      "month": "2008-08-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -15254.65,
+      "cumulative_eur": -17739096011.100006
+    },
+    {
+      "month": "2008-09-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -12441794.09,
+      "cumulative_eur": -17751537805.190006
+    },
+    {
+      "month": "2008-10-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1293192694.56,
+      "cumulative_eur": -16458345110.630007
+    },
+    {
+      "month": "2008-11-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 4577412076.26,
+      "cumulative_eur": -11880933034.370007
+    },
+    {
+      "month": "2008-12-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 83555451.73,
+      "cumulative_eur": -11797377582.640007
+    },
+    {
+      "month": "2009-01-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 4024023636.74,
+      "cumulative_eur": -7773353945.900007
+    },
+    {
+      "month": "2009-02-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1089525636.76,
+      "cumulative_eur": -8862879582.660007
+    },
+    {
+      "month": "2009-03-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 3956053546.65,
+      "cumulative_eur": -4906826036.010008
+    },
+    {
+      "month": "2009-04-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -8433764625.43,
+      "cumulative_eur": -13340590661.440008
+    },
+    {
+      "month": "2009-05-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -903027989.59,
+      "cumulative_eur": -14243618651.030008
+    },
+    {
+      "month": "2009-06-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 450826164.99,
+      "cumulative_eur": -13792792486.040009
+    },
+    {
+      "month": "2009-07-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1059864134.62,
+      "cumulative_eur": -12732928351.420008
+    },
+    {
+      "month": "2009-08-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 2950123573.92,
+      "cumulative_eur": -9782804777.500008
+    },
+    {
+      "month": "2009-09-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 3051930383.53,
+      "cumulative_eur": -6730874393.970007
+    },
+    {
+      "month": "2009-10-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 4559960841.81,
+      "cumulative_eur": -2170913552.1600065
+    },
+    {
+      "month": "2009-11-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -103776026.54,
+      "cumulative_eur": -2274689578.7000065
+    },
+    {
+      "month": "2009-12-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 741777187.41,
+      "cumulative_eur": -1532912391.2900066
+    },
+    {
+      "month": "2010-01-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -829735058.64,
+      "cumulative_eur": -2362647449.9300065
+    },
+    {
+      "month": "2010-02-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -413586246.71,
+      "cumulative_eur": -2776233696.6400065
+    },
+    {
+      "month": "2010-03-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 3115883184.96,
+      "cumulative_eur": 339649488.3199935
+    },
+    {
+      "month": "2010-04-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 2858710669.32,
+      "cumulative_eur": 3198360157.6399937
+    },
+    {
+      "month": "2010-05-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 4464332.87,
+      "cumulative_eur": 3202824490.5099936
+    },
+    {
+      "month": "2010-06-01",
+      "cabinet_ordinal": 70,
+      "cabinet_name": "Vanhanen II",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1072748414.1,
+      "cumulative_eur": 4275572904.6099935
+    },
+    {
+      "month": "2010-07-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1212182240.53,
+      "cumulative_eur": 3063390664.0799932
+    },
+    {
+      "month": "2010-08-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1283226184.25,
+      "cumulative_eur": 4346616848.329993
+    },
+    {
+      "month": "2010-09-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1176967928.48,
+      "cumulative_eur": 5523584776.809994
+    },
+    {
+      "month": "2010-10-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 629424888.9,
+      "cumulative_eur": 6153009665.709993
+    },
+    {
+      "month": "2010-11-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 2894357002.29,
+      "cumulative_eur": 9047366667.999992
+    },
+    {
+      "month": "2010-12-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 691810153.57,
+      "cumulative_eur": 9739176821.569992
+    },
+    {
+      "month": "2011-01-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -2459529724.79,
+      "cumulative_eur": 7279647096.779992
+    },
+    {
+      "month": "2011-02-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -88970524.69,
+      "cumulative_eur": 7190676572.089993
+    },
+    {
+      "month": "2011-03-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 483973553.86,
+      "cumulative_eur": 7674650125.949992
+    },
+    {
+      "month": "2011-04-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1017124219.14,
+      "cumulative_eur": 8691774345.089993
+    },
+    {
+      "month": "2011-05-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -2910305691.8,
+      "cumulative_eur": 5781468653.289992
+    },
+    {
+      "month": "2011-06-01",
+      "cabinet_ordinal": 71,
+      "cabinet_name": "Kiviniemi",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1879508792.76,
+      "cumulative_eur": 7660977446.049993
+    },
+    {
+      "month": "2011-07-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1426025243.37,
+      "cumulative_eur": 9087002689.419992
+    },
+    {
+      "month": "2011-08-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1092348405.06,
+      "cumulative_eur": 10179351094.479992
+    },
+    {
+      "month": "2011-09-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 2194377762.43,
+      "cumulative_eur": 12373728856.909992
+    },
+    {
+      "month": "2011-10-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 386430013.91,
+      "cumulative_eur": 12760158870.819992
+    },
+    {
+      "month": "2011-11-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1717183068.45,
+      "cumulative_eur": 14477341939.269993
+    },
+    {
+      "month": "2011-12-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -3615607.9,
+      "cumulative_eur": 14473726331.369993
+    },
+    {
+      "month": "2012-01-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -2403136786.67,
+      "cumulative_eur": 12070589544.699993
+    },
+    {
+      "month": "2012-02-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1754959002.37,
+      "cumulative_eur": 13825548547.069992
+    },
+    {
+      "month": "2012-03-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -470109869.62,
+      "cumulative_eur": 13355438677.449991
+    },
+    {
+      "month": "2012-04-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1069158880.04,
+      "cumulative_eur": 14424597557.48999
+    },
+    {
+      "month": "2012-05-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 2045620301.88,
+      "cumulative_eur": 16470217859.369991
+    },
+    {
+      "month": "2012-06-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1811629066.93,
+      "cumulative_eur": 18281846926.29999
+    },
+    {
+      "month": "2012-07-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1484202715.35,
+      "cumulative_eur": 19766049641.64999
+    },
+    {
+      "month": "2012-08-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -700285998.62,
+      "cumulative_eur": 19065763643.02999
+    },
+    {
+      "month": "2012-09-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -2088847960.47,
+      "cumulative_eur": 16976915682.559992
+    },
+    {
+      "month": "2012-10-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 610497843.74,
+      "cumulative_eur": 17587413526.29999
+    },
+    {
+      "month": "2012-11-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1593404169.85,
+      "cumulative_eur": 19180817696.14999
+    },
+    {
+      "month": "2012-12-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -3783431.01,
+      "cumulative_eur": 19177034265.13999
+    },
+    {
+      "month": "2013-01-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -193176485.96,
+      "cumulative_eur": 18983857779.179993
+    },
+    {
+      "month": "2013-02-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1234233644.86,
+      "cumulative_eur": 20218091424.039993
+    },
+    {
+      "month": "2013-03-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 102518208.57,
+      "cumulative_eur": 20320609632.609993
+    },
+    {
+      "month": "2013-04-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 2885415287.96,
+      "cumulative_eur": 23206024920.569992
+    },
+    {
+      "month": "2013-05-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1475748495.58,
+      "cumulative_eur": 24681773416.149994
+    },
+    {
+      "month": "2013-06-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1170946991.05,
+      "cumulative_eur": 25852720407.199993
+    },
+    {
+      "month": "2013-07-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -5718130973.5,
+      "cumulative_eur": 20134589433.699993
+    },
+    {
+      "month": "2013-08-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -29917999.99,
+      "cumulative_eur": 20104671433.70999
+    },
+    {
+      "month": "2013-09-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1941092904.05,
+      "cumulative_eur": 22045764337.75999
+    },
+    {
+      "month": "2013-10-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 135591442.52,
+      "cumulative_eur": 22181355780.27999
+    },
+    {
+      "month": "2013-11-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 3419179155.28,
+      "cumulative_eur": 25600534935.55999
+    },
+    {
+      "month": "2013-12-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -3985047.03,
+      "cumulative_eur": 25596549888.52999
+    },
+    {
+      "month": "2014-01-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -250002943.28,
+      "cumulative_eur": 25346546945.249992
+    },
+    {
+      "month": "2014-02-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 3980080000.0,
+      "cumulative_eur": 29326626945.249992
+    },
+    {
+      "month": "2014-03-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -2256306721.34,
+      "cumulative_eur": 27070320223.909992
+    },
+    {
+      "month": "2014-04-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -8173746.84,
+      "cumulative_eur": 27062146477.069992
+    },
+    {
+      "month": "2014-05-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 3402826785.22,
+      "cumulative_eur": 30464973262.289993
+    },
+    {
+      "month": "2014-06-01",
+      "cabinet_ordinal": 72,
+      "cabinet_name": "Katainen",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -17305545.71,
+      "cumulative_eur": 30447667716.579994
+    },
+    {
+      "month": "2014-07-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -9822729.4,
+      "cumulative_eur": 30437844987.179993
+    },
+    {
+      "month": "2014-09-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -1231576155.9,
+      "cumulative_eur": 29206268831.27999
+    },
+    {
+      "month": "2014-10-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -225364952.0,
+      "cumulative_eur": 28980903879.27999
+    },
+    {
+      "month": "2014-11-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 2249602666.79,
+      "cumulative_eur": 31230506546.069992
+    },
+    {
+      "month": "2014-12-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -79647973.07,
+      "cumulative_eur": 31150858572.999992
+    },
+    {
+      "month": "2015-01-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 0.0,
+      "cumulative_eur": 31150858572.999992
+    },
+    {
+      "month": "2015-02-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -1105124533.72,
+      "cumulative_eur": 30045734039.27999
+    },
+    {
+      "month": "2015-03-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 526190246.47,
+      "cumulative_eur": 30571924285.749992
+    },
+    {
+      "month": "2015-04-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -8687695.01,
+      "cumulative_eur": 30563236590.739994
+    },
+    {
+      "month": "2015-05-01",
+      "cabinet_ordinal": 73,
+      "cabinet_name": "Stubb",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 4486181280.73,
+      "cumulative_eur": 35049417871.46999
+    },
+    {
+      "month": "2015-06-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -17901136.59,
+      "cumulative_eur": 35031516734.88
+    },
+    {
+      "month": "2015-07-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -5010430442.09,
+      "cumulative_eur": 30021086292.789997
+    },
+    {
+      "month": "2015-08-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 0.0,
+      "cumulative_eur": 30021086292.789997
+    },
+    {
+      "month": "2015-09-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 2770016099.25,
+      "cumulative_eur": 32791102392.039997
+    },
+    {
+      "month": "2015-10-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -828937802.63,
+      "cumulative_eur": 31962164589.409996
+    },
+    {
+      "month": "2015-11-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1177017941.13,
+      "cumulative_eur": 33139182530.539997
+    },
+    {
+      "month": "2015-12-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 2417445439.98,
+      "cumulative_eur": 35556627970.52
+    },
+    {
+      "month": "2016-01-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 3971805057.51,
+      "cumulative_eur": 39528433028.03
+    },
+    {
+      "month": "2016-02-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1036142017.9,
+      "cumulative_eur": 38492291010.13
+    },
+    {
+      "month": "2016-03-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -118066082.58,
+      "cumulative_eur": 38374224927.549995
+    },
+    {
+      "month": "2016-04-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -4748193194.05,
+      "cumulative_eur": 33626031733.499996
+    },
+    {
+      "month": "2016-05-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1074893050.87,
+      "cumulative_eur": 32551138682.629997
+    },
+    {
+      "month": "2016-06-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1382776245.11,
+      "cumulative_eur": 33933914927.739998
+    },
+    {
+      "month": "2016-07-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -14440176.6,
+      "cumulative_eur": 33919474751.14
+    },
+    {
+      "month": "2016-08-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -112794796.35,
+      "cumulative_eur": 33806679954.79
+    },
+    {
+      "month": "2016-09-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 711648247.53,
+      "cumulative_eur": 34518328202.32
+    },
+    {
+      "month": "2016-10-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -803823255.71,
+      "cumulative_eur": 33714504946.61
+    },
+    {
+      "month": "2016-11-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 4320380488.05,
+      "cumulative_eur": 38034885434.66
+    },
+    {
+      "month": "2016-12-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -4541410.97,
+      "cumulative_eur": 38030344023.69
+    },
+    {
+      "month": "2017-01-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1934935728.11,
+      "cumulative_eur": 36095408295.58
+    },
+    {
+      "month": "2017-02-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1605880310.82,
+      "cumulative_eur": 37701288606.4
+    },
+    {
+      "month": "2017-04-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -910826587.98,
+      "cumulative_eur": 36790462018.42
+    },
+    {
+      "month": "2017-05-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -757862935.64,
+      "cumulative_eur": 36032599082.78
+    },
+    {
+      "month": "2017-06-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 426448698.78,
+      "cumulative_eur": 36459047781.56
+    },
+    {
+      "month": "2017-07-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 2177582792.71,
+      "cumulative_eur": 38636630574.27
+    },
+    {
+      "month": "2017-08-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -163395725.19,
+      "cumulative_eur": 38473234849.079994
+    },
+    {
+      "month": "2017-09-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -2202300172.51,
+      "cumulative_eur": 36270934676.56999
+    },
+    {
+      "month": "2017-10-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 973862317.38,
+      "cumulative_eur": 37244796993.94999
+    },
+    {
+      "month": "2017-11-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 2707280583.12,
+      "cumulative_eur": 39952077577.06999
+    },
+    {
+      "month": "2017-12-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -295875058.44,
+      "cumulative_eur": 39656202518.62999
+    },
+    {
+      "month": "2018-01-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 252050078.16,
+      "cumulative_eur": 39908252596.78999
+    },
+    {
+      "month": "2018-02-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -167532563.68,
+      "cumulative_eur": 39740720033.10999
+    },
+    {
+      "month": "2018-03-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1844042684.43,
+      "cumulative_eur": 37896677348.67999
+    },
+    {
+      "month": "2018-04-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 3015314013.77,
+      "cumulative_eur": 40911991362.44999
+    },
+    {
+      "month": "2018-05-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1337758636.74,
+      "cumulative_eur": 39574232725.70999
+    },
+    {
+      "month": "2018-06-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1462529546.14,
+      "cumulative_eur": 38111703179.56999
+    },
+    {
+      "month": "2018-07-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1080776910.07,
+      "cumulative_eur": 39192480089.63999
+    },
+    {
+      "month": "2018-09-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1166744543.89,
+      "cumulative_eur": 38025735545.74999
+    },
+    {
+      "month": "2018-10-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -132074796.29,
+      "cumulative_eur": 37893660749.45999
+    },
+    {
+      "month": "2018-11-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1119241866.62,
+      "cumulative_eur": 39012902616.079994
+    },
+    {
+      "month": "2018-12-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -342465753.43,
+      "cumulative_eur": 38670436862.649994
+    },
+    {
+      "month": "2019-01-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -1681.88,
+      "cumulative_eur": 38670435180.77
+    },
+    {
+      "month": "2019-02-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 1578269923.94,
+      "cumulative_eur": 40248705104.71
+    },
+    {
+      "month": "2019-04-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": -677858985.43,
+      "cumulative_eur": 39570846119.28
+    },
+    {
+      "month": "2019-05-01",
+      "cabinet_ordinal": 74,
+      "cabinet_name": "Sipilä",
+      "pm_party_fi": "Suomen Keskusta",
+      "debt_change_eur": 3501004225.14,
+      "cumulative_eur": 43071850344.42
+    },
+    {
+      "month": "2019-06-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 2386102139.06,
+      "cumulative_eur": 45457952483.479996
+    },
+    {
+      "month": "2019-07-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -5000000000.0,
+      "cumulative_eur": 40457952483.479996
+    },
+    {
+      "month": "2019-08-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -104591944.69,
+      "cumulative_eur": 40353360538.78999
+    },
+    {
+      "month": "2019-09-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1970358887.95,
+      "cumulative_eur": 42323719426.73999
+    },
+    {
+      "month": "2019-10-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -1212978866.87,
+      "cumulative_eur": 41110740559.86999
+    },
+    {
+      "month": "2019-11-01",
+      "cabinet_ordinal": 75,
+      "cabinet_name": "Rinne",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1928583488.71,
+      "cumulative_eur": 43039324048.57999
+    },
+    {
+      "month": "2019-12-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -444482466.81,
+      "cumulative_eur": 42594841581.76999
+    },
+    {
+      "month": "2020-01-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1747142719.03,
+      "cumulative_eur": 44341984300.79999
+    },
+    {
+      "month": "2020-02-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 2388723498.25,
+      "cumulative_eur": 46730707799.04999
+    },
+    {
+      "month": "2020-03-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 7240415590.82,
+      "cumulative_eur": 53971123389.86999
+    },
+    {
+      "month": "2020-04-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 252721180.82,
+      "cumulative_eur": 54223844570.68999
+    },
+    {
+      "month": "2020-05-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 5572289180.03,
+      "cumulative_eur": 59796133750.719986
+    },
+    {
+      "month": "2020-06-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 714229541.72,
+      "cumulative_eur": 60510363292.43999
+    },
+    {
+      "month": "2020-07-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 0.0,
+      "cumulative_eur": 60510363292.43999
+    },
+    {
+      "month": "2020-08-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1029986718.75,
+      "cumulative_eur": 61540350011.18999
+    },
+    {
+      "month": "2020-09-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -4710357758.39,
+      "cumulative_eur": 56829992252.79999
+    },
+    {
+      "month": "2020-10-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 3129293941.17,
+      "cumulative_eur": 59959286193.969986
+    },
+    {
+      "month": "2020-11-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 2143291642.64,
+      "cumulative_eur": 62102577836.609985
+    },
+    {
+      "month": "2020-12-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -545290777.84,
+      "cumulative_eur": 61557287058.76999
+    },
+    {
+      "month": "2021-01-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -1826577470.44,
+      "cumulative_eur": 59730709588.32999
+    },
+    {
+      "month": "2021-02-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1279268947.25,
+      "cumulative_eur": 61009978535.57999
+    },
+    {
+      "month": "2021-03-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 4069498178.37,
+      "cumulative_eur": 65079476713.94999
+    },
+    {
+      "month": "2021-04-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -3164745883.16,
+      "cumulative_eur": 61914730830.78999
+    },
+    {
+      "month": "2021-05-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 775971788.43,
+      "cumulative_eur": 62690702619.21999
+    },
+    {
+      "month": "2021-06-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 3463065201.49,
+      "cumulative_eur": 66153767820.70999
+    },
+    {
+      "month": "2021-07-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 0.0,
+      "cumulative_eur": 66153767820.70999
+    },
+    {
+      "month": "2021-08-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 339039218.62,
+      "cumulative_eur": 66492807039.329994
+    },
+    {
+      "month": "2021-09-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 714408902.89,
+      "cumulative_eur": 67207215942.21999
+    },
+    {
+      "month": "2021-10-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1850487559.15,
+      "cumulative_eur": 69057703501.37
+    },
+    {
+      "month": "2021-11-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -3193351706.51,
+      "cumulative_eur": 65864351794.85999
+    },
+    {
+      "month": "2021-12-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 0.0,
+      "cumulative_eur": 65864351794.85999
+    },
+    {
+      "month": "2022-01-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 804381000.0,
+      "cumulative_eur": 66668732794.85999
+    },
+    {
+      "month": "2022-02-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -884753702.96,
+      "cumulative_eur": 65783979091.899994
+    },
+    {
+      "month": "2022-03-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 2797942328.63,
+      "cumulative_eur": 68581921420.52999
+    },
+    {
+      "month": "2022-04-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1401763162.97,
+      "cumulative_eur": 69983684583.49998
+    },
+    {
+      "month": "2022-05-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -1333026142.41,
+      "cumulative_eur": 68650658441.08998
+    },
+    {
+      "month": "2022-06-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 3442452000.0,
+      "cumulative_eur": 72093110441.08998
+    },
+    {
+      "month": "2022-07-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 0.0,
+      "cumulative_eur": 72093110441.08998
+    },
+    {
+      "month": "2022-08-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -53345150.93,
+      "cumulative_eur": 72039765290.15999
+    },
+    {
+      "month": "2022-09-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 406178065.01,
+      "cumulative_eur": 72445943355.16998
+    },
+    {
+      "month": "2022-10-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 2098158747.16,
+      "cumulative_eur": 74544102102.32999
+    },
+    {
+      "month": "2022-11-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 2633973258.24,
+      "cumulative_eur": 77178075360.56999
+    },
+    {
+      "month": "2022-12-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -0.08,
+      "cumulative_eur": 77178075360.48999
+    },
+    {
+      "month": "2023-01-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 2366235336.91,
+      "cumulative_eur": 79544310697.4
+    },
+    {
+      "month": "2023-02-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -149397199.9,
+      "cumulative_eur": 79394913497.5
+    },
+    {
+      "month": "2023-04-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": -1007485163.56,
+      "cumulative_eur": 78387428333.94
+    },
+    {
+      "month": "2023-05-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 1134988720.15,
+      "cumulative_eur": 79522417054.09
+    },
+    {
+      "month": "2023-06-01",
+      "cabinet_ordinal": 76,
+      "cabinet_name": "Marin",
+      "pm_party_fi": "Suomen Sosialidemokraattinen Puolue",
+      "debt_change_eur": 4619584811.9,
+      "cumulative_eur": 84142001865.98999
+    },
+    {
+      "month": "2023-07-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -73451142.4,
+      "cumulative_eur": 84068550723.59
+    },
+    {
+      "month": "2023-08-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1226579719.73,
+      "cumulative_eur": 85295130443.31999
+    },
+    {
+      "month": "2023-09-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -535462526.55,
+      "cumulative_eur": 84759667916.76999
+    },
+    {
+      "month": "2023-10-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 3848016768.95,
+      "cumulative_eur": 88607684685.71999
+    },
+    {
+      "month": "2023-11-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -3190101783.49,
+      "cumulative_eur": 85417582902.22998
+    },
+    {
+      "month": "2023-12-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 2934969852.12,
+      "cumulative_eur": 88352552754.34998
+    },
+    {
+      "month": "2024-01-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 5676709955.2,
+      "cumulative_eur": 94029262709.54997
+    },
+    {
+      "month": "2024-02-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -86008504.66,
+      "cumulative_eur": 93943254204.88997
+    },
+    {
+      "month": "2024-03-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -1073693913.27,
+      "cumulative_eur": 92869560291.61996
+    },
+    {
+      "month": "2024-04-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 2324818712.41,
+      "cumulative_eur": 95194379004.02997
+    },
+    {
+      "month": "2024-05-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -1268713990.56,
+      "cumulative_eur": 93925665013.46997
+    },
+    {
+      "month": "2024-06-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 3783771229.77,
+      "cumulative_eur": 97709436243.23997
+    },
+    {
+      "month": "2024-07-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 932835820.9,
+      "cumulative_eur": 98642272064.13997
+    },
+    {
+      "month": "2024-08-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 486311991.91,
+      "cumulative_eur": 99128584056.04997
+    },
+    {
+      "month": "2024-09-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 846982956.55,
+      "cumulative_eur": 99975567012.59998
+    },
+    {
+      "month": "2024-10-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 2321804615.33,
+      "cumulative_eur": 102297371627.92998
+    },
+    {
+      "month": "2024-11-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -2033872009.83,
+      "cumulative_eur": 100263499618.09998
+    },
+    {
+      "month": "2024-12-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 222328000.0,
+      "cumulative_eur": 100485827618.09998
+    },
+    {
+      "month": "2025-01-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 5353914357.02,
+      "cumulative_eur": 105839741975.11998
+    },
+    {
+      "month": "2025-02-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -1389628608.25,
+      "cumulative_eur": 104450113366.86998
+    },
+    {
+      "month": "2025-03-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 1262129979.49,
+      "cumulative_eur": 105712243346.35999
+    },
+    {
+      "month": "2025-04-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -297960264.2,
+      "cumulative_eur": 105414283082.15999
+    },
+    {
+      "month": "2025-05-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 4674803630.92,
+      "cumulative_eur": 110089086713.07999
+    },
+    {
+      "month": "2025-06-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 5502058777.46,
+      "cumulative_eur": 115591145490.54
+    },
+    {
+      "month": "2025-07-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -6303000000.0,
+      "cumulative_eur": 109288145490.54
+    },
+    {
+      "month": "2025-08-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 4633358930.21,
+      "cumulative_eur": 113921504420.75
+    },
+    {
+      "month": "2025-09-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -1268430252.96,
+      "cumulative_eur": 112653074167.79
+    },
+    {
+      "month": "2025-10-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 2888681758.27,
+      "cumulative_eur": 115541755926.06
+    },
+    {
+      "month": "2025-11-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 680480979.0,
+      "cumulative_eur": 116222236905.06
+    },
+    {
+      "month": "2025-12-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 691777565.3,
+      "cumulative_eur": 116914014470.36
+    },
+    {
+      "month": "2026-01-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 5066500841.44,
+      "cumulative_eur": 121980515311.8
+    },
+    {
+      "month": "2026-02-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -2461341194.85,
+      "cumulative_eur": 119519174116.95
+    },
+    {
+      "month": "2026-03-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 3797222407.97,
+      "cumulative_eur": 123316396524.92
+    },
+    {
+      "month": "2026-04-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 2530234131.57,
+      "cumulative_eur": 125846630656.49
+    },
+    {
+      "month": "2026-05-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": -3087091236.98,
+      "cumulative_eur": 122759539419.51001
+    },
+    {
+      "month": "2026-06-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 5070189521.14,
+      "cumulative_eur": 127829728940.65001
+    },
+    {
+      "month": "2026-07-01",
+      "cabinet_ordinal": 77,
+      "cabinet_name": "Orpo",
+      "pm_party_fi": "Kansallinen Kokoomus",
+      "debt_change_eur": 0.0,
+      "cumulative_eur": 127829728940.65001
+    }
+  ]
+}

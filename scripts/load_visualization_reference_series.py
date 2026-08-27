@@ -87,6 +87,78 @@ SERIES = (
         time_filter=_annual,
         year_from_time=int,
     ),
+    # Talouskasvu virallisena volyymin muutoksena. Kayvin hinnoin laskettu
+    # BKT ei kelpaa kasvun mittariksi, eika elinkustannusindeksilla
+    # deflatointi tuota samaa lukua: 2023 volyymi -1,3 % mutta CPI-
+    # deflatoituna -3,5 %. Hintaindeksi otetaan mukaan, koska se on BKT:n
+    # oma deflaattori toisin kuin kolme muuta kaytossa olevaa indeksia.
+    SeriesSpec(
+        series_id="gdp_volume_change_pct",
+        source_id="statfin_national_accounts_15a9",
+        url="https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px",
+        unit="PERCENT",
+        period_basis="calendar_year_volume_change",
+        dimensions={"taloustoimi_1_20180101": "B1GMH", "contentscode": "ntp-vol_muutos"},
+        time_dimension="timeperiod_y",
+        time_filter=_annual,
+        year_from_time=int,
+    ),
+    SeriesSpec(
+        series_id="gdp_volume_index_2015_100",
+        source_id="statfin_national_accounts_15a9",
+        url="https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px",
+        unit="INDEX_2015_100",
+        period_basis="calendar_year_volume_index",
+        dimensions={"taloustoimi_1_20180101": "B1GMH", "contentscode": "ntp-vol_ind"},
+        time_dimension="timeperiod_y",
+        time_filter=_annual,
+        year_from_time=int,
+    ),
+    SeriesSpec(
+        series_id="gdp_price_index_2015_100",
+        source_id="statfin_national_accounts_15a9",
+        url="https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px",
+        unit="INDEX_2015_100",
+        period_basis="calendar_year_price_index",
+        dimensions={"taloustoimi_1_20180101": "B1GMH", "contentscode": "ntp-vv"},
+        time_dimension="timeperiod_y",
+        time_filter=_annual,
+        year_from_time=int,
+    ),
+    # Tyopanos: elintason hajotelma asukasta kohden vaatii seka tyollisten
+    # maaran etta tehdyt tunnit. Pelkka tyollisyysaste ei riita, koska
+    # tunnit tyollista kohden ovat laskeneet samaan aikaan kun tyollisyys
+    # on noussut.
+    SeriesSpec(
+        series_id="employed_persons_thousands",
+        source_id="statfin_national_accounts_15ab",
+        url="https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15ab.px",
+        unit="THOUSAND_PERSONS",
+        period_basis="calendar_year_domestic_employment",
+        dimensions={
+            "taloustoimi_1_20180101": "E1",
+            "sektoriluokitus_7_20230101": "S1",
+            "toimiala_79_20180101": "SSS",
+        },
+        time_dimension="timeperiod_y",
+        time_filter=_annual,
+        year_from_time=int,
+    ),
+    SeriesSpec(
+        series_id="hours_worked_millions",
+        source_id="statfin_national_accounts_15ab",
+        url="https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15ab.px",
+        unit="MILLION_HOURS",
+        period_basis="calendar_year_hours_worked",
+        dimensions={
+            "taloustoimi_1_20180101": "E2",
+            "sektoriluokitus_7_20230101": "S1",
+            "toimiala_79_20180101": "SSS",
+        },
+        time_dimension="timeperiod_y",
+        time_filter=_annual,
+        year_from_time=int,
+    ),
     SeriesSpec(
         series_id="central_government_edp_debt_q4_meur",
         source_id="statfin_central_government_edp_debt_11yv",

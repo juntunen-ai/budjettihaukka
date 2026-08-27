@@ -1,6 +1,6 @@
 import type { AnalyzeRequest, AnalyzeResponse } from '../types';
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/$/, '');
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
 
 export async function analyzeQuestion(payload: AnalyzeRequest): Promise<AnalyzeResponse> {
   const response = await fetch(`${API_BASE_URL}/v1/analyze`, {
@@ -21,7 +21,7 @@ export async function analyzeQuestion(payload: AnalyzeRequest): Promise<AnalyzeR
 
 export async function checkHealth(): Promise<boolean> {
   try {
-    const response = await fetch(`${API_BASE_URL}/healthz`);
+    const response = await fetch(`${API_BASE_URL}/health`);
     if (!response.ok) return false;
     const data = (await response.json()) as { status?: string };
     return data.status === 'ok';

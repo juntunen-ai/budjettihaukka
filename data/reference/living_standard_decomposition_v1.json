@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "dataset_id": "living_standard_decomposition_v1",
+    "base_year": 2008,
+    "end_year": 2025,
+    "identity": "BKT/väestö = (BKT/tunnit) x (tunnit/työlliset) x (työlliset/työikäiset) x (työikäiset/väestö)",
+    "productivity_cagr_pre_pct": 2.342427122164259,
+    "productivity_cagr_post_pct": 0.29015897080399977,
+    "productivity_trend_from": 1995,
+    "productivity_index_if_trend": 148.23375497008294,
+    "working_age_definition": "keskiväkiluku 15-64, summattu ikävuosittain",
+    "sources": [
+      {
+        "label": "Tilastokeskus, kansantalouden tilinpito (BKT:n volyymi, työtunnit)",
+        "url": "https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15a9.px"
+      },
+      {
+        "label": "Tilastokeskus, työllisyys ja työtunnit",
+        "url": "https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/ntp/15ab.px"
+      },
+      {
+        "label": "Tilastokeskus, keskiväkiluku",
+        "url": "https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/vaerak/11s1.px"
+      }
+    ]
+  },
+  "years": [
+    {
+      "year": 2008,
+      "productivity_index": 100.0,
+      "hours_per_worker_index": 100.0,
+      "employment_rate_index": 100.0,
+      "demography_index": 100.0,
+      "gdp_per_capita_index": 100.0
+    },
+    {
+      "year": 2009,
+      "productivity_index": 95.54505701931815,
+      "hours_per_worker_index": 98.71330664116947,
+      "employment_rate_index": 97.1619934642423,
+      "demography_index": 99.83243003837876,
+      "gdp_per_capita_index": 91.48544037131559
+    },
+    {
+      "year": 2010,
+      "productivity_index": 98.9561943316298,
+      "hours_per_worker_index": 99.07235437294126,
+      "employment_rate_index": 96.38699825129255,
+      "demography_index": 99.42539901089837,
+      "gdp_per_capita_index": 93.95313292878917
+    },
+    {
+      "year": 2011,
+      "productivity_index": 100.3158841455085,
+      "hours_per_worker_index": 98.57330930359907,
+      "employment_rate_index": 98.12244612262741,
+      "demography_index": 98.68651271329834,
+      "gdp_per_capita_index": 95.75362207920377
+    },
+    {
+      "year": 2012,
+      "productivity_index": 98.92021345434486,
+      "hours_per_worker_index": 97.84205635793181,
+      "employment_rate_index": 99.13658206643599,
+      "demography_index": 97.80921029039659,
+      "gdp_per_capita_index": 93.8478463309182
+    },
+    {
+      "year": 2013,
+      "productivity_index": 99.21387879440162,
+      "hours_per_worker_index": 97.37748592913626,
+      "employment_rate_index": 98.80338390962513,
+      "demography_index": 96.90465167784794,
+      "gdp_per_capita_index": 92.50121355879483
+    },
+    {
+      "year": 2014,
+      "productivity_index": 99.53794903306262,
+      "hours_per_worker_index": 97.12752231499483,
+      "employment_rate_index": 98.73214165481782,
+      "demography_index": 96.0463006749909,
+      "gdp_per_capita_index": 91.67906975448496
+    },
+    {
+      "year": 2015,
+      "productivity_index": 99.78697223474813,
+      "hours_per_worker_index": 97.02785633438536,
+      "employment_rate_index": 99.49590277711481,
+      "demography_index": 95.29837846370812,
+      "gdp_per_capita_index": 91.80387010314082
+    },
+    {
+      "year": 2016,
+      "productivity_index": 101.80165024227556,
+      "hours_per_worker_index": 97.0143623103135,
+      "employment_rate_index": 100.40457431989171,
+      "demography_index": 94.68843287946594,
+      "gdp_per_capita_index": 93.89474344277767
+    },
+    {
+      "year": 2017,
+      "productivity_index": 104.95268740231597,
+      "hours_per_worker_index": 96.62630754308447,
+      "employment_rate_index": 101.37411849641907,
+      "demography_index": 94.12837696970985,
+      "gdp_per_capita_index": 96.76907918374293
+    },
+    {
+      "year": 2018,
+      "productivity_index": 103.63090674804417,
+      "hours_per_worker_index": 96.51415197679316,
+      "employment_rate_index": 104.44078021308624,
+      "demography_index": 93.61825174413127,
+      "gdp_per_capita_index": 97.79371207306998
+    },
+    {
+      "year": 2019,
+      "productivity_index": 104.19295232795211,
+      "hours_per_worker_index": 95.87686200070577,
+      "employment_rate_index": 106.29479319121866,
+      "demography_index": 93.23755160320918,
+      "gdp_per_capita_index": 99.00451650606847
+    },
+    {
+      "year": 2020,
+      "productivity_index": 104.55623148539786,
+      "hours_per_worker_index": 95.39748085975808,
+      "employment_rate_index": 104.01611051074086,
+      "demography_index": 92.9155248466798,
+      "gdp_per_capita_index": 96.39970894460797
+    },
+    {
+      "year": 2021,
+      "productivity_index": 105.07366260211019,
+      "hours_per_worker_index": 95.27225021539459,
+      "employment_rate_index": 106.50044405173882,
+      "demography_index": 92.64759186119593,
+      "gdp_per_capita_index": 98.77472921425378
+    },
+    {
+      "year": 2022,
+      "productivity_index": 103.24176307304684,
+      "hours_per_worker_index": 94.38624637852833,
+      "employment_rate_index": 110.04702034956955,
+      "demography_index": 92.56007546369025,
+      "gdp_per_capita_index": 99.25813608928674
+    },
+    {
+      "year": 2023,
+      "productivity_index": 101.75380756140206,
+      "hours_per_worker_index": 93.60349368491715,
+      "employment_rate_index": 110.41532953120402,
+      "demography_index": 92.70225066338647,
+      "gdp_per_capita_index": 97.49051827571151
+    },
+    {
+      "year": 2024,
+      "productivity_index": 103.52524137107609,
+      "hours_per_worker_index": 93.56072502870995,
+      "employment_rate_index": 108.62829573229747,
+      "demography_index": 92.88009594804419,
+      "gdp_per_capita_index": 97.72494882594403
+    },
+    {
+      "year": 2025,
+      "productivity_index": 105.0488821133114,
+      "hours_per_worker_index": 93.48552458677598,
+      "employment_rate_index": 107.45217264569109,
+      "demography_index": 92.94797601217036,
+      "gdp_per_capita_index": 98.08236812359242
+    }
+  ]
+}

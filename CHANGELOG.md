@@ -3,6 +3,51 @@
 Tämä tiedosto kuvaa Budjettihaukan käyttäjille ja ylläpitäjille merkittävät
 muutokset. Versiot noudattavat semanttista versionumerointia.
 
+## [2.2.0] – 2026-08-27
+
+### Lisätty
+
+- Firebase-tuotanto projektissa `valtion-budjetti-data`: Hosting, Cloud Run,
+  Firestore, Artifact Registry, Secret Manager ja vähimmän oikeuden
+  palvelutili määritellään Terraformilla.
+- Sama-origin Hosting-rewritet FastAPI:n `/v1/**`- ja `/health`-reiteille
+  sekä muuttumattomaan image-digestiin perustuva käyttöönottoskripti.
+- Firestore-pohjainen kysymyskirjasto, istuntotunniste ja tietosuojahuomautus.
+  Selain ei saa suoraa Firestore-luku- tai kirjoitusoikeutta, ja admin-API
+  vaatii Secret Managerissa säilytettävän avaimen.
+- Historiallisia talous-, velka-, hallituskausi-, tuottavuus- ja
+  politiikkaskenaarioiden aineistoja, visualisointeja ja regressiotestejä.
+- Liberaalien vaihtoehtobudjetin ja historiallisen vastelaskelman
+  dokumentoidut malliaineistot ja visualisoinnit.
+
+### Muutettu
+
+- React/Vite/ECharts-frontend on ensisijainen verkkokäyttöliittymä;
+  Streamlit säilyy paikallisena legacy- ja kehityskäyttöliittymänä.
+- Frontend käyttää tuotannossa Firebase Hostingin sama-origin API:a ja
+  paikallisesti Viten proxyä.
+- Apache ECharts päivitettiin versioon 6.1.0 XSS-korjauksen vuoksi.
+- API palauttaa varmennustilan myös Pydantic-vastauksessa ja julkaisee
+  revision sisältävän terveysvastauksen.
+
+### Turvallisuus ja kustannusten hallinta
+
+- Firestore-säännöt estävät kaikki suorat selainoperaatiot.
+- Cloud Run skaalautuu nollaan ja enintään kahteen instanssiin.
+- BigQuery-kyselyt dry-run-tarkistetaan ja rajataan oletuksena 1 gigatavuun.
+- Frontendin tuotantoriippuvuuksissa ei ole julkaisuhetkellä tunnettuja
+  `npm audit` -haavoittuvuuksia.
+
+### Tunnetut rajoitteet
+
+- Tuotannon analyysi-API on julkinen. Instanssi- ja kyselyrajat hillitsevät
+  kustannuksia, mutta erillinen käyttäjäkohtainen rate limit tai App Check
+  ei vielä kuulu tähän julkaisuun.
+- Kysymyskirjastoon tallennetaan käyttäjän kysymys ja analyysin tekninen
+  lopputulos. Käyttöliittymä pyytää olemaan kirjoittamatta henkilötietoja.
+- Politiikkaskenaariot ja kontrafaktuaalit ovat ehdollisia mallilaskelmia,
+  eivät toteutuneesta datasta yksin tunnistettuja kausaalivaikutuksia.
+
 ## [2.1.0] – 2026-08-21
 
 ### Lisätty
@@ -98,3 +143,4 @@ muutokset. Versiot noudattavat semanttista versionumerointia.
 
 [2.1.0]: https://github.com/juntunen-ai/budjettihaukka/releases/tag/v2.1.0
 [2.0.0]: https://github.com/juntunen-ai/budjettihaukka/releases/tag/v2.0.0
+[2.2.0]: https://github.com/juntunen-ai/budjettihaukka/releases/tag/v2.2.0

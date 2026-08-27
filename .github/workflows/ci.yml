@@ -69,6 +69,57 @@ jobs:
           python scripts/test_firm_support_tax.py
           python scripts/test_state_supports_2025.py
           python scripts/test_government_cabinet.py
+          python scripts/test_government_fiscal_eras.py
+          python scripts/test_party_debt_cumulative.py
+          python scripts/test_debt_speed_steps.py
+          python scripts/test_gdp_growth_outlook.py
+          python scripts/test_growth_debt_relation.py
+          python scripts/test_debt_ratio_drivers.py
+          python scripts/test_reporting_fiscal_split.py
+          python scripts/test_living_standard_index.py
+          python scripts/test_living_standard_decomposition.py
+          python scripts/test_population_projection.py
+          python scripts/test_productivity_counterfactual.py
+          python scripts/test_scenario_ai_displacement.py
 
       - name: UI no-crash smoke test
         run: python scripts/test_ui_no_crash_smoke.py
+
+      - name: Analytics API contract
+        run: python scripts/test_api_contract.py
+
+  frontend-and-infra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm --prefix frontend ci
+
+      - name: Audit production dependencies
+        run: npm --prefix frontend audit --omit=dev
+
+      - name: Build Firebase frontend
+        env:
+          VITE_BASE_PATH: /
+          VITE_API_BASE_URL: ""
+        run: npm --prefix frontend run build
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.15.8"
+
+      - name: Check Terraform formatting
+        run: terraform -chdir=infra/firebase fmt -check -recursive
+
+      - name: Validate Terraform
+        run: |
+          terraform -chdir=infra/firebase init -backend=false
+          terraform -chdir=infra/firebase validate

@@ -1,0 +1,54 @@
+{
+  "dataset_id": "liberaali_historiallinen_vastelaskelma_inputs_v1",
+  "generated_at": "2026-08-23T09:04:47.929763+00:00",
+  "year_from": 2007,
+  "year_to": 2025,
+  "project": "budjettihaukka-gpt",
+  "dataset": "valtiodata",
+  "location": "europe-west1",
+  "queries": [
+    {
+      "name": "actual_by_moment",
+      "sha256": "0dba725db443da1563169769e3be5722c6b59f51efb5e8c284111eae9533f800",
+      "total_bytes_processed": 13487539
+    },
+    {
+      "name": "official_macro",
+      "sha256": "f42a0a95c4926157027a59c7845cf63f0c6180730b70af8f430120a2835a9590",
+      "total_bytes_processed": 0
+    }
+  ],
+  "tables": [
+    {
+      "table_id": "budjettihaukka-gpt.valtiodata.analytics_fiscal_yearly_core_v1",
+      "modified": "2026-08-22T21:02:51.318000+00:00",
+      "num_rows": 148913,
+      "table_type": "TABLE"
+    },
+    {
+      "table_id": "budjettihaukka-gpt.valtiodata.official_macro_reference_v1",
+      "modified": "2026-08-22T21:36:41.658000+00:00",
+      "num_rows": 250,
+      "table_type": "TABLE"
+    }
+  ],
+  "files": [
+    {
+      "path": "data/reference/liberaali_vaihtoehtobudjetti/historical_inputs/budjettihaukka_actual_by_moment_2007_2025.csv",
+      "row_count": 11258,
+      "sha256": "1eab74cb4d26e52f450f524f31274e4468b7853f4ab5886e41cfb475e38a4a4c",
+      "bytes": 1789532
+    },
+    {
+      "path": "data/reference/liberaali_vaihtoehtobudjetti/historical_inputs/budjettihaukka_macro_2007_2025.csv",
+      "row_count": 19,
+      "sha256": "70af09c9936df9d6088541ddbe9c24abf56786654cdd52715b30dbf2fe594169",
+      "bytes": 1463
+    }
+  ],
+  "source_notes": [
+    "Toteumat ovat Valtiokonttorin kuukausiaineistosta rakennettua Budjettihaukan vuosimarttia.",
+    "Makrosarjat ovat Budjettihaukkaan jäädytettyjä Tilastokeskuksen virallisia sarjoja.",
+    "Talousarviotalouden toteuma ja valtionhallinnon EDP-velka ovat eri tilastokehikkoja."
+  ]
+}
