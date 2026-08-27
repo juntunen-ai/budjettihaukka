@@ -53,8 +53,9 @@ deployment requires a current CLI. The script intentionally refuses to run
 while billing is disabled.
 
 Firebase's default Hosting domains are authorized automatically by the Auth
-provider deploy. Do not duplicate them in `auth.providers.googleSignIn`;
-`authorizedRedirectUris` is reserved here for local development origins.
+provider deploy. Local development domains are managed by Terraform's
+`google_identity_platform_config.authorized_domains`; do not duplicate either
+set in `auth.providers.googleSignIn.authorizedRedirectUris`.
 
 The default cost guardrails are:
 
