@@ -52,6 +52,10 @@ Firebase CLI version is pinned by the script because declarative provider
 deployment requires a current CLI. The script intentionally refuses to run
 while billing is disabled.
 
+Firebase's default Hosting domains are authorized automatically by the Auth
+provider deploy. Do not duplicate them in `auth.providers.googleSignIn`;
+`authorizedRedirectUris` is reserved here for local development origins.
+
 The default cost guardrails are:
 
 - Cloud Run minimum instances: 0
