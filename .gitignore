@@ -9,6 +9,7 @@ __pycache__/
 .env*.bak*
 .venv/
 data/**/*.csv
+!data/reference/liberaali_vaihtoehtobudjetti/**/*.csv
 !data/reference/official_deflator_reference_v1.csv
 !data/reference/official_final_accounts_reference_v1.csv
 !data/reference/official_grants_okm_pilot_v1.csv
@@ -45,3 +46,10 @@ application.log
 # Node-riippuvuudet ja frontendin build-artefaktit (CI rakentaa dist:n)
 node_modules/
 frontend/dist/
+.firebase/
+
+# Terraform local state and provider cache
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan

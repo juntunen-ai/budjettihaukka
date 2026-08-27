@@ -216,6 +216,34 @@ button {
   font-size: 1rem;
 }
 
+.query-privacy-note {
+  margin: 1rem 0 0;
+  color: rgba(17, 17, 17, 0.72);
+  font-size: 0.86rem;
+  text-align: center;
+}
+
+.admin-key-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 10px;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.admin-key-form label {
+  grid-column: 1 / -1;
+  font-weight: 700;
+}
+
+.admin-key-form input {
+  min-width: 0;
+  padding: 0.75rem 0.85rem;
+  border: 2px solid #111111;
+  border-radius: 14px;
+  background: #fff9d6;
+}
+
 .query-form {
   display: grid;
   gap: 12px;
@@ -605,6 +633,9 @@ button {
 }
 
 @media (max-width: 640px) {
+  .admin-key-form {
+    grid-template-columns: 1fr;
+  }
   .summary-grid {
     grid-template-columns: 1fr;
   }

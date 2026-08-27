@@ -63,6 +63,10 @@ export function QueryComposer({
           </button>
         ))}
       </div>
+      <p className="query-privacy-note">
+        Kysymys ja analyysin tekninen lopputulos tallennetaan palvelun laadun parantamista varten. Älä kirjoita
+        kysymykseen henkilötietoja.
+      </p>
     </section>
   );
 }

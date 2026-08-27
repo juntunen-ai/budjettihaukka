@@ -91,6 +91,7 @@ function SimpleTable({
 }
 
 export function AdminView() {
+  const [adminKey, setAdminKey] = useState(() => window.sessionStorage.getItem('budjettihaukka_admin_key') || '');
   const [rows, setRows] = useState<QuestionLibraryEntry[]>([]);
   const [busy, setBusy] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -101,7 +102,7 @@ export function AdminView() {
   useEffect(() => {
     let ignore = false;
     setBusy(true);
-    fetchQuestionLibrary(5000)
+    fetchQuestionLibrary(5000, adminKey)
       .then((payload) => {
         if (!ignore) {
           setRows(payload.slice().reverse());
@@ -119,7 +120,7 @@ export function AdminView() {
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [adminKey]);
 
   const totalQueries = rows.length;
   const uniqueQuestions = new Set(rows.map((row) => row.question).filter(Boolean)).size;
@@ -177,6 +178,20 @@ export function AdminView() {
         <div className="section-kicker">Admin</div>
         <h1>Admin</h1>
         <p className="hero-copy">Kysymyskirjaston kertymä palvelun kehittämistä varten.</p>
+        <form
+          className="admin-key-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            const input = event.currentTarget.elements.namedItem('admin-key') as HTMLInputElement;
+            const value = input.value.trim();
+            window.sessionStorage.setItem('budjettihaukka_admin_key', value);
+            setAdminKey(value);
+          }}
+        >
+          <label htmlFor="admin-key">Admin-avain</label>
+          <input id="admin-key" name="admin-key" type="password" defaultValue={adminKey} autoComplete="current-password" />
+          <button className="primary-button" type="submit">Avaa kysymyskirjasto</button>
+        </form>
       </section>
 
       {busy ? (

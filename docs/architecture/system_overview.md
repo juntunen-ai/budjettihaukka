@@ -1,6 +1,6 @@
 # Budjettihaukka — System Architecture & GCP Setup
 
-_Last updated: 2026-07-07_
+_Last updated: 2026-08-27 (release 2.2.0)_
 
 Budjettihaukka is a Finnish-language natural-language analytics service over
 Finnish state budget data. A user asks a question in Finnish; the system
@@ -13,15 +13,15 @@ explicit trust badge.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ streamlit_app.py          Streamlit UI (port 8501)              │
-│   theme, query input, trust badges, charts (Altair),            │
-│   clarification flow, question library, usage metering          │
+│ Firebase Hosting          React / TypeScript / ECharts frontend │
+│   query input, trust badges, charts, clarification, admin view  │
+│   same-origin rewrites: /v1/** and /health                      │
 └──────────────┬──────────────────────────────────────────────────┘
-               │ (in-process by default; optional HTTP via api/)
+               │ HTTPS
 ┌──────────────▼──────────────────────────────────────────────────┐
-│ api/app.py                FastAPI "AI-native analytics API"     │
-│   POST /analyze — same pipeline as the UI, JSON responses       │
-│   CORS restricted via BUDJETTIHAUKKA_CORS_ORIGINS               │
+│ Cloud Run / api/app.py    FastAPI "AI-native analytics API"     │
+│   POST /v1/analyze, GET /health, protected /v1/admin/**         │
+│   question logging to Firestore; no free-form LLM SQL           │
 └──────────────┬──────────────────────────────────────────────────┘
 ┌──────────────▼──────────────────────────────────────────────────┐
 │ services/                 Orchestration layer                   │
@@ -45,7 +45,15 @@ explicit trust badge.
 ┌──────────────▼──────────────────────────────────────────────────┐
 │ BigQuery (GCP)            Data platform — see section 3         │
 └─────────────────────────────────────────────────────────────────┘
+               │
+┌──────────────▼──────────────────────────────────────────────────┐
+│ Firestore                 Question library (server-side only)   │
+│ Secret Manager            Admin API key                         │
+└─────────────────────────────────────────────────────────────────┘
 ```
+
+`streamlit_app.py` remains available for local legacy and diagnostic use,
+but it is not the primary production interface in release 2.2.0.
 
 **Question → answer flow:** question → `infer_analysis_spec()` (heuristic
 token matching + ontology concept resolution, produces confidence score) →
@@ -141,8 +149,8 @@ visualization recipes, guardrails. Loaded to BigQuery `ontology_*` tables by
 
 | Project | Role | Notes |
 |---|---|---|
-| `budjettihaukka-gpt` | **Active** data project | BigQuery **sandbox (free tier)** — see limitations below |
-| `valtion-budjetti-data` | Legacy | Sandbox; original `budjettidata` raw table (34-column older export, missing alamomentti columns — superseded by fresh ingest) |
+| `budjettihaukka-gpt` | **Active data project** | BigQuery dataset `valtiodata` and promoted semantic layer |
+| `valtion-budjetti-data` | **Production runtime project** | Firebase Hosting, Cloud Run, Firestore, Artifact Registry and Secret Manager |
 
 ### BigQuery
 
@@ -190,24 +198,30 @@ visualization recipes, guardrails. Loaded to BigQuery `ontology_*` tables by
 
 ## 4. Runtime & deployment
 
-- **Local dev:** `.venv` (Python 3.12, `uv`), `streamlit run streamlit_app.py`
-  (port 8501). Optional API: `uvicorn api.app:app` (port 8000) +
-  `BUDJETTIHAUKKA_USE_BACKEND_API=true`.
-- **Dependencies:** `requirements.txt` is trimmed to what live code imports
-  (streamlit, pandas, google-cloud-bigquery, google-cloud-aiplatform,
-  google-genai, fastapi, sqlglot, pyyaml, altair, matplotlib).
-- **Deployment target:** Cloud Run (Dockerfile pending — next milestone
-  together with CI).
-- **Observability:** every query logs a JSONL event
-  (`agent_data/query_observability.jsonl`) with contract, confidence,
-  retries, dry-run bytes, render template, error class.
-  `scripts/report_slo_metrics.py` reports against SLOs
-  (query_success > 99%, chart_render_success > 98%).
+- **Production URL:** `https://valtion-budjetti-data.web.app`.
+- **Frontend:** Firebase Hosting serves `frontend/dist`. Hosting rewrites
+  `/v1/**` and `/health` to the Cloud Run service in `europe-west1`.
+- **API:** the Docker image runs FastAPI on Cloud Run with a dedicated
+  service account, zero minimum instances and a hard ceiling of two.
+- **Data access:** the runtime service account has BigQuery job-user rights
+  and read-only dataset access in `budjettihaukka-gpt.valtiodata`.
+- **Question library:** Cloud Run writes questions and technical result
+  metadata to Firestore. Browser Firestore rules deny all direct access;
+  admin reads go through an API key stored in Secret Manager.
+- **Infrastructure:** `infra/firebase` contains Terraform declarations.
+  `scripts/deploy_firebase.sh` builds an immutable Artifact Registry image,
+  updates Cloud Run, verifies `/health`, builds the frontend and deploys
+  Firestore rules plus Hosting.
+- **Local dev:** run `uvicorn api.app:app --reload` and `npm --prefix frontend
+  run dev`. Vite proxies the same-origin API paths to port 8000. Streamlit is
+  still available with `streamlit run streamlit_app.py`.
+- **Observability:** every query logs contract, confidence, retries, dry-run
+  bytes, visualization template, verification state and error class.
 
 ## 5. Next milestones
 
-1. **CI (GitHub Actions):** run the offline suites on every push — the eval
-   gate caught a 52.8% silent regression precisely because it wasn't in CI.
+1. **API abuse protection:** add a user/session rate limit or Firebase App
+   Check before broad public campaigning.
 2. **Scheduled ingest** (monthly cron): ingest → build layer → DQ checks →
    eval gates, alert on failure.
 3. **Phase 5 enrichment:** surface VM budget justification snippets in

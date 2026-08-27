@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "dataset_id": "policy_budget_moment_selection_v1",
+    "schema_version": "1.0.0",
+    "reviewed_at": "2026-08-25",
+    "baseline_year": 2011,
+    "comparison_year": 2016,
+    "fiscal_side": "expense",
+    "nominal_metric": "net_accumulation_nominal_eur",
+    "real_metric": "net_accumulation_real_cpi_eur",
+    "real_price_base_year": 2025,
+    "selection_scope_fi": "Kasvujarruraportin tutkimus-, innovaatio- ja korkeakoulutusväitteisiin suoraan liittyvät menomomentit, jotka ovat vertailukelpoisia vuosina 2011 ja 2016.",
+    "claim_rule_fi": "Toteuman lasku osoitetaan vain samalla momenttikoodilla, täydellä menopuolen vuosidatalla ja ilman rakenteellisen muutoksen varoitusta. Nimellinen vähennys erotetaan pelkästä reaaliarvon laskusta.",
+    "non_claim_fi": "Toteuman lasku ei yksin osoita päätöksen kausaalista vaikutusta talouskasvuun eikä vastaa talousarvion myönnettyä määrärahaa."
+  },
+  "moments": [
+    {
+      "momentti_tunnusp": "32.20.40.",
+      "canonical_label_fi": "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": ["consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Yritysten ja yhteisöjen TKI-toiminnan keskeinen suora tukimomentti.",
+      "historical_members": [
+        {"code": "32.20.40.", "valid_from_year": 2008, "valid_to_year": 2025}
+      ]
+    },
+    {
+      "momentti_tunnusp": "29.40.50.",
+      "canonical_label_fi": "Valtionrahoitus yliopistojen toimintaan",
+      "primary_policy_id": "higher_education_capacity_2000_2025",
+      "related_policy_ids": ["rd_funding_cuts_2011_2016", "consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Yliopistojen perusrahoituksen päämomentti; sisältää opetuksen lisäksi yliopistojen tutkimustoimintaa.",
+      "historical_members": [
+        {"code": "29.40.50.", "valid_from_year": 2010, "valid_to_year": 2025}
+      ]
+    },
+    {
+      "momentti_tunnusp": "33.60.32.",
+      "canonical_label_fi": "Valtion rahoitus yliopistotasoiseen terveystutkimukseen",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": ["consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Yliopistotasoisen terveystutkimuksen suora tutkimusrahoitus.",
+      "historical_members": [
+        {"code": "33.60.32.", "valid_from_year": 2008, "valid_to_year": 2025}
+      ]
+    },
+    {
+      "momentti_tunnusp": "32.20.01.",
+      "canonical_label_fi": "Geologian tutkimuskeskuksen toimintamenot",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": ["consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Valtion sektoritutkimuslaitoksen toimintamenot.",
+      "historical_members": [
+        {"code": "32.20.01.", "valid_from_year": 2008, "valid_to_year": 2020},
+        {"code": "32.01.04.", "valid_from_year": 2020, "valid_to_year": 2025}
+      ]
+    },
+    {
+      "momentti_tunnusp": "32.20.45.",
+      "canonical_label_fi": "Yritysten tutkimus- ja kehittämishankkeiden valmistelu",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": ["consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Yritysten T&K-hankkeiden käynnistämiseen kohdistunut suora momentti ennen myöhempää käyttötarkoituksen muutosta.",
+      "historical_members": [
+        {"code": "32.20.45.", "valid_from_year": 2009, "valid_to_year": 2016}
+      ]
+    },
+    {
+      "momentti_tunnusp": "29.40.51.",
+      "canonical_label_fi": "Suomen Akatemian tutkimusmäärärahat",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": ["consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Kilpaillun tieteellisen tutkimusrahoituksen päämomentti.",
+      "historical_members": [
+        {"code": "29.40.51.", "valid_from_year": 2010, "valid_to_year": 2025}
+      ]
+    },
+    {
+      "momentti_tunnusp": "32.20.06.",
+      "canonical_label_fi": "Tekesin toimintamenot",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": ["consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Valtion innovaatiorahoittajan toimintamenot; nimi muuttui vertailujaksolla, mutta momenttikoodi säilyi.",
+      "historical_members": [
+        {"code": "32.20.06.", "valid_from_year": 2008, "valid_to_year": 2020},
+        {"code": "32.01.05.", "valid_from_year": 2020, "valid_to_year": 2025}
+      ]
+    },
+    {
+      "momentti_tunnusp": "30.01.22.",
+      "canonical_label_fi": "Maa- ja metsätalousministeriön tutkimus ja kehittäminen",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": ["consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Hallinnonalan yhteisiin tutkimus- ja kehittämishankkeisiin kohdistunut momentti.",
+      "historical_members": [
+        {"code": "30.01.22.", "valid_from_year": 2011, "valid_to_year": 2025}
+      ]
+    },
+    {
+      "momentti_tunnusp": "29.40.01.",
+      "canonical_label_fi": "Suomen Akatemian toimintamenot",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": ["consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Suomen Akatemian toiminnan suora menomomentti.",
+      "historical_members": [
+        {"code": "29.40.01.", "valid_from_year": 2010, "valid_to_year": 2024},
+        {"code": "29.01.05.", "valid_from_year": 2024, "valid_to_year": 2025}
+      ]
+    },
+    {
+      "momentti_tunnusp": "29.40.52.",
+      "canonical_label_fi": "Helsingin yliopiston ja Itä-Suomen yliopiston erityisrahoitus",
+      "primary_policy_id": "higher_education_capacity_2000_2025",
+      "related_policy_ids": ["rd_funding_cuts_2011_2016", "consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Kahden yliopiston opetus- ja tutkimustoiminnan lakisääteinen erityisrahoitus.",
+      "historical_members": [
+        {"code": "29.40.52.", "valid_from_year": 2010, "valid_to_year": 2016}
+      ]
+    },
+    {
+      "momentti_tunnusp": "28.30.02.",
+      "canonical_label_fi": "Valtion taloudellisen tutkimuskeskuksen toimintamenot",
+      "primary_policy_id": "rd_funding_cuts_2011_2016",
+      "related_policy_ids": ["consolidation_composition_2011_2016"],
+      "selection_reason_fi": "Valtion taloudellisen tutkimuksen sektoritutkimusmomentti.",
+      "historical_members": [
+        {"code": "28.30.02.", "valid_from_year": 2008, "valid_to_year": 2025}
+      ]
+    }
+  ],
+  "excluded_comparisons": [
+    {
+      "concept_id": "ammattikorkeakoulut",
+      "codes": ["29.40.30.", "29.40.55."],
+      "reason_fi": "Ammattikorkeakoulujen rahoitusvastuu ja momenttirakenne muuttuivat vuonna 2015. Koodeja ei yhdistetä suoraksi 2011–2016 leikkausluvuksi ilman erillistä siirto- ja rahoitusvastuun oikaisua."
+    }
+  ]
+}

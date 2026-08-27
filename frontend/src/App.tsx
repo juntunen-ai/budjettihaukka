@@ -15,6 +15,15 @@ const ChartPanel = lazy(async () => {
   return { default: module.ChartPanel };
 });
 
+function getSessionId(): string {
+  const key = 'budjettihaukka_session_id';
+  const existing = window.sessionStorage.getItem(key);
+  if (existing) return existing;
+  const next = window.crypto.randomUUID();
+  window.sessionStorage.setItem(key, next);
+  return next;
+}
+
 function MetaPill({ label, value }: { label: string; value: string | null | undefined }) {
   if (!value) return null;
   return (
@@ -143,7 +152,7 @@ export default function App() {
       const next = await analyzeQuestion({
         question: nextQuestion,
         language: 'fi',
-        ui_context: { surface: 'github-pages-frontend' },
+        ui_context: { surface: 'firebase-frontend', session_id: getSessionId() },
       });
       setResponse(next);
     } catch (err) {

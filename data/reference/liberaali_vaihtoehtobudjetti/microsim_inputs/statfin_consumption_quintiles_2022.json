@@ -1,0 +1,394 @@
+{
+  "api_url": "https://pxweb2.stat.fi/PxWeb/api/v1/fi/StatFin/ktutk/14pg.px",
+  "description": "Kotitalouksien kulutusmenot tuloviidenneksittain",
+  "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__ktutk/statfin_ktutk_pxt_14pg.px/",
+  "query": [
+    {
+      "code": "timeperiod_y",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "2022"
+        ]
+      }
+    },
+    {
+      "code": "coicop_46_20231201",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "0",
+          "01",
+          "0611",
+          "073",
+          "08391",
+          "0946",
+          "096",
+          "0971",
+          "0972",
+          "111",
+          "112",
+          "045",
+          "071",
+          "0722",
+          "0724",
+          "0126",
+          "021",
+          "023"
+        ]
+      }
+    },
+    {
+      "code": "tuloviidennes_2_20140501",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "SS",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      }
+    },
+    {
+      "code": "contentscode",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "kulu_kt_hk_1_2"
+        ]
+      }
+    }
+  ],
+  "response": {
+    "class": "dataset",
+    "dimension": {
+      "coicop_46_20231201": {
+        "category": {
+          "index": {
+            "0": 0,
+            "01": 1,
+            "0126": 2,
+            "021": 3,
+            "023": 4,
+            "045": 5,
+            "0611": 6,
+            "071": 7,
+            "0722": 8,
+            "0724": 9,
+            "073": 10,
+            "08391": 11,
+            "0946": 12,
+            "096": 13,
+            "0971": 14,
+            "0972": 15,
+            "111": 16,
+            "112": 17
+          },
+          "label": {
+            "0": "0 Yhteensä",
+            "01": "01 Elintarvikkeet ja alkoholittomat juomat",
+            "0126": "01.2.6 Virvoitusjuomat (LI)",
+            "021": "02.1 Alkoholijuomat",
+            "023": "02.3 Tupakka",
+            "045": "04.5 Sähkö, kaasu ja muut polttoaineet",
+            "0611": "06.1.1 Lääkkeet (LI)",
+            "071": "07.1 Ajoneuvojen hankinta",
+            "0722": "07.2.2 Yksityisajoneuvojen polttoaineet ja voiteluöljyt (LI)",
+            "0724": "07.2.4 Muut yksityisajoneuvoihin liittyvät palvelut (P)",
+            "073": "07.3 Matkustajien kuljetuspalvelut",
+            "08391": "08.3.9.1 Televisio- ja radiolupamaksut (P)",
+            "0946": "09.4.6 Vapaa-aikaan ja urheiluun liittyvät palvelut (P)",
+            "096": "09.6 Kulttuuripalvelut",
+            "0971": "09.7.1 Kirjat (PKS)",
+            "0972": "09.7.2 Sanomalehdet ja aikakauslehdet (LI)",
+            "111": "11.1 Ravitsemispalvelut",
+            "112": "11.2 Majoituspalvelut"
+          }
+        },
+        "extension": {
+          "elimination": true,
+          "eliminationValueCode": "0",
+          "show": "value"
+        },
+        "label": "Kulutusmenot",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "coicop_46_20231201": "SCALE-TYPE=nominal"
+              }
+            }
+          ]
+        },
+        "note": [
+          "Yhteensä (0-ryhmä) ei sisällä kulutusmenojen ulkopuolisia eriä."
+        ]
+      },
+      "contentscode": {
+        "category": {
+          "index": {
+            "kulu_kt_hk_1_2": 0
+          },
+          "label": {
+            "kulu_kt_hk_1_2": "Kotitalouden kulutusmenot vuodessa vuoden 2022 hinnoin, euroa"
+          },
+          "unit": {
+            "kulu_kt_hk_1_2": {
+              "base": "euroa",
+              "decimals": 0
+            }
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Tiedot"
+      },
+      "timeperiod_y": {
+        "category": {
+          "index": {
+            "2022": 0
+          },
+          "label": {
+            "2022": "2022"
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Vuosi",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "timeperiod_y": "SCALE-TYPE=None"
+              }
+            }
+          ]
+        }
+      },
+      "tuloviidennes_2_20140501": {
+        "category": {
+          "index": {
+            "1": 1,
+            "2": 2,
+            "3": 3,
+            "4": 4,
+            "5": 5,
+            "SS": 0
+          },
+          "label": {
+            "1": "I (pienituloisimmat 20 %)",
+            "2": "II",
+            "3": "III",
+            "4": "IV",
+            "5": "V (suurituloisimmat 20 %)",
+            "SS": "Yhteensä"
+          }
+        },
+        "extension": {
+          "elimination": true,
+          "eliminationValueCode": "SS",
+          "show": "value"
+        },
+        "label": "Tuloviidennes",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "tuloviidennes_2_20140501": "SCALE-TYPE=nominal"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "extension": {
+      "contact": [
+        {
+          "raw": "<A HREF='https://stat.fi/tilasto/ktutk' TARGET=_blank>Tilaston kotisivu</A>"
+        }
+      ],
+      "px": {
+        "aggregallowed": true,
+        "contents": "Kotitalouksien kulutusmenot tuloviidenneksittäin",
+        "decimals": 0,
+        "description": "14pg -- Kotitalouksien kulutusmenot tuloviidenneksittäin, 2012-2022",
+        "descriptiondefault": false,
+        "heading": [
+          "contentscode"
+        ],
+        "language": "fi",
+        "matrix": "14pg",
+        "official-statistics": true,
+        "stub": [
+          "timeperiod_y",
+          "coicop_46_20231201",
+          "tuloviidennes_2_20140501"
+        ],
+        "subject-area": "Kotitalouksien kulutus",
+        "subject-code": "ktutk",
+        "tableid": "14pg"
+      }
+    },
+    "id": [
+      "timeperiod_y",
+      "coicop_46_20231201",
+      "tuloviidennes_2_20140501",
+      "contentscode"
+    ],
+    "label": "Kotitalouksien kulutusmenot tuloviidenneksittäin muuttujina Vuosi, Kulutusmenot, Tuloviidennes ja Tiedot",
+    "note": [
+      "<A HREF='https://stat.fi/tilasto/dokumentaatio/ktutk' TARGET=_blank>Tilaston dokumentaatio</A>",
+      ". tieto on puuttuva\r\n.. tieto on epälooginen esitettäväksi\r\n... tieto on salassapitosäännön alainen\r\n..... tietoa ei ole kysytty",
+      "Kulutustutkimuksen tiedonkeruu on uudistettu vuotta 2022 koskien vastaamaan COICOP2018-luokitusta. Samalla on tehty muutoksia tiedonkeruulomakkeelle haastattelujen sujuvuuden parantamiseksi tai puutteiden korjaamiseksi. Vuosien 2016 ja 2012 tiedot on pyritty tuottamaan mahdollisimman vertailukelpoisiksi, mutta täyttä vertailukelpoisuutta ei ole mahdollista saavuttaa. ",
+      "Vuotta 2022 koskevat keskeisimmät muutokset: \r\n- Vaatetuksen ja jalkineiden (03-ryhmä) kulutusmenot ovat kasvaneet huomattavasti. Tämä muutos selittyy pääosin keruutavan muutoksella. Vaatteet ja jalkineet (03-ryhmä) on kysytty nyt ensimmäistä kertaa haastattelussa. Aiempien vuosien tieto on tunnistettu alipeittäväksi ja vuoden 2022 tieto vastaa paremmin todellista tilannetta. ",
+      "- Liikenteen (07-ryhmä) kulutusmenoissa on merkittävää laskua alaryhmässä 07.2.3 Yksityisajoneuvojen huolto ja korjaus, jossa tietojen keruutapaa on muutettu. Ero aikaisempiin vuosiin selittyy suurimmaksi osaksi sillä. ",
+      "-Vakuutus- ja rahoituspalveluiden (12-ryhmä) kulutusmenojen kasvu selittyy osin sillä, että rahoituspalvelujen maksut (12.2) on kysytty luokitusuudistuksen myötä aiempaa laajemmin. ",
+      "- Koulutuksen (10-ryhmä) tiedoista puuttuvat Ahvenanmaan varhaiskasvatusmaksut, sillä tietolähteenä on käytetty Opetushallituksen varhaiskasvatuksen tietovarantoa (Varda), jossa Ahvenanmaan tiedot eivät ole mukana. ",
+      "- 04.4.3 Jätevesi on luokiteltu erillisenä vuonna 2022. Aiemmin se on ollut osa ryhmää 04.4.1 Vesihuolto. Tiedot ovat vertailukelpoisia aiempiin vuosiin joko summaamalla nämä ryhmät yhteen tai tarkastelemalla ylempää tasoa 04.4 Vesihuolto ja muut asumiseen liittyvät palvelut. ",
+      "Kulutusyksikköä kohti lasketuilla tuloilla ja kulutusmenoilla voidaan verrata kooltaan ja rakenteeltaan erilaisia kotitalouksia toisiinsa. Kulutusyksiköiden laskutapoja on useita erilaisia. Tulonjakotilastossa ja kulutustutkimuksessa on käytetty vuodesta 2002 lähtien Euroopan unionin tilastoviraston Eurostatin suosittamaa OECD:n ns. muunnettua kulutusyksikköasteikkoa, jossa \r\n- kotitalouden ensimmäinen aikuinen saa painon 1 \r\n- muut yli 13-vuotiaat saavat painon 0,5 \r\n- lapset saavat painon 0,3 (0-13-vuotiaat). ",
+      "Käyvät hinnat ilmaisevat tutkimusajankohdan euromääriä. Vuoden 2022 hinnat on laskettu käyttäen kuluttajahintaindeksistä mahdollisimman tarkalla tasolla muodostettuja rahanarvonmuutoskertoimia COICOP2018-luokituksen mukaisesti."
+    ],
+    "role": {
+      "metric": [
+        "contentscode"
+      ]
+    },
+    "size": [
+      1,
+      18,
+      6,
+      1
+    ],
+    "source": "Tilastokeskus, kotitalouksien kulutus",
+    "status": {
+      "66": ".....",
+      "67": ".....",
+      "68": ".....",
+      "69": ".....",
+      "70": ".....",
+      "71": "....."
+    },
+    "updated": "2024-04-11T05:00:00Z",
+    "value": [
+      39808,
+      19659,
+      30261,
+      38513,
+      46122,
+      64535,
+      5646,
+      3475,
+      4942,
+      5839,
+      6419,
+      7559,
+      84,
+      75,
+      53,
+      95,
+      101,
+      98,
+      543,
+      312,
+      331,
+      530,
+      599,
+      942,
+      193,
+      288,
+      154,
+      230,
+      153,
+      143,
+      1501,
+      649,
+      1159,
+      1453,
+      1878,
+      2370,
+      512,
+      280,
+      518,
+      626,
+      526,
+      608,
+      2335,
+      328,
+      1295,
+      2081,
+      2495,
+      5480,
+      1492,
+      563,
+      1323,
+      1386,
+      1955,
+      2236,
+      539,
+      168,
+      267,
+      427,
+      490,
+      1347,
+      531,
+      281,
+      415,
+      465,
+      570,
+      925,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      395,
+      115,
+      248,
+      313,
+      577,
+      723,
+      150,
+      59,
+      98,
+      153,
+      221,
+      220,
+      67,
+      26,
+      35,
+      66,
+      86,
+      122,
+      226,
+      92,
+      183,
+      232,
+      262,
+      364,
+      1329,
+      595,
+      860,
+      1149,
+      1671,
+      2374,
+      200,
+      40,
+      135,
+      158,
+      273,
+      394
+    ],
+    "version": "2.0"
+  },
+  "response_sha256": "4f510a52216841aee2da8c1d089577877bcead63850617deca56cf92568204c6",
+  "retrieved_at": "2026-08-23",
+  "source_id": "statfin_consumption_quintiles_2022"
+}

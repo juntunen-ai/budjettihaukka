@@ -1,0 +1,921 @@
+{
+  "meta": {
+    "dataset_id": "liberaali_vaihtoehtobudjetti_analyysi_v1",
+    "kind": "simulaatio annetuilla kertoimilla, ei ennuste",
+    "source_url": "https://docs.google.com/spreadsheets/d/11UDqKOwld7tLxzuD-KwHN2-4rxqtl6JsykV9igvxSQo/edit?gid=1938612580",
+    "budget_year": 2026,
+    "baseline": {
+      "gdp_eur": 281674000000.0,
+      "employed": 2732100.0,
+      "hours": 4224000000.0,
+      "wages_eur": 114600000000.0,
+      "central_government_debt_eur": 209131000000.0
+    },
+    "impact_profile": [
+      0.7,
+      0.3
+    ],
+    "nominal_gdp_growth": 0.02,
+    "baseline_borrowing_eur": 8659000000.0,
+    "projection_years": 10,
+    "gdp_per_employed_eur": 103097.98323633835
+  },
+  "headline": {
+    "proposal_total_eur": 90305736000.0,
+    "alternative_total_eur": 77752965150.0,
+    "total_change_eur": -12552770850.0,
+    "total_change_pct_of_gdp": -4.456489008570191,
+    "expenditure_change_eur": -12553470850.0,
+    "tax_change_eur": -3893550850.0,
+    "borrowing_change_eur": -8659220000.0,
+    "item_count": 324
+  },
+  "expenditure_by_class": {
+    "toimintamenot": {
+      "label": "Valtion toimintamenot",
+      "change_eur": -1128345850.0,
+      "count": 96,
+      "multiplier": 0.7,
+      "multiplier_low": 0.45,
+      "multiplier_high": 1.0
+    },
+    "tekninen": {
+      "label": "Arvonlisäveromenot, tekninen",
+      "change_eur": -321797200.0,
+      "count": 13,
+      "multiplier": 0.0,
+      "multiplier_low": 0.0,
+      "multiplier_high": 0.0
+    },
+    "kunnat_ja_hyvinvointialueet": {
+      "label": "Valtionavut kunnille ja hyvinvointialueille",
+      "change_eur": -5051492400.0,
+      "count": 26,
+      "multiplier": 0.8,
+      "multiplier_low": 0.55,
+      "multiplier_high": 1.1
+    },
+    "elinkeinoelama": {
+      "label": "Valtionavut elinkeinoelämälle",
+      "change_eur": -3725628900.0,
+      "count": 46,
+      "multiplier": 0.35,
+      "multiplier_low": 0.15,
+      "multiplier_high": 0.6
+    },
+    "kotitaloudet": {
+      "label": "Valtionavut kotitalouksille ja yhteisöille",
+      "change_eur": -1778242200.0,
+      "count": 52,
+      "multiplier": 0.65,
+      "multiplier_low": 0.4,
+      "multiplier_high": 0.95
+    },
+    "rahastot_eu_ulkomaat": {
+      "label": "Siirrot rahastoihin, EU:lle ja ulkomaille",
+      "change_eur": -1791677600.0,
+      "count": 20,
+      "multiplier": 0.2,
+      "multiplier_low": 0.05,
+      "multiplier_high": 0.4
+    },
+    "investoinnit": {
+      "label": "Reaalisijoitukset",
+      "change_eur": -195953400.0,
+      "count": 6,
+      "multiplier": 0.9,
+      "multiplier_low": 0.6,
+      "multiplier_high": 1.3
+    },
+    "lainat": {
+      "label": "Lainat ja finanssisijoitukset",
+      "change_eur": -153430000.0,
+      "count": 3,
+      "multiplier": 0.2,
+      "multiplier_low": 0.05,
+      "multiplier_high": 0.4
+    },
+    "muut": {
+      "label": "Muut menot, muun muassa korot",
+      "change_eur": -172472300.0,
+      "count": 8,
+      "multiplier": 0.15,
+      "multiplier_low": 0.05,
+      "multiplier_high": 0.3
+    },
+    "uudet_avaukset": {
+      "label": "Uudet avaukset",
+      "change_eur": 1765569000.0,
+      "count": 8,
+      "multiplier": 0.6,
+      "multiplier_low": 0.35,
+      "multiplier_high": 0.9
+    }
+  },
+  "revenue_by_class": {
+    "lainanotto": {
+      "label": "Nettolainanotto",
+      "change_eur": -8659220000.0,
+      "count": 1,
+      "multiplier": 0.0,
+      "multiplier_low": 0.0,
+      "multiplier_high": 0.0
+    },
+    "tyon_verotus": {
+      "label": "Työn ja pääomatulon verotus",
+      "change_eur": -5760250350.0,
+      "count": 2,
+      "multiplier": 0.4,
+      "multiplier_low": 0.2,
+      "multiplier_high": 0.65
+    },
+    "kulutusverot": {
+      "label": "Kulutusverot",
+      "change_eur": 5040000000.0,
+      "count": 10,
+      "multiplier": 0.5,
+      "multiplier_low": 0.3,
+      "multiplier_high": 0.75
+    },
+    "varallisuusverot": {
+      "label": "Varallisuus- ja varainsiirtoverot",
+      "change_eur": -1705000000.0,
+      "count": 2,
+      "multiplier": 0.2,
+      "multiplier_low": 0.05,
+      "multiplier_high": 0.4
+    },
+    "muut_tulot": {
+      "label": "Muut tulot",
+      "change_eur": -1468300500.0,
+      "count": 31,
+      "multiplier": 0.1,
+      "multiplier_low": 0.0,
+      "multiplier_high": 0.25
+    }
+  },
+  "fiscal_impulse_eur": {
+    "low": -4436419482.5,
+    "mid": -6550842395.0,
+    "high": -9091969117.5
+  },
+  "fiscal_impulse_pct_of_gdp": {
+    "low": -1.575019164885648,
+    "mid": -2.3256823118214673,
+    "high": -3.2278339916002188
+  },
+  "scenarios": {
+    "kerralla": {
+      "label": "Kerralla vuonna 1",
+      "weights": [
+        1.0
+      ],
+      "paths": {
+        "low": {
+          "gdp_level_effect_eur": [
+            -3105493637.75,
+            -4436419482.5
+          ],
+          "gdp_level_effect_pct": [
+            -1.1025134154199536,
+            -1.575019164885648
+          ],
+          "gdp_growth_effect_pct": [
+            -1.1025134154199536,
+            -0.4725057494656944
+          ],
+          "final_level_pct": -1.575019164885648,
+          "worst_year_growth_pct": -1.1025134154199536
+        },
+        "mid": {
+          "gdp_level_effect_eur": [
+            -4585589676.5,
+            -6550842395.0
+          ],
+          "gdp_level_effect_pct": [
+            -1.6279776182750272,
+            -2.3256823118214673
+          ],
+          "gdp_growth_effect_pct": [
+            -1.6279776182750272,
+            -0.6977046935464402
+          ],
+          "final_level_pct": -2.3256823118214673,
+          "worst_year_growth_pct": -1.6279776182750272
+        },
+        "high": {
+          "gdp_level_effect_eur": [
+            -6364378382.25,
+            -9091969117.5
+          ],
+          "gdp_level_effect_pct": [
+            -2.259483794120153,
+            -3.2278339916002188
+          ],
+          "gdp_growth_effect_pct": [
+            -2.259483794120153,
+            -0.9683501974800656
+          ],
+          "final_level_pct": -3.2278339916002188,
+          "worst_year_growth_pct": -2.259483794120153
+        }
+      }
+    },
+    "kaksi_vuotta": {
+      "label": "Kahdessa vuodessa",
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "paths": {
+        "low": {
+          "gdp_level_effect_eur": [
+            -1552746818.875,
+            -3770956560.125,
+            -4436419482.5
+          ],
+          "gdp_level_effect_pct": [
+            -0.5512567077099768,
+            -1.3387662901528008,
+            -1.575019164885648
+          ],
+          "gdp_growth_effect_pct": [
+            -0.5512567077099768,
+            -0.787509582442824,
+            -0.2362528747328472
+          ],
+          "final_level_pct": -1.575019164885648,
+          "worst_year_growth_pct": -0.787509582442824
+        },
+        "mid": {
+          "gdp_level_effect_eur": [
+            -2292794838.25,
+            -5568216035.75,
+            -6550842395.0
+          ],
+          "gdp_level_effect_pct": [
+            -0.8139888091375136,
+            -1.9768299650482473,
+            -2.3256823118214673
+          ],
+          "gdp_growth_effect_pct": [
+            -0.8139888091375136,
+            -1.1628411559107337,
+            -0.3488523467732201
+          ],
+          "final_level_pct": -2.3256823118214673,
+          "worst_year_growth_pct": -1.1628411559107337
+        },
+        "high": {
+          "gdp_level_effect_eur": [
+            -3182189191.125,
+            -7728173749.875,
+            -9091969117.5
+          ],
+          "gdp_level_effect_pct": [
+            -1.1297418970600765,
+            -2.7436588928601857,
+            -3.2278339916002188
+          ],
+          "gdp_growth_effect_pct": [
+            -1.1297418970600765,
+            -1.6139169958001094,
+            -0.4841750987400328
+          ],
+          "final_level_pct": -3.2278339916002188,
+          "worst_year_growth_pct": -1.6139169958001094
+        }
+      }
+    },
+    "vaalikausi": {
+      "label": "Vaalikaudessa, neljä vuotta",
+      "weights": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "paths": {
+        "low": {
+          "gdp_level_effect_eur": [
+            -776373409.4375,
+            -1885478280.0625,
+            -2994583150.6875,
+            -4103688021.3125,
+            -4436419482.5
+          ],
+          "gdp_level_effect_pct": [
+            -0.2756283538549884,
+            -0.6693831450764004,
+            -1.0631379362978124,
+            -1.4568927275192243,
+            -1.575019164885648
+          ],
+          "gdp_growth_effect_pct": [
+            -0.2756283538549884,
+            -0.393754791221412,
+            -0.393754791221412,
+            -0.393754791221412,
+            -0.1181264373664236
+          ],
+          "final_level_pct": -1.575019164885648,
+          "worst_year_growth_pct": -0.393754791221412
+        },
+        "mid": {
+          "gdp_level_effect_eur": [
+            -1146397419.125,
+            -2784108017.875,
+            -4421818616.625,
+            -6059529215.375,
+            -6550842395.0
+          ],
+          "gdp_level_effect_pct": [
+            -0.4069944045687568,
+            -0.9884149825241236,
+            -1.5698355604794905,
+            -2.1512561384348574,
+            -2.3256823118214673
+          ],
+          "gdp_growth_effect_pct": [
+            -0.4069944045687568,
+            -0.5814205779553668,
+            -0.5814205779553668,
+            -0.5814205779553668,
+            -0.17442617338661004
+          ],
+          "final_level_pct": -2.3256823118214673,
+          "worst_year_growth_pct": -0.5814205779553668
+        },
+        "high": {
+          "gdp_level_effect_eur": [
+            -1591094595.5625,
+            -3864086874.9375,
+            -6137079154.3125,
+            -8410071433.6875,
+            -9091969117.5
+          ],
+          "gdp_level_effect_pct": [
+            -0.5648709485300383,
+            -1.3718294464300929,
+            -2.1787879443301477,
+            -2.9857464422302025,
+            -3.2278339916002188
+          ],
+          "gdp_growth_effect_pct": [
+            -0.5648709485300383,
+            -0.8069584979000547,
+            -0.8069584979000547,
+            -0.8069584979000547,
+            -0.2420875493700164
+          ],
+          "final_level_pct": -3.2278339916002188,
+          "worst_year_growth_pct": -0.8069584979000547
+        }
+      }
+    },
+    "etupainotteinen_vaalikausi": {
+      "label": "Vaalikausi, etupainotteinen",
+      "weights": [
+        0.4,
+        0.3,
+        0.2,
+        0.1
+      ],
+      "paths": {
+        "low": {
+          "gdp_level_effect_eur": [
+            -1242197455.1,
+            -2706215884.325,
+            -3726592365.3,
+            -4303326898.025,
+            -4436419482.5
+          ],
+          "gdp_level_effect_pct": [
+            -0.44100536616798136,
+            -0.9607616905802452,
+            -1.3230160985039443,
+            -1.5277685899390783,
+            -1.575019164885648
+          ],
+          "gdp_growth_effect_pct": [
+            -0.44100536616798136,
+            -0.5197563244122638,
+            -0.3622544079236991,
+            -0.20475249143513402,
+            -0.047250574946569576
+          ],
+          "final_level_pct": -1.575019164885648,
+          "worst_year_growth_pct": -0.5197563244122638
+        },
+        "mid": {
+          "gdp_level_effect_eur": [
+            -1834235870.6,
+            -3996013860.95,
+            -5502707611.8,
+            -6354317123.15,
+            -6550842395.0
+          ],
+          "gdp_level_effect_pct": [
+            -0.6511910473100109,
+            -1.4186662102110952,
+            -1.9535731419300326,
+            -2.255911842466823,
+            -2.3256823118214673
+          ],
+          "gdp_growth_effect_pct": [
+            -0.6511910473100109,
+            -0.7674751629010842,
+            -0.5349069317189376,
+            -0.3023387005367905,
+            -0.06977046935464416
+          ],
+          "final_level_pct": -2.3256823118214673,
+          "worst_year_growth_pct": -0.7674751629010842
+        },
+        "high": {
+          "gdp_level_effect_eur": [
+            -2545751352.8999996,
+            -5546101161.675,
+            -7637254058.7,
+            -8819210043.975,
+            -9091969117.5
+          ],
+          "gdp_level_effect_pct": [
+            -0.9037935176480612,
+            -1.9689787348761334,
+            -2.711380552944184,
+            -3.130998971852212,
+            -3.2278339916002188
+          ],
+          "gdp_growth_effect_pct": [
+            -0.9037935176480612,
+            -1.0651852172280725,
+            -0.7424018180680502,
+            -0.41961841890802865,
+            -0.09683501974800643
+          ],
+          "final_level_pct": -3.2278339916002188,
+          "worst_year_growth_pct": -1.0651852172280725
+        }
+      }
+    }
+  },
+  "debt_paths": {
+    "kerralla": {
+      "baseline_pct": [
+        75.80380434230254,
+        77.27220451392765,
+        78.6538762650037,
+        79.95165615790071,
+        81.1683028615088,
+        82.3064991153184,
+        83.36885364642514,
+        84.35790304055064,
+        85.2761135681451,
+        86.12588296661416
+      ],
+      "alternative_pct": [
+        73.9945752034487,
+        73.06189349486735,
+        71.62930734790916,
+        70.22481112540112,
+        68.84785404451091,
+        67.49789612206953,
+        66.17440796281326,
+        64.8768705517777,
+        63.60477505076245,
+        62.35762259878671
+      ],
+      "difference_pp": [
+        -1.809229138853837,
+        -4.210311019060299,
+        -7.024568917094541,
+        -9.726845032499597,
+        -12.320448816997896,
+        -14.808602993248869,
+        -17.194445683611875,
+        -19.48103248877294,
+        -21.671338517382658,
+        -23.768260367827445
+      ]
+    },
+    "kaksi_vuotta": {
+      "baseline_pct": [
+        75.80380434230254,
+        77.27220451392765,
+        78.6538762650037,
+        79.95165615790071,
+        81.1683028615088,
+        82.3064991153184,
+        83.36885364642514,
+        84.35790304055064,
+        85.2761135681451,
+        86.12588296661416
+      ],
+      "alternative_pct": [
+        74.90661366387856,
+        74.30904404886225,
+        73.11220125729024,
+        71.67862868361786,
+        70.27316537609595,
+        68.89526017264309,
+        67.54437271827754,
+        66.21997325321327,
+        64.92154240511104,
+        63.64857098540298
+      ],
+      "difference_pp": [
+        -0.897190678423982,
+        -2.9631604650653998,
+        -5.541675007713465,
+        -8.273027474282856,
+        -10.89513748541286,
+        -13.411238942675311,
+        -15.824480928147594,
+        -18.13792978733737,
+        -20.354571163034066,
+        -22.477311981211173
+      ]
+    },
+    "vaalikausi": {
+      "baseline_pct": [
+        75.80380434230254,
+        77.27220451392765,
+        78.6538762650037,
+        79.95165615790071,
+        81.1683028615088,
+        82.3064991153184,
+        83.36885364642514,
+        84.35790304055064,
+        85.2761135681451,
+        86.12588296661416
+      ],
+      "alternative_pct": [
+        75.35704222211916,
+        75.80541463243708,
+        75.49378502418273,
+        74.45330556197469,
+        73.12378803926602,
+        71.68998827379022,
+        70.28430222920609,
+        68.9061786560844,
+        67.55507711380824,
+        66.23046775863553
+      ],
+      "difference_pp": [
+        -0.44676212018337935,
+        -1.4667898814905698,
+        -3.160091240820975,
+        -5.498350595926027,
+        -8.044514822242789,
+        -10.616510841528182,
+        -13.084551417219046,
+        -15.451724384466232,
+        -17.72103645433687,
+        -19.89541520797863
+      ]
+    },
+    "etupainotteinen_vaalikausi": {
+      "baseline_pct": [
+        75.80380434230254,
+        77.27220451392765,
+        78.6538762650037,
+        79.95165615790071,
+        81.1683028615088,
+        82.3064991153184,
+        83.36885364642514,
+        84.35790304055064,
+        85.2761135681451,
+        86.12588296661416
+      ],
+      "alternative_pct": [
+        75.08722794358295,
+        75.08721728979195,
+        74.31198929703442,
+        73.08024374861452,
+        71.69847670768098,
+        70.29262422321666,
+        68.91433747374181,
+        67.56307595464884,
+        66.23830975945964,
+        64.93951937201925
+      ],
+      "difference_pp": [
+        -0.7165763987195959,
+        -2.1849872241356962,
+        -4.3418869679692875,
+        -6.871412409286194,
+        -9.469826153827825,
+        -12.01387489210174,
+        -14.454516172683327,
+        -16.7948270859018,
+        -19.037803808685467,
+        -21.18636359459491
+      ]
+    }
+  },
+  "largest_cuts": [
+    {
+      "side": "meno",
+      "moment": "28.89.31.",
+      "name": "31. Hyvinvointialueiden yleiskatteinen valtionrahoitus (arviomääräraha)",
+      "proposal_eur": 27138863000.0,
+      "alternative_eur": 24498311000.0,
+      "change_eur": -2640552000.0,
+      "priority": "Liikkumavaraa",
+      "class": "kunnat_ja_hyvinvointialueet"
+    },
+    {
+      "side": "meno",
+      "moment": "28.90.30.",
+      "name": "30. Valtionosuus kunnille peruspalvelujen järjestämiseen (arviomääräraha)",
+      "proposal_eur": 3552300000.0,
+      "alternative_eur": 1827231600.0,
+      "change_eur": -1725068400.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "kunnat_ja_hyvinvointialueet"
+    },
+    {
+      "side": "meno",
+      "moment": "32.20.40.",
+      "name": "40. Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen (arviomääräraha)",
+      "proposal_eur": 669464000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -669464000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "elinkeinoelama"
+    },
+    {
+      "side": "meno",
+      "moment": "32.30.64.",
+      "name": "64. EU:n ja valtion rahoitusosuus EU:n alue- ja rakennepolitiikan ja muihin koheesiopolitiikan ohjelmiin (arviomääräraha)",
+      "proposal_eur": 583577000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -583577000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "rahastot_eu_ulkomaat"
+    },
+    {
+      "side": "meno",
+      "moment": "30.20.41.",
+      "name": "41. EU-tulotuki ja EU-markkinatuki (arviomääräraha)",
+      "proposal_eur": 526200000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -526200000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "elinkeinoelama"
+    },
+    {
+      "side": "meno",
+      "moment": "31.20.60.",
+      "name": "60. Siirto valtion televisio- ja radiorahastoon (kiinteä määräraha)",
+      "proposal_eur": 593652000.0,
+      "alternative_eur": 128000000.0,
+      "change_eur": -465652000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "rahastot_eu_ulkomaat"
+    },
+    {
+      "side": "meno",
+      "moment": "30.20.44.",
+      "name": "44. Luonnonhaittakorvaukset (siirtomääräraha 3&nbsp;v)",
+      "proposal_eur": 463815000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -463815000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "elinkeinoelama"
+    },
+    {
+      "side": "meno",
+      "moment": "24.30.66.",
+      "name": "66. Varsinainen kehitysyhteistyö (siirtomääräraha 3&nbsp;v)",
+      "proposal_eur": 456739000.0,
+      "alternative_eur": 55000000.0,
+      "change_eur": -401739000.0,
+      "priority": "Liikkumavaraa",
+      "class": "rahastot_eu_ulkomaat"
+    },
+    {
+      "side": "meno",
+      "moment": "30.20.40.",
+      "name": "40. Maa- ja puutarhatalouden kansallinen tuki (siirtomääräraha 2&nbsp;v)",
+      "proposal_eur": 350000000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -350000000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "elinkeinoelama"
+    },
+    {
+      "side": "meno",
+      "moment": "28.50.15.",
+      "name": "15. Eläkkeet (arviomääräraha)",
+      "proposal_eur": 5643490000.0,
+      "alternative_eur": 5313494000.0,
+      "change_eur": -329996000.0,
+      "priority": "Liikkumavaraa",
+      "class": "toimintamenot"
+    },
+    {
+      "side": "meno",
+      "moment": "32.20.41.",
+      "name": "41. Energiatuki (arviomääräraha)",
+      "proposal_eur": 276713000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -276713000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "elinkeinoelama"
+    },
+    {
+      "side": "meno",
+      "moment": "33.90.50.",
+      "name": "50. Avustukset yhdistyksille ja säätiöille terveyden ja sosiaalisen hyvinvoinnin edistämiseen (arviomääräraha)",
+      "proposal_eur": 268588000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -268588000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "kotitaloudet"
+    },
+    {
+      "side": "meno",
+      "moment": "30.20.43.",
+      "name": "43. Ympäristökorvaukset, luonnonmukainen tuotanto, neuvonta ja ei-tuotannolliset investoinnit (siirtomääräraha 3&nbsp;v)",
+      "proposal_eur": 265016000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -265016000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "elinkeinoelama"
+    },
+    {
+      "side": "meno",
+      "moment": "29.70.52.",
+      "name": "52. Opintolainojen valtiontakaus (arviomääräraha)",
+      "proposal_eur": 250300000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -250300000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "kotitaloudet"
+    },
+    {
+      "side": "meno",
+      "moment": "33.20.50.",
+      "name": "50. Valtionosuus työttömyysetuuksien ansioturvasta ja vuorottelukorvauksesta (arviomääräraha)",
+      "proposal_eur": 597000000.0,
+      "alternative_eur": 358200000.0,
+      "change_eur": -238800000.0,
+      "priority": "Liikkumavaraa",
+      "class": "kotitaloudet"
+    }
+  ],
+  "largest_revenue_changes": [
+    {
+      "side": "tulo",
+      "moment": "15.03.01.",
+      "name": "01. Nettolainanotto ja velanhallinta",
+      "proposal_eur": 8659220000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -8659220000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "lainanotto"
+    },
+    {
+      "side": "tulo",
+      "moment": "11.01.01.",
+      "name": "01. Ansio- ja pääomatuloverot",
+      "proposal_eur": 26480000000.0,
+      "alternative_eur": 20535749650.0,
+      "change_eur": -5944250350.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "tyon_verotus"
+    },
+    {
+      "side": "tulo",
+      "moment": "11.04.01.",
+      "name": "01. Arvonlisävero",
+      "proposal_eur": 23736000000.0,
+      "alternative_eur": 27821500000.0,
+      "change_eur": 4085500000.0,
+      "priority": "Tärkeä / Tehokas",
+      "class": "kulutusverot"
+    },
+    {
+      "side": "tulo",
+      "moment": "11.08.07.",
+      "name": "07. Energiaverot",
+      "proposal_eur": 3780000000.0,
+      "alternative_eur": 5639000000.0,
+      "change_eur": 1859000000.0,
+      "priority": "Tärkeä / Tehokas",
+      "class": "kulutusverot"
+    },
+    {
+      "side": "tulo",
+      "moment": "11.01.04.",
+      "name": "04. Perintö- ja lahjavero",
+      "proposal_eur": 1034000000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -1034000000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "varallisuusverot"
+    },
+    {
+      "side": "tulo",
+      "moment": "11.10.07.",
+      "name": "07. Ajoneuvovero",
+      "proposal_eur": 1016000000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -1016000000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "kulutusverot"
+    },
+    {
+      "side": "tulo",
+      "moment": "11.10.05.",
+      "name": "05. Varainsiirtovero",
+      "proposal_eur": 671000000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -671000000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "varallisuusverot"
+    },
+    {
+      "side": "tulo",
+      "moment": "11.19.01.",
+      "name": "01. Veikkaus Oy:n yksinoikeustoimiluvan korvaus",
+      "proposal_eur": 620000000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -620000000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "muut_tulot"
+    },
+    {
+      "side": "tulo",
+      "moment": "13.03.01.",
+      "name": "01. Osinkotulot, pääomanpalautukset ja osakkeiden myyntitulot",
+      "proposal_eur": 2260000000.0,
+      "alternative_eur": 2874000000.0,
+      "change_eur": 614000000.0,
+      "priority": "Liikkumavaraa",
+      "class": "muut_tulot"
+    },
+    {
+      "side": "tulo",
+      "moment": "12.39.20.",
+      "name": "20. Elpymis- ja palautumistukivälineen tulot",
+      "proposal_eur": 830000000.0,
+      "alternative_eur": 217460000.0,
+      "change_eur": -612540000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "muut_tulot"
+    },
+    {
+      "side": "tulo",
+      "moment": "11.08.lib.",
+      "name": "lib. Päästökaupan tulot",
+      "proposal_eur": null,
+      "alternative_eur": 503000000.0,
+      "change_eur": 503000000.0,
+      "priority": "Tärkeä / Tehokas",
+      "class": "muut_tulot"
+    },
+    {
+      "side": "tulo",
+      "moment": "12.32.21.",
+      "name": "21. Päästöoikeuksien huutokauppatulot",
+      "proposal_eur": 503000000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -503000000.0,
+      "priority": "Siirto",
+      "class": "muut_tulot"
+    },
+    {
+      "side": "tulo",
+      "moment": "12.30.02.",
+      "name": "02. Maaseudun kehittämiseen saatavat tulot EU:lta",
+      "proposal_eur": 460000000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -460000000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "muut_tulot"
+    },
+    {
+      "side": "tulo",
+      "moment": "11.10.06.",
+      "name": "06. Arpajaisvero",
+      "proposal_eur": 144000000.0,
+      "alternative_eur": 454000000.0,
+      "change_eur": 310000000.0,
+      "priority": "Tärkeä / Tehokas",
+      "class": "kulutusverot"
+    },
+    {
+      "side": "tulo",
+      "moment": "12.32.50.",
+      "name": "50. EU:n alue- ja rakennepolitiikan ja muista koheesiopolitiikan rahastoista saatavat tulot",
+      "proposal_eur": 290000000.0,
+      "alternative_eur": 0.0,
+      "change_eur": -290000000.0,
+      "priority": "Leikataan / Tehoton",
+      "class": "muut_tulot"
+    }
+  ]
+}

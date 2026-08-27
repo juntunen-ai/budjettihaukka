@@ -1,0 +1,304 @@
+{
+  "meta": {
+    "dataset_id": "policy_growth_ledger_v1",
+    "schema_version": "1.0.0",
+    "reviewed_at": "2026-08-25",
+    "language": "fi",
+    "scope": "Suomen valtion politiikkatoimet ja ylläpidetyt politiikkarakenteet, jotka ovat voineet heikentää tuottavuuden, työpanoksen tai voimavarojen kohdentumisen kehitystä vuoden 2008 jälkeen.",
+    "outcome_contract": {
+      "metric_id": "real_gdp_per_hour_worked",
+      "label_fi": "Työn tuottavuus, reaalinen BKT tehtyä työtuntia kohti",
+      "base_year": 2008,
+      "end_year": 2025,
+      "observed_source_dataset": "productivity_counterfactual_v1",
+      "trend_is_causal_potential": false,
+      "trend_interpretation_fi": "Vuosien 1995–2008 toteutuneen tuottavuuskasvun mekaaninen jatke, ei virallinen potentiaalisen tuotannon arvio."
+    },
+    "evidence_grades": {
+      "A": "Vahva mekanismi ja Suomea koskevaa määrällistä tai politiikkakohtaista näyttöä.",
+      "B": "Mekanismi ja Suomen ongelma on dokumentoitu, mutta päätöksen kokonaisvaikutusta ei ole kausaalisesti erotettu.",
+      "C": "Uskottava mekanismi, mutta Suomen politiikkatoimen määrällinen näyttö on vielä puutteellinen."
+    },
+    "aggregation_policy": {
+      "do_not_sum_policy_estimates": true,
+      "do_not_allocate_total_gap": true,
+      "reason_fi": "Vaikutuskanavat ovat päällekkäisiä, arviot käyttävät eri tulosmittareita ja suuri osa vuoden 2008 jälkeisestä muutoksesta johtuu politiikan ulkopuolisista häiriöistä."
+    },
+    "budget_evidence_contract": {
+      "dataset_id": "policy_budget_evidence_v1",
+      "metric_id": "expense_net_accumulation_actual",
+      "baseline_year": 2011,
+      "comparison_year": 2016,
+      "real_price_base_year": 2025,
+      "interpretation_fi": "Momenttikohtainen toteuman lasku täydentää politiikkaväitteen evidenssiä, mutta sitä ei tulkita yksin kausaaliseksi kasvuvaikutukseksi."
+    },
+    "excluded_from_policy_attribution": [
+      "Nokian ja elektroniikkateollisuuden rakennemuutos",
+      "paperiteollisuuden globaali kysyntä- ja rakennemuutos",
+      "kansainvälinen finanssi- ja eurokriisi",
+      "väestön ikääntyminen ja työikäisen väestön muutos",
+      "Venäjän-kaupan supistuminen ja geopoliittiset sokit",
+      "koronapandemia ja energiakriisi"
+    ]
+  },
+  "policies": [
+    {
+      "policy_id": "rd_funding_cuts_2011_2016",
+      "priority": 1,
+      "title_fi": "T&K-rahoituksen leikkaukset",
+      "period_label_fi": "2011–2016",
+      "policy_form": "budjettipäätösten sarja",
+      "evidence_grade": "A",
+      "channels": ["tuottavuus", "innovaatiot", "yritysten investoinnit"],
+      "decision_fi": "Valtion tutkimus- ja kehittämisrahoitusta supistettiin reaalisesti useana peräkkäisenä vuonna. Vuonna 2016 reaalinen vuosimuutos oli −7,9 prosenttia.",
+      "observed_evidence_fi": "Valtion T&K-rahoitus oli 2 065,3 milj. euroa vuonna 2010 ja 1 836,4 milj. euroa vuonna 2016. Koko kansantalouden T&K-menojen BKT-osuus laski vuoden 2009 noin 3,75 prosentista vuoden 2016 noin 2,75 prosenttiin.",
+      "mechanism_fi": "Julkinen tutkimusrahoitus ja yritysten T&K-tuet kasvattavat osaamista, innovaatioita ja tiedon leviämistä. Leikkaukset heikensivät sopeutumiskykyä samaan aikaan, kun elektroniikkateollisuuden tutkimusmenot romahtivat.",
+      "counterfactual_fi": "Valtion T&K-rahoituksen reaaliarvo olisi vähintään vakautettu vuoden 2010 tasolle ja tuki olisi kohdistettu uuden teknologian kehittämiseen sekä yritysten ja korkeakoulujen yhteistyöhön.",
+      "claim_boundary_fi": "Valtion päätöksillä voidaan selittää vain osa T&K-menojen laskusta. Suurin yksittäinen pudotus tuli yrityksistä ja erityisesti elektroniikkateollisuudesta.",
+      "overlap_groups": ["osaaminen_ja_innovaatiot", "finanssipolitiikan_rakenne"],
+      "budget_grounding": {
+        "status": "concept_level_ready",
+        "concept_ids": ["tutkimus_ja_kehittaminen", "yritysten_tk_tuet", "korkeakoulututkimus"]
+      },
+      "quantitative_evidence": [
+        {
+          "metric_id": "government_rd_funding_eur_million",
+          "start_year": 2010,
+          "start_value": 2065.3,
+          "end_year": 2016,
+          "end_value": 1836.4,
+          "unit": "milj. euroa, käyvin hinnoin",
+          "estimate_type": "havaittu budjettisarja",
+          "comparable_to_productivity_gap": false
+        },
+        {
+          "metric_id": "rd_share_of_gdp_pct",
+          "start_year": 2009,
+          "start_value": 3.75,
+          "end_year": 2016,
+          "end_value": 2.75,
+          "unit": "% BKT:stä",
+          "estimate_type": "havaittu kansantalouden sarja",
+          "comparable_to_productivity_gap": false
+        }
+      ],
+      "sources": [
+        {
+          "source_id": "statfin_government_rd_2019",
+          "publisher": "Tilastokeskus",
+          "title": "Valtion T&K-rahoituksen kehitys 2010–2019",
+          "url": "https://stat.fi/til/tkker/2019/tkker_2019_2019-02-21_tau_001_en.html",
+          "supports": ["decision", "quantitative_evidence"]
+        },
+        {
+          "source_id": "statfin_rd_2016",
+          "publisher": "Tilastokeskus",
+          "title": "Tutkimus- ja kehittämistoiminta 2016",
+          "url": "https://stat.fi/til/tkke/2016/tkke_2016_2017-10-26_kat_001_en.html",
+          "supports": ["observed_evidence", "claim_boundary"]
+        },
+        {
+          "source_id": "epc_2017",
+          "publisher": "Talouspolitiikan arviointineuvosto",
+          "title": "Economic Policy Council Report 2017",
+          "url": "https://talouspolitiikanarviointineuvosto.fi/wp-content/uploads/2018/01/Report2017.pdf",
+          "supports": ["mechanism", "policy_assessment"]
+        }
+      ]
+    },
+    {
+      "policy_id": "higher_education_capacity_2000_2025",
+      "priority": 2,
+      "title_fi": "Korkeakoulutuksen kapasiteetin pysähtyminen",
+      "period_label_fi": "2000–2025",
+      "policy_form": "pitkäaikainen rahoitus- ja aloituspaikkapolitiikka",
+      "evidence_grade": "A",
+      "channels": ["osaaminen", "tuottavuus", "T&K-henkilöstö", "yritysten skaalaus"],
+      "decision_fi": "Korkeakoulutuksen aloituspaikkoja ja tutkintotuotantoa ei kasvatettu vertailumaiden tahdissa. Vuosien 2015–2019 sopeutuksessa leikattiin lisäksi korkeakoulu- ja tutkimusrahoitusta.",
+      "observed_evidence_fi": "Suomen korkeakoulutettujen osuuden kansainvälinen sijoitus putosi OECD-maiden kärjestä sijalle 30 vuosina 2000–2023. Nuoret ikäluokat eivät enää ole vanhempia ikäluokkia korkeammin koulutettuja.",
+      "mechanism_fi": "Korkeakoulutettujen niukkuus rajoittaa tutkimusta, teknologian käyttöönottoa ja nopeasti kasvavien yritysten mahdollisuutta palkata osaajia.",
+      "counterfactual_fi": "Aloituspaikkoja olisi lisätty aikaisemmin erityisesti korkean kysynnän aloille ja lisäpaikat olisi rahoitettu tutkintojen laatua heikentämättä.",
+      "claim_boundary_fi": "Koulutuksen kasvuvaikutus syntyy pitkällä viiveellä. OECD:n mukaan merkittävämpi vaikutus näkyy vasta, kun koulutettujen osuus työvoimasta ehtii kasvaa.",
+      "overlap_groups": ["osaaminen_ja_innovaatiot", "tyovoiman_saatavuus"],
+      "budget_grounding": {
+        "status": "concept_level_ready",
+        "concept_ids": ["yliopistot", "ammattikorkeakoulut", "korkeakoulutus"]
+      },
+      "quantitative_evidence": [],
+      "sources": [
+        {
+          "source_id": "oecd_finland_2025_education",
+          "publisher": "OECD",
+          "title": "OECD Economic Surveys: Finland 2025",
+          "url": "https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-finland-2025_121193f2/full-report/executive-summary_077e1b4e.html",
+          "supports": ["observed_evidence", "mechanism", "claim_boundary"]
+        },
+        {
+          "source_id": "epc_2017",
+          "publisher": "Talouspolitiikan arviointineuvosto",
+          "title": "Economic Policy Council Report 2017",
+          "url": "https://talouspolitiikanarviointineuvosto.fi/wp-content/uploads/2018/01/Report2017.pdf",
+          "supports": ["decision", "policy_assessment"]
+        }
+      ]
+    },
+    {
+      "policy_id": "labour_tax_wedge_and_benefit_traps",
+      "priority": 3,
+      "title_fi": "Työn korkea verokiila ja etuusloukut",
+      "period_label_fi": "2008–2025",
+      "policy_form": "ylläpidetty vero- ja etuusrakenne",
+      "evidence_grade": "A",
+      "channels": ["työpanos", "työllisyys", "kouluttautumisen tuotto", "osaajien liikkuvuus"],
+      "decision_fi": "Työn verotus säilyi kansainvälisesti korkeana, ja asumistuen, työttömyysturvan, toimeentulotuen, päivähoitomaksujen sekä verotuksen yhteisvaikutus loi korkeita efektiivisiä marginaaliveroja.",
+      "observed_evidence_fi": "OECD:n vuoden 2018 mallissa verokiilan laskeminen Ruotsin tasolle nostaisi BKT:tä asukasta kohti 1,8 prosenttia ja OECD-keskiarvoon laskeminen yli 2,5 prosenttia kymmenessä vuodessa, kun julkisen talouden tasapaino pidetään muuttumattomana.",
+      "mechanism_fi": "Korkea verokiila pienentää työn tarjontaa ja nostaa palkkaamisen kustannusta. Etuuksien yhteensovitus voi tehdä työn vastaanottamisesta tai tuntien lisäämisestä taloudellisesti heikosti kannattavaa.",
+      "counterfactual_fi": "Verotuksen painopistettä olisi siirretty työstä vähemmän kasvua haittaaviin veropohjiin ja etuuksien vähentymissäännöt olisi sovitettu yhteen.",
+      "claim_boundary_fi": "OECD-luku on rakennemallin skenaario BKT:lle asukasta kohti, ei havaittu kausaalivaikutus eikä suoraan vertailukelpoinen BKT per työtunti -indeksin kanssa.",
+      "overlap_groups": ["tyovoiman_tarjonta", "verotus_ja_etuudet"],
+      "budget_grounding": {
+        "status": "requires_tax_benefit_parameter_history",
+        "concept_ids": ["ansiotuloverotus", "asumistuki", "tyottomyysturva", "toimeentulotuki"]
+      },
+      "quantitative_evidence": [
+        {
+          "metric_id": "gdp_per_capita_lift_vs_sweden_tax_wedge_10y_pct",
+          "value": 1.8,
+          "horizon_years": 10,
+          "unit": "%",
+          "estimate_type": "OECD:n rakennemallin skenaario",
+          "budget_neutral": true,
+          "comparable_to_productivity_gap": false
+        },
+        {
+          "metric_id": "gdp_per_capita_lift_vs_oecd_tax_wedge_10y_pct",
+          "value": 2.5,
+          "value_qualifier": "yli",
+          "horizon_years": 10,
+          "unit": "%",
+          "estimate_type": "OECD:n rakennemallin skenaario",
+          "budget_neutral": true,
+          "comparable_to_productivity_gap": false
+        }
+      ],
+      "sources": [
+        {
+          "source_id": "oecd_finland_2018_tax_wedge",
+          "publisher": "OECD",
+          "title": "OECD Economic Surveys: Finland 2018",
+          "url": "https://www.oecd.org/en/publications/oecd-economic-surveys-finland-2018_eco_surveys-fin-2018-en/full-report/component-3.html",
+          "supports": ["decision", "observed_evidence", "mechanism", "quantitative_evidence"]
+        }
+      ]
+    },
+    {
+      "policy_id": "delayed_labour_reallocation_reforms",
+      "priority": 4,
+      "title_fi": "Työmarkkinoiden hidas yrityskohtainen sopeutuminen",
+      "period_label_fi": "2008–2023",
+      "policy_form": "sääntelyn ylläpito ja uudistusten viivästyminen",
+      "evidence_grade": "B",
+      "channels": ["voimavarojen kohdentuminen", "yritysten kasvu", "investoinnit", "työllisyys"],
+      "decision_fi": "Yrityskohtaisten työehtojoustojen käyttö oli pitkään rajatumpaa järjestäytymättömissä yrityksissä, ja uudistus jäi ennen pandemiaa toteuttamatta.",
+      "observed_evidence_fi": "OECD:n mukaan osa työmarkkinasääntelystä ja yleissitovien sopimusten rajallinen yrityskohtainen jousto haittasi työvoiman kohdentumista ja saattoi vähentää tuottavien yritysten halua kasvaa.",
+      "mechanism_fi": "Jos palkat ja työehdot eivät jousta yrityksen tuottavuuden tai tilanteen mukaan, kasvavat yritykset palkkaavat vähemmän ja työvoima siirtyy hitaammin tuottavampiin tehtäviin.",
+      "counterfactual_fi": "Yrityskohtaisia joustoja olisi laajennettu aikaisemmin samalla kun työntekijöiden vähimmäissuoja ja edustuksen ehdot olisi määritelty selkeästi.",
+      "claim_boundary_fi": "OECD dokumentoi mekanismin ja Suomen institutionaalisen esteen, mutta koko kansantalouden toteutunutta kasvuvaikutusta ei ole eristetty yhdestä uudistuksesta.",
+      "overlap_groups": ["voimavarojen_kohdentuminen", "tyovoiman_tarjonta"],
+      "budget_grounding": {
+        "status": "non_budget_policy",
+        "concept_ids": []
+      },
+      "quantitative_evidence": [],
+      "sources": [
+        {
+          "source_id": "oecd_finland_2022_reallocation",
+          "publisher": "OECD",
+          "title": "OECD Economic Surveys: Finland 2022",
+          "url": "https://www.oecd.org/en/publications/oecd-economic-surveys-finland-2022_516252a7-en/full-report/component-5.html",
+          "supports": ["decision", "observed_evidence", "mechanism", "claim_boundary"]
+        }
+      ]
+    },
+    {
+      "policy_id": "consolidation_composition_2011_2016",
+      "priority": 5,
+      "title_fi": "Sopeutuksen ajoitus ja kasvua heikentävä rakenne",
+      "period_label_fi": "2011–2016",
+      "policy_form": "finanssipolitiikan päätöskokonaisuus",
+      "evidence_grade": "B",
+      "channels": ["kokonaiskysyntä", "julkiset investoinnit", "osaaminen", "T&K"],
+      "decision_fi": "Julkista taloutta sopeutettiin pitkän taantuman aikana, ja osa säästöistä kohdistui tutkimukseen, koulutukseen ja muihin tulevaa tuotantokykyä tukeviin menoihin.",
+      "observed_evidence_fi": "Suomen Pankin vuoden 2015 skenaariossa sopeutus ilman samanaikaista kustannuskilpailukyvyn paranemista hidasti kasvua keskimäärin. Kasvuvaikutus riippui ratkaisevasti toimenpiteiden rakenteesta.",
+      "mechanism_fi": "Heikon kysynnän aikana veronkorotukset ja menoleikkaukset voivat syventää suhdannekuoppaa. Tuottaviin menoihin kohdistuvat leikkaukset voivat lisäksi alentaa pitkän aikavälin tuotantokykyä.",
+      "counterfactual_fi": "Sopeutus olisi ajoitettu vahvempaan suhdanteeseen ja painotettu kulurakenteisiin, jotka eivät vähennä T&K:ta, koulutusta tai tuottavia investointeja.",
+      "claim_boundary_fi": "Finanssipolitiikka vaikuttaa erityisesti kasvun ajoitukseen. Sen vaikutusta pitkän aikavälin tuottavuustasoon ei saa lisätä erikseen T&K- ja koulutusvaikutuksiin, koska samat päätökset ovat osin päällekkäisiä.",
+      "overlap_groups": ["finanssipolitiikan_rakenne", "osaaminen_ja_innovaatiot"],
+      "budget_grounding": {
+        "status": "requires_fiscal_stance_series",
+        "concept_ids": ["tutkimus_ja_kehittaminen", "korkeakoulutus", "julkiset_investoinnit"]
+      },
+      "quantitative_evidence": [],
+      "sources": [
+        {
+          "source_id": "bof_2015_consolidation",
+          "publisher": "Suomen Pankki",
+          "title": "Consolidation measures strengthen public finances",
+          "url": "https://www.bofbulletin.fi/article/forecast/2015/consolidation-measures-strengthen-public-finances/",
+          "supports": ["observed_evidence", "mechanism", "claim_boundary"]
+        },
+        {
+          "source_id": "epc_2017",
+          "publisher": "Talouspolitiikan arviointineuvosto",
+          "title": "Economic Policy Council Report 2017",
+          "url": "https://talouspolitiikanarviointineuvosto.fi/wp-content/uploads/2018/01/Report2017.pdf",
+          "supports": ["decision", "policy_assessment"]
+        }
+      ]
+    },
+    {
+      "policy_id": "incumbent_preserving_state_aid",
+      "priority": 6,
+      "title_fi": "Vakiintuneita rakenteita säilyttävät yritystuet",
+      "period_label_fi": "2008–2025",
+      "policy_form": "toistuvat tuki- ja verotukipäätökset",
+      "evidence_grade": "B",
+      "channels": ["voimavarojen kohdentuminen", "kilpailu", "yritysten uudistuminen", "julkisen rahan vaihtoehtoiskustannus"],
+      "decision_fi": "Yritystukia ja verotukia jatkettiin ilman järjestelmällistä vaatimusta osoittaa niiden tuottavuus-, innovaatio- tai kilpailuvaikutus.",
+      "observed_evidence_fi": "OECD:n mukaan yritystuet ovat tukeneet suurelta osin vakiintuneita toimialoja ja yritysrakenteita. Vuoden 2025 arviossa suora valtiontuki yrityksille oli noin 1,6 mrd. euroa.",
+      "mechanism_fi": "Säilyttävä tuki voi hidastaa heikosti tuottavien toimintojen poistumista, vääristää kilpailua ja sitoa julkista rahoitusta pois tutkimuksesta, osaamisesta tai neutraalimmasta verotuksesta.",
+      "counterfactual_fi": "Tuet olisi arvioitu määräajoin ja säilytetty vain, jos markkinapuute, lisäisyys ja tuottavuusvaikutus voidaan osoittaa.",
+      "claim_boundary_fi": "Kaikki yritystuet eivät ole kasvulle haitallisia. OECD:n 0,4 prosenttia BKT:stä koskeva luku on arvio mahdollisesta julkisen talouden säästöstä, ei tuottavuusvaikutuksesta.",
+      "overlap_groups": ["voimavarojen_kohdentuminen", "finanssipolitiikan_rakenne"],
+      "budget_grounding": {
+        "status": "concept_level_ready",
+        "concept_ids": ["yritystuet", "energiaverotuet", "teollisuuden_tuet"]
+      },
+      "quantitative_evidence": [
+        {
+          "metric_id": "non_productivity_state_aid_fiscal_saving_pct_gdp",
+          "value": 0.4,
+          "unit": "% BKT:stä",
+          "estimate_type": "OECD:n havainnollinen julkisen talouden säästöarvio",
+          "comparable_to_productivity_gap": false
+        }
+      ],
+      "sources": [
+        {
+          "source_id": "oecd_finland_2018_subsidies",
+          "publisher": "OECD",
+          "title": "OECD Economic Surveys: Finland 2018",
+          "url": "https://www.oecd.org/en/publications/oecd-economic-surveys-finland-2018_eco_surveys-fin-2018-en/full-report/component-3.html",
+          "supports": ["observed_evidence", "mechanism"]
+        },
+        {
+          "source_id": "oecd_finland_2025_state_aid",
+          "publisher": "OECD",
+          "title": "OECD Economic Surveys: Finland 2025",
+          "url": "https://www.oecd.org/en/publications/oecd-economic-surveys-finland-2025_985d0555-en/full-report/firming-up-growth-and-consolidating-public-finances_75d0a1c7.html",
+          "supports": ["quantitative_evidence", "claim_boundary"]
+        }
+      ]
+    }
+  ]
+}

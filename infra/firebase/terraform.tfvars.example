@@ -1,0 +1,7 @@
+project_id       = "valtion-budjetti-data"
+data_project_id  = "budjettihaukka-gpt"
+data_dataset_id  = "valtiodata"
+region           = "europe-west1"
+hosting_site_id  = "valtion-budjetti-data"
+api_service_name = "budjettihaukka-api"
+max_instances    = 2

@@ -1,9 +1,11 @@
 # Budjettihaukka – Tekoälypohjainen talouspoliittisen tiedon analysointisovellus
 
-**Nykyinen julkaisu: v2.0.0 (18.8.2026).** Julkaisun sisältö ja tunnetut
+**Nykyinen julkaisu: v2.2.0 (27.8.2026).** Julkaisun sisältö ja tunnetut
 operatiiviset rajoitteet on koottu tiedostoon [CHANGELOG.md](./CHANGELOG.md).
 
-Budjettihaukka on avoimen lähdekoodin web-sovellus, jonka tarkoituksena on tuoda **talouspolitiikkaan liittyvä tieto** helposti saataville, analysoitavaksi ja visualisoitavaksi. Sovelluksen käyttäjä voi esittää kysymyksiä **luonnollisella kielellä**, ja tekoälyn avulla saa kansantaloudelliseen optimaalisuuteen ja empiiriseen taloustutkimukseen perustubia analyyseja. Tulokset voidaan näyttää taulukkoina, dynaamisina visualisointeina sekä analyyttisinä raportteina.
+Tuotantopalvelu: [valtion-budjetti-data.web.app](https://valtion-budjetti-data.web.app)
+
+Budjettihaukka on avoimen lähdekoodin web-sovellus, jonka tarkoituksena on tuoda **talouspolitiikkaan liittyvä tieto** helposti saataville, analysoitavaksi ja visualisoitavaksi. Sovelluksen käyttäjä voi esittää kysymyksiä **luonnollisella kielellä**. Palvelu maadoittaa kysymyksen hallittuun käsite- ja analytiikkakerrokseen ennen BigQuery-hakua ja näyttää tuloksen taulukkona, visualisointina sekä selityksenä.
 
 Projektin pitkän aikavälin tavoite on tukea kansalaisia, tutkijoita ja toimittajia tarjoamalla **tietopohjainen, helppokäyttöinen työkalu poliittisten ja taloudellisten päätösten arviointiin**.
 
@@ -12,14 +14,15 @@ Projektin pitkän aikavälin tavoite on tukea kansalaisia, tutkijoita ja toimitt
 ## 🔍 Tärkeimmät ominaisuudet
 
 - 💬 Luonnollisen kielen kyselyt (esim. "Paljonko koulutukseen budjetoitiin vuonna 2023?")
-- 🔁 Contract-first NL→QueryPlan→SQL -ketju (deterministinen SQL ilman vapaata LLM-SQL:ää)
+- 🔁 AI-native analytiikkaputki: `AnalysisSpec → ResolvedAnalysisSpec → AnalyticsFrame`
+- 🧩 Ontologia- ja concept bridge -pohjainen käsiterajaus ilman vapaata text-to-SQL:ää
 - 🛡️ SQL-turvaportti ennen BigQuery-ajoa (`SELECT/WITH`, taulu-whitelist, aikarajaus, LIMIT-katto, `sqlglot`-lint)
-- 🔧 Auto-repair-loop BigQuery-virheille (1-2 korjausyritystä + deterministinen fallback-contract)
 - 🧭 Contract-pohjainen visualisointi vakioskeemalla (`time`, `entity`, `metric`, `delta`, `pct`)
 - ❓ Pakollinen tarkennus matalalla luottamuksella ennen ajoa
-- 📈 Observability + SLO-seuranta (`query_success`, `chart_render_success`, `clarification_rate`)
-- 📊 Dynaamiset visualisoinnit Streamlit-käyttöliittymässä
-- 📚 Datan lähteenä mm. `www.tutkihallintoa.fi`, BigQuery (tässä vaiheessa. Tarkoitus on lisätä **luotettavaa** dataa ajan myötä)
+- ✅ Vastausten varmennus ja näkyvät tilat: `trusted`, `trusted_with_warning`, `needs_clarification`, `unsupported`
+- 📊 React/ECharts-käyttöliittymä Firebase Hostingissa ja FastAPI Cloud Runissa
+- 🗂️ Firestore-kysymyskirjasto palvelun laadun kehittämistä varten; admin-luku vaatii salaisen avaimen
+- 📚 Datan lähteenä Valtiokonttorin ja VM:n aineistot, BigQueryn semanttinen kerros sekä dokumentoidut viralliset rikastukset
 
 ---
 
@@ -37,12 +40,15 @@ Tulevissa vaiheissa:
 
 ## 🛠️ Teknologiat
 
-- Python 3.12+ (Streamlit, FastAPI, pandas, sqlglot)
+- Python 3.12+ (FastAPI, pandas, sqlglot; Streamlit säilyy paikallisena legacy-käyttöliittymänä)
+- React, TypeScript, Vite ja Apache ECharts 6
 - Google Cloud Platform
-  - BigQuery (**sandbox/free tier** — rajoitukset ja niiden huomiointi
-    dokumentoitu arkkitehtuurikuvauksessa)
+  - Firebase Hosting
+  - Cloud Run ja Artifact Registry
+  - Firestore ja Secret Manager
+  - BigQuery
   - Vertex AI / AI Studio (Gemini; valinnainen QueryPlan-tuki)
-- Docker (Cloud Run -käyttöönotto, tulossa)
+- Docker ja Terraform-pohjainen tuotantokäyttöönotto
 
 📐 **Arkkitehtuuri ja GCP-asetukset:**
 [docs/architecture/system_overview.md](./docs/architecture/system_overview.md)
@@ -56,6 +62,7 @@ autentikointi ja tunnetut operatiiviset erikoisuudet.
 Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 
 - `BUDJETTIHAUKKA_PROJECT_ID` (oletus ja aktiivinen data-projekti: `budjettihaukka-gpt`)
+- `BUDJETTIHAUKKA_RUNTIME_PROJECT_ID` (ajoympäristön projekti; tuotannossa `valtion-budjetti-data`)
 - `BUDJETTIHAUKKA_LOCATION` (Vertex AI -sijainti; oletus: `us-central1`. Huom: BigQuery-datasetin sijainti on `europe-west1`)
 - `BUDJETTIHAUKKA_DATA_SOURCE` (`bigquery` tai `google_sheets`; oletus: `bigquery`)
 - `BUDJETTIHAUKKA_DATASET` (oletus: `valtiodata`)
@@ -70,6 +77,10 @@ Sovellus lukee asetukset ensisijaisesti ympäristömuuttujista:
 - `BUDJETTIHAUKKA_BQ_AUTO_REPAIR_ATTEMPTS` (kuinka monta SQL-korjausyritystä tehdään virheen jälkeen; oletus: `2`)
 - `BUDJETTIHAUKKA_CLARIFICATION_REQUIRED_CONFIDENCE` (luottamusraja pakolliselle tarkennukselle; oletus: `0.75`)
 - `BUDJETTIHAUKKA_OBSERVABILITY_LOG_PATH` (jsonl-loki kyselymetriikoille; oletus: `agent_data/query_observability.jsonl`)
+- `BUDJETTIHAUKKA_QUESTION_LIBRARY_BACKEND` (`auto`, `firestore` tai paikallinen JSONL)
+- `BUDJETTIHAUKKA_FIRESTORE_DATABASE` (tuotannossa `(default)`)
+- `BUDJETTIHAUKKA_FIRESTORE_QUESTION_COLLECTION` (oletus `question_library`)
+- `BUDJETTIHAUKKA_ADMIN_KEY` (Secret Managerista annettava admin-API:n avain)
 - `BUDJETTIHAUKKA_FREE_QUERIES_PER_SESSION` (ilmaiskäyttäjän kyselyraja / sessio; oletus: `25`)
 - `BUDJETTIHAUKKA_SHOW_ADS` (`true`/`false`, näytetäänkö mainospaikat UI:ssa)
 - `BUDJETTIHAUKKA_ADSENSE_CLIENT_ID` (Google AdSense client id, esim. `ca-pub-...`)
@@ -92,9 +103,19 @@ export GEMINI_API_KEY="your-gemini-api-key"
 
 ## 🚧 Nykytila
 
-Prototyyppi on toimiva, mutta ei vielä luotettava kaikissa kyselyissä. Kehitys on käynnissä AI-agenttirakenteen suuntaan. Projektia rakentaa kehittäjä, jolla on rajoitettu kokemus koodaamisesta ja pilvipalveluista, mutta vahva ymmärrys ongelmakentästä ja tekoälyn soveltamisesta.
+Versio 2.2.0 on ensimmäinen Firebaseen julkaistu tuotantoversio. Ydinkyselyt kulkevat semanttisen resolverin, rajattujen analyysifunktioiden ja vastausten varmennusportin kautta. Palvelu voi silti pyytää tarkennusta tai kieltäytyä vastaamasta, jos käsitteen havaittavuus tai historiallinen jatkuvuus ei riitä luotettavaan tulokseen.
 
-Koodia rakennetaan tekoälyapureiden (esim. ChatGPT) tuella vaihe vaiheelta — tavoite on **helppokäyttöinen ja läpinäkyvä järjestelmä**, jonka rakentaminen on dokumentoitu oppimisprosessina.
+Politiikkaskenaariot ja kontrafaktuaalit ovat ehdollisia mallilaskelmia, eivät havaittuja syy-seurausvaikutuksia. Niiden oletukset, lähteet ja epävarmuudet on pidettävä näkyvissä visualisoinneissa.
+
+## 🚀 Firebase-tuotanto
+
+Tuotantoinfrastruktuuri sijaitsee projektissa `valtion-budjetti-data` ja on määritelty Terraformilla hakemistossa [`infra/firebase`](./infra/firebase/README.md). Firebase Hosting ohjaa `/v1/**`- ja `/health`-pyynnöt Cloud Runin `budjettihaukka-api`-palveluun. API lukee vain BigQuery-projektin `budjettihaukka-gpt` semanttista kerrosta ja tallentaa kysymyskirjaston Firestoreen.
+
+```bash
+scripts/deploy_firebase.sh
+```
+
+Kustannuksia rajoittavat Cloud Runin kahden instanssin skaalauskatto, nollaan skaalautuminen ja BigQueryn oletusarvoinen 1 GB:n kyselykohtainen raja. Pilvilaskutuksen budjetti on hälytys, ei palvelun tekninen katkaisija.
 
 ---
 
