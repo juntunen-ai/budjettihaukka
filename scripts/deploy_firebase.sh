@@ -6,15 +6,18 @@ DATA_PROJECT_ID="${DATA_PROJECT_ID:-budjettihaukka-gpt}"
 REGION="${REGION:-europe-west1}"
 SERVICE_NAME="${SERVICE_NAME:-budjettihaukka-api}"
 REPOSITORY="${REPOSITORY:-budjettihaukka}"
+FIREBASE_TOOLS_VERSION="${FIREBASE_TOOLS_VERSION:-15.28.2}"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TF_DIR="${ROOT_DIR}/infra/firebase"
 
-for command in gcloud firebase npm terraform; do
+for command in gcloud npm npx terraform; do
   if ! command -v "${command}" >/dev/null 2>&1; then
     echo "Missing required command: ${command}" >&2
     exit 1
   fi
 done
+
+firebase_cmd=(npx --yes "firebase-tools@${FIREBASE_TOOLS_VERSION}")
 
 billing_enabled="$(gcloud beta billing projects describe "${PROJECT_ID}" --format='value(billingEnabled)')"
 if [[ "${billing_enabled}" != "True" && "${billing_enabled}" != "true" ]]; then
@@ -32,6 +35,19 @@ if [[ "${state_resources}" != *'google_cloud_run_v2_service.api[0]'* ]]; then
     -var="region=${REGION}" \
     -var="deploy_api=false"
 fi
+
+# Authentication must be usable before the API revision starts requiring ID
+# tokens. Targeted bootstrap keeps the existing Cloud Run revision untouched.
+terraform -chdir="${TF_DIR}" apply \
+  -target=google_identity_platform_config.default \
+  -var="project_id=${PROJECT_ID}" \
+  -var="data_project_id=${DATA_PROJECT_ID}" \
+  -var="region=${REGION}" \
+  -var="deploy_api=false"
+"${firebase_cmd[@]}" deploy \
+  --config="${ROOT_DIR}/firebase.json" \
+  --project="${PROJECT_ID}" \
+  --only auth
 
 tag="$(git -C "${ROOT_DIR}" rev-parse --short HEAD)-$(date -u +%Y%m%d%H%M%S)"
 image="${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPOSITORY}/api:${tag}"
@@ -53,8 +69,14 @@ curl --fail --silent --show-error --retry 12 --retry-all-errors --retry-delay 5 
 npm --prefix "${ROOT_DIR}/frontend" ci
 VITE_BASE_PATH=/ VITE_API_BASE_URL= npm --prefix "${ROOT_DIR}/frontend" run build
 
-firebase deploy --project="${PROJECT_ID}" --only firestore:rules,firestore:indexes
-firebase deploy --project="${PROJECT_ID}" --only hosting
+"${firebase_cmd[@]}" deploy \
+  --config="${ROOT_DIR}/firebase.json" \
+  --project="${PROJECT_ID}" \
+  --only firestore:rules,firestore:indexes
+"${firebase_cmd[@]}" deploy \
+  --config="${ROOT_DIR}/firebase.json" \
+  --project="${PROJECT_ID}" \
+  --only hosting
 
 hosting_url="https://${PROJECT_ID}.web.app"
 curl --fail --silent --show-error --retry 6 --retry-delay 3 "${hosting_url}/health"

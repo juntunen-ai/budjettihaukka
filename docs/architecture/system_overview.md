@@ -201,13 +201,18 @@ visualization recipes, guardrails. Loaded to BigQuery `ontology_*` tables by
 - **Production URL:** `https://valtion-budjetti-data.web.app`.
 - **Frontend:** Firebase Hosting serves `frontend/dist`. Hosting rewrites
   `/v1/**` and `/health` to the Cloud Run service in `europe-west1`.
+- **Authentication:** Firebase Authentication provides Google sign-in. The
+  frontend sends the Firebase ID token as a bearer token, and FastAPI verifies
+  it with Firebase Admin before analytics or admin execution. `/health` stays
+  public for Cloud Run probes and deployment verification.
 - **API:** the Docker image runs FastAPI on Cloud Run with a dedicated
   service account, zero minimum instances and a hard ceiling of two.
 - **Data access:** the runtime service account has BigQuery job-user rights
   and read-only dataset access in `budjettihaukka-gpt.valtiodata`.
 - **Question library:** Cloud Run writes questions and technical result
   metadata to Firestore. Browser Firestore rules deny all direct access;
-  admin reads go through an API key stored in Secret Manager.
+  admin reads require both Google login and an API key stored in Secret
+  Manager.
 - **Infrastructure:** `infra/firebase` contains Terraform declarations.
   `scripts/deploy_firebase.sh` builds an immutable Artifact Registry image,
   updates Cloud Run, verifies `/health`, builds the frontend and deploys
@@ -220,8 +225,9 @@ visualization recipes, guardrails. Loaded to BigQuery `ontology_*` tables by
 
 ## 5. Next milestones
 
-1. **API abuse protection:** add a user/session rate limit or Firebase App
-   Check before broad public campaigning.
+1. **API abuse protection:** add a per-user rate limit and Firebase App Check
+   before broad public campaigning. Google login now prevents anonymous API
+   use but is not itself a cost quota.
 2. **Scheduled ingest** (monthly cron): ingest → build layer → DQ checks →
    eval gates, alert on failure.
 3. **Phase 5 enrichment:** surface VM budget justification snippets in

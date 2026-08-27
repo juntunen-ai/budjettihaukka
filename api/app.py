@@ -5,10 +5,11 @@ import secrets
 from dataclasses import asdict, is_dataclass
 from typing import Annotated, Any
 
-from fastapi import FastAPI, Header, HTTPException, Query
+from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.models import AnalyzeRequest, AnalyzeResponse
+from api.auth import AuthenticatedUser, require_user
 from config import settings
 from domain.contracts import AnalyzeResult, serialize_analysis_spec
 from services.analysis_orchestrator import analyze_question
@@ -113,7 +114,10 @@ def _log_analyze_request(request: AnalyzeRequest, result: AnalyzeResult) -> None
 
 
 @app.post("/v1/analyze", response_model=AnalyzeResponse)
-def analyze(request: AnalyzeRequest) -> AnalyzeResponse:
+def analyze(
+    request: AnalyzeRequest,
+    _user: Annotated[AuthenticatedUser, Depends(require_user)],
+) -> AnalyzeResponse:
     result = analyze_question(
         request.question,
         clarifications=request.clarifications,
@@ -134,6 +138,7 @@ def _require_admin_key(x_admin_key: Annotated[str | None, Header()] = None) -> N
 
 @app.get("/v1/admin/question-library")
 def question_library(
+    _user: Annotated[AuthenticatedUser, Depends(require_user)],
     limit: Annotated[int, Query(ge=1, le=5000)] = 5000,
     x_admin_key: Annotated[str | None, Header()] = None,
 ) -> dict[str, list[dict[str, Any]]]:

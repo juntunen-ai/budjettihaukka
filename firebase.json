@@ -1,4 +1,18 @@
 {
+  "auth": {
+    "providers": {
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Budjettihaukka",
+        "supportEmail": "vihreamiesjuntunen@gmail.com",
+        "authorizedRedirectUris": [
+          "https://valtion-budjetti-data.web.app",
+          "https://valtion-budjetti-data.firebaseapp.com",
+          "http://localhost:4173",
+          "http://127.0.0.1:4173"
+        ]
+      }
+    }
+  },
   "hosting": {
     "site": "valtion-budjetti-data",
     "public": "frontend/dist",

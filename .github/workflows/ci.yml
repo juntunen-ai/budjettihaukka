@@ -88,6 +88,9 @@ jobs:
       - name: Analytics API contract
         run: python scripts/test_api_contract.py
 
+      - name: Firebase authentication contract
+        run: python scripts/test_firebase_auth.py
+
   frontend-and-infra:
     runs-on: ubuntu-latest
     timeout-minutes: 15

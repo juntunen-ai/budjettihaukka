@@ -5,6 +5,7 @@ locals {
     "firestore.googleapis.com",
     "firebase.googleapis.com",
     "firebasehosting.googleapis.com",
+    "identitytoolkit.googleapis.com",
     "run.googleapis.com",
     "secretmanager.googleapis.com",
   ])
@@ -52,6 +53,28 @@ resource "google_firebase_hosting_site" "default" {
   site_id         = var.hosting_site_id
   app_id          = google_firebase_web_app.frontend.app_id
   deletion_policy = "PREVENT"
+}
+
+resource "google_identity_platform_config" "default" {
+  project = var.project_id
+
+  authorized_domains = [
+    "${var.hosting_site_id}.web.app",
+    "${var.hosting_site_id}.firebaseapp.com",
+    "localhost",
+    "127.0.0.1",
+  ]
+
+  autodelete_anonymous_users = true
+
+  depends_on = [
+    google_project_service.required,
+    google_firebase_project.default,
+  ]
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 import {
@@ -216,6 +239,14 @@ resource "google_cloud_run_v2_service" "api" {
       env {
         name  = "BUDJETTIHAUKKA_FIRESTORE_DATABASE"
         value = google_firestore_database.default.name
+      }
+      env {
+        name  = "BUDJETTIHAUKKA_REQUIRE_AUTH"
+        value = "true"
+      }
+      env {
+        name  = "BUDJETTIHAUKKA_FIREBASE_AUTH_PROJECT_ID"
+        value = var.project_id
       }
       env {
         name  = "BUDJETTIHAUKKA_CORS_ORIGINS"
