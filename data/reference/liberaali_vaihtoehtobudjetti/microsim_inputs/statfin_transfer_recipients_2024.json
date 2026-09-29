@@ -1,0 +1,628 @@
+{
+  "api_url": "https://pxweb2.stat.fi/PxWeb/api/v1/fi/StatFin/tjt/122s.px",
+  "description": "Tulonsiirtoja saaneet asuntokunnat tulokymmenyksittain",
+  "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__tjt/statfin_tjt_pxt_122s.px/",
+  "query": [
+    {
+      "code": "desiilit_2_20120101",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10"
+        ]
+      }
+    },
+    {
+      "code": "tulolaji_1_20161118",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "PT6",
+          "PT7",
+          "PT8",
+          "PT9",
+          "PT16",
+          "MT1",
+          "MT2"
+        ]
+      }
+    },
+    {
+      "code": "timeperiod_y",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "2024"
+        ]
+      }
+    },
+    {
+      "code": "contentscode",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "asuntok_ehd",
+          "osuus_tulokymmenys",
+          "keskiarvo_ehd",
+          "summa",
+          "kturaha_ak_ehd_mean"
+        ]
+      }
+    }
+  ],
+  "response": {
+    "class": "dataset",
+    "dimension": {
+      "contentscode": {
+        "category": {
+          "index": {
+            "asuntok_ehd": 0,
+            "keskiarvo_ehd": 2,
+            "kturaha_ak_ehd_mean": 4,
+            "osuus_tulokymmenys": 1,
+            "summa": 3
+          },
+          "label": {
+            "asuntok_ehd": "Tulolajia saaneita asuntokuntia",
+            "keskiarvo_ehd": "Tulolajin keskiarvo tulolajia saanutta asuntokuntaa kohti",
+            "kturaha_ak_ehd_mean": "Käytettävissä olevien rahatulojen keskiarvo tuloa saanutta asuntokuntaa kohti",
+            "osuus_tulokymmenys": "Osuus tulokymmenyksen asuntokunnista, %",
+            "summa": "Tulolajin kokonaismäärä"
+          },
+          "note": {
+            "asuntok_ehd": [
+              "Tulolajia saaneiden asuntokuntien lukumäärä vuoden lopun asuntoväestössä. Asuntoväestöön eivät kuulu laitoksissa vakinaisesti kirjoilla olevat, asuntoloissa ja ulkomailla asuvat sekä asunnottomat henkilöt. Ne asuntolarakennuksiksi luokitelluissa rakennuksissa asuvat henkilöt, joiden asunto ei täytä asunnon määritelmää, eivät kuulu asuntoväestöön."
+            ],
+            "keskiarvo_ehd": [
+              "Keskiarvo ehdolla, että asuntokunta on saanut tulolajia vuoden aikana."
+            ]
+          },
+          "unit": {
+            "asuntok_ehd": {
+              "base": "lukumäärä",
+              "decimals": 0
+            },
+            "keskiarvo_ehd": {
+              "base": "euroa",
+              "decimals": 0
+            },
+            "kturaha_ak_ehd_mean": {
+              "base": "euroa",
+              "decimals": 0
+            },
+            "osuus_tulokymmenys": {
+              "base": "prosenttia",
+              "decimals": 1
+            },
+            "summa": {
+              "base": "euroa",
+              "decimals": 0
+            }
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Tiedot"
+      },
+      "desiilit_2_20120101": {
+        "category": {
+          "index": {
+            "1": 0,
+            "10": 9,
+            "2": 1,
+            "3": 2,
+            "4": 3,
+            "5": 4,
+            "6": 5,
+            "7": 6,
+            "8": 7,
+            "9": 8
+          },
+          "label": {
+            "1": "I (pienituloisin 10 %)",
+            "10": "X (suurituloisin 10 %)",
+            "2": "II",
+            "3": "III",
+            "4": "IV",
+            "5": "V",
+            "6": "VI",
+            "7": "VII",
+            "8": "VIII",
+            "9": "IX"
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Tulokymmenys",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "desiilit_2_20120101": "SCALE-TYPE=ordinal"
+              }
+            }
+          ]
+        }
+      },
+      "timeperiod_y": {
+        "category": {
+          "index": {
+            "2024": 0
+          },
+          "label": {
+            "2024": "2024"
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Vuosi"
+      },
+      "tulolaji_1_20161118": {
+        "category": {
+          "index": {
+            "MT1": 5,
+            "MT2": 6,
+            "PT16": 4,
+            "PT6": 0,
+            "PT7": 1,
+            "PT8": 2,
+            "PT9": 3
+          },
+          "label": {
+            "MT1": "Työeläkkeet",
+            "MT2": "Ansiosidonnainen työttömyysturva",
+            "PT16": "Sairauspäiväraha",
+            "PT6": "Työmarkkinatuki",
+            "PT7": "Peruspäiväraha",
+            "PT8": "Toimeentulotuki",
+            "PT9": "Yleinen asumistuki"
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Tulolaji",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "tulolaji_1_20161118": "SCALE-TYPE=nominal"
+              }
+            }
+          ]
+        },
+        "note": [
+          "Perusturvaetuus tai muu tulonsiirto.Tiedot ovat ehdollisia sille, että asuntokunta on saanut tulolajia. Bruttotulojen tiedot kuvaavat kaikkia asuntokuntia (myös nollatuloiset mukana)."
+        ]
+      }
+    },
+    "extension": {
+      "contact": [
+        {
+          "raw": "<A HREF='https://stat.fi/tilasto/tjt' TARGET=_blank>Tilaston kotisivu</A>"
+        }
+      ],
+      "px": {
+        "aggregallowed": true,
+        "contents": "Perusturvaetuuksia ja muita tulonsiirtoja saaneet asuntokunnat",
+        "decimals": 0,
+        "description": "122s -- Perusturvaetuuksia ja muita tulonsiirtoja saaneet asuntokunnat tulokymmenyksittäin, 2010-2024",
+        "descriptiondefault": false,
+        "heading": [
+          "timeperiod_y",
+          "contentscode"
+        ],
+        "language": "fi",
+        "matrix": "122s",
+        "official-statistics": true,
+        "stub": [
+          "desiilit_2_20120101",
+          "tulolaji_1_20161118"
+        ],
+        "subject-area": "Tulonjakotilasto",
+        "subject-code": "tjt",
+        "tableid": "122s"
+      }
+    },
+    "id": [
+      "desiilit_2_20120101",
+      "tulolaji_1_20161118",
+      "timeperiod_y",
+      "contentscode"
+    ],
+    "label": "Perusturvaetuuksia ja muita tulonsiirtoja saaneet asuntokunnat muuttujina Tulokymmenys, Tulolaji, Vuosi ja Tiedot",
+    "note": [
+      "<A HREF='https://stat.fi/tilasto/dokumentaatio/tjt' TARGET=_blank>Tilaston dokumentaatio</A>",
+      ". tieto on puuttuva\r\n... tieto on salassapitosäännön alainen",
+      "Euromääräiset tiedot on esitetty viimeisimmän tilastovuoden rahassa (reaalisena).\r\nTilastoyksikkö: asuntokunta.\r\nTuloluokat on muodostettu henkilöiden kesken kulutusyksikköä kohti laskettujen rahatulojen (ml. myyntivoitot) mukaan.\r\nKulutusyksikköasteikko: Eurostat-asteikko (1 - 0.5 - 0.3).\r\nPyöristysten vuoksi tulo-osuudet eivät aina summaudu sataan.\r\nTulonimikkeistöön tehtyjen muutosten vuoksi vuosien 1995-2009 ja 2010- tiedot eivät ole keskenään täysin vertailukelpoisia."
+    ],
+    "role": {
+      "metric": [
+        "contentscode"
+      ],
+      "time": [
+        "timeperiod_y"
+      ]
+    },
+    "size": [
+      10,
+      7,
+      1,
+      5
+    ],
+    "source": "Tilastokeskus, tulonjakotilasto",
+    "updated": "2025-12-16T06:00:00Z",
+    "value": [
+      89250,
+      23.8,
+      7805,
+      696627020,
+      16928,
+      17052,
+      4.6,
+      5013,
+      85476483,
+      18123,
+      106776,
+      28.5,
+      4069,
+      434452528,
+      16165,
+      220656,
+      58.9,
+      3623,
+      799393767,
+      14791,
+      21109,
+      5.6,
+      3201,
+      67562384,
+      17059,
+      85635,
+      22.9,
+      9486,
+      812372690,
+      15902,
+      21406,
+      5.7,
+      7977,
+      170764397,
+      19231,
+      48349,
+      13.8,
+      7785,
+      376414882,
+      27669,
+      15696,
+      4.5,
+      3897,
+      61167005,
+      27119,
+      59957,
+      17.1,
+      3792,
+      227367661,
+      24740,
+      107683,
+      30.8,
+      3782,
+      407246488,
+      25342,
+      17615,
+      5,
+      3738,
+      65841990,
+      27570,
+      191064,
+      54.6,
+      16241,
+      3102993104,
+      20297,
+      30349,
+      8.7,
+      7888,
+      239378002,
+      27413,
+      25956,
+      8.4,
+      6548,
+      169949901,
+      36931,
+      12341,
+      4,
+      3139,
+      38733443,
+      34248,
+      27006,
+      8.7,
+      2989,
+      80729002,
+      30964,
+      69782,
+      22.6,
+      2882,
+      201116947,
+      30820,
+      17108,
+      5.5,
+      3641,
+      62292239,
+      35247,
+      164628,
+      53.3,
+      24600,
+      4049800074,
+      26382,
+      34133,
+      11,
+      7192,
+      245467990,
+      34184,
+      17277,
+      6.1,
+      6280,
+      108499109,
+      44729,
+      8879,
+      3.1,
+      2864,
+      25427983,
+      41169,
+      13914,
+      4.9,
+      2603,
+      36220962,
+      37287,
+      40715,
+      14.3,
+      2367,
+      96368052,
+      36213,
+      17778,
+      6.2,
+      3504,
+      62293156,
+      41268,
+      131109,
+      46,
+      31200,
+      4090646533,
+      33260,
+      34962,
+      12.3,
+      6731,
+      235340794,
+      40644,
+      12471,
+      4.6,
+      5886,
+      73408101,
+      51998,
+      6607,
+      2.4,
+      2757,
+      18217529,
+      48874,
+      7906,
+      2.9,
+      2422,
+      19148451,
+      44858,
+      23244,
+      8.5,
+      2138,
+      49703217,
+      43119,
+      17463,
+      6.4,
+      3509,
+      61280100,
+      47492,
+      113181,
+      41.6,
+      35592,
+      4028370709,
+      39190,
+      33927,
+      12.5,
+      6511,
+      220891056,
+      47291,
+      9312,
+      3.5,
+      5578,
+      51944531,
+      59393,
+      5122,
+      1.9,
+      2585,
+      13238521,
+      56175,
+      4837,
+      1.8,
+      2268,
+      10968389,
+      52934,
+      15429,
+      5.9,
+      1954,
+      30151947,
+      50621,
+      17452,
+      6.6,
+      3417,
+      59628845,
+      53213,
+      98171,
+      37.3,
+      38230,
+      3753052339,
+      45135,
+      33816,
+      12.9,
+      6473,
+      218905458,
+      53211,
+      7285,
+      2.9,
+      5211,
+      37960127,
+      67438,
+      4329,
+      1.7,
+      2528,
+      10945147,
+      64320,
+      3158,
+      1.2,
+      2207,
+      6969634,
+      63242,
+      11513,
+      4.5,
+      1888,
+      21736904,
+      60196,
+      17525,
+      6.9,
+      3523,
+      61734115,
+      60169,
+      89250,
+      34.9,
+      40246,
+      3591972424,
+      51552,
+      33050,
+      12.9,
+      6349,
+      209829204,
+      59795,
+      5302,
+      2.1,
+      4952,
+      26253797,
+      76442,
+      3402,
+      1.4,
+      2395,
+      8149200,
+      74160,
+      1995,
+      0.8,
+      1990,
+      3970718,
+      73658,
+      8534,
+      3.4,
+      1821,
+      15540055,
+      71385,
+      17605,
+      7,
+      3467,
+      61031246,
+      67990,
+      81344,
+      32.3,
+      42077,
+      3422722983,
+      59480,
+      32772,
+      13,
+      6207,
+      203412467,
+      67234,
+      3785,
+      1.5,
+      5112,
+      19349746,
+      89944,
+      2349,
+      0.9,
+      2381,
+      5593352,
+      88549,
+      1190,
+      0.5,
+      2122,
+      2525757,
+      88881,
+      6312,
+      2.5,
+      1930,
+      12180155,
+      87371,
+      16709,
+      6.7,
+      3477,
+      58100272,
+      79630,
+      76823,
+      30.8,
+      45033,
+      3459557869,
+      70763,
+      28770,
+      11.5,
+      6200,
+      178369742,
+      78554,
+      2973,
+      1.2,
+      5370,
+      15965668,
+      145824,
+      1434,
+      0.6,
+      2743,
+      3932750,
+      141469,
+      600,
+      0.2,
+      2305,
+      1382801,
+      140245,
+      4666,
+      1.9,
+      2220,
+      10358657,
+      146792,
+      14217,
+      5.7,
+      3710,
+      52751690,
+      128094,
+      81366,
+      32.5,
+      55950,
+      4552462110,
+      122566,
+      19970,
+      8,
+      7511,
+      149991196,
+      120289
+    ],
+    "version": "2.0"
+  },
+  "response_sha256": "79acb6afa7753dfbbe4f3f41be16598fe3e584350a0a02b102395628e8068c44",
+  "retrieved_at": "2026-08-23",
+  "source_id": "statfin_transfer_recipients_2024"
+}

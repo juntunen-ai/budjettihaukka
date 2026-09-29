@@ -1,0 +1,8 @@
+fiscal_year,metric_id,official_value,unit,tolerance_eur,precision_status,audit_status,publication_date,source_id,source_url,vintage_date
+2025,budget_execution_balance_eur,3700000,EUR,100000,not_rounded_on_page,official_final_accounts,2026-03-27,state_treasury_final_accounts_2025,https://www.tutkihallintoa.fi/valtio/taloustiedot/valtion-tilinpaatos/,2026-03-27
+2025,balance_sheet_total_eur,76500000000,EUR,50000000,rounded_to_0_1_beur,official_final_accounts,2026-03-27,state_treasury_final_accounts_2025,https://www.tutkihallintoa.fi/valtio/taloustiedot/valtion-tilinpaatos/,2026-03-27
+2025,balance_sheet_government_debt_eur,185000000000,EUR,50000000,rounded_to_0_1_beur,official_final_accounts,2026-03-27,state_treasury_final_accounts_2025,https://www.tutkihallintoa.fi/valtio/taloustiedot/valtion-tilinpaatos/,2026-03-27
+2025,income_statement_deficit_eur,11900000000,EUR,50000000,rounded_to_0_1_beur,official_final_accounts,2026-03-27,state_treasury_final_accounts_2025,https://www.tutkihallintoa.fi/valtio/taloustiedot/valtion-tilinpaatos/,2026-03-27
+2025,transfer_expenses_eur,67500000000,EUR,50000000,rounded_to_0_1_beur,official_final_accounts,2026-03-27,state_treasury_final_accounts_2025,https://www.tutkihallintoa.fi/valtio/taloustiedot/valtion-tilinpaatos/,2026-03-27
+2025,net_borrowing_eur,16400000000,EUR,50000000,rounded_to_0_1_beur,official_final_accounts,2026-03-27,state_treasury_final_accounts_2025,https://www.tutkihallintoa.fi/valtio/taloustiedot/valtion-tilinpaatos/,2026-03-27
+2025,tax_revenue_eur,65600000000,EUR,50000000,rounded_to_0_1_beur,official_final_accounts,2026-03-27,state_treasury_final_accounts_2025,https://www.tutkihallintoa.fi/valtio/taloustiedot/valtion-tilinpaatos/,2026-03-27

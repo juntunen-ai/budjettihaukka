@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0.0",
+  "fetched_at": "2026-08-18T16:46:35Z",
+  "source_page_url": "https://www.tutkihallintoa.fi/kuntien-ja-kuntayhtymien-talous/",
+  "taxonomy_index_url": "https://api.tutkihallintoa.fi/kuntatalous/v1/taksonomia",
+  "catalog_url": "https://prodkuntarest.westeurope.cloudapp.azure.com/rest/v1/json/aineistot",
+  "catalog_urls": [
+    "https://prodkuntarest.westeurope.cloudapp.azure.com/rest/v1/json/aineistot",
+    "https://prodkuntarest.westeurope.cloudapp.azure.com/rest/v1/json/kklmy-aineistot",
+    "https://prodkuntarest.westeurope.cloudapp.azure.com/rest/v1/json/tolt-aineistot"
+  ],
+  "ktas_year_range": {
+    "start": 2023,
+    "end": 2026
+  },
+  "max_documents": null,
+  "is_partial_snapshot": false,
+  "tables": [
+    {
+      "table_name": "municipal_finance_taxonomy_index_v1",
+      "snapshot_path": "data/reference/municipal_finance_taxonomy_index_v1.csv",
+      "row_count": 36,
+      "content_sha256": "a8e28088f8b5d64165db2531c470ed96d2c8e0a284347c1598dbba3c0d3275c2",
+      "schema_sha256": "c875aa4780e517fbeedc9264b865e8fa433840028c52cfd6faa4bcb86c5a57c9"
+    },
+    {
+      "table_name": "municipal_finance_catalog_v1",
+      "snapshot_path": "data/reference/municipal_finance_catalog_v1.csv",
+      "row_count": 33080,
+      "content_sha256": "f6fc6e0e4028505e0cdabaa98576a42231a00fbc65e0f5c43e6f7b0f98bddeb3",
+      "schema_sha256": "fc684de02d3ce400b141e53d31d08cb0e949bf5248c3ddee1f0be7a04cbf7309"
+    },
+    {
+      "table_name": "municipal_finance_ktas_taxonomy_v1",
+      "snapshot_path": "data/reference/municipal_finance_ktas_taxonomy_v1.csv",
+      "row_count": 166,
+      "content_sha256": "472fcd204eb203a9096644148d6b6870c11fbce61376ef4eec445f9a45da796d",
+      "schema_sha256": "da5f5d22c4d1353a1e0193087814c155875f7e67dc7583e55b10dd8a194c19e4"
+    },
+    {
+      "table_name": "municipal_finance_ktas_core_v1",
+      "snapshot_path": "data/reference/municipal_finance_ktas_core_v1.csv",
+      "row_count": 47424,
+      "content_sha256": "a68d09eaabbed6e7a2e5278e448dfdf636fd23022e818fe4eded1a8948f7f840",
+      "schema_sha256": "6f44b7658adc3cf05a439bdf2fad7e7c688d94f33969de2c2ceb13eff863709f"
+    },
+    {
+      "table_name": "municipal_finance_document_manifest_v1",
+      "snapshot_path": "data/reference/municipal_finance_document_manifest_v1.csv",
+      "row_count": 1482,
+      "content_sha256": "1f85f94058442b4a2ff7b7f64d1fc9dd6513644c7a821d1e4a0474924faef6ad",
+      "schema_sha256": "ae1f9974c897c86263daaad8d3308d9d12d10e68c52b4bb8a17cf60ae1c9dcfa"
+    }
+  ],
+  "semantic_guards": {
+    "ktas_accounting_stage": "budget_plan",
+    "ktas_actual_values_allowed": false,
+    "missing_value_means_zero": false,
+    "large_taxonomies_downloaded_by_default": false,
+    "known_source_anomaly": "KKNR 2022C03 interest-expense hierarchy (accounts 6200-6299); quarantine when KKNR facts are added."
+  }
+}

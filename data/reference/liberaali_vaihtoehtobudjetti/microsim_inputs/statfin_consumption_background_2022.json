@@ -1,0 +1,223 @@
+{
+  "api_url": "https://pxweb2.stat.fi/PxWeb/api/v1/fi/StatFin/ktutk/14qa.px",
+  "description": "Kulutustutkimuksen taustatiedot tuloviidenneksittain",
+  "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__ktutk/statfin_ktutk_pxt_14qa.px/",
+  "query": [
+    {
+      "code": "timeperiod_y",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "2022"
+        ]
+      }
+    },
+    {
+      "code": "tuloviidennes_2_20140501",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "SS",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      }
+    },
+    {
+      "code": "contentscode",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "pklkm_sum",
+          "jlkm_mean",
+          "oecdmod_mean",
+          "Kaytetmk_2_mean"
+        ]
+      }
+    }
+  ],
+  "response": {
+    "class": "dataset",
+    "dimension": {
+      "contentscode": {
+        "category": {
+          "index": {
+            "Kaytetmk_2_mean": 3,
+            "jlkm_mean": 1,
+            "oecdmod_mean": 2,
+            "pklkm_sum": 0
+          },
+          "label": {
+            "Kaytetmk_2_mean": "Kotitalouden käytettävissä olevat tulot, vuoden 2022 euroissa",
+            "jlkm_mean": "Kotitalouden keskikoko",
+            "oecdmod_mean": "Kotitaloudessa kulutusyksiköitä keskimäärin (oecdmod)",
+            "pklkm_sum": "Kotitalouksia perusjoukossa"
+          },
+          "unit": {
+            "Kaytetmk_2_mean": {
+              "base": "euroa",
+              "decimals": 0
+            },
+            "jlkm_mean": {
+              "base": "lukumäärä",
+              "decimals": 2
+            },
+            "oecdmod_mean": {
+              "base": "lukumäärä",
+              "decimals": 2
+            },
+            "pklkm_sum": {
+              "base": "lukumäärä",
+              "decimals": 0
+            }
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Tiedot"
+      },
+      "timeperiod_y": {
+        "category": {
+          "index": {
+            "2022": 0
+          },
+          "label": {
+            "2022": "2022"
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Vuosi",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "timeperiod_y": "SCALE-TYPE=None"
+              }
+            }
+          ]
+        }
+      },
+      "tuloviidennes_2_20140501": {
+        "category": {
+          "index": {
+            "1": 1,
+            "2": 2,
+            "3": 3,
+            "4": 4,
+            "5": 5,
+            "SS": 0
+          },
+          "label": {
+            "1": "I (pienituloisimmat 20 %)",
+            "2": "II",
+            "3": "III",
+            "4": "IV",
+            "5": "V (suurituloisimmat 20 %)",
+            "SS": "Yhteensä"
+          }
+        },
+        "extension": {
+          "elimination": true,
+          "eliminationValueCode": "SS",
+          "show": "value"
+        },
+        "label": "Tuloviidennes",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "tuloviidennes_2_20140501": "SCALE-TYPE=ordinal"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "extension": {
+      "contact": [
+        {
+          "raw": "<A HREF='https://stat.fi/tilasto/ktutk' TARGET=_blank>Tilaston kotisivu</A>"
+        }
+      ],
+      "px": {
+        "aggregallowed": true,
+        "contents": "Taustatiedot tuloviidenneksen mukaan",
+        "decimals": 0,
+        "description": "14qa -- Taustatiedot tuloviidenneksen mukaan, 2012-2022",
+        "descriptiondefault": false,
+        "heading": [
+          "contentscode"
+        ],
+        "language": "fi",
+        "matrix": "14qa",
+        "official-statistics": true,
+        "stub": [
+          "timeperiod_y",
+          "tuloviidennes_2_20140501"
+        ],
+        "subject-area": "Kotitalouksien kulutus",
+        "subject-code": "ktutk",
+        "tableid": "14qa"
+      }
+    },
+    "id": [
+      "timeperiod_y",
+      "tuloviidennes_2_20140501",
+      "contentscode"
+    ],
+    "label": "Taustatiedot tuloviidenneksen mukaan muuttujina Vuosi, Tuloviidennes ja Tiedot",
+    "note": [
+      "<A HREF='https://stat.fi/tilasto/dokumentaatio/ktutk' TARGET=_blank>Tilaston dokumentaatio</A>"
+    ],
+    "role": {
+      "metric": [
+        "contentscode"
+      ]
+    },
+    "size": [
+      1,
+      6,
+      4
+    ],
+    "source": "Tilastokeskus, kotitalouksien kulutus",
+    "updated": "2024-04-11T05:00:00Z",
+    "value": [
+      2919000,
+      1.88,
+      1.39,
+      50270,
+      584381,
+      1.43,
+      1.18,
+      18796,
+      584392,
+      1.86,
+      1.36,
+      33041,
+      582714,
+      1.97,
+      1.43,
+      44550,
+      584445,
+      2.04,
+      1.47,
+      57642,
+      583068,
+      2.09,
+      1.5,
+      97410
+    ],
+    "version": "2.0"
+  },
+  "response_sha256": "d38cdc1cfd395b1b5c75abf1876981eb3faee91a552ea12b9ccd1bd8d779cae3",
+  "retrieved_at": "2026-08-23",
+  "source_id": "statfin_consumption_background_2022"
+}

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Budjettihaukka – velkaantumisen nopeus</title>
+  <style>
+    :root {
+      --yellow: #f6d84f;
+      --paper: #f5f1e8;
+      --paper-deep: #e9e2d3;
+      --ink: #171713;
+      --muted: #5f5b50;
+      --debt: #d45d18;
+      --repay: #22833a;
+      --grid: #17171320;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+    .hero { background: var(--yellow); border-bottom: 2px solid var(--ink); }
+    .wrap { max-width: 1180px; margin: auto; padding-inline: 22px; }
+    .hero .wrap { padding-top: 32px; padding-bottom: 42px; }
+    main.wrap { padding-bottom: 72px; }
+    h1, h2 { font-family: Arial Black, system-ui, sans-serif; letter-spacing: -.035em; }
+    h1 { max-width: 1040px; margin: 30px 0 18px; font-size: clamp(2.6rem, 6vw, 5rem); line-height: .92; text-transform: uppercase; }
+    h2 { margin: 0 0 10px; font-size: clamp(1.55rem, 3vw, 2.25rem); line-height: 1.1; }
+    .back { display: inline-flex; padding: 8px 14px; border: 2px solid var(--ink); border-radius: 999px; background: #fff3b6; color: var(--ink); font-weight: 700; text-decoration: none; }
+    .lede { max-width: 900px; margin: 0; font-size: 1.08rem; }
+    .alert { max-width: 900px; margin-top: 16px; padding: 12px 14px; border: 2px solid var(--ink); background: #fff3b6; font-weight: 700; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+    .stat { padding-top: 12px; border-top: 3px solid var(--ink); }
+    .stat strong { display: block; font: 800 clamp(1.5rem, 3vw, 2.4rem)/1 Arial Black, system-ui, sans-serif; }
+    .stat span { display: block; margin-top: 7px; font-size: .88rem; }
+    section { padding: 48px 0 54px; }
+    .eyebrow { margin: 0 0 7px; color: var(--muted); font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .chart { width: 100%; min-height: 320px; margin-top: 18px; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; font-size: .9rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .swatch { width: 15px; height: 15px; border: 1.5px solid var(--ink); }
+    .finding { max-width: 940px; margin-top: 20px; padding: 16px 18px; border-left: 5px solid var(--ink); background: var(--paper-deep); }
+    .finding p { margin: 0 0 10px; }
+    .finding p:last-child { margin-bottom: 0; }
+    .source { margin-top: 14px; color: var(--muted); font-size: .86rem; }
+    .axis { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+    .grid { fill: none; stroke: var(--grid); stroke-width: 1; }
+    .tick { font-size: 12px; fill: var(--muted); }
+    .axis-title { font-size: 12px; fill: var(--muted); }
+    .bar-label { font-size: 12px; font-weight: 700; fill: var(--ink); }
+    .row-label { font-size: 12px; font-weight: 700; fill: var(--ink); }
+    @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <a class="back" href="visualisointidemot.html">← Visualisointidemot</a>
+      <h1>Kuinka kauan<br>kymppimiljardi<br>kestää</h1>
+      <p class="lede">Velkaantumisen nopeus mitattuna sillä, montako kuukautta kului kunkin
+        10 miljardin euron velkalisäyksen kertymiseen. Lyhyt palkki tarkoittaa nopeaa
+        velkaantumista.</p>
+      <p class="alert">Askelmat lasketaan kumulatiivisen kertymän pohjalta 9/2008, ei jakson
+        alusta. Valtio lyhensi velkaa siihen asti, joten pohjaa edeltävä aika ei ole hidasta
+        velkaantumista vaan velan maksamista.</p>
+      <div class="stats">
+        <div class="stat"><strong id="stat-steps"></strong><span>täyttä kymppimiljardia pohjan jälkeen</span></div>
+        <div class="stat"><strong id="stat-fast"></strong><span>kuukautta nopein askelma</span></div>
+        <div class="stat"><strong id="stat-slow"></strong><span>kuukautta hitain askelma</span></div>
+        <div class="stat"><strong id="stat-recent"></strong><span>kuukautta neljän viimeisen keskiarvo</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <p class="eyebrow">Velkaantumisen nopeus 2001–2026</p>
+      <h2>Jokaisen kymmenen miljardin kertymiseen kulunut aika</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#22833a"></i>Velkaa lyhennettiin</span>
+        <span><i class="swatch" style="background:#d45d18"></i>Täysi 10 mrd € -askelma</span>
+        <span><i class="swatch" style="background:#f5f1e8;border-style:dashed"></i>Kesken oleva askelma</span>
+      </div>
+      <div id="chart-speed" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> <span id="finding"></span></p>
+        <p><strong>Mitä kuva ei kerro.</strong> Kuva ei kerro miksi vauhti vaihteli.
+          Finanssikriisi, koronapandemia ja vuoden 2022 energiakriisi näkyvät nopeina askelmina
+          riippumatta siitä, mitä kukin hallitus päätti. Hallituksen nimi kertoo vain kuka oli
+          vallassa askelman täyttyessä — askelma voi alkaa edellisen hallituksen aikana, ja
+          talousarvio päätettiin edellisenä syksynä. Kymmenen miljardia on lisäksi joka kerta
+          sama nimellinen summa, vaikka rahan arvo ja talouden koko ovat muuttuneet: vuoden 2009
+          kymppimiljardi oli suurempi osuus taloudesta kuin vuoden 2026. Kyse on
+          nettovelanotosta talousarvion kautta, ei valtionvelan kokonaismäärästä.</p>
+      </div>
+      <p class="source" id="source"></p>
+    </section>
+  </main>
+
+  <script type="application/json" id="speed-data">{"meta":{"dataset_id":"debt_speed_steps_v1","measure":"kuukausia kutakin 10 miljardin euron velkalisäystä kohti","step_eur":10000000000,"first_month":"2001-01-01","last_month":"2026-07-01","observed_months":302,"trough_month":"2008-09-01","trough_cumulative_eur":-17751537805.190006,"trough_cabinet_name":"Vanhanen II","total_cumulative_eur":127829728940.65001,"accumulated_from_trough_eur":145581266745.84003,"note":"askelmat lasketaan kumulatiivisen sarjan pohjalta, ei jakson alusta","sources":[{"source_id":"valtiokonttori_kuukausidata","label":"Valtiokonttori, valtion taloushallinnon kuukausidata"},{"source_id":"valtioneuvosto_hallitukset","label":"Valtioneuvosto, hallitukset ja ministerit"}]},"repayment_phase":{"from_month":"2001-01-01","to_month":"2008-09-01","months":93,"repaid_eur":17751537805.190006,"cabinets":["Jäätteenmäki","Lipponen II","Vanhanen","Vanhanen II"]},"steps":[{"step_index":1,"from_eur":0,"to_eur":10000000000,"reached_month":"2009-03-01","months":6,"cabinet_name":"Vanhanen II","pm_party_fi":"Suomen Keskusta","is_complete":true},{"step_index":2,"from_eur":10000000000,"to_eur":20000000000,"reached_month":"2010-04-01","months":13,"cabinet_name":"Vanhanen II","pm_party_fi":"Suomen Keskusta","is_complete":true},{"step_index":3,"from_eur":20000000000,"to_eur":30000000000,"reached_month":"2011-09-01","months":17,"cabinet_name":"Katainen","pm_party_fi":"Kansallinen Kokoomus","is_complete":true},{"step_index":4,"from_eur":30000000000,"to_eur":40000000000,"reached_month":"2013-04-01","months":19,"cabinet_name":"Katainen","pm_party_fi":"Kansallinen Kokoomus","is_complete":true},{"step_index":5,"from_eur":40000000000,"to_eur":50000000000,"reached_month":"2015-05-01","months":24,"cabinet_name":"Stubb","pm_party_fi":"Kansallinen Kokoomus","is_complete":true},{"step_index":6,"from_eur":50000000000,"to_eur":60000000000,"reached_month":"2019-05-01","months":45,"cabinet_name":"Sipilä","pm_party_fi":"Suomen Keskusta","is_complete":true},{"step_index":7,"from_eur":60000000000,"to_eur":70000000000,"reached_month":"2020-03-01","months":10,"cabinet_name":"Marin","pm_party_fi":"Suomen Sosialidemokraattinen Puolue","is_complete":true},{"step_index":8,"from_eur":70000000000,"to_eur":80000000000,"reached_month":"2021-03-01","months":12,"cabinet_name":"Marin","pm_party_fi":"Suomen Sosialidemokraattinen Puolue","is_complete":true},{"step_index":9,"from_eur":80000000000,"to_eur":90000000000,"reached_month":"2022-09-01","months":18,"cabinet_name":"Marin","pm_party_fi":"Suomen Sosialidemokraattinen Puolue","is_complete":true},{"step_index":10,"from_eur":90000000000,"to_eur":100000000000,"reached_month":"2023-06-01","months":8,"cabinet_name":"Marin","pm_party_fi":"Suomen Sosialidemokraattinen Puolue","is_complete":true},{"step_index":11,"from_eur":100000000000,"to_eur":110000000000,"reached_month":"2024-01-01","months":7,"cabinet_name":"Orpo","pm_party_fi":"Kansallinen Kokoomus","is_complete":true},{"step_index":12,"from_eur":110000000000,"to_eur":120000000000,"reached_month":"2024-10-01","months":9,"cabinet_name":"Orpo","pm_party_fi":"Kansallinen Kokoomus","is_complete":true},{"step_index":13,"from_eur":120000000000,"to_eur":130000000000,"reached_month":"2025-06-01","months":8,"cabinet_name":"Orpo","pm_party_fi":"Kansallinen Kokoomus","is_complete":true},{"step_index":14,"from_eur":130000000000,"to_eur":140000000000,"reached_month":"2026-03-01","months":9,"cabinet_name":"Orpo","pm_party_fi":"Kansallinen Kokoomus","is_complete":true}],"pending_step":{"from_eur":140000000000,"to_eur":150000000000,"accumulated_eur":5581266745.840027,"months_so_far":4,"cabinet_name":"Orpo","pm_party_fi":"Kansallinen Kokoomus","is_complete":false}}</script>
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const DATA = JSON.parse(document.getElementById('speed-data').textContent);
+    const STEPS = DATA.steps;
+    const PHASE = DATA.repayment_phase;
+    const PENDING = DATA.pending_step;
+    const palette = { debt: '#d45d18', repay: '#22833a', ink: '#171713', muted: '#5f5b50' };
+
+    const mrd = value => value / 1e9;
+    const fmt = (value, digits = 1) =>
+      value.toLocaleString('fi-FI', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    const monthLabel = month => `${month.slice(5, 7)}/${month.slice(0, 4)}`;
+    const el = (parent, name, attrs = {}, text = '') => {
+      const node = document.createElementNS(NS, name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+      if (text) node.textContent = text;
+      parent.appendChild(node);
+      return node;
+    };
+    const scale = (d0, d1, r0, r1) => value => r0 + (value - d0) * (r1 - r0) / (d1 - d0 || 1);
+
+    function chart() {
+      const rows = [
+        {
+          label: 'Lyhennysvaihe',
+          sub: `${monthLabel(PHASE.from_month)}–${monthLabel(PHASE.to_month)}`,
+          months: PHASE.months,
+          note: `${PHASE.months} kk · lyhennettiin ${fmt(mrd(PHASE.repaid_eur))} mrd €`,
+          color: palette.repay,
+          dashed: false
+        },
+        ...STEPS.map(step => ({
+          label: `${mrd(step.from_eur)}–${mrd(step.to_eur)} mrd €`,
+          sub: monthLabel(step.reached_month),
+          months: step.months,
+          note: `${step.months} kk · ${step.cabinet_name}`,
+          color: palette.debt,
+          dashed: false
+        })),
+        {
+          label: `${mrd(PENDING.from_eur)}–${mrd(PENDING.to_eur)} mrd €`,
+          sub: 'kesken',
+          months: PENDING.months_so_far,
+          note: `${PENDING.months_so_far} kk toistaiseksi · +${fmt(mrd(PENDING.accumulated_eur))} mrd € · ${PENDING.cabinet_name}`,
+          color: palette.debt,
+          dashed: true
+        }
+      ];
+
+      const rowHeight = 27;
+      const x0 = 168, x1 = 640;
+      const y0 = 46;
+      const height = y0 + rows.length * rowHeight + 60;
+      const host = document.getElementById('chart-speed');
+      host.innerHTML = '';
+      const node = document.createElementNS(NS, 'svg');
+      node.setAttribute('viewBox', `0 0 900 ${height}`);
+      node.setAttribute('role', 'img');
+      node.setAttribute('aria-label',
+        'Kuukausia kutakin 10 miljardin euron velkalisäystä kohti, ylimpänä velan lyhennysvaihe.');
+      host.appendChild(node);
+
+      const max = Math.max(...rows.map(row => row.months)) * 1.05;
+      const x = scale(0, max, x0, x1);
+
+      for (let value = 0; value <= max; value += 12) {
+        el(node, 'line', { x1: x(value), x2: x(value), y1: y0 - 8, y2: y0 + rows.length * rowHeight, class: 'grid' });
+        el(node, 'text', { x: x(value), y: y0 - 14, 'text-anchor': 'middle', class: 'tick' }, String(value));
+      }
+      el(node, 'text', { x: x0, y: y0 - 32, class: 'axis-title' }, 'Kuukautta');
+
+      rows.forEach((row, index) => {
+        const cy = y0 + index * rowHeight;
+        const barHeight = rowHeight - 9;
+        el(node, 'rect', {
+          x: x0, y: cy, width: Math.max(x(row.months) - x0, 1), height: barHeight,
+          fill: row.dashed ? 'none' : row.color,
+          stroke: row.color, 'stroke-width': 1.6,
+          'stroke-dasharray': row.dashed ? '5 3' : 'none'
+        });
+        el(node, 'text', { x: x0 - 12, y: cy + 9, 'text-anchor': 'end', class: 'row-label' }, row.label);
+        el(node, 'text', {
+          x: x0 - 12, y: cy + 20, 'text-anchor': 'end', class: 'tick', 'font-size': '10.5'
+        }, row.sub);
+        el(node, 'text', { x: x(row.months) + 9, y: cy + 13, class: 'bar-label' }, row.note);
+      });
+
+      el(node, 'line', { x1: x0, x2: x0, y1: y0 - 8, y2: y0 + rows.length * rowHeight, class: 'axis' });
+      /* Lyhennysvaihe erotetaan askelmista viivalla: se ei ole 10 mrd:n askelma. */
+      el(node, 'line', {
+        x1: 40, x2: x1, y1: y0 + rowHeight - 4, y2: y0 + rowHeight - 4,
+        stroke: palette.ink, 'stroke-width': 1, 'stroke-dasharray': '4 4'
+      });
+      el(node, 'text', { x: 40, y: height - 26, class: 'axis-title' },
+        'Lyhyt palkki = nopea velkaantuminen. Ylin rivi ei ole askelma vaan sitä edeltänyt lyhennysvaihe.');
+    }
+
+    function texts() {
+      const meta = DATA.meta;
+      const fastest = STEPS.reduce((a, b) => (b.months < a.months ? b : a));
+      const slowest = STEPS.reduce((a, b) => (b.months > a.months ? b : a));
+      const recent = STEPS.slice(-4);
+      const recentAvg = recent.reduce((sum, row) => sum + row.months, 0) / recent.length;
+
+      document.getElementById('stat-steps').textContent = STEPS.length;
+      document.getElementById('stat-fast').textContent = fastest.months;
+      document.getElementById('stat-slow').textContent = slowest.months;
+      document.getElementById('stat-recent').textContent = fmt(recentAvg, 1);
+
+      document.getElementById('finding').textContent =
+        `Kumulatiivinen kertymä kääntyi nousuun ${monthLabel(meta.trough_month)}, kun valtio oli sitä ` +
+        `ennen lyhentänyt velkaa ${fmt(mrd(PHASE.repaid_eur))} miljardia ${PHASE.months} kuukauden ajan. ` +
+        `Siitä on kertynyt ${STEPS.length} täyttä kymppimiljardia. Nopein oli ensimmäinen, ` +
+        `${fastest.months} kuukautta finanssikriisin iskiessä (${monthLabel(fastest.reached_month)}), ja ` +
+        `hitain ${slowest.months} kuukautta ${slowest.cabinet_name}-hallituksen aikaan ` +
+        `(${monthLabel(slowest.reached_month)}). Vauhti hidastui tasaisesti vuoteen 2019 ja kiihtyi ` +
+        `sen jälkeen uudelleen: neljä viimeisintä kymppimiljardia ovat kestäneet keskimäärin ` +
+        `${fmt(recentAvg, 1)} kuukautta, eli noin ${fmt(slowest.months / recentAvg, 1)} kertaa nopeammin ` +
+        `kuin hitain askelma.`;
+
+      document.getElementById('source').textContent =
+        `Lähde: Valtiokonttori, valtion taloushallinnon kuukausidata ${monthLabel(meta.first_month)}–` +
+        `${monthLabel(meta.last_month)}, ${meta.observed_months} havaittua kuukautta. Velka on ` +
+        `nettovelanotto velanhallintamomenteista; positiivinen kasvattaa velkaa. Kuukausi kohdennettu ` +
+        `sille hallitukselle, joka piti valtaa suurimman osan kuukauden päivistä. Askelmat lasketaan ` +
+        `kumulatiivisen kertymän pohjalta ${monthLabel(meta.trough_month)} ` +
+        `(${fmt(mrd(meta.trough_cumulative_eur))} mrd €), ei jakson alusta.`;
+    }
+
+    texts();
+    chart();
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Budjettihaukka – perusterveydenhuollon laatu ja ohjausriski 2020–2025</title>
+  <style>
+    :root {
+      --yellow:#f6d84f; --paper:#f7f3ea; --paper-deep:#ebe4d6; --ink:#171713; --muted:#625d52;
+      --money:#713b83; --output:#0067a3; --quality:#22833a; --warning:#c4512d; --experience:#d45d18;
+      --grid:#17171320; --missing:#b7afa1;
+    }
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.58 system-ui,sans-serif}
+    .hero{background:var(--yellow);border-bottom:2px solid var(--ink)}.wrap{max-width:1180px;margin:auto;padding-inline:22px}
+    .hero .wrap{padding-top:30px;padding-bottom:42px}main.wrap{padding-bottom:76px}
+    h1,h2,h3{font-family:Arial Black,system-ui,sans-serif;letter-spacing:-.035em}h1{max-width:1050px;margin:28px 0 18px;font-size:clamp(2.8rem,6.4vw,5.8rem);line-height:.94;overflow-wrap:anywhere;text-transform:uppercase}
+    h2{margin:0 0 10px;font-size:clamp(1.6rem,3vw,2.35rem);line-height:1.08}h3{margin:0 0 8px;font-size:1rem;letter-spacing:0}
+    p{max-width:930px}.back{display:inline-flex;padding:8px 14px;border:2px solid var(--ink);border-radius:999px;background:#fff3b6;color:var(--ink);font-weight:700;text-decoration:none}
+    .lede{font-size:1.08rem}.status{display:inline-block;margin-top:14px;padding:5px 9px;border:1.5px solid var(--ink);font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.stat{padding-top:12px;border-top:3px solid var(--ink)}.stat strong{display:block;font:800 clamp(2rem,4vw,3.4rem)/1 Arial Black,system-ui,sans-serif}.stat span{display:block;margin-top:7px;font-size:.9rem}
+    section{padding:48px 0 54px;border-bottom:1.5px solid var(--ink)}.eyebrow{margin:0 0 7px;color:var(--muted);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:20px}.panel{min-width:0}.chart{width:100%;min-height:290px;margin-top:16px}.chart.tall{min-height:730px}.chart svg{display:block;width:100%;height:auto;overflow:visible}
+    .axis{stroke:var(--ink);stroke-width:1.1}.grid{stroke:var(--grid);stroke-width:1}.tick,.label{fill:var(--ink);font-size:12px}.axis-title{fill:var(--muted);font-size:12px;font-weight:700}.direct-label{font-size:12px;font-weight:800}.event{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 5}.event-label{fill:var(--muted);font-size:11px;font-weight:700}
+    .finding{max-width:950px;margin-top:24px;padding:18px 20px;border-left:5px solid var(--yellow);background:var(--paper-deep)}.finding p{margin:0}.finding p+p{margin-top:10px}.source{margin:10px 0 0;color:var(--muted);font-size:.83rem}
+    .coverage-wrap{overflow-x:auto;margin-top:20px}.coverage{width:100%;border-collapse:collapse;min-width:760px}.coverage th,.coverage td{padding:10px 8px;border-bottom:1px solid var(--grid);text-align:center}.coverage th:first-child,.coverage td:first-child{text-align:left}.coverage th{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}.coverage-dot{display:inline-block;width:14px;height:14px;border:1px solid var(--ink);border-radius:50%;background:var(--missing)}.coverage-dot.full{background:var(--quality)}.coverage-dot.most{background:var(--output)}.coverage-dot.some{background:var(--yellow)}.coverage-value{display:block;font-size:.75rem;color:var(--muted)}
+    .legend{display:flex;flex-wrap:wrap;gap:10px 18px;margin:12px 0 0;font-size:.88rem}.legend span{display:inline-flex;align-items:center;gap:7px}.swatch{display:inline-block;width:24px;border-top:4px solid var(--ink)}
+    .principles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:22px}.principle{padding:16px;border:1.5px solid var(--ink);background:#fff9e3}.principle strong{display:block;margin-bottom:4px}.gap-list{margin:18px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.gap-list li{padding:10px 12px;border-left:4px solid var(--missing);background:var(--paper-deep);font-size:.88rem}.gap-list b{display:block}
+    .risk-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}.risk-card{padding:13px;border-top:5px solid var(--missing);background:var(--paper-deep)}.risk-card strong{display:block;font:800 2rem/1 Arial Black,system-ui,sans-serif}.risk-card.high{border-color:var(--warning)}.risk-card.watch{border-color:var(--yellow)}.risk-card.clear{border-color:var(--quality)}
+    .risk-wrap{overflow-x:auto}.risk-table{width:100%;min-width:860px;border-collapse:collapse}.risk-table th,.risk-table td{padding:9px 8px;border-bottom:1px solid var(--grid);text-align:center;font-size:.82rem}.risk-table th:first-child,.risk-table td:first-child{text-align:left}.risk-table th{vertical-align:bottom;text-transform:uppercase;letter-spacing:.04em}.risk-dot{display:inline-flex;width:22px;height:22px;align-items:center;justify-content:center;border:1px solid var(--ink);border-radius:50%}.risk-dot.hit{background:var(--warning);color:white}.risk-dot.clear{background:var(--paper)}.risk-dot.unknown{border-style:dashed;color:var(--muted)}.risk-level{display:inline-block;padding:3px 7px;border:1px solid var(--ink);font-weight:800}.risk-level.high_signal{background:var(--warning);color:white}.risk-level.watch_signal{background:var(--yellow)}.risk-level.no_observed_signal{background:#b9dfbd}.risk-level.insufficient_data{background:var(--missing)}
+    @media(max-width:760px){.wrap{padding-inline:14px}.two,.stats,.principles,.gap-list,.risk-summary{grid-template-columns:1fr}h1{font-size:clamp(2.25rem,11vw,4.1rem)}section{padding-block:38px}.finding{padding:16px}.tick,.label,.axis-title,.direct-label{font-size:11px}.chart.tall{min-height:690px}}
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="wrap">
+    <a class="back" href="visualisointidemot.html">← Takaisin visualisointeihin</a>
+    <h1>Perusterveyden<wbr>huollon laatu ja ohjausriski 2020–2025</h1>
+    <p class="lede">Pilotti erottaa palvelujen määrän laadusta. Se etsii tilanteita, joissa ohjausmittari näyttää paranevan mutta jatkuvuus, väestön kokema palvelujen riittävyys tai koko hoitoketjun tulos heikkenee.</p>
+    <span class="status">Ohjausriski on varoitussignaali, ei todiste väärinkäytöstä · katkos 2023</span>
+    <div class="stats" aria-label="Koko maan keskeiset muutokset">
+      <div class="stat"><strong id="quality-stat">—</strong><span>laadun tasapaino 2024, vuosi 2020 = 100</span></div>
+      <div class="stat"><strong id="activity-stat">—</strong><span>käyntituotoksen muutos suhteessa reaalikustannukseen 2020–2024</span></div>
+      <div class="stat"><strong id="continuity-stat">—</strong><span>hoidon jatkuvuuden muutos 2020–2024</span></div>
+    </div>
+  </div></header>
+
+  <main class="wrap">
+    <section>
+      <p class="eyebrow">01 · Mittarien käyttösäännöt</p><h2>Määrä, nopeus ja kustannus tarvitsevat aina vastamittarin</h2>
+      <div class="coverage-wrap"><table class="coverage" id="coverage-table" aria-label="Mittareiden alueellinen kattavuus vuosittain"></table></div>
+      <div class="principles">
+        <div class="principle"><strong>1 · Käynti ei ole tehokkuus</strong>Käynnit suhteessa kustannukseen nimetään käyntituotokseksi ja pidetään erillään laatuindeksistä.</div>
+        <div class="principle"><strong>2 · Jonon nimittäjä näkyviin</strong>Toteutuneiden käyntien odotusaikaa luetaan yhdessä tyydyttämättömän tarpeen kanssa.</div>
+        <div class="principle"><strong>3 · Käyttäjä ei ole koko väestö</strong>Koettu nopea yhteys saa rinnalleen palvelua tarvinneiden kokemuksen lääkäripalvelujen riittävyydestä.</div>
+        <div class="principle"><strong>4 · Kustannus voi siirtyä</strong>Perusterveydenhuollon kustannusta luetaan yhdessä päivystysten ja vältettävissä olevien sairaalahoitojen kanssa.</div>
+      </div>
+      <ul class="gap-list" aria-label="Puuttuvat turvamittarit"><li><b>Hoitopyyntöjen kokonaismäärä</b>Ei vielä yhtenäistä alueaineistoa</li><li><b>Ilman ratkaisua jääneiden osuus</b>Ei vielä yhtenäistä alueaineistoa</li><li><b>Keskeytyneet hoitopolut</b>Ei vielä yhtenäistä alueaineistoa</li><li><b>Mediaaniodotusaika</b>Ei vielä vuositason alueaineistossa</li><li><b>Hoitoketjun kokonaiskustannus</b>Ei vielä potilas- tai episodi­tason avoaineistossa</li></ul>
+      <div class="finding"><p><strong>Päähavainto.</strong> Vuodet 2022 ja 2024 mahdollistavat kattavimman ennen–jälkeen-vertailun. Uusi malli ei enää kutsu käyntien ja kustannusten suhdetta tehokkuudeksi eikä julkaise palveluarvoindeksiä ennen kuin ratkaistu palvelutarve, turvallisuus ja koko hoitoketjun kustannus voidaan ottaa mukaan.</p><p><strong>Mitä kuva ei kerro.</strong> Puuttuva havainto ei tarkoita nollaa. Tietovajeet näkyvät tarkoituksella, eikä niitä täytetä arvaamalla.</p></div>
+      <p class="source">Kattavuus = havaintoja 23 hyvinvointialueesta. Koko maan rivi ei sisälly prosenttiin.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">02 · Raha ja henkilöstö</p><h2>Reaalinen kustannus palasi vuonna 2024 lähelle vuoden 2020 tasoa</h2>
+      <div class="two">
+        <div class="panel"><h3>Nettokäyttökustannukset, vuoden 2024 euroina / asukas</h3><div id="cost-chart" class="chart"></div></div>
+        <div class="panel"><h3>Julkisen terveydenhuollon henkilöstö / 10 000 asukasta</h3><div id="staff-chart" class="chart"></div></div>
+      </div>
+      <div class="panel"><h3>Hoitoketjun kuormituksen vastamittarit, 2020 = 100</h3><div id="spillover-chart" class="chart"></div></div>
+      <div class="finding"><p><strong>Päähavainto.</strong> Koko maan perusterveydenhuollon reaalinen kustannus oli noin 672 euroa asukasta kohti vuonna 2020 ja 677 euroa vuonna 2024. Samalla perusterveydenhuollon päivystyskäynnit lisääntyivät, mutta vältettävissä olevat päivystykselliset sairaalahoidot vähenivät. Vastamittarit eivät siis anna yhtä yksinkertaista tarinaa kustannusten siirtymisestä.</p><p><strong>Mitä kuva ei kerro.</strong> Avoin aineisto ei vielä yhdistä samoille potilaille perusterveydenhuollon, päivystyksen ja erikoissairaanhoidon kustannuksia. Henkilöstöluku kattaa julkisen terveydenhuollon perusterveydenhuoltoa laajemmin.</p></div>
+      <p class="source">THL Sotkanet 3764, 3766, 4604, 5081 ja 5587. Reaalikustannus: Tilastokeskuksen julkisten menojen hintaindeksi, 2024 = vertailuvuosi.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">03 · Käyntituotos ja saatavuus</p><h2>Useampi kirjattu kontakti ei vielä tarkoita ratkaistua palvelutarvetta</h2>
+      <div class="two">
+        <div class="panel"><h3>Käyntituotos ja hoidon jatkuvuus, 2020 = 100</h3><div id="output-chart" class="chart"></div></div>
+        <div class="panel"><h3>Yli seitsemän päivää odottaneiden osuus (%)</h3><div id="wait-chart" class="chart"></div></div>
+      </div>
+      <div class="finding"><p><strong>Päähavainto.</strong> Lääkärikäyntien määrä kasvoi, mutta saman lääkärin luona asioimista kuvaava jatkuvuus laski. Jatkuvuus pidetään siksi nimenomaisena vastamittarina, jota suurempi käyntituotos ei saa peittää.</p><p><strong>Mitä kuva ei kerro.</strong> Käyntimäärä laskee yhteen eri yhteystavat eikä kerro, ratkesiko ongelma. Odotusaika perustuu toteutuneisiin käynteihin eikä sisällä kaikkia ilman palvelua jääneitä.</p></div>
+      <p class="source">THL Sotkanet 1080, 5502 ja 6411.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">04 · Kansalaisen kokemus</p><h2>Nopea yhteys ei yksin tarkoita, että tarvittu lääkäripalvelu saatiin</h2>
+      <div id="experience-chart" class="chart"></div>
+      <div class="finding"><p><strong>Päähavainto.</strong> Hoitopaikkaan riittävän nopeasti yhteyden saaneiden osuus laski 68,4 prosentista 64,7 prosenttiin. Vuonna 2024 palvelua tarvinneista 24,9 prosenttia koki lääkäripalvelut tarpeeseen nähden riittämättömiksi.</p><p><strong>Mitä kuva ei kerro.</strong> Kysely tehdään harvemmin kuin vuosittain ja siihen liittyy vastauskatoa. Koettu terveys muuttuu hitaasti ja siihen vaikuttaa paljon muutakin kuin palvelujärjestelmä.</p></div>
+      <p class="source">THL Sotkanet 5186, 4909 ja 4333; kyselyvuodet 2020, 2022 ja 2024.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">05 · Laadun tasapaino</p><h2>Laatuindeksi laski koko maassa 100:sta 92,2:een</h2>
+      <div class="two">
+        <div class="panel"><h3>Laatu ja käyntituotos erillään, 2020 = 100</h3><div id="value-chart" class="chart"></div></div>
+        <div class="panel"><h3>Alueiden laadun tasapainon muutos 2022–2024</h3><div id="area-chart" class="chart tall"></div></div>
+      </div>
+      <div class="finding"><p><strong>Päähavainto.</strong> Käyntituotos suhteessa reaalikustannukseen oli vuonna 2024 lähtötasoa suurempi, mutta jatkuvuudesta, koetusta yhteydensaannista, lääkäripalvelujen riittävyydestä ja koetusta terveydestä muodostettu laadun tasapaino jäi alemmaksi.</p><p><strong>Mitä kuva ei kerro.</strong> Tämä ei ole alueiden paremmuusjärjestys eikä vaikuttavuusarvio. Palveluarvoa ei julkaista, ennen kuin ratkaistu palvelutarve ja koko hoitoketjun kustannus voidaan laskea luotettavasti.</p></div>
+      <p class="source">Laatuindeksi = jatkuvuuden, koetun saatavuuden, koetun lääkäripalvelujen riittävyyden ja myönteisen koetun terveyden yhtä painotettu geometrinen keskiarvo. Koko Suomi 2020 = 100.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">06 · Ohjausriski</p><h2>Missä hyvältä näyttävä mittari ja kansalaisen tulos kulkevat eri suuntiin?</h2>
+      <p><a class="back" href="vantaa-kerava-sote.html">Avaa Vantaa–Keravan aluekohtainen erittely →</a></p>
+      <div id="risk-summary" class="risk-summary" aria-label="Ohjausriskisignaalien yhteenveto"></div>
+      <div class="risk-wrap"><table id="risk-table" class="risk-table" aria-label="Ohjausriskisignaalit hyvinvointialueittain"></table></div>
+      <div class="finding"><p><strong>Päähavainto.</strong> Näkymä nostaa tarkistettavaksi ristiriidat: käyntituotos kasvaa laadun heikentyessä, toteutuneiden käyntien jono näyttää lyhenevän väestön kokemuksen heikentyessä, kustannus laskee päivystys- tai sairaalakuorman kasvaessa tai jatkuvuuden vastamittari rikkoutuu.</p><p><strong>Mitä kuva ei kerro.</strong> Signaali ei osoita tarkoituksellista pelaamista eikä syy-seurausta. Kaikkien alueiden vertailussa on vuoden 2023 hallinto- ja kirjaamiskatkos; Helsingin sekä Vantaan ja Keravan käyntitiedoissa on lisäksi tunnettuja puutteita.</p></div>
+      <p class="source">THL Sotkanet 1080, 6411, 5502, 5186, 4909, 5081 ja 5587. Signaalit käyttävät dokumentoituja olennaisuusrajoja ja vertailua 2022–2024.</p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script>
+    const C={paper:'#f7f3ea',money:'#713b83',output:'#0067a3',quality:'#22833a',warning:'#c4512d',experience:'#d45d18',ink:'#171713',muted:'#625d52',grid:'#17171320',missing:'#b7afa1'};
+    let DATA=[],RISK=[];
+    const value=(row,key)=>row[key]===''||row[key]===null||row[key]===undefined?null:+row[key];
+    const national=()=>DATA.filter(d=>d.region_code==='FI').sort((a,b)=>a.year-b.year);
+    const pct=(current,base)=>`${current>=base?'+':''}${((current/base-1)*100).toFixed(1).replace('.',',')} %`;
+    function hostSvg(id,height,label){const host=document.getElementById(id);host.innerHTML='';const width=Math.max(320,host.getBoundingClientRect().width||700);const svg=d3.select(host).append('svg').attr('viewBox',`0 0 ${width} ${height}`).attr('role','img').attr('aria-label',label);return{svg,width}}
+    function lineChart(id,series,{height=300,yTitle='',yFormat=d=>d.toFixed(0),domain=null,event=true}={}){
+      const {svg,width}=hostSvg(id,height,series.map(s=>s.name).join(', '));const m={top:26,right:width<500?72:116,bottom:50,left:64},iw=width-m.left-m.right,ih=height-m.top-m.bottom,g=svg.append('g').attr('transform',`translate(${m.left},${m.top})`);
+      const all=series.flatMap(s=>s.rows);const x=d3.scaleLinear().domain(d3.extent(all,d=>d.year)).range([0,iw]);const raw=d3.extent(all,d=>d.value),pad=(raw[1]-raw[0])*.12||1,y=d3.scaleLinear().domain(domain||[raw[0]-pad,raw[1]+pad]).nice().range([ih,0]);
+      g.selectAll('line.hgrid').data(y.ticks(4)).join('line').attr('class','grid').attr('x1',0).attr('x2',iw).attr('y1',d=>y(d)).attr('y2',d=>y(d));
+      g.append('g').attr('transform',`translate(0,${ih})`).call(d3.axisBottom(x).tickValues([2020,2021,2022,2023,2024,2025].filter(v=>v>=x.domain()[0]&&v<=x.domain()[1])).tickFormat(d3.format('d')));
+      g.append('g').call(d3.axisLeft(y).ticks(4).tickFormat(yFormat));
+      if(event&&2023>=x.domain()[0]&&2023<=x.domain()[1]){g.append('line').attr('class','event').attr('x1',x(2023)).attr('x2',x(2023)).attr('y1',0).attr('y2',ih);g.append('text').attr('class','event-label').attr('x',x(2023)+5).attr('y',11).text('uudistus')}
+      series.forEach((s,i)=>{const line=d3.line().defined(d=>Number.isFinite(d.value)).x(d=>x(d.year)).y(d=>y(d.value));g.append('path').datum(s.rows).attr('d',line).attr('fill','none').attr('stroke',s.color).attr('stroke-width',3).attr('stroke-dasharray',s.dash||null);g.selectAll(`circle.s${i}`).data(s.rows.filter(d=>Number.isFinite(d.value))).join('circle').attr('cx',d=>x(d.year)).attr('cy',d=>y(d.value)).attr('r',4).attr('fill',s.color).attr('stroke',C.ink);const last=s.rows.filter(d=>Number.isFinite(d.value)).at(-1);if(last)g.append('text').attr('class','direct-label').attr('x',x(last.year)+8).attr('y',y(last.value)+(i%2?14:-7)).attr('fill',s.color).text(`${s.name} ${s.format?s.format(last.value):yFormat(last.value)}`)});
+      g.append('text').attr('class','axis-title').attr('x',iw/2).attr('y',ih+43).attr('text-anchor','middle').text('Vuosi');g.append('text').attr('class','axis-title').attr('transform','rotate(-90)').attr('x',-ih/2).attr('y',-48).attr('text-anchor','middle').text(yTitle);
+    }
+    function coverage(){
+      const metrics=[
+        ['primary_care_cost_nominal_eur_per_resident','Perusterveydenhuollon kustannus'],['public_health_staff_per_10000','Henkilöstö'],['primary_care_doctor_visits_per_1000','Lääkärikäynnit'],['primary_care_wait_over_7d_pct','Yli 7 päivää odottaneet'],['primary_care_doctor_continuity_coci','Jatkuvuus'],['experienced_fast_access_pct','Koettu nopea yhteys'],['experienced_insufficient_doctor_services_pct','Riittämättömät lääkäripalvelut'],['self_rated_health_mediocre_or_worse_pct','Koettu terveys'],['primary_care_emergency_visits_per_1000','Päivystyskäynnit'],['avoidable_emergency_hospitalizations_per_100000','Vältettävissä olevat sairaalahoidot']
+      ];
+      const years=d3.range(2020,2026),areas=DATA.filter(d=>d.region_type==='wellbeing_area'),table=document.getElementById('coverage-table');
+      table.innerHTML=`<thead><tr><th>Mittari</th>${years.map(y=>`<th>${y}</th>`).join('')}</tr></thead><tbody>${metrics.map(([key,name])=>`<tr><td>${name}</td>${years.map(y=>{const n=areas.filter(d=>d.year===y&&value(d,key)!==null).length,p=Math.round(n/23*100),klass=p===100?'full':p>=80?'most':p>0?'some':'';return`<td><span class="coverage-dot ${klass}"></span><span class="coverage-value">${p?p+' %':'—'}</span></td>`}).join('')}</tr>`).join('')}</tbody>`;
+    }
+    function draw(){
+      const fi=national(),get=key=>fi.filter(d=>value(d,key)!==null).map(d=>({year:d.year,value:value(d,key)})),b2020=fi.find(d=>d.year===2020),y2024=fi.find(d=>d.year===2024);
+      document.getElementById('quality-stat').textContent=value(y2024,'quality_balance_index').toFixed(1).replace('.',',');
+      document.getElementById('activity-stat').textContent=pct(value(y2024,'activity_per_real_cost_index_fi_2020_100'),100);
+      document.getElementById('continuity-stat').textContent=pct(value(y2024,'primary_care_doctor_continuity_coci'),value(b2020,'primary_care_doctor_continuity_coci'));
+      coverage();
+      lineChart('cost-chart',[{name:'Reaalikustannus',rows:get('primary_care_cost_real_2024_eur_per_resident'),color:C.money,format:v=>`${v.toFixed(0)} €`}],{yTitle:'Vuoden 2024 euroa / asukas',yFormat:v=>`${v.toFixed(0)} €`});
+      lineChart('staff-chart',[{name:'Henkilöstö',rows:get('public_health_staff_per_10000'),color:C.quality,format:v=>v.toFixed(1).replace('.',',')}],{yTitle:'Henkilöä / 10 000 asukasta',yFormat:v=>v.toFixed(0)});
+      const indexed=key=>{const rows=get(key),base=rows.find(d=>d.year===2020)?.value;return rows.map(d=>({year:d.year,value:d.value/base*100}))};
+      lineChart('spillover-chart',[{name:'Päivystyskäynnit',rows:indexed('primary_care_emergency_visits_per_1000'),color:C.warning},{name:'Vältettävät sairaalahoidot',rows:indexed('avoidable_emergency_hospitalizations_per_100000'),color:C.quality}],{height:330,yTitle:'Indeksi, 2020 = 100'});
+      lineChart('output-chart',[{name:'Käyntituotos',rows:get('activity_per_real_cost_index_fi_2020_100'),color:C.output},{name:'Jatkuvuus',rows:get('continuity_index_fi_2020_100'),color:C.quality}],{yTitle:'Indeksi, 2020 = 100'});
+      lineChart('wait-chart',[{name:'Yli 7 pv',rows:get('primary_care_wait_over_7d_pct'),color:C.warning,format:v=>`${v.toFixed(1).replace('.',',')} %`}],{yTitle:'Osuus toteutuneista käynneistä',yFormat:v=>`${v.toFixed(0)} %`});
+      lineChart('experience-chart',[{name:'Nopea yhteys',rows:get('experienced_fast_access_pct'),color:C.experience,format:v=>`${v.toFixed(1).replace('.',',')} %`},{name:'Riittävä lääkäripalvelu',rows:get('experienced_sufficient_doctor_services_pct'),color:C.output,format:v=>`${v.toFixed(1).replace('.',',')} %`},{name:'Terveys hyvä',rows:get('self_rated_healthy_pct'),color:C.quality,format:v=>`${v.toFixed(1).replace('.',',')} %`}],{height:350,yTitle:'Osuus vastaajista',yFormat:v=>`${v.toFixed(0)} %`,event:true});
+      lineChart('value-chart',[{name:'Laadun tasapaino',rows:get('quality_balance_index'),color:C.output,format:v=>v.toFixed(1).replace('.',',')},{name:'Käyntituotos',rows:get('activity_per_real_cost_index_fi_2020_100'),color:C.money,format:v=>v.toFixed(1).replace('.',',')},{name:'Jatkuvuus',rows:get('continuity_index_fi_2020_100'),color:C.quality,format:v=>v.toFixed(1).replace('.',',')}],{height:350,yTitle:'Indeksi, Suomi 2020 = 100'});
+      drawAreas();drawRisks();
+    }
+    function drawAreas(){
+      const areas=DATA.filter(d=>d.region_type==='wellbeing_area'),by={};areas.forEach(d=>(by[d.region_code]??={name:d.region_name_fi})[d.year]=value(d,'quality_balance_index'));
+      const rows=Object.values(by).filter(d=>Number.isFinite(d[2022])&&Number.isFinite(d[2024])).sort((a,b)=>b[2024]-a[2024]),height=Math.max(650,rows.length*31+70),{svg,width}=hostSvg('area-chart',height,'Hyvinvointialueiden laadun tasapainoindeksin muutos vuodesta 2022 vuoteen 2024'),m={top:24,right:38,bottom:48,left:width<500?112:188},iw=width-m.left-m.right,ih=height-m.top-m.bottom,g=svg.append('g').attr('transform',`translate(${m.left},${m.top})`),vals=rows.flatMap(d=>[d[2022],d[2024]]),x=d3.scaleLinear().domain(d3.extent(vals)).nice().range([0,iw]),y=d3.scaleBand().domain(rows.map(d=>d.name)).range([0,ih]).padding(.35);
+      g.selectAll('line.grid').data(x.ticks(4)).join('line').attr('class','grid').attr('x1',d=>x(d)).attr('x2',d=>x(d)).attr('y1',0).attr('y2',ih);g.selectAll('line.change').data(rows).join('line').attr('x1',d=>x(d[2022])).attr('x2',d=>x(d[2024])).attr('y1',d=>y(d.name)+y.bandwidth()/2).attr('y2',d=>y(d.name)+y.bandwidth()/2).attr('stroke',C.muted).attr('stroke-width',2);g.selectAll('circle.before').data(rows).join('circle').attr('cx',d=>x(d[2022])).attr('cy',d=>y(d.name)+y.bandwidth()/2).attr('r',4).attr('fill',C.paper).attr('stroke',C.ink).attr('stroke-width',1.5);g.selectAll('circle.after').data(rows).join('circle').attr('cx',d=>x(d[2024])).attr('cy',d=>y(d.name)+y.bandwidth()/2).attr('r',5).attr('fill',d=>d[2024]>=d[2022]?C.quality:C.warning).attr('stroke',C.ink);g.append('g').call(d3.axisLeft(y).tickSize(0).tickFormat(d=>d.replace(' hyvinvointialue','').replace('Helsingin kaupunki','Helsinki')));g.append('g').attr('transform',`translate(0,${ih})`).call(d3.axisBottom(x).ticks(4));g.append('text').attr('class','axis-title').attr('x',iw/2).attr('y',ih+40).attr('text-anchor','middle').text('Laadun tasapainoindeksi');g.append('text').attr('class','event-label').attr('x',0).attr('y',-8).text('○ 2022  ● 2024; vihreä = nousu, punainen = lasku');
+    }
+    function drawRisks(){
+      const levels={high_signal:'Vahva signaali',watch_signal:'Seurattava',no_observed_signal:'Ei havaittua',insufficient_data:'Tieto ei riitä'},order={high_signal:0,watch_signal:1,no_observed_signal:2,insufficient_data:3},rules=[['activity_quality_conflict','Käyntituotos vs. laatu'],['wait_denominator_conflict','Jono vs. väestökokemus'],['cost_shift_signal','Kustannusten siirtymä'],['continuity_countermeasure_breach','Jatkuvuus heikkeni']];
+      const counts=Object.fromEntries(Object.keys(levels).map(level=>[level,RISK.filter(d=>d.steering_risk_level===level).length]));
+      document.getElementById('risk-summary').innerHTML=`<div class="risk-card high"><strong>${counts.high_signal}</strong>vahvaa signaalia</div><div class="risk-card watch"><strong>${counts.watch_signal}</strong>seurattavaa</div><div class="risk-card clear"><strong>${counts.no_observed_signal}</strong>ei havaittua signaalia</div><div class="risk-card"><strong>${counts.insufficient_data}</strong>tieto ei riitä</div>`;
+      const rows=[...RISK].sort((a,b)=>order[a.steering_risk_level]-order[b.steering_risk_level]||b.triggered_rule_count-a.triggered_rule_count||a.region_name_fi.localeCompare(b.region_name_fi,'fi'));
+      const cell=(row,id)=>{const hit=row.triggered_rules.split('|').includes(id),seen=row.evaluated_rules.split('|').includes(id),klass=hit?'hit':seen?'clear':'unknown',mark=hit?'!':seen?'—':'?';return`<td><span class="risk-dot ${klass}" aria-label="${hit?'Signaali havaittu':seen?'Ei signaalia':'Tieto ei riitä'}">${mark}</span></td>`};
+      document.getElementById('risk-table').innerHTML=`<thead><tr><th>Hyvinvointialue</th>${rules.map(r=>`<th>${r[1]}</th>`).join('')}<th>Tulkinta</th></tr></thead><tbody>${rows.map(row=>`<tr><td>${row.region_name_fi.replace(' hyvinvointialue','')}</td>${rules.map(r=>cell(row,r[0])).join('')}<td><span class="risk-level ${row.steering_risk_level}">${levels[row.steering_risk_level]}</span></td></tr>`).join('')}</tbody>`;
+    }
+    Promise.all(['data/reference/primary_care_value_panel_v1.json','data/reference/primary_care_steering_risk_v1.json'].map(url=>fetch(url).then(r=>{if(!r.ok)throw new Error(`${url}: HTTP ${r.status}`);return r.json()}))).then(([rows,risks])=>{DATA=rows;RISK=risks;draw()}).catch(error=>{document.querySelector('main').insertAdjacentHTML('afterbegin',`<p class="finding"><strong>Datan lataus epäonnistui:</strong> ${error.message}</p>`)});let timer;window.addEventListener('resize',()=>{clearTimeout(timer);timer=setTimeout(draw,150)});
+  </script>
+</body>
+</html>

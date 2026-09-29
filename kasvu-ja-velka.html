@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Budjettihaukka – talouskasvu ja valtionvelka</title>
+  <style>
+    :root {
+      --yellow: #f6d84f;
+      --paper: #f5f1e8;
+      --paper-deep: #e9e2d3;
+      --ink: #171713;
+      --muted: #5f5b50;
+      --good: #22833a;
+      --bad: #d45d18;
+      --crisis: #713b83;
+      --grid: #17171320;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+    .hero { background: var(--yellow); border-bottom: 2px solid var(--ink); }
+    .wrap { max-width: 1180px; margin: auto; padding-inline: 22px; }
+    .hero .wrap { padding-top: 32px; padding-bottom: 42px; }
+    main.wrap { padding-bottom: 72px; }
+    h1, h2 { font-family: Arial Black, system-ui, sans-serif; letter-spacing: -.035em; }
+    h1 { max-width: 1040px; margin: 30px 0 18px; font-size: clamp(2.6rem, 6vw, 5rem); line-height: .92; text-transform: uppercase; }
+    h2 { margin: 0 0 10px; font-size: clamp(1.55rem, 3vw, 2.25rem); line-height: 1.1; }
+    .back { display: inline-flex; padding: 8px 14px; border: 2px solid var(--ink); border-radius: 999px; background: #fff3b6; color: var(--ink); font-weight: 700; text-decoration: none; }
+    .lede { max-width: 900px; margin: 0; font-size: 1.08rem; }
+    .alert { max-width: 900px; margin-top: 16px; padding: 12px 14px; border: 2px solid var(--ink); background: #fff3b6; font-weight: 700; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+    .stat { padding-top: 12px; border-top: 3px solid var(--ink); }
+    .stat strong { display: block; font: 800 clamp(1.5rem, 3vw, 2.4rem)/1 Arial Black, system-ui, sans-serif; }
+    .stat span { display: block; margin-top: 7px; font-size: .88rem; }
+    section { padding: 48px 0 54px; }
+    .eyebrow { margin: 0 0 7px; color: var(--muted); font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .chart { width: 100%; min-height: 320px; margin-top: 18px; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; font-size: .9rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .swatch { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid var(--ink); }
+    .finding { max-width: 940px; margin-top: 20px; padding: 16px 18px; border-left: 5px solid var(--ink); background: var(--paper-deep); }
+    .finding p { margin: 0 0 10px; }
+    .finding p:last-child { margin-bottom: 0; }
+    .source { margin-top: 14px; color: var(--muted); font-size: .86rem; }
+    .axis { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+    .grid { fill: none; stroke: var(--grid); stroke-width: 1; }
+    .tick { font-size: 12px; fill: var(--muted); }
+    .axis-title { font-size: 12.5px; fill: var(--ink); font-weight: 700; }
+    .quad-label { font-size: 11.5px; fill: var(--muted); font-weight: 700; }
+    .point-label { font-size: 11px; fill: var(--ink); }
+    @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <a class="back" href="visualisointidemot.html">← Visualisointidemot</a>
+      <h1>Kasvu ja<br>velkasuhde</h1>
+      <p class="lede">Jokainen piste on yksi vuosi 2001–2025. Vaaka-akselilla bruttokansantuotteen
+        volyymin muutos, pystyakselilla valtionvelan suhde bruttokansantuotteeseen ja sen muutos
+        prosenttiyksikköinä. Oikealla alhaalla talous kasvoi ja velkasuhde laski.</p>
+      <p class="alert">Kuva näyttää yhteyden, ei syytä. Kasvu ja velkaantuminen vaikuttavat
+        toisiinsa molempiin suuntiin, ja molempia liikuttavat samat suhdanteet.</p>
+      <div class="stats">
+        <div class="stat"><strong id="stat-from"></strong><span>velkasuhde 2001</span></div>
+        <div class="stat"><strong id="stat-to"></strong><span>velkasuhde 2025</span></div>
+        <div class="stat"><strong id="stat-updown"></strong><span>vuotta joina suhde laski</span></div>
+        <div class="stat"><strong id="stat-empty"></strong><span>vuotta kutistuvalla taloudella ja laskevalla suhteella</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <p class="eyebrow">Talouskasvu ja valtionvelka 2001–2025</p>
+      <h2>Velkasuhde laskee vain kasvun aikana, mutta kasvu ei riitä siihen yksin</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#22833a"></i>Kasvua, velkasuhde laski</span>
+        <span><i class="swatch" style="background:#d45d18"></i>Kasvua, velkasuhde silti nousi</span>
+        <span><i class="swatch" style="background:#713b83"></i>Talous kutistui, velkasuhde nousi</span>
+      </div>
+      <div id="chart-scatter" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> <span id="finding"></span></p>
+        <p><strong>Mitä kuva ei kerro.</strong> Pisteiden sijainti ei kerro syy-seuraussuhdetta
+          kumpaankaan suuntaan. Heikko kasvu kasvattaa velkaa verotulojen jäädessä pieniksi, ja
+          velkaantuminen voi puolestaan tukea kasvua tai painaa sitä korkomenojen kautta —
+          tästä kuvasta ei voi päätellä kumpi vaikutti. Suhdanteet, kuten finanssikriisi ja
+          koronapandemia, liikuttavat molempia yhtä aikaa. Velkasuhteen nimittäjä on
+          <em>nimellinen</em> BKT, jossa on mukana inflaatio, kun taas vaaka-akselin kasvu on
+          volyymin muutos ilman inflaatiota — vuonna 2022 inflaatio pienensi velkasuhdetta
+          vaikka volyymikasvu oli lähes nolla. Velka on valtionhallinnon EDP-velkakanta, ei
+          koko julkisen talouden velka eikä budjetin nettovelanotto.</p>
+      </div>
+      <p class="source" id="source"></p>
+    </section>
+  </main>
+
+  <script type="application/json" id="relation-data">{"meta":{"dataset_id":"growth_debt_relation_v1","year_from":2001,"year_to":2025,"debt_measure":"valtionhallinnon EDP-velkakanta vuoden lopussa, S1311","growth_measure":"bruttokansantuotteen volyymin muutos, %","decomposition_note":"velanoton ja nimellisen BKT:n vaikutus summautuvat velkasuhteen muutokseen tarkalleen","debt_pct_gdp_first":45.78772309543402,"debt_pct_gdp_last":74.24575928200686,"sources":[{"source_id":"statfin_central_government_edp_debt_11yv","label":"Tilastokeskus, julkisyhteisöjen EDP-velka"},{"source_id":"statfin_national_accounts_15a9","label":"Tilastokeskus, kansantalouden tilinpito"}]},"years":[{"year":2001,"gdp_volume_change_pct":2.6,"gdp_nominal_change_pct":6.032144061707223,"debt_meur":66215.0,"gdp_meur":144613.0,"debt_pct_gdp":45.78772309543402,"debt_pct_gdp_change_pp":-4.558353481340724,"borrowing_effect_pp":-1.6941768720654435,"denominator_effect_pp":-2.8641766092752747,"quadrant":"growth_up_ratio_down"},{"year":2002,"gdp_volume_change_pct":1.7,"gdp_nominal_change_pct":2.6463734242426318,"debt_meur":63531.0,"gdp_meur":148440.0,"debt_pct_gdp":42.799110751818915,"debt_pct_gdp_change_pp":-2.9886123436151024,"borrowing_effect_pp":-1.8081379682026408,"denominator_effect_pp":-1.1804743754124651,"quadrant":"growth_up_ratio_down"},{"year":2003,"gdp_volume_change_pct":2.0,"gdp_nominal_change_pct":2.2056049582322768,"debt_meur":67517.0,"gdp_meur":151714.0,"debt_pct_gdp":44.50281450624201,"debt_pct_gdp_change_pp":1.7037037544230955,"borrowing_effect_pp":2.6273119158416494,"denominator_effect_pp":-0.9236081614185575,"quadrant":"growth_up_ratio_up"},{"year":2004,"gdp_volume_change_pct":4.0,"gdp_nominal_change_pct":4.6317413027143095,"debt_meur":67905.0,"gdp_meur":158741.0,"debt_pct_gdp":42.77722831530606,"debt_pct_gdp_change_pp":-1.7255861909359496,"borrowing_effect_pp":0.24442330588820785,"denominator_effect_pp":-1.9700094968241542,"quadrant":"growth_up_ratio_down"},{"year":2005,"gdp_volume_change_pct":2.8,"gdp_nominal_change_pct":3.7324950705866833,"debt_meur":64530.0,"gdp_meur":164666.0,"debt_pct_gdp":39.18841776687355,"debt_pct_gdp_change_pp":-3.5888105484325123,"borrowing_effect_pp":-2.0496034396900393,"denominator_effect_pp":-1.5392071087424708,"quadrant":"growth_up_ratio_down"},{"year":2006,"gdp_volume_change_pct":4.0,"gdp_nominal_change_pct":4.976740796521439,"debt_meur":63143.0,"gdp_meur":172861.0,"debt_pct_gdp":36.528193172549045,"debt_pct_gdp_change_pp":-2.6602245943245038,"borrowing_effect_pp":-0.802378789894771,"denominator_effect_pp":-1.8578458044297401,"quadrant":"growth_up_ratio_down"},{"year":2007,"gdp_volume_change_pct":5.3,"gdp_nominal_change_pct":8.213535731020883,"debt_meur":60711.0,"gdp_meur":187059.0,"debt_pct_gdp":32.45553541930621,"debt_pct_gdp_change_pp":-4.0726577532428365,"borrowing_effect_pp":-1.3001245596309186,"denominator_effect_pp":-2.7725331936119146,"quadrant":"growth_up_ratio_down"},{"year":2008,"gdp_volume_change_pct":0.8,"gdp_nominal_change_pct":3.845845428447703,"debt_meur":60170.0,"gdp_meur":194253.0,"debt_pct_gdp":30.975068596109196,"debt_pct_gdp_change_pp":-1.4804668231970126,"borrowing_effect_pp":-0.2785027773058846,"denominator_effect_pp":-1.201964045891128,"quadrant":"growth_up_ratio_down"},{"year":2009,"gdp_volume_change_pct":-8.1,"gdp_nominal_change_pct":-6.444173320360558,"debt_meur":70887.0,"gdp_meur":181735.0,"debt_pct_gdp":39.005695105510775,"debt_pct_gdp_change_pp":8.030626509401579,"borrowing_effect_pp":5.897047899413982,"denominator_effect_pp":2.1335786099875915,"quadrant":"growth_down_ratio_up"},{"year":2010,"gdp_volume_change_pct":3.2,"gdp_nominal_change_pct":3.528214157977283,"debt_meur":83682.0,"gdp_meur":188147.0,"debt_pct_gdp":44.47692495761293,"debt_pct_gdp_change_pp":5.471229852102155,"borrowing_effect_pp":6.800533625303619,"denominator_effect_pp":-1.3293037732014548,"quadrant":"growth_up_ratio_up"},{"year":2011,"gdp_volume_change_pct":2.4,"gdp_nominal_change_pct":5.053495405188491,"debt_meur":92490.0,"gdp_meur":197655.0,"debt_pct_gdp":46.7936556120513,"debt_pct_gdp_change_pp":2.3167306544383734,"borrowing_effect_pp":4.4562495256887,"denominator_effect_pp":-2.139518871250331,"quadrant":"growth_up_ratio_up"},{"year":2012,"gdp_volume_change_pct":-1.5,"gdp_nominal_change_pct":1.3776529812046245,"debt_meur":100968.0,"gdp_meur":200378.0,"debt_pct_gdp":50.38876523370829,"debt_pct_gdp_change_pp":3.595109621656988,"borrowing_effect_pp":4.231003403567258,"denominator_effect_pp":-0.6358937819102676,"quadrant":"growth_down_ratio_up"},{"year":2013,"gdp_volume_change_pct":-1.0,"gdp_nominal_change_pct":1.556558105181205,"debt_meur":106631.0,"gdp_meur":203497.0,"debt_pct_gdp":52.39929826975336,"debt_pct_gdp_change_pp":2.010533036045068,"borrowing_effect_pp":2.782842007498882,"denominator_effect_pp":-0.772308971453814,"quadrant":"growth_down_ratio_up"},{"year":2014,"gdp_volume_change_pct":-0.5,"gdp_nominal_change_pct":1.1587394408762774,"debt_meur":113287.0,"gdp_meur":205855.0,"debt_pct_gdp":55.032425736562146,"debt_pct_gdp_change_pp":2.633127466808787,"borrowing_effect_pp":3.233343858541206,"denominator_effect_pp":-0.6002163917324228,"quadrant":"growth_down_ratio_up"},{"year":2015,"gdp_volume_change_pct":0.5,"gdp_nominal_change_pct":2.106822763595728,"debt_meur":120675.0,"gdp_meur":210192.0,"debt_pct_gdp":57.411794930349394,"debt_pct_gdp_change_pp":2.379369193787248,"borrowing_effect_pp":3.5148816320316665,"denominator_effect_pp":-1.1355124382444175,"quadrant":"growth_up_ratio_up"},{"year":2016,"gdp_volume_change_pct":2.6,"gdp_nominal_change_pct":2.6285491360280133,"debt_meur":123449.0,"gdp_meur":215717.0,"debt_pct_gdp":57.227293166509824,"debt_pct_gdp_change_pp":-0.1845017638395703,"borrowing_effect_pp":1.2859440841472856,"denominator_effect_pp":-1.4704458479868532,"quadrant":"growth_up_ratio_down"},{"year":2017,"gdp_volume_change_pct":3.3,"gdp_nominal_change_pct":4.167033659841368,"debt_meur":124864.0,"gdp_meur":224706.0,"debt_pct_gdp":55.56771959805257,"debt_pct_gdp_change_pp":-1.6595735684572546,"borrowing_effect_pp":0.6297117121928208,"denominator_effect_pp":-2.2892852806500787,"quadrant":"growth_up_ratio_down"},{"year":2018,"gdp_volume_change_pct":1.2,"gdp_nominal_change_pct":3.2037417781456634,"debt_meur":124025.0,"gdp_meur":231905.0,"debt_pct_gdp":53.48095125159009,"debt_pct_gdp_change_pp":-2.0867683464624776,"borrowing_effect_pp":-0.36178607619499364,"denominator_effect_pp":-1.7249822702674817,"quadrant":"growth_up_ratio_down"},{"year":2019,"gdp_volume_change_pct":1.3,"gdp_nominal_change_pct":2.851598714991055,"debt_meur":126081.0,"gdp_meur":238518.0,"debt_pct_gdp":52.86016149724549,"debt_pct_gdp_change_pp":-0.6207897543445995,"borrowing_effect_pp":0.8619894515298636,"denominator_effect_pp":-1.4827792058744687,"quadrant":"growth_up_ratio_down"},{"year":2020,"gdp_volume_change_pct":-2.5,"gdp_nominal_change_pct":-0.8934336192656267,"debt_meur":144232.0,"gdp_meur":236387.0,"debt_pct_gdp":61.015199651419074,"debt_pct_gdp_change_pp":8.155038154173582,"borrowing_effect_pp":7.6785102395647815,"denominator_effect_pp":0.4765279146088039,"quadrant":"growth_down_ratio_up"},{"year":2021,"gdp_volume_change_pct":2.7,"gdp_nominal_change_pct":5.235905527799756,"debt_meur":148248.0,"gdp_meur":248764.0,"debt_pct_gdp":59.593831904938014,"debt_pct_gdp_change_pp":-1.4213677464810601,"borrowing_effect_pp":1.6143815021466128,"denominator_effect_pp":-3.035749248627666,"quadrant":"growth_up_ratio_down"},{"year":2022,"gdp_volume_change_pct":0.8,"gdp_nominal_change_pct":6.982923574150601,"debt_meur":160668.0,"gdp_meur":266135.0,"debt_pct_gdp":60.37086441091927,"debt_pct_gdp_change_pp":0.7770325059812535,"borrowing_effect_pp":4.666804441354952,"denominator_effect_pp":-3.8897719353737026,"quadrant":"growth_up_ratio_up"},{"year":2023,"gdp_volume_change_pct":-1.3,"gdp_nominal_change_pct":2.5813966595900517,"debt_meur":175054.0,"gdp_meur":273005.0,"debt_pct_gdp":64.12116994194245,"debt_pct_gdp_change_pp":3.750305531023187,"borrowing_effect_pp":5.269500558597828,"denominator_effect_pp":-1.5191950275746402,"quadrant":"growth_down_ratio_up"},{"year":2024,"gdp_volume_change_pct":0.9,"gdp_nominal_change_pct":1.1523598468892615,"debt_meur":189752.0,"gdp_meur":276151.0,"debt_pct_gdp":68.71313158380741,"debt_pct_gdp_change_pp":4.591961641864955,"borrowing_effect_pp":5.3224503985138565,"denominator_effect_pp":-0.7304887566488993,"quadrant":"growth_up_ratio_up"},{"year":2025,"gdp_volume_change_pct":0.8,"gdp_nominal_change_pct":1.9999927575855336,"debt_meur":209131.0,"gdp_meur":281674.0,"debt_pct_gdp":74.24575928200686,"debt_pct_gdp_change_pp":5.532627698199448,"borrowing_effect_pp":6.879939220517335,"denominator_effect_pp":-1.3473115223178886,"quadrant":"growth_up_ratio_up"}]}</script>
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const DATA = JSON.parse(document.getElementById('relation-data').textContent);
+    const YEARS = DATA.years;
+    const palette = { good: '#22833a', bad: '#d45d18', crisis: '#713b83', ink: '#171713', muted: '#5f5b50' };
+
+    const colorOf = row => {
+      if (row.gdp_volume_change_pct < 0) return palette.crisis;
+      return row.debt_pct_gdp_change_pp < 0 ? palette.good : palette.bad;
+    };
+    const fmt = (value, digits = 1) =>
+      value.toLocaleString('fi-FI', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    const signed = (value, digits = 1) => (value >= 0 ? '+' : '−') + fmt(Math.abs(value), digits);
+
+    const el = (parent, name, attrs = {}, text = '') => {
+      const node = document.createElementNS(NS, name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+      if (text) node.textContent = text;
+      parent.appendChild(node);
+      return node;
+    };
+    const scale = (d0, d1, r0, r1) => value => r0 + (value - d0) * (r1 - r0) / (d1 - d0 || 1);
+
+    function chart() {
+      const host = document.getElementById('chart-scatter');
+      host.innerHTML = '';
+      const node = document.createElementNS(NS, 'svg');
+      node.setAttribute('viewBox', '0 0 900 560');
+      node.setAttribute('role', 'img');
+      node.setAttribute('aria-label',
+        'Hajontakuvio: BKT:n volyymin muutos vaaka-akselilla ja velkasuhteen muutos pystyakselilla, vuodet 2001-2025.');
+      host.appendChild(node);
+
+      const x0 = 78, x1 = 856, y0 = 40, y1 = 470;
+      const gx = YEARS.map(row => row.gdp_volume_change_pct);
+      const gy = YEARS.map(row => row.debt_pct_gdp_change_pp);
+      const xMin = Math.floor(Math.min(...gx) - 1), xMax = Math.ceil(Math.max(...gx) + 1);
+      const yMin = Math.floor(Math.min(...gy) - 1), yMax = Math.ceil(Math.max(...gy) + 1);
+      const x = scale(xMin, xMax, x0, x1);
+      const y = scale(yMin, yMax, y1, y0);
+
+      /* Nelikentan taustat: oikea alanurkka on ainoa, jossa kasvu ja laskeva
+         velkasuhde osuvat yhteen. Vasen alanurkka jaa tyhjaksi. */
+      el(node, 'rect', { x: x(0), y: y(0), width: x1 - x(0), height: y1 - y(0), fill: '#22833a10' });
+      el(node, 'rect', { x: x0, y: y0, width: x(0) - x0, height: y(0) - y0, fill: '#713b8310' });
+
+      for (let value = xMin; value <= xMax; value += 2) {
+        el(node, 'line', { x1: x(value), x2: x(value), y1: y0, y2: y1, class: 'grid' });
+        el(node, 'text', { x: x(value), y: y1 + 18, 'text-anchor': 'middle', class: 'tick' }, signed(value, 0));
+      }
+      for (let value = yMin; value <= yMax; value += 2) {
+        el(node, 'line', { x1: x0, x2: x1, y1: y(value), y2: y(value), class: 'grid' });
+        el(node, 'text', { x: x0 - 8, y: y(value) + 4, 'text-anchor': 'end', class: 'tick' }, signed(value, 0));
+      }
+      el(node, 'line', { x1: x0, x2: x1, y1: y(0), y2: y(0), class: 'axis' });
+      el(node, 'line', { x1: x(0), x2: x(0), y1: y0, y2: y1, class: 'axis' });
+
+      el(node, 'text', { x: x1, y: y1 + 40, 'text-anchor': 'end', class: 'axis-title' },
+        'BKT:n volyymin muutos, % →');
+      el(node, 'text', { x: x0 - 8, y: y0 - 16, 'text-anchor': 'start', class: 'axis-title' },
+        '↑ Velkasuhteen muutos, prosenttiyksikköä');
+
+      el(node, 'text', { x: x1 - 6, y: y1 - 10, 'text-anchor': 'end', class: 'quad-label' },
+        'Kasvua, velkasuhde laski');
+      el(node, 'text', { x: x0 + 6, y: y0 + 14, class: 'quad-label' },
+        'Talous kutistui, velkasuhde nousi');
+      el(node, 'text', { x: x1 - 6, y: y0 + 14, 'text-anchor': 'end', class: 'quad-label' },
+        'Kasvua, velkasuhde silti nousi');
+      el(node, 'text', { x: x0 + 6, y: y1 - 10, class: 'quad-label' }, 'Ei yhtään vuotta');
+
+      /* Nimikkeet asetellaan pisteen oikealle puolelle ja siirretaan
+         pystysuunnassa, jos ne osuisivat jo asetettuun nimikkeeseen. */
+      const placed = [];
+      const sorted = [...YEARS].sort((a, b) => a.gdp_volume_change_pct - b.gdp_volume_change_pct);
+      sorted.forEach(row => {
+        const cx = x(row.gdp_volume_change_pct);
+        const cy = y(row.debt_pct_gdp_change_pp);
+        const recent = row.year >= 2024;
+        el(node, 'circle', {
+          cx, cy, r: recent ? 7 : 5,
+          fill: colorOf(row), stroke: palette.ink, 'stroke-width': recent ? 2 : 1.1
+        });
+
+        /* Kokeillaan nimikkeelle paikkoja jarjestyksessa ja otetaan
+           ensimmainen, joka ei osu jo asetettuun. Pelkka alaspain
+           tyontaminen jatti paallekkaisyyksia tiheisiin kohtiin. */
+        const candidates = [
+          [cx + 11, cy + 4, 'start'], [cx - 11, cy + 4, 'end'],
+          [cx + 11, cy - 10, 'start'], [cx - 11, cy - 10, 'end'],
+          [cx + 11, cy + 17, 'start'], [cx - 11, cy + 17, 'end'],
+          [cx, cy - 14, 'middle'], [cx, cy + 20, 'middle'],
+        ];
+        const collides = (lx, ly) =>
+          lx < x0 + 10 || lx > x1 - 6 || ly < y0 + 10 || ly > y1 - 4
+          || placed.some(p => Math.abs(p.x - lx) < 30 && Math.abs(p.y - ly) < 12);
+        const spot = candidates.find(([lx, ly]) => !collides(lx, ly)) || candidates[0];
+        const [lx, ly, anchor] = spot;
+        placed.push({ x: lx, y: ly });
+        el(node, 'text', {
+          x: lx, y: ly, 'text-anchor': anchor, class: 'point-label',
+          'font-weight': recent ? '800' : '400'
+        }, String(row.year));
+      });
+
+      el(node, 'text', { x: x0, y: 528, class: 'axis-title' },
+        'Korostetut pisteet ovat kaksi viimeisintä vuotta.');
+    }
+
+    function texts() {
+      const meta = DATA.meta;
+      const down = YEARS.filter(row => row.debt_pct_gdp_change_pp < 0);
+      const shrinkAndDown = YEARS.filter(
+        row => row.gdp_volume_change_pct < 0 && row.debt_pct_gdp_change_pp < 0);
+      const growthButUp = YEARS.filter(
+        row => row.gdp_volume_change_pct >= 0 && row.debt_pct_gdp_change_pp >= 0);
+      const last = YEARS[YEARS.length - 1];
+      const prev = YEARS[YEARS.length - 2];
+      const crisis = YEARS.reduce((a, b) =>
+        (b.debt_pct_gdp_change_pp > a.debt_pct_gdp_change_pp ? b : a));
+
+      document.getElementById('stat-from').textContent = fmt(meta.debt_pct_gdp_first) + ' %';
+      document.getElementById('stat-to').textContent = fmt(meta.debt_pct_gdp_last) + ' %';
+      document.getElementById('stat-updown').textContent = `${down.length}/${YEARS.length}`;
+      document.getElementById('stat-empty').textContent = shrinkAndDown.length;
+
+      document.getElementById('finding').textContent =
+        `Velkasuhde nousi ${fmt(meta.debt_pct_gdp_first)} prosentista ` +
+        `${fmt(meta.debt_pct_gdp_last)} prosenttiin. Yhtenäkään vuonna 2001–2025 velkasuhde ei ` +
+        `laskenut talouden kutistuessa: vasen alanurkka on tyhjä. Kasvu ei kuitenkaan yksin riitä, ` +
+        `sillä ${growthButUp.length} vuotena talous kasvoi mutta velkasuhde nousi silti. ` +
+        `Suurin yksittäinen nousu oli ${crisis.year} (${signed(crisis.debt_pct_gdp_change_pp, 1)} pp), ` +
+        `jolloin talous kutistui ${fmt(Math.abs(crisis.gdp_volume_change_pct))} prosenttia. ` +
+        `Kaksi viimeisintä vuotta ovat eri tapaus: ${prev.year} ja ${last.year} velkasuhde nousi ` +
+        `${signed(prev.debt_pct_gdp_change_pp, 1)} ja ${signed(last.debt_pct_gdp_change_pp, 1)} ` +
+        `prosenttiyksikköä vaikka talous kasvoi. Hajotelman mukaan nousu tuli velanotosta ` +
+        `(${signed(last.borrowing_effect_pp, 1)} pp vuonna ${last.year}), ja kasvava nimellinen ` +
+        `BKT jopa hillitsi sitä (${signed(last.denominator_effect_pp, 1)} pp).`;
+
+      document.getElementById('source').textContent =
+        `Lähde: Tilastokeskus. Velka on ${meta.debt_measure}, kasvu on ${meta.growth_measure}, ` +
+        `ja velkasuhteen nimittäjänä on bruttokansantuote käyvin hinnoin. ` +
+        `Velkasuhteen muutos hajotetaan velanoton ja nimellisen BKT:n vaikutukseen niin, että ` +
+        `osat summautuvat muutokseen tarkalleen. Vuodet ${meta.year_from}–${meta.year_to}.`;
+    }
+
+    texts();
+    chart();
+  </script>
+</body>
+</html>

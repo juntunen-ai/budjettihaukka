@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Budjettihaukka – yritystuet ja veroluokat</title>
+  <style>
+    :root {
+      --yellow: #f6d84f; --paper: #f5f1e8; --paper-deep: #e9e2d3; --ink: #171713;
+      --muted: #5f5b50; --reference: #0067a3; --comparison: #d45d18;
+      --positive: #22833a; --obligation: #713b83; --grid: #17171320;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+    .hero { background: var(--yellow); border-bottom: 2px solid var(--ink); }
+    .wrap { max-width: 1180px; margin: auto; padding-inline: 22px; }
+    .hero .wrap { padding-top: 32px; padding-bottom: 42px; }
+    main.wrap { padding-bottom: 72px; }
+    h1, h2 { font-family: Arial Black, system-ui, sans-serif; letter-spacing: -.035em; }
+    h1 { max-width: 1040px; margin: 30px 0 18px; font-size: clamp(2.7rem, 6.4vw, 5.4rem); line-height: .92; text-transform: uppercase; }
+    h2 { margin: 0 0 10px; font-size: clamp(1.55rem, 3vw, 2.25rem); line-height: 1.1; }
+    .back { display: inline-flex; padding: 8px 14px; border: 2px solid var(--ink); border-radius: 999px; background: #fff3b6; color: var(--ink); font-weight: 700; text-decoration: none; }
+    .lede { max-width: 920px; margin: 0; font-size: 1.08rem; }
+    .alert { max-width: 920px; margin-top: 16px; padding: 12px 14px; border: 2px solid var(--ink); background: #fff3b6; font-weight: 700; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+    .stat { padding-top: 12px; border-top: 3px solid var(--ink); }
+    .stat strong { display: block; font: 800 clamp(1.45rem, 2.8vw, 2.3rem)/1 Arial Black, system-ui, sans-serif; }
+    .stat span { display: block; margin-top: 7px; font-size: .88rem; }
+    section { padding: 48px 0 54px; border-bottom: 1.5px solid var(--ink); }
+    .eyebrow { margin: 0 0 7px; color: var(--muted); font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .chart { width: 100%; min-height: 300px; margin-top: 18px; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .grid { stroke: var(--grid); } .axis { stroke: var(--ink); stroke-width: 1.2; }
+    .tick, .label { fill: var(--ink); font-size: 12px; }
+    .axis-title { fill: var(--muted); font-size: 12px; font-weight: 700; }
+    .bar-label, .direct-label { fill: var(--ink); font-size: 12px; font-weight: 700; }
+    .event { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 5; }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 12px; font-size: .9rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .swatch { width: 14px; height: 14px; border: 1px solid var(--ink); }
+    .finding { max-width: 930px; margin-top: 24px; padding: 18px 20px; border-left: 5px solid var(--yellow); background: var(--paper-deep); }
+    .finding p { margin: 0; } .finding p + p { margin-top: 10px; }
+    .source { margin: 10px 0 0; color: var(--muted); font-size: .83rem; }
+    @media (max-width: 760px) {
+      .wrap { padding-inline: 14px; } .stats { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: clamp(2.3rem, 12vw, 3.9rem); } section { padding-block: 38px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="wrap">
+    <a class="back" href="tuki-avustus.html">← Tuki- ja avustushakuun</a>
+    <h1>Yritystuet ja budjetin veroluokat</h1>
+    <p class="lede">Viisi kuvaa erottaa yrityksille maksetut suorat tuet, ainoan omalla momentilla näkyvän verotuen ja verojen kertymät. Alemmat ALV-kannat eivät ole omia budjettirivejään.</p>
+    <div class="alert">Yhteisövero on kertymä, ei tuki. Energiaverotuki on verotuki. Sähköistämistuki on meno. Näitä kolmea ei voi laskea yhteen yhdeksi “yritystukien kokonaissummaksi”.</div>
+    <div class="stats">
+      <div class="stat"><strong>1,83 mrd €</strong><span>suorat yrityksiin liittyvät tuet vuonna 2025</span></div>
+      <div class="stat"><strong>47 M€</strong><span>energiaverotuki, ainoa tässä erillinen verotuki</span></div>
+      <div class="stat"><strong>5,39 mrd €</strong><span>yhteisöveron kertymä, ei tuen määrä</span></div>
+      <div class="stat"><strong>22,6 mrd €</strong><span>arvonlisävero yhtenä rivinä, kantoja ei erotella</span></div>
+    </div>
+  </div></header>
+
+  <main class="wrap">
+    <section>
+      <p class="eyebrow">01 · Mittakaava 2025</p>
+      <h2>Suora tuki, verotuki ja yhteisövero ovat eri asioita</h2>
+      <div id="chart-scale" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Vuonna 2025 yrityksiin liittyviä suoria tukia kertyi 1,83 miljardia euroa. Energiaverotuki, joka on budjetissa erillinen verotuki, oli 47 miljoonaa euroa. Yhteisöveroa kertyi 5,39 miljardia. Veron kertymä ei kerro, mitä alempi yhteisöverokanta “maksaa” suhteessa korkeampaan kantaan.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Alemmat arvonlisäverokannat (esimerkiksi ruoka ja lääkkeet) eivät näy omia momenteinaan. Niiden arvioitu verotuki on VM:n verotukiselvityksessä, ei tässä kuukausikirjanpidossa. Myös muut yritysten verotuet, kuten T&amp;K-vähennykset, puuttuvat.</p>
+      </div>
+      <p class="source">Lähde: Valtiokonttori, täyden vuoden 2025 nettokertymä. Suorat tuet on poimittu momenttien nimistä, ei virallisesta yritystukirekisteristä.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">02 · Suorat tuet 2025</p>
+      <h2>TKI ja energia vievät valtaosan, eivät “yleiset yritystuet”</h2>
+      <div id="chart-topics" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Suorista tuista 0,79 miljardia on TKI-tukia ja -lainoja, 0,51 miljardia energia- ja teollisuustukia. Maatalousyrittäjien investointi- ja korkotuet ovat 0,20 miljardia, työvoima- ja yrityspalvelut 0,13 miljardia. Finnveran ja vientiluottojen tuki on 0,10 miljardia, samoin Teollisuussijoituksen pääomasijoitus.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Työvoima- ja yrityspalvelut sisältävät myös palkkatukea ja starttirahaa, ei vain yrityksille maksettuja avustuksia. VTT:n avustus on tutkimuslaitoksen rahoitusta. EU:n alue- ja rakennerahastot on jätetty tästä jaosta pois, koska ne eivät ole pelkkää kansallista yritystukea.</p>
+      </div>
+      <p class="source">Luokitus momentin nimen perusteella. Hallinto, palkkaturva, kotoutuminen ja TEM:n toimintamenot on rajattu ulos.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">03 · 2015–2025</p>
+      <h2>Kriisituet näkyvät piikkinä, perusrakenne ei kasva</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#0067a3"></i>Suorat tuet ilman kriisieriä</span>
+        <span><i class="swatch" style="background:#d45d18"></i>Kustannustuki ja muut kriisituet</span>
+      </div>
+      <div id="chart-trend" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Ilman kriisieriä suorat yritystuet olivat 2,26 miljardia vuonna 2015 ja 1,83 miljardia vuonna 2025. Vuosina 2020–2021 päälle tulivat kustannustuki, yksinyrittäjätuki ja ravitsemisyrittäjien tuki; vuonna 2021 kriisituet olivat 0,98 miljardia. Vuonna 2025 ne ovat käytännössä nollassa.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Nimellinen lasku 2015–2019 ei ole ostovoimakorjattu, eikä se mittaa yritysten saamaa verotukea. Koodit ja momenttien nimet vaihtuvat, joten yksittäinen piikki voi olla uusi instrumentti, ei uutta politiikkaa.</p>
+      </div>
+      <p class="source">Täydet vuodet 2015–2025, nimellinen toteuma.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">04 · Alemmat energiaveroluokat</p>
+      <h2>Verotuki pieneni, tilalle tuli menomääräraha</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#713b83"></i>Energiaverojen kertymä</span>
+        <span><i class="swatch" style="background:#d45d18"></i>Energiaverotuki</span>
+        <span><i class="swatch" style="background:#0067a3"></i>Teollisuuden sähköistämistuki</span>
+      </div>
+      <div id="chart-energy" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Energiaveroja kertyi 3,84 miljardia euroa vuonna 2025. Energiaverotuki oli 279 miljoonaa vuonna 2019 ja 47 miljoonaa vuonna 2025. Samalla teollisuuden sähköistämistuki ilmestyi menomomentiksi vuonna 2022 ja oli 150 miljoonaa vuonna 2025. Alempi sähköveroluokka teollisuudelle ei näy erillisenä “alennusrivinä”, vaan osin verotukena ja osin menona.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> Energiaverotuen pienentyminen ei tarkoita, että teollisuuden energiakustannus nousi samalla summalla. Sähköistämistuki korvaa osin vanhaa energiaveron palautusta, mutta ehdot, saajat ja EU-säännöt eroavat. Kuva ei ole arvio hiilivuodosta eikä teollisuuspolitiikan tehosta.</p>
+      </div>
+      <p class="source">Momentit 11.08.07 (energiaverot), 28.91.41 (energiaverotuki) ja sähköistämistuki nimen perusteella.</p>
+    </section>
+
+    <section>
+      <p class="eyebrow">05 · Suurimmat momentit 2025</p>
+      <h2>Kärjessä TKI, uusiutuva energia ja maatalousinvestoinnit</h2>
+      <div id="chart-top" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> Suurin yksittäinen momentti on tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen, 478 miljoonaa euroa. Seuraavina ovat uusiutuvan energian tuotantotuki (212 M€), maatalouden aloittamis- ja investointiavustukset (168 M€) ja teollisuuden sähköistämistuki (150 M€). Yleisnimellä “yritystuki” ei ole omaa jättimomenttia.</p>
+        <p><strong>Mitä kuva ei kerro.</strong> TKI-raha voi mennä yritykselle, tutkimuslaitokselle tai niiden yhteistyöhön. Maatalouden investointiavustus on yritystukea maatilayrityksille, ei TEM:n elinkeinotukea. Lainat ja pääomasijoitukset ovat rahoitusta, eivät avustusta, vaikka ne näkyvät menoina.</p>
+      </div>
+      <p class="source">Vuoden 2025 täysi nettokertymä. Otsakkeita on lyhennetty. Business Finlandin toimintamenot on jätetty pois, koska ne ovat viraston hallintoa.</p>
+    </section>
+  </main>
+
+  <script type="application/json" id="firm-data">{
+  "meta": {
+    "title_fi": "Yritystuet ja budjetissa näkyvät veroluokat",
+    "year_from": 2015,
+    "year_to": 2025,
+    "latest_complete_year": 2025,
+    "metric": "nettokertymä, toteuma",
+    "unit": "EUR",
+    "coverage_status": "complete",
+    "source_fi": "Valtiokonttori, valtion taloushallinnon kuukausidata",
+    "source_url": "https://www.tutkihallintoa.fi/valtiontalous/valtion-taloustiedot/",
+    "caveat_fi": "Suorat tuet on poimittu momenttien nimistä. Ainoa tässä erillisenä näkyvä verotuki on energiaverotuki. Alemmat ALV-kannat ja yhteisöverokanta eivät ole omia momentejaan."
+  },
+  "headline_2025": {
+    "core_support_eur": 1832375799.89,
+    "crisis_support_eur": 635642.1,
+    "energiaverotuki_eur": 47278679.2,
+    "electrification_support_eur": 149880352.98,
+    "yhteisovero_eur": 5387751807.93,
+    "energiaverot_eur": 3842944298.13,
+    "arvonlisavero_eur": 22609940770.41,
+    "moment_count": 24
+  },
+  "topics_2025": [
+    {
+      "id": "tki",
+      "label_fi": "TKI-tuet ja -lainat",
+      "nominal_eur": 786908709.83
+    },
+    {
+      "id": "energia_teollisuus",
+      "label_fi": "Energia- ja teollisuustuet",
+      "nominal_eur": 507699995.57
+    },
+    {
+      "id": "maatalousyrittajat",
+      "label_fi": "Maatalousyrittäjien tuet",
+      "nominal_eur": 198865028.51
+    },
+    {
+      "id": "tyovoima_yrityspalvelut",
+      "label_fi": "Työvoima- ja yrityspalvelut",
+      "nominal_eur": 126761542.76
+    },
+    {
+      "id": "vienti_rahoitus",
+      "label_fi": "Vienti- ja Finnvera-tuet",
+      "nominal_eur": 101534090.22
+    },
+    {
+      "id": "paaomasijoitukset",
+      "label_fi": "Pääomasijoitukset",
+      "nominal_eur": 100000000.0
+    },
+    {
+      "id": "yritysten_kehittaminen",
+      "label_fi": "Yritysten kehittäminen",
+      "nominal_eur": 10606433.0
+    },
+    {
+      "id": "kriisituet",
+      "label_fi": "Kriisi- ja kustannustuet",
+      "nominal_eur": 635642.1
+    }
+  ],
+  "top_moments_2025": [
+    {
+      "code": "32.20.40.",
+      "name": "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen",
+      "topic": "tki",
+      "topic_fi": "TKI-tuet ja -lainat",
+      "nominal_eur": 477793541.83
+    },
+    {
+      "code": "32.20.48.",
+      "name": "Uusiutuvan energian tuotantotuki",
+      "topic": "energia_teollisuus",
+      "topic_fi": "Energia- ja teollisuustuet",
+      "nominal_eur": 212026146.5
+    },
+    {
+      "code": "30.10.40.",
+      "name": "Maatalouden aloittamis- ja investointiavustukset",
+      "topic": "maatalousyrittajat",
+      "topic_fi": "Maatalousyrittäjien tuet",
+      "nominal_eur": 167539256.46
+    },
+    {
+      "code": "32.20.43.",
+      "name": "Energiaintensiivisen teollisuuden sähköistämistuki",
+      "topic": "energia_teollisuus",
+      "topic_fi": "Energia- ja teollisuustuet",
+      "nominal_eur": 149880352.98
+    },
+    {
+      "code": "32.20.83.",
+      "name": "Lainat tutkimus- ja innovaatiotoimintaan",
+      "topic": "tki",
+      "topic_fi": "TKI-tuet ja -lainat",
+      "nominal_eur": 140384597.0
+    },
+    {
+      "code": "32.01.49.",
+      "name": "Valtionavustus Teknologian tutkimuskeskus VTT Oy:n toimintaa",
+      "topic": "tki",
+      "topic_fi": "TKI-tuet ja -lainat",
+      "nominal_eur": 131259000.0
+    },
+    {
+      "code": "32.30.51.",
+      "name": "Julkiset työvoima- ja yrityspalvelut",
+      "topic": "tyovoima_yrityspalvelut",
+      "topic_fi": "Työvoima- ja yrityspalvelut",
+      "nominal_eur": 126761542.76
+    },
+    {
+      "code": "32.20.41.",
+      "name": "Energiatuki",
+      "topic": "energia_teollisuus",
+      "topic_fi": "Energia- ja teollisuustuet",
+      "nominal_eur": 119132771.0
+    },
+    {
+      "code": "32.40.88.",
+      "name": "Pääomasijoitus Suomen Teollisuussijoitus Oy:lle",
+      "topic": "paaomasijoitukset",
+      "topic_fi": "Pääomasijoitukset",
+      "nominal_eur": 100000000.0
+    },
+    {
+      "code": "32.40.48.",
+      "name": "Korko- ja muu tuki julkisesti tuetuille vienti- ja alusluoto",
+      "topic": "vienti_rahoitus",
+      "topic_fi": "Vienti- ja Finnvera-tuet",
+      "nominal_eur": 74384445.66
+    },
+    {
+      "code": "30.10.41.",
+      "name": "Maaseutuelinkeinotoiminnan korkotuki",
+      "topic": "maatalousyrittajat",
+      "topic_fi": "Maatalousyrittäjien tuet",
+      "nominal_eur": 31325772.05
+    },
+    {
+      "code": "32.40.47.",
+      "name": "Finnvera Oyj:n tappiokorvaukset",
+      "topic": "vienti_rahoitus",
+      "topic_fi": "Vienti- ja Finnvera-tuet",
+      "nominal_eur": 27149644.56
+    }
+  ],
+  "trend": [
+    {
+      "year": 2015,
+      "core_support_eur": 2255018711.01,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 238915509.55,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 2761280793.63,
+      "energiaverot_eur": 4309116490.3,
+      "arvonlisavero_eur": 16628487805.0
+    },
+    {
+      "year": 2016,
+      "core_support_eur": 1590754505.79,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 243224128.47,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 3267837072.17,
+      "energiaverot_eur": 4594845293.84,
+      "arvonlisavero_eur": 17106964878.8
+    },
+    {
+      "year": 2017,
+      "core_support_eur": 1415160379.42,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 240823427.47,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 4001124528.29,
+      "energiaverot_eur": 4230211726.65,
+      "arvonlisavero_eur": 16138443099.74
+    },
+    {
+      "year": 2018,
+      "core_support_eur": 1606601869.04,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 272634093.64,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 4077751992.74,
+      "energiaverot_eur": 4657195954.19,
+      "arvonlisavero_eur": 18082248957.84
+    },
+    {
+      "year": 2019,
+      "core_support_eur": 1290809315.39,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 278875047.34,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 3838131764.95,
+      "energiaverot_eur": 4200272931.05,
+      "arvonlisavero_eur": 17504540604.57
+    },
+    {
+      "year": 2020,
+      "core_support_eur": 2648888571.64,
+      "crisis_support_eur": 345692181.24,
+      "energiaverotuki_eur": 261437178.17,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 2787601286.21,
+      "energiaverot_eur": 4459053143.25,
+      "arvonlisavero_eur": 18204660362.3
+    },
+    {
+      "year": 2021,
+      "core_support_eur": 1795354210.51,
+      "crisis_support_eur": 979796116.05,
+      "energiaverotuki_eur": 231978873.16,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 3686272570.64,
+      "energiaverot_eur": 4129214750.06,
+      "arvonlisavero_eur": 20152197587.02
+    },
+    {
+      "year": 2022,
+      "core_support_eur": 1813036384.21,
+      "crisis_support_eur": 274304010.58,
+      "energiaverotuki_eur": 144341486.59,
+      "electrification_support_eur": 117216574.45,
+      "yhteisovero_eur": 5538201117.59,
+      "energiaverot_eur": 4488409602.58,
+      "arvonlisavero_eur": 21321760311.73
+    },
+    {
+      "year": 2023,
+      "core_support_eur": 1544691629.18,
+      "crisis_support_eur": 129803587.37,
+      "energiaverotuki_eur": 41980861.68,
+      "electrification_support_eur": 165860956.11,
+      "yhteisovero_eur": 5309377714.79,
+      "energiaverot_eur": 3874422100.46,
+      "arvonlisavero_eur": 19884562872.11
+    },
+    {
+      "year": 2024,
+      "core_support_eur": 1690798864.14,
+      "crisis_support_eur": 20949357.9,
+      "energiaverotuki_eur": 57989197.12,
+      "electrification_support_eur": 143202896.09,
+      "yhteisovero_eur": 5428942811.73,
+      "energiaverot_eur": 4161641430.34,
+      "arvonlisavero_eur": 21558029289.95
+    },
+    {
+      "year": 2025,
+      "core_support_eur": 1832375799.89,
+      "crisis_support_eur": 635642.1,
+      "energiaverotuki_eur": 47278679.2,
+      "electrification_support_eur": 149880352.98,
+      "yhteisovero_eur": 5387751807.93,
+      "energiaverot_eur": 3842944298.13,
+      "arvonlisavero_eur": 22609940770.41
+    }
+  ]
+}</script>
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const DATA = JSON.parse(document.getElementById('firm-data').textContent);
+    const palette = { reference:'#0067a3', comparison:'#d45d18', positive:'#22833a', obligation:'#713b83', ink:'#171713', other:'#8a8476' };
+    const topicColor = {
+      tki: palette.reference, energia_teollisuus: palette.comparison, maatalousyrittajat: palette.positive,
+      tyovoima_yrityspalvelut: '#1b6b7a', paaomasijoitukset: palette.obligation, vienti_rahoitus: '#b08900',
+      yritysten_kehittaminen: palette.other, kriisituet: '#9b311c'
+    };
+    const SHORT = {
+      'Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen': 'TKI-toiminnan tukeminen',
+      'Uusiutuvan energian tuotantotuki': 'Uusiutuvan energian tuotantotuki',
+      'Maatalouden aloittamis- ja investointiavustukset': 'Maatalouden investointiavustukset',
+      'Energiaintensiivisen teollisuuden sähköistämistuki': 'Teollisuuden sähköistämistuki',
+      'Lainat tutkimus- ja innovaatiotoimintaan': 'TKI-lainat',
+      'Valtionavustus Teknologian tutkimuskeskus VTT Oy:n toimintaa': 'VTT:n valtionavustus',
+      'Julkiset työvoima- ja yrityspalvelut': 'Työvoima- ja yrityspalvelut',
+      'Energiatuki': 'Energiatuki',
+      'Pääomasijoitus Suomen Teollisuussijoitus Oy:lle': 'Teollisuussijoitus (TESI)',
+      'Korko- ja muu tuki julkisesti tuetuille vienti- ja alusluoto': 'Vientiluottojen korkotuki',
+      'Maaseutuelinkeinotoiminnan korkotuki': 'Maaseudun korkotuki',
+      'Finnvera Oyj:n tappiokorvaukset': 'Finnveran tappiokorvaukset'
+    };
+    const mrd = v => v / 1e9;
+    const fmtMrd = (v, d=2) => mrd(v).toLocaleString('fi-FI', {minimumFractionDigits:d, maximumFractionDigits:d});
+    const fmtMeur = v => (v/1e6).toLocaleString('fi-FI', {maximumFractionDigits:0});
+    const svg = (id, height, label) => {
+      const host = document.getElementById(id); host.innerHTML = '';
+      const node = document.createElementNS(NS, 'svg');
+      node.setAttribute('viewBox', `0 0 900 ${height}`);
+      node.setAttribute('role', 'img'); node.setAttribute('aria-label', label);
+      host.appendChild(node); return node;
+    };
+    const el = (parent, name, attrs={}, text='') => {
+      const node = document.createElementNS(NS, name);
+      Object.entries(attrs).forEach(([k,v]) => node.setAttribute(k, v));
+      if (text) node.textContent = text; parent.appendChild(node); return node;
+    };
+    const scale = (d0,d1,r0,r1) => v => r0 + (v-d0)*(r1-r0)/(d1-d0 || 1);
+
+    function chartScale() {
+      const h = DATA.headline_2025;
+      const rows = [
+        ['Suorat yritystuet', h.core_support_eur, palette.reference, fmtMrd(h.core_support_eur) + ' mrd €'],
+        ['Energiaverotuki', h.energiaverotuki_eur, palette.comparison, fmtMeur(h.energiaverotuki_eur) + ' M€'],
+        ['Yhteisöveron kertymä', h.yhteisovero_eur, palette.obligation, fmtMrd(h.yhteisovero_eur) + ' mrd €']
+      ];
+      const node = svg('chart-scale', 260, 'Suorat yritystuet, energiaverotuki ja yhteisöveron kertymä 2025.');
+      const max = rows[2][1];
+      rows.forEach((row, i) => {
+        const y = 24 + i * 72, width = 560 * row[1] / max;
+        el(node, 'text', {x:8, y:y+22, class:'label'}, row[0]);
+        el(node, 'rect', {x:250, y:y, width, height:34, rx:6, fill:row[2]});
+        el(node, 'text', {x:258+width, y:y+23, class:'bar-label'}, row[3]);
+      });
+    }
+
+    function chartTopics() {
+      const rows = DATA.topics_2025.filter(r => r.id !== 'kriisituet');
+      const node = svg('chart-topics', 40 + rows.length*44, 'Suorien yritystukien aiheet 2025.');
+      const max = rows[0].nominal_eur;
+      rows.forEach((row, i) => {
+        const y = 12 + i*44, width = 520 * row.nominal_eur / max;
+        el(node, 'text', {x:8, y:y+22, class:'label'}, row.label_fi);
+        el(node, 'rect', {x:300, y:y, width, height:28, rx:5, fill:topicColor[row.id] || palette.other});
+        el(node, 'text', {x:308+width, y:y+19, class:'bar-label'}, fmtMrd(row.nominal_eur) + ' mrd €');
+      });
+    }
+
+    function chartTrend() {
+      const rows = DATA.trend;
+      const node = svg('chart-trend', 340, 'Suorat yritystuet ja kriisituet 2015–2025.');
+      const x0=70,x1=760,y0=22,y1=275;
+      const x = scale(2015, 2025, x0, x1);
+      const max = Math.max(...rows.map(r => r.core_support_eur + r.crisis_support_eur));
+      const y = scale(0, max*1.12, y1, y0);
+      ;[0,1,2,3].forEach(v => {
+        const py = y(v*1e9);
+        el(node, 'line', {x1:x0,y1:py,x2:x1,y2:py, class:'grid'});
+        el(node, 'text', {x:x0-10, y:py+4, 'text-anchor':'end', class:'tick'}, String(v));
+      });
+      ;[2015,2017,2020,2023,2025].forEach(year => el(node, 'text', {x:x(year), y:y1+22, 'text-anchor':'middle', class:'tick'}, String(year)));
+      el(node, 'line', {x1:x0,y1:y1,x2:x1,y2:y1, class:'axis'});
+      el(node, 'line', {x1:x0,y1:y0,x2:x0,y2:y1, class:'axis'});
+      el(node, 'line', {x1:x(2020), y1:y0, x2:x(2020), y2:y1, class:'event'});
+      el(node, 'text', {x:x(2020)+8, y:y0+14, class:'axis-title'}, '2020–21 kriisituet');
+      const dCore = rows.map((r,i) => `${i?'L':'M'}${x(r.year)},${y(r.core_support_eur)}`).join(' ');
+      el(node, 'path', {d:dCore, fill:'none', stroke:palette.reference, 'stroke-width':3.3});
+      rows.forEach(r => {
+        if (r.crisis_support_eur > 2e7) {
+          el(node, 'line', {x1:x(r.year), y1:y(r.core_support_eur), x2:x(r.year), y2:y(r.core_support_eur+r.crisis_support_eur), stroke:palette.comparison, 'stroke-width':10, 'stroke-linecap':'butt'});
+        }
+        el(node, 'circle', {cx:x(r.year), cy:y(r.core_support_eur), r:3.6, fill:palette.reference, stroke:palette.ink});
+      });
+      el(node, 'text', {x:(x0+x1)/2, y:328, 'text-anchor':'middle', class:'axis-title'}, 'Miljardia euroa, nimellinen toteuma');
+    }
+
+    function chartEnergy() {
+      const rows = DATA.trend;
+      const node = svg('chart-energy', 340, 'Energiaverojen kertymä, energiaverotuki ja sähköistämistuki.');
+      const x0=70,x1=760,y0=22,y1=275;
+      const x = scale(2015, 2025, x0, x1);
+      const yTax = scale(0, Math.max(...rows.map(r => r.energiaverot_eur))*1.08, y1, y0);
+      const yTuki = scale(0, 0.32e9, y1, y0);
+      ;[0,1,2,3,4].forEach(v => {
+        const py = yTax(v*1e9);
+        el(node, 'line', {x1:x0,y1:py,x2:x1,y2:py, class:'grid'});
+        el(node, 'text', {x:x0-10, y:py+4, 'text-anchor':'end', class:'tick'}, String(v));
+      });
+      ;[2015,2018,2021,2025].forEach(year => el(node, 'text', {x:x(year), y:y1+22, 'text-anchor':'middle', class:'tick'}, String(year)));
+      el(node, 'line', {x1:x0,y1:y1,x2:x1,y2:y1, class:'axis'});
+      el(node, 'line', {x1:x0,y1:y0,x2:x0,y2:y1, class:'axis'});
+      const path = (key, color, width, dash='') => {
+        const d = rows.map((r,i) => `${i?'L':'M'}${x(r.year)},${yTax(r[key])}`).join(' ');
+        el(node, 'path', {d, fill:'none', stroke:color, 'stroke-width':width, 'stroke-dasharray':dash});
+      };
+      path('energiaverot_eur', palette.obligation, 3.2);
+      const dTuki = rows.map((r,i) => `${i?'L':'M'}${x(r.year)},${yTuki(r.energiaverotuki_eur)}`).join(' ');
+      const dElec = rows.map((r,i) => `${i?'L':'M'}${x(r.year)},${yTuki(r.electrification_support_eur)}`).join(' ');
+      el(node, 'path', {d:dTuki, fill:'none', stroke:palette.comparison, 'stroke-width':3.2});
+      el(node, 'path', {d:dElec, fill:'none', stroke:palette.reference, 'stroke-width':3.2});
+      const last = rows[rows.length-1];
+      el(node, 'text', {x:x(last.year)+8, y:yTax(last.energiaverot_eur)+4, fill:palette.obligation, class:'direct-label'}, 'Energiaverot');
+      el(node, 'text', {x:x(2020)-8, y:yTuki(0.261e9)-10, fill:palette.comparison, class:'direct-label', 'text-anchor':'end'}, 'Energiaverotuki');
+      el(node, 'text', {x:x(2025)+8, y:yTuki(last.electrification_support_eur)+4, fill:palette.reference, class:'direct-label'}, 'Sähköistämistuki');
+      el(node, 'text', {x:(x0+x1)/2, y:328, 'text-anchor':'middle', class:'axis-title'}, 'Vasen asteikko: energiaverojen kertymä, mrd €. Tukiviivat on skaalattu 0–320 M€.');
+    }
+
+    function chartTop() {
+      const rows = DATA.top_moments_2025.slice(0, 10);
+      const node = svg('chart-top', 40+rows.length*44, 'Kymmenen suurinta yritystukimomenttia 2025.');
+      const max = rows[0].nominal_eur;
+      rows.forEach((row, i) => {
+        const y = 12 + i*44, width = 480 * row.nominal_eur / max;
+        const label = SHORT[row.name] || row.name.slice(0, 42);
+        el(node, 'text', {x:8, y:y+22, class:'label'}, label);
+        el(node, 'rect', {x:330, y:y, width, height:28, rx:5, fill:topicColor[row.topic] || palette.reference});
+        el(node, 'text', {x:338+width, y:y+19, class:'bar-label'}, fmtMeur(row.nominal_eur) + ' M€');
+      });
+    }
+
+    chartScale(); chartTopics(); chartTrend(); chartEnergy(); chartTop();
+  </script>
+</body>
+</html>

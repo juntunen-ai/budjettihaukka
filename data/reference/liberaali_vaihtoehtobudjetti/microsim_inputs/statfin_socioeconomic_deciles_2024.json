@@ -1,0 +1,370 @@
+{
+  "api_url": "https://pxweb2.stat.fi/PxWeb/api/v1/fi/StatFin/tjt/15ar.px",
+  "description": "Henkilot tulokymmenyksen ja sosioekonomisen aseman mukaan",
+  "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__tjt/statfin_tjt_pxt_15ar.px/",
+  "query": [
+    {
+      "code": "desiilit_2_20120101",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10"
+        ]
+      }
+    },
+    {
+      "code": "sosioekon_asema_4_20200214",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "1",
+          "2",
+          "6",
+          "7",
+          "81",
+          "8"
+        ]
+      }
+    },
+    {
+      "code": "contentscode",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "ykorpop_sumwgt",
+          "hdesiprosentti"
+        ]
+      }
+    },
+    {
+      "code": "timeperiod_y",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "2024"
+        ]
+      }
+    }
+  ],
+  "response": {
+    "class": "dataset",
+    "dimension": {
+      "contentscode": {
+        "category": {
+          "index": {
+            "hdesiprosentti": 1,
+            "ykorpop_sumwgt": 0
+          },
+          "label": {
+            "hdesiprosentti": "% tulokymmenyksen henkilöistä",
+            "ykorpop_sumwgt": "Henkilöitä kotitalouksissa"
+          },
+          "unit": {
+            "hdesiprosentti": {
+              "base": "prosenttia",
+              "decimals": 1
+            },
+            "ykorpop_sumwgt": {
+              "base": "lukumäärä",
+              "decimals": 0
+            }
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Tiedot"
+      },
+      "desiilit_2_20120101": {
+        "category": {
+          "index": {
+            "1": 0,
+            "10": 9,
+            "2": 1,
+            "3": 2,
+            "4": 3,
+            "5": 4,
+            "6": 5,
+            "7": 6,
+            "8": 7,
+            "9": 8
+          },
+          "label": {
+            "1": "I (pienituloisin 10 %)",
+            "10": "X (suurituloisin 10 %)",
+            "2": "II",
+            "3": "III",
+            "4": "IV",
+            "5": "V",
+            "6": "VI",
+            "7": "VII",
+            "8": "VIII",
+            "9": "IX"
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Tulokymmenys",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "desiilit_2_20120101": "SCALE-TYPE=nominal"
+              }
+            }
+          ]
+        }
+      },
+      "sosioekon_asema_4_20200214": {
+        "category": {
+          "index": {
+            "1": 0,
+            "2": 1,
+            "6": 2,
+            "7": 3,
+            "8": 5,
+            "81": 4
+          },
+          "label": {
+            "1": "1 Yrittäjät ja maatalousyrittäjät",
+            "2": "2 Palkansaajat",
+            "6": "3 Opiskelijat",
+            "7": "4 Eläkeläiset",
+            "8": "6 Muut",
+            "81": "5 Työttömät"
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Henkilön sosioekonominen asema",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "sosioekon_asema_4_20200214": "SCALE-TYPE=nominal"
+              }
+            }
+          ]
+        }
+      },
+      "timeperiod_y": {
+        "category": {
+          "index": {
+            "2024": 0
+          },
+          "label": {
+            "2024": "2024"
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Vuosi",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "timeperiod_y": "SCALE-TYPE=None"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "extension": {
+      "contact": [
+        {
+          "raw": "<A HREF='https://stat.fi/tilasto/tjt' TARGET=_blank>Tilaston kotisivu</A>"
+        }
+      ],
+      "px": {
+        "aggregallowed": true,
+        "contents": "Henkilöiden lukumäärä ja osuus",
+        "decimals": 0,
+        "description": "15ar -- Henkilöiden jakautuminen tulokymmenyksiin sosioekonomisen aseman mukaan, 1987-2024",
+        "descriptiondefault": false,
+        "heading": [
+          "timeperiod_y"
+        ],
+        "language": "fi",
+        "matrix": "15ar",
+        "official-statistics": true,
+        "stub": [
+          "desiilit_2_20120101",
+          "sosioekon_asema_4_20200214",
+          "contentscode"
+        ],
+        "subject-area": "Tulonjakotilasto",
+        "subject-code": "tjt",
+        "tableid": "15ar"
+      }
+    },
+    "id": [
+      "desiilit_2_20120101",
+      "sosioekon_asema_4_20200214",
+      "contentscode",
+      "timeperiod_y"
+    ],
+    "label": "Henkilöiden lukumäärä ja osuus muuttujina Tulokymmenys, Henkilön sosioekonominen asema, Tiedot ja Vuosi",
+    "note": [
+      "<A HREF='https://stat.fi/tilasto/dokumentaatio/tjt' TARGET=_blank>Tilaston dokumentaatio</A>"
+    ],
+    "role": {
+      "metric": [
+        "contentscode"
+      ],
+      "time": [
+        "timeperiod_y"
+      ]
+    },
+    "size": [
+      10,
+      6,
+      2,
+      1
+    ],
+    "source": "Tilastokeskus, tulonjakotilasto",
+    "updated": "2026-02-26T06:00:00Z",
+    "value": [
+      28098,
+      5.1,
+      23852,
+      4.3,
+      156426,
+      28.2,
+      96243,
+      17.4,
+      131248,
+      23.7,
+      118845,
+      21.4,
+      15261,
+      2.7,
+      67901,
+      12.2,
+      58756,
+      10.6,
+      230434,
+      41.5,
+      65533,
+      11.8,
+      117862,
+      21.2,
+      15424,
+      2.8,
+      127942,
+      23.1,
+      46802,
+      8.4,
+      229749,
+      41.4,
+      30170,
+      5.4,
+      104252,
+      18.8,
+      18864,
+      3.4,
+      161235,
+      29.1,
+      39759,
+      7.2,
+      197844,
+      35.7,
+      16740,
+      3,
+      119833,
+      21.6,
+      20454,
+      3.7,
+      183319,
+      33,
+      41271,
+      7.4,
+      176244,
+      31.8,
+      13683,
+      2.5,
+      120085,
+      21.6,
+      22752,
+      4.1,
+      240919,
+      43.5,
+      26682,
+      4.8,
+      150682,
+      27.2,
+      7123,
+      1.3,
+      105763,
+      19.1,
+      23002,
+      4.1,
+      284444,
+      51.2,
+      24351,
+      4.4,
+      97159,
+      17.5,
+      13235,
+      2.4,
+      113311,
+      20.4,
+      27941,
+      5,
+      305051,
+      55,
+      24895,
+      4.5,
+      98719,
+      17.8,
+      8260,
+      1.5,
+      89415,
+      16.1,
+      38058,
+      6.9,
+      329677,
+      59.5,
+      18985,
+      3.4,
+      79583,
+      14.4,
+      6352,
+      1.1,
+      81529,
+      14.7,
+      55763,
+      10.1,
+      310797,
+      56,
+      20448,
+      3.7,
+      82696,
+      14.9,
+      4500,
+      0.8,
+      80454,
+      14.5
+    ],
+    "version": "2.0"
+  },
+  "response_sha256": "0068bb896c1916190d6887fa988c4280ab2e07b0e495374865178cb2fed7e221",
+  "retrieved_at": "2026-08-23",
+  "source_id": "statfin_socioeconomic_deciles_2024"
+}

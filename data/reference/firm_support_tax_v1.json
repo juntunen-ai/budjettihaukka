@@ -1,0 +1,264 @@
+{
+  "meta": {
+    "title_fi": "Yritystuet ja budjetissa näkyvät veroluokat",
+    "year_from": 2015,
+    "year_to": 2025,
+    "latest_complete_year": 2025,
+    "metric": "nettokertymä, toteuma",
+    "unit": "EUR",
+    "coverage_status": "complete",
+    "source_fi": "Valtiokonttori, valtion taloushallinnon kuukausidata",
+    "source_url": "https://www.tutkihallintoa.fi/valtiontalous/valtion-taloustiedot/",
+    "caveat_fi": "Suorat tuet on poimittu momenttien nimistä. Ainoa tässä erillisenä näkyvä verotuki on energiaverotuki. Alemmat ALV-kannat ja yhteisöverokanta eivät ole omia momentejaan."
+  },
+  "headline_2025": {
+    "core_support_eur": 1832375799.89,
+    "crisis_support_eur": 635642.1,
+    "energiaverotuki_eur": 47278679.2,
+    "electrification_support_eur": 149880352.98,
+    "yhteisovero_eur": 5387751807.93,
+    "energiaverot_eur": 3842944298.13,
+    "arvonlisavero_eur": 22609940770.41,
+    "moment_count": 24
+  },
+  "topics_2025": [
+    {
+      "id": "tki",
+      "label_fi": "TKI-tuet ja -lainat",
+      "nominal_eur": 786908709.83
+    },
+    {
+      "id": "energia_teollisuus",
+      "label_fi": "Energia- ja teollisuustuet",
+      "nominal_eur": 507699995.57
+    },
+    {
+      "id": "maatalousyrittajat",
+      "label_fi": "Maatalousyrittäjien tuet",
+      "nominal_eur": 198865028.51
+    },
+    {
+      "id": "tyovoima_yrityspalvelut",
+      "label_fi": "Työvoima- ja yrityspalvelut",
+      "nominal_eur": 126761542.76
+    },
+    {
+      "id": "vienti_rahoitus",
+      "label_fi": "Vienti- ja Finnvera-tuet",
+      "nominal_eur": 101534090.22
+    },
+    {
+      "id": "paaomasijoitukset",
+      "label_fi": "Pääomasijoitukset",
+      "nominal_eur": 100000000.0
+    },
+    {
+      "id": "yritysten_kehittaminen",
+      "label_fi": "Yritysten kehittäminen",
+      "nominal_eur": 10606433.0
+    },
+    {
+      "id": "kriisituet",
+      "label_fi": "Kriisi- ja kustannustuet",
+      "nominal_eur": 635642.1
+    }
+  ],
+  "top_moments_2025": [
+    {
+      "code": "32.20.40.",
+      "name": "Tutkimus-, kehittämis- ja innovaatiotoiminnan tukeminen",
+      "topic": "tki",
+      "topic_fi": "TKI-tuet ja -lainat",
+      "nominal_eur": 477793541.83
+    },
+    {
+      "code": "32.20.48.",
+      "name": "Uusiutuvan energian tuotantotuki",
+      "topic": "energia_teollisuus",
+      "topic_fi": "Energia- ja teollisuustuet",
+      "nominal_eur": 212026146.5
+    },
+    {
+      "code": "30.10.40.",
+      "name": "Maatalouden aloittamis- ja investointiavustukset",
+      "topic": "maatalousyrittajat",
+      "topic_fi": "Maatalousyrittäjien tuet",
+      "nominal_eur": 167539256.46
+    },
+    {
+      "code": "32.20.43.",
+      "name": "Energiaintensiivisen teollisuuden sähköistämistuki",
+      "topic": "energia_teollisuus",
+      "topic_fi": "Energia- ja teollisuustuet",
+      "nominal_eur": 149880352.98
+    },
+    {
+      "code": "32.20.83.",
+      "name": "Lainat tutkimus- ja innovaatiotoimintaan",
+      "topic": "tki",
+      "topic_fi": "TKI-tuet ja -lainat",
+      "nominal_eur": 140384597.0
+    },
+    {
+      "code": "32.01.49.",
+      "name": "Valtionavustus Teknologian tutkimuskeskus VTT Oy:n toimintaa",
+      "topic": "tki",
+      "topic_fi": "TKI-tuet ja -lainat",
+      "nominal_eur": 131259000.0
+    },
+    {
+      "code": "32.30.51.",
+      "name": "Julkiset työvoima- ja yrityspalvelut",
+      "topic": "tyovoima_yrityspalvelut",
+      "topic_fi": "Työvoima- ja yrityspalvelut",
+      "nominal_eur": 126761542.76
+    },
+    {
+      "code": "32.20.41.",
+      "name": "Energiatuki",
+      "topic": "energia_teollisuus",
+      "topic_fi": "Energia- ja teollisuustuet",
+      "nominal_eur": 119132771.0
+    },
+    {
+      "code": "32.40.88.",
+      "name": "Pääomasijoitus Suomen Teollisuussijoitus Oy:lle",
+      "topic": "paaomasijoitukset",
+      "topic_fi": "Pääomasijoitukset",
+      "nominal_eur": 100000000.0
+    },
+    {
+      "code": "32.40.48.",
+      "name": "Korko- ja muu tuki julkisesti tuetuille vienti- ja alusluoto",
+      "topic": "vienti_rahoitus",
+      "topic_fi": "Vienti- ja Finnvera-tuet",
+      "nominal_eur": 74384445.66
+    },
+    {
+      "code": "30.10.41.",
+      "name": "Maaseutuelinkeinotoiminnan korkotuki",
+      "topic": "maatalousyrittajat",
+      "topic_fi": "Maatalousyrittäjien tuet",
+      "nominal_eur": 31325772.05
+    },
+    {
+      "code": "32.40.47.",
+      "name": "Finnvera Oyj:n tappiokorvaukset",
+      "topic": "vienti_rahoitus",
+      "topic_fi": "Vienti- ja Finnvera-tuet",
+      "nominal_eur": 27149644.56
+    }
+  ],
+  "trend": [
+    {
+      "year": 2015,
+      "core_support_eur": 2255018711.01,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 238915509.55,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 2761280793.63,
+      "energiaverot_eur": 4309116490.3,
+      "arvonlisavero_eur": 16628487805.0
+    },
+    {
+      "year": 2016,
+      "core_support_eur": 1590754505.79,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 243224128.47,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 3267837072.17,
+      "energiaverot_eur": 4594845293.84,
+      "arvonlisavero_eur": 17106964878.8
+    },
+    {
+      "year": 2017,
+      "core_support_eur": 1415160379.42,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 240823427.47,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 4001124528.29,
+      "energiaverot_eur": 4230211726.65,
+      "arvonlisavero_eur": 16138443099.74
+    },
+    {
+      "year": 2018,
+      "core_support_eur": 1606601869.04,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 272634093.64,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 4077751992.74,
+      "energiaverot_eur": 4657195954.19,
+      "arvonlisavero_eur": 18082248957.84
+    },
+    {
+      "year": 2019,
+      "core_support_eur": 1290809315.39,
+      "crisis_support_eur": 0.0,
+      "energiaverotuki_eur": 278875047.34,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 3838131764.95,
+      "energiaverot_eur": 4200272931.05,
+      "arvonlisavero_eur": 17504540604.57
+    },
+    {
+      "year": 2020,
+      "core_support_eur": 2648888571.64,
+      "crisis_support_eur": 345692181.24,
+      "energiaverotuki_eur": 261437178.17,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 2787601286.21,
+      "energiaverot_eur": 4459053143.25,
+      "arvonlisavero_eur": 18204660362.3
+    },
+    {
+      "year": 2021,
+      "core_support_eur": 1795354210.51,
+      "crisis_support_eur": 979796116.05,
+      "energiaverotuki_eur": 231978873.16,
+      "electrification_support_eur": 0.0,
+      "yhteisovero_eur": 3686272570.64,
+      "energiaverot_eur": 4129214750.06,
+      "arvonlisavero_eur": 20152197587.02
+    },
+    {
+      "year": 2022,
+      "core_support_eur": 1813036384.21,
+      "crisis_support_eur": 274304010.58,
+      "energiaverotuki_eur": 144341486.59,
+      "electrification_support_eur": 117216574.45,
+      "yhteisovero_eur": 5538201117.59,
+      "energiaverot_eur": 4488409602.58,
+      "arvonlisavero_eur": 21321760311.73
+    },
+    {
+      "year": 2023,
+      "core_support_eur": 1544691629.18,
+      "crisis_support_eur": 129803587.37,
+      "energiaverotuki_eur": 41980861.68,
+      "electrification_support_eur": 165860956.11,
+      "yhteisovero_eur": 5309377714.79,
+      "energiaverot_eur": 3874422100.46,
+      "arvonlisavero_eur": 19884562872.11
+    },
+    {
+      "year": 2024,
+      "core_support_eur": 1690798864.14,
+      "crisis_support_eur": 20949357.9,
+      "energiaverotuki_eur": 57989197.12,
+      "electrification_support_eur": 143202896.09,
+      "yhteisovero_eur": 5428942811.73,
+      "energiaverot_eur": 4161641430.34,
+      "arvonlisavero_eur": 21558029289.95
+    },
+    {
+      "year": 2025,
+      "core_support_eur": 1832375799.89,
+      "crisis_support_eur": 635642.1,
+      "energiaverotuki_eur": 47278679.2,
+      "electrification_support_eur": 149880352.98,
+      "yhteisovero_eur": 5387751807.93,
+      "energiaverot_eur": 3842944298.13,
+      "arvonlisavero_eur": 22609940770.41
+    }
+  ]
+}

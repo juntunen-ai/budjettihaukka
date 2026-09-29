@@ -1,0 +1,230 @@
+{
+  "api_url": "https://pxweb2.stat.fi/PxWeb/api/v1/fi/StatFin/ktutk/14lv.px",
+  "description": "Kulutustutkimuksen taustatiedot kotitaloustyypeittain",
+  "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__ktutk/statfin_ktutk_pxt_14lv.px/",
+  "query": [
+    {
+      "code": "timeperiod_y",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "2022"
+        ]
+      }
+    },
+    {
+      "code": "elinvaihe_13_20160101",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "SSS"
+        ]
+      }
+    },
+    {
+      "code": "contentscode",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "pklkm_sum",
+          "jlkm_mean",
+          "oecdmod_mean",
+          "kaytetmk_2_mean"
+        ]
+      }
+    }
+  ],
+  "response": {
+    "class": "dataset",
+    "dimension": {
+      "contentscode": {
+        "category": {
+          "index": {
+            "jlkm_mean": 1,
+            "kaytetmk_2_mean": 3,
+            "oecdmod_mean": 2,
+            "pklkm_sum": 0
+          },
+          "label": {
+            "jlkm_mean": "Kotitalouden keskikoko",
+            "kaytetmk_2_mean": "Kotitalouden käytettävissä olevat tulot, vuoden 2022 euroissa",
+            "oecdmod_mean": "Kotitaloudessa kulutusyksiköitä keskimäärin (oecdmod)",
+            "pklkm_sum": "Kotitalouksia perusjoukossa"
+          },
+          "unit": {
+            "jlkm_mean": {
+              "decimals": 2
+            },
+            "kaytetmk_2_mean": {
+              "base": "euroa",
+              "decimals": 0
+            },
+            "oecdmod_mean": {
+              "decimals": 2
+            },
+            "pklkm_sum": {
+              "decimals": 0
+            }
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Tiedot"
+      },
+      "elinvaihe_13_20160101": {
+        "category": {
+          "index": {
+            "1": 0,
+            "2": 1,
+            "3": 2,
+            "4": 3,
+            "5": 4,
+            "6": 5,
+            "SSS": 6
+          },
+          "label": {
+            "1": "Yhden hengen talous, alle 65 v",
+            "2": "Lapseton pari, alle 65 v",
+            "3": "Yhden huoltajan taloudet",
+            "4": "Kahden huoltajan lapsiperhe",
+            "5": "Yli 64-vuotiaiden kotitaloudet",
+            "6": "Muut kotitaloudet",
+            "SSS": "Kaikki kotitaloudet"
+          }
+        },
+        "extension": {
+          "elimination": true,
+          "eliminationValueCode": "SSS",
+          "show": "value"
+        },
+        "label": "Kotitaloustyyppi",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "elinvaihe_13_20160101": "SCALE-TYPE=nominal"
+              }
+            }
+          ]
+        },
+        "note": [
+          "Lapseton pari, alle 65 v: molemmat alle 65-vuotiaita.\r\nYhden huoltajan taloudet sekä Kahden huoltajan lapsiperhe: lapset alle 25-vuotiaita huollettavia.\r\nYli 64-vuotiaiden kotitaloudet: kaikki jäsenet täyttäneet 65 vuotta."
+        ]
+      },
+      "timeperiod_y": {
+        "category": {
+          "index": {
+            "2022": 0
+          },
+          "label": {
+            "2022": "2022"
+          }
+        },
+        "extension": {
+          "elimination": false,
+          "show": "value"
+        },
+        "label": "Vuosi",
+        "link": {
+          "describedby": [
+            {
+              "extension": {
+                "timeperiod_y": "SCALE-TYPE=None"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "extension": {
+      "contact": [
+        {
+          "raw": "<A HREF='https://stat.fi/tilasto/ktutk' TARGET=_blank>Tilaston kotisivu</A>"
+        }
+      ],
+      "px": {
+        "aggregallowed": true,
+        "contents": "Taustatiedot kotitaloustyypin mukaan",
+        "decimals": 0,
+        "description": "14lv -- Taustatiedot kotitaloustyypin mukaan, 2012-2022",
+        "descriptiondefault": false,
+        "heading": [
+          "contentscode"
+        ],
+        "language": "fi",
+        "matrix": "14lv",
+        "official-statistics": true,
+        "stub": [
+          "timeperiod_y",
+          "elinvaihe_13_20160101"
+        ],
+        "subject-area": "Kotitalouksien kulutus",
+        "subject-code": "ktutk",
+        "tableid": "14lv"
+      }
+    },
+    "id": [
+      "timeperiod_y",
+      "elinvaihe_13_20160101",
+      "contentscode"
+    ],
+    "label": "Taustatiedot kotitaloustyypin mukaan muuttujina Vuosi, Kotitaloustyyppi ja Tiedot",
+    "note": [
+      "<A HREF='https://stat.fi/tilasto/dokumentaatio/ktutk' TARGET=_blank>Tilaston dokumentaatio</A>"
+    ],
+    "role": {
+      "metric": [
+        "contentscode"
+      ]
+    },
+    "size": [
+      1,
+      7,
+      4
+    ],
+    "source": "Tilastokeskus, kotitalouksien kulutus",
+    "updated": "2024-04-11T05:00:00Z",
+    "value": [
+      865134,
+      1,
+      1,
+      29241,
+      458381,
+      2,
+      1.5,
+      68384,
+      136203,
+      2.92,
+      1.75,
+      50885,
+      431509,
+      3.99,
+      2.21,
+      87416,
+      858761,
+      1.35,
+      1.18,
+      39100,
+      169011,
+      2.51,
+      1.74,
+      70206,
+      2919000,
+      1.88,
+      1.39,
+      50270
+    ],
+    "version": "2.0"
+  },
+  "response_sha256": "e03766ac2f3ab7f42d51a07025ed6d6acea97edc6af676ad1dd544729b65b18b",
+  "retrieved_at": "2026-08-23",
+  "source_id": "statfin_consumption_type_background_2022"
+}

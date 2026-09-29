@@ -1,0 +1,5 @@
+-r requirements.txt
+
+# Operational BigQuery -> Hugging Face backup tooling.
+huggingface_hub>=1.6.0
+pyarrow>=16.0

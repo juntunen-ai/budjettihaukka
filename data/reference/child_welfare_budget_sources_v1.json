@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "extracted_at_utc": "2026-08-18T09:53:38+00:00",
+  "sources": [
+    {
+      "name": "THL Sotkanet indicator 3563",
+      "url": "https://sotkanet.fi/sotkanet/fi/metadata/indicators/3563",
+      "api_url": "https://sotkanet.fi/rest/1.1/csv",
+      "license": "CC BY 4.0"
+    },
+    {
+      "name": "State Treasury HTAS Power BI report",
+      "url": "https://www.tutkihallintoa.fi/hyvinvointialueiden-talous/hyvinvointialueen-ja-hyvinvointiyhtyman-talousarvio-ja-suunnitelma/",
+      "report_id": "7e56c49e-af1b-40b3-9cde-cbf0210dc9fa",
+      "measure": "Toimintamenot / Talousarvio 202x",
+      "license": "CC BY 4.0"
+    }
+  ]
+}

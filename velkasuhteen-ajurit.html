@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Budjettihaukka – miksi velkasuhde nousee</title>
+  <style>
+    :root {
+      --yellow: #f6d84f; --paper: #f5f1e8; --paper-deep: #e9e2d3;
+      --ink: #171713; --muted: #5f5b50;
+      --borrow: #d45d18; --denom: #0067a3; --interest: #713b83; --good: #22833a;
+      --grid: #17171320;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+    .hero { background: var(--yellow); border-bottom: 2px solid var(--ink); }
+    .wrap { max-width: 1180px; margin: auto; padding-inline: 22px; }
+    .hero .wrap { padding-top: 32px; padding-bottom: 42px; }
+    main.wrap { padding-bottom: 72px; }
+    h1, h2 { font-family: Arial Black, system-ui, sans-serif; letter-spacing: -.035em; }
+    h1 { max-width: 1040px; margin: 30px 0 18px; font-size: clamp(2.4rem, 5.4vw, 4.6rem); line-height: .93; text-transform: uppercase; }
+    h2 { margin: 0 0 10px; font-size: clamp(1.55rem, 3vw, 2.25rem); line-height: 1.1; }
+    .back { display: inline-flex; padding: 8px 14px; border: 2px solid var(--ink); border-radius: 999px; background: #fff3b6; color: var(--ink); font-weight: 700; text-decoration: none; }
+    .lede { max-width: 900px; margin: 0; font-size: 1.08rem; }
+    .alert { max-width: 900px; margin-top: 16px; padding: 12px 14px; border: 2px solid var(--ink); background: #fff3b6; font-weight: 700; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+    .stat { padding-top: 12px; border-top: 3px solid var(--ink); }
+    .stat strong { display: block; font: 800 clamp(1.4rem, 2.8vw, 2.2rem)/1 Arial Black, system-ui, sans-serif; }
+    .stat span { display: block; margin-top: 7px; font-size: .86rem; }
+    section { padding: 48px 0 54px; border-bottom: 1.5px solid var(--ink); }
+    section:last-of-type { border-bottom: none; }
+    .eyebrow { margin: 0 0 7px; color: var(--muted); font-size: .82rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .chart { width: 100%; min-height: 300px; margin-top: 18px; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; font-size: .9rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .swatch { width: 15px; height: 15px; border: 1.5px solid var(--ink); }
+    .finding { max-width: 940px; margin-top: 20px; padding: 16px 18px; border-left: 5px solid var(--ink); background: var(--paper-deep); }
+    .finding p { margin: 0 0 10px; }
+    .finding p:last-child { margin-bottom: 0; }
+    .source { margin-top: 14px; color: var(--muted); font-size: .86rem; }
+    .axis { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+    .grid { fill: none; stroke: var(--grid); stroke-width: 1; }
+    .tick { font-size: 12px; fill: var(--muted); }
+    .axis-title { font-size: 12px; fill: var(--muted); }
+    .bar-label { font-size: 11.5px; font-weight: 700; fill: var(--ink); }
+    @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <a class="back" href="visualisointidemot.html">← Visualisointidemot</a>
+      <h1>Miksi velkasuhde<br>nousee nyt</h1>
+      <p class="lede">Vuosina 2009 ja 2020 velkasuhde nousi, koska talous kutistui. Vuosina
+        2024–2025 se nousi enemmän kuin useimpina kriisivuosina, vaikka talous kasvoi. Syy on
+        toinen, ja se näkyy hajotelmassa.</p>
+      <p class="alert">Velkasuhteen muutos on tasan velanoton ja nimellisen BKT:n vaikutuksen
+        summa. Kun nimellinen BKT kasvaa nopeasti, se pienentää suhdetta ilman että velalle
+        tehdään mitään.</p>
+      <div class="stats">
+        <div class="stat"><strong id="s1"></strong><span>nimittäjän apu 2022, prosenttiyksikköä</span></div>
+        <div class="stat"><strong id="s2"></strong><span>nimittäjän apu 2024</span></div>
+        <div class="stat"><strong id="s3"></strong><span>korkomenot 2025, mrd €</span></div>
+        <div class="stat"><strong id="s4"></strong><span>kertaa enemmän korkoa kuin 2021</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <p class="eyebrow">01 · Kaksi mekanismia</p>
+      <h2>Inflaatio piilotti velanoton, ja sitten se loppui</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#d45d18"></i>Velanotto nostaa suhdetta</span>
+        <span><i class="swatch" style="background:#0067a3"></i>Nimellinen BKT painaa suhdetta</span>
+        <span><i class="swatch" style="background:#171713;border-radius:50%"></i>Yhteisvaikutus, suhteen muutos</span>
+      </div>
+      <div id="chart-mech" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> <span id="f1"></span></p>
+        <p><strong>Mitä kuva ei kerro.</strong> Nimittäjän apu ei ole talouspolitiikkaa vaan
+          seuraus siitä, että nimellinen BKT kasvaa. Vuosina 2021–2022 se kasvoi nopeasti
+          pääosin inflaation vuoksi, ei siksi että tuotanto olisi lisääntynyt — volyymikasvu oli
+          2022 vain 0,8 prosenttia. Inflaatio pienentää velkasuhdetta mutta ei pienennä velkaa,
+          ja se nostaa myös valtion menoja viiveellä. Kuva ei kerro, mitä velalla rahoitettiin.</p>
+      </div>
+      <p class="source" id="src1"></p>
+    </section>
+
+    <section>
+      <p class="eyebrow">02 · Mikä valtiontaloudessa muuttui</p>
+      <h2>Menojen ja tulojen ero kaventui, mutta velan hinta nousi</h2>
+      <div class="legend">
+        <span><i class="swatch" style="background:#d45d18"></i>Levittää menojen ja tulojen eroa</span>
+        <span><i class="swatch" style="background:#22833a"></i>Kaventaa eroa</span>
+        <span><i class="swatch" style="background:#713b83"></i>Valtionvelan korot</span>
+      </div>
+      <div id="chart-drivers" class="chart"></div>
+      <div class="finding">
+        <p><strong>Päähavainto.</strong> <span id="f2"></span></p>
+        <p><strong>Mitä kuva ei kerro.</strong> Vertailu on tehty vuosien 2023 ja 2025 välillä,
+          koska molemmat ovat sote-uudistuksen jälkeisiä. Vuoteen 2022 ei voi verrata: uudistus
+          siirsi noin 18 miljardin menot ja tulot valtiolle kerralla, mikä näkyisi tekaistuna
+          kasvuna. Hallinnonalan meno ei kerro, mihin raha meni sen sisällä, eikä kuva erottele
+          hintojen noususta johtuvaa kasvua määrän kasvusta. Budjetin meno- ja tuloero ei
+          myöskään ole sama asia kuin velkakannan muutos: velkakanta sisältää myös
+          velanhallinnan ja ajoituserot.</p>
+      </div>
+      <p class="source" id="src2"></p>
+    </section>
+  </main>
+
+  <script type="application/json" id="drivers-data">{"meta":{"dataset_id":"debt_ratio_drivers_v1","year_from":2019,"year_to":2025,"compare_from":2023,"compare_to":2025,"budget_gap_from_eur":19448233715.199997,"budget_gap_to_eur":14035837265.830002,"structural_event":"sote_uudistus_2023","structural_note":"vuoteen 2022 ei voi verrata, koska sote-uudistus siirsi menot ja tulot valtiolle kerralla vuonna 2023","sources":[{"source_id":"valtiokonttori_kuukausidata","label":"Valtiokonttori, valtion taloushallinnon kuukausidata"},{"source_id":"statfin_central_government_edp_debt_11yv","label":"Tilastokeskus, julkisyhteisöjen EDP-velka"},{"source_id":"statfin_national_accounts_15a9","label":"Tilastokeskus, kansantalouden tilinpito"}]},"mechanism":[{"year":2019,"gdp_volume_change_pct":1.3,"gdp_nominal_change_pct":2.851598714991055,"debt_pct_gdp":52.86016149724549,"debt_pct_gdp_change_pp":-0.6207897543445995,"borrowing_effect_pp":0.8619894515298636,"denominator_effect_pp":-1.4827792058744687,"interest_eur":1210016390.49,"expense_eur":51574316060.62,"revenue_eur":48212527098.03,"budget_gap_eur":3361788962.590004},{"year":2020,"gdp_volume_change_pct":-2.5,"gdp_nominal_change_pct":-0.8934336192656267,"debt_pct_gdp":61.015199651419074,"debt_pct_gdp_change_pp":8.155038154173582,"borrowing_effect_pp":7.6785102395647815,"denominator_effect_pp":0.4765279146088039,"interest_eur":890991519.51,"expense_eur":63548207722.4,"revenue_eur":48852317307.06,"budget_gap_eur":14695890415.340004},{"year":2021,"gdp_volume_change_pct":2.7,"gdp_nominal_change_pct":5.235905527799756,"debt_pct_gdp":59.593831904938014,"debt_pct_gdp_change_pp":-1.4213677464810601,"borrowing_effect_pp":1.6143815021466128,"denominator_effect_pp":-3.035749248627666,"interest_eur":775824349.01,"expense_eur":62972309378.29,"revenue_eur":54919847322.15,"budget_gap_eur":8052462056.139999},{"year":2022,"gdp_volume_change_pct":0.8,"gdp_nominal_change_pct":6.982923574150601,"debt_pct_gdp":60.37086441091927,"debt_pct_gdp_change_pp":0.7770325059812535,"borrowing_effect_pp":4.666804441354952,"denominator_effect_pp":-3.8897719353737026,"interest_eur":822703968.14,"expense_eur":66765522489.57,"revenue_eur":59079290498.37,"budget_gap_eur":7686231991.199997},{"year":2023,"gdp_volume_change_pct":-1.3,"gdp_nominal_change_pct":2.5813966595900517,"debt_pct_gdp":64.12116994194245,"debt_pct_gdp_change_pp":3.750305531023187,"borrowing_effect_pp":5.269500558597828,"denominator_effect_pp":-1.5191950275746402,"interest_eur":2183216733.64,"expense_eur":85483018286.62,"revenue_eur":66034784571.42,"budget_gap_eur":19448233715.199997},{"year":2024,"gdp_volume_change_pct":0.9,"gdp_nominal_change_pct":1.1523598468892615,"debt_pct_gdp":68.71313158380741,"debt_pct_gdp_change_pp":4.591961641864955,"borrowing_effect_pp":5.3224503985138565,"denominator_effect_pp":-0.7304887566488993,"interest_eur":3183095593.94,"expense_eur":86869714207.18,"revenue_eur":73079835222.32,"budget_gap_eur":13789878984.859985},{"year":2025,"gdp_volume_change_pct":0.8,"gdp_nominal_change_pct":1.9999927575855336,"debt_pct_gdp":74.24575928200686,"debt_pct_gdp_change_pp":5.532627698199448,"borrowing_effect_pp":6.879939220517335,"denominator_effect_pp":-1.3473115223178886,"interest_eur":2987610310.72,"expense_eur":89329196890.81,"revenue_eur":75293359624.98,"budget_gap_eur":14035837265.830002}],"drivers":[{"bucket":"expense","label":"Puolustusministeriön hallinnonala","change_eur":1633813956.7,"gap_effect_eur":1633813956.7},{"bucket":"expense","label":"Opetus- ja kulttuuriministeriön hallinnonala","change_eur":1413201949.72,"gap_effect_eur":1413201949.72},{"bucket":"interest","label":"Valtionvelan korot","change_eur":812634662.65,"gap_effect_eur":812634662.65},{"bucket":"expense","label":"Sosiaali- ja terveysministeriön hallinnonala","change_eur":644693425.87,"gap_effect_eur":644693425.87},{"bucket":"expense","label":"Sisäministeriön hallinnonala","change_eur":547126783.17,"gap_effect_eur":547126783.17},{"bucket":"expense","label":"Maa- ja metsätalousministeriön hallinnonala","change_eur":285342134.39,"gap_effect_eur":285342134.39},{"bucket":"revenue","label":"Sosiaali- ja terveysministeriön hallinnonala","change_eur":238564263.82,"gap_effect_eur":238564263.82},{"bucket":"expense","label":"Liikenne- ja viestintäministeriön hallinnonala","change_eur":175331656.15,"gap_effect_eur":175331656.15},{"bucket":"expense","label":"Oikeusministeriön hallinnonala","change_eur":170257454.41,"gap_effect_eur":170257454.41},{"bucket":"revenue","label":"Opetus- ja kulttuuriministeriön hallinnonala","change_eur":111107562.83,"gap_effect_eur":111107562.83},{"bucket":"revenue","label":"Sisäministeriön hallinnonala","change_eur":38375678.48,"gap_effect_eur":38375678.48},{"bucket":"revenue","label":"Työ- ja elinkeinoministeriön hallinnonala","change_eur":22496884.8,"gap_effect_eur":22496884.8},{"bucket":"expense","label":"Tasavallan presidentti","change_eur":15038404.2,"gap_effect_eur":15038404.2},{"bucket":"expense","label":"Ympäristöministeriön hallinnonala","change_eur":14139196.69,"gap_effect_eur":14139196.69},{"bucket":"expense","label":"Eduskunta","change_eur":11760335.24,"gap_effect_eur":11760335.24},{"bucket":"expense","label":"Ulkoministeriön hallinnonala","change_eur":6638949.77,"gap_effect_eur":6638949.77},{"bucket":"revenue","label":"Ympäristöministeriön hallinnonala","change_eur":78738.55,"gap_effect_eur":78738.55},{"bucket":"revenue","label":"Tasavallan presidentti","change_eur":41744.79,"gap_effect_eur":41744.79},{"bucket":"revenue","label":"Eduskunta","change_eur":20332.96,"gap_effect_eur":20332.96},{"bucket":"revenue","label":null,"change_eur":0.0,"gap_effect_eur":0.0},{"bucket":"expense","label":null,"change_eur":0.0,"gap_effect_eur":0.0},{"bucket":"revenue","label":"Ulkoministeriön hallinnonala","change_eur":-3098562.0,"gap_effect_eur":-3098562.0},{"bucket":"revenue","label":"Liikenne- ja viestintäministeriön hallinnonala","change_eur":-16390077.13,"gap_effect_eur":-16390077.13},{"bucket":"expense","label":"Työ- ja elinkeinoministeriön hallinnonala","change_eur":-55311920.73,"gap_effect_eur":-55311920.73},{"bucket":"revenue","label":"Oikeusministeriön hallinnonala","change_eur":-62433299.97,"gap_effect_eur":-62433299.97},{"bucket":"revenue","label":"Maa- ja metsätalousministeriön hallinnonala","change_eur":-73573342.11,"gap_effect_eur":-73573342.11},{"bucket":"revenue","label":"Puolustusministeriön hallinnonala","change_eur":-287432712.65,"gap_effect_eur":-287432712.65},{"bucket":"expense","label":"Valtioneuvoston kanslia","change_eur":-310017931.45,"gap_effect_eur":-310017931.45},{"bucket":"revenue","label":"Valtioneuvoston kanslia","change_eur":-840900268.44,"gap_effect_eur":-840900268.44},{"bucket":"expense","label":"Valtiovarainministeriön hallinnonala","change_eur":-1518470452.59,"gap_effect_eur":-1518470452.59},{"bucket":"revenue","label":"Valtiovarainministeriön hallinnonala","change_eur":-8385431997.49,"gap_effect_eur":-8385431997.49}]}</script>
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const DATA = JSON.parse(document.getElementById('drivers-data').textContent);
+    const MECH = DATA.mechanism;
+    const DRIVERS = DATA.drivers;
+    const palette = { borrow: '#d45d18', denom: '#0067a3', interest: '#713b83',
+                      good: '#22833a', ink: '#171713', muted: '#5f5b50' };
+
+    const mrd = value => value / 1e9;
+    const fmt = (value, digits = 1) =>
+      value.toLocaleString('fi-FI', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    const signed = (value, digits = 1) => (value >= 0 ? '+' : '−') + fmt(Math.abs(value), digits);
+
+    const svg = (id, height, description) => {
+      const host = document.getElementById(id);
+      host.innerHTML = '';
+      const node = document.createElementNS(NS, 'svg');
+      node.setAttribute('viewBox', `0 0 900 ${height}`);
+      node.setAttribute('role', 'img');
+      node.setAttribute('aria-label', description);
+      host.appendChild(node);
+      return node;
+    };
+    const el = (parent, name, attrs = {}, text = '') => {
+      const node = document.createElementNS(NS, name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+      if (text) node.textContent = text;
+      parent.appendChild(node);
+      return node;
+    };
+    const scale = (d0, d1, r0, r1) => value => r0 + (value - d0) * (r1 - r0) / (d1 - d0 || 1);
+
+    function chartMechanism() {
+      const node = svg('chart-mech', 430,
+        'Velkasuhteen muutoksen hajotelma vuosittain: velanoton ja nimellisen BKT:n vaikutus.');
+      const x0 = 86, x1 = 862, y0 = 34, y1 = 320;
+      const all = MECH.flatMap(row => [row.borrowing_effect_pp, row.denominator_effect_pp]);
+      const max = Math.max(...all) * 1.15, min = Math.min(...all) * 1.2;
+      const y = scale(min, max, y1, y0);
+      const step = (x1 - x0) / MECH.length;
+
+      for (let i = 0; i <= 5; i += 1) {
+        const value = min + (max - min) * i / 5;
+        el(node, 'line', { x1: x0, x2: x1, y1: y(value), y2: y(value), class: 'grid' });
+        el(node, 'text', { x: x0 - 8, y: y(value) + 4, 'text-anchor': 'end', class: 'tick' }, fmt(value, 0));
+      }
+      el(node, 'line', { x1: x0, x2: x1, y1: y(0), y2: y(0), class: 'axis' });
+      el(node, 'text', { x: x0 - 8, y: y0 - 12, 'text-anchor': 'end', class: 'axis-title' }, 'pp');
+
+      MECH.forEach((row, index) => {
+        const cx = x0 + step * index + step / 2;
+        const width = step * 0.3;
+        [[row.borrowing_effect_pp, palette.borrow, -width - 2],
+         [row.denominator_effect_pp, palette.denom, 2]].forEach(([value, color, offset]) => {
+          el(node, 'rect', {
+            x: cx + offset, y: Math.min(y(value), y(0)), width,
+            height: Math.abs(y(value) - y(0)), fill: color, stroke: palette.ink, 'stroke-width': 1.1
+          });
+        });
+        /* Yhteisvaikutus pisteena, jotta nakyy etta osat summautuvat siihen. */
+        el(node, 'circle', {
+          cx, cy: y(row.debt_pct_gdp_change_pp), r: 5,
+          fill: palette.ink, stroke: '#f5f1e8', 'stroke-width': 1.6
+        });
+        /* Lukema pisteen ylle valkoisella reunuksella, jotta se erottuu myos
+           pylvaan paalla osuessaan. */
+        el(node, 'text', {
+          x: cx, y: y(row.debt_pct_gdp_change_pp) - 13, 'text-anchor': 'middle', class: 'bar-label',
+          stroke: '#f5f1e8', 'stroke-width': '3.5', 'paint-order': 'stroke fill'
+        }, signed(row.debt_pct_gdp_change_pp, 1));
+        el(node, 'text', { x: cx, y: y1 + 20, 'text-anchor': 'middle', class: 'tick' }, String(row.year));
+        el(node, 'text', {
+          x: cx, y: y1 + 36, 'text-anchor': 'middle', class: 'tick', 'font-size': '10.5'
+        }, `nim. ${fmt(row.gdp_nominal_change_pct, 1)} %`);
+      });
+      el(node, 'text', { x: (x0 + x1) / 2, y: 404, 'text-anchor': 'middle', class: 'axis-title' },
+        'Alarivissä nimellisen BKT:n kasvu. Mitä nopeampi se on, sitä enemmän sininen painaa suhdetta alas.');
+    }
+
+    function chartDrivers() {
+      /* Naytetaan suurimmat erat molemmista suunnista, loput yhdistetaan. */
+      const named = DRIVERS.filter(row => Math.abs(row.gap_effect_eur) >= 3e8);
+      const restSum = DRIVERS
+        .filter(row => Math.abs(row.gap_effect_eur) < 3e8)
+        .reduce((sum, row) => sum + row.gap_effect_eur, 0);
+      const label = row => {
+        if (row.bucket === 'interest') return row.label;
+        return (row.bucket === 'expense' ? 'Menot · ' : 'Tulot · ') + row.label.replace('n hallinnonala', '');
+      };
+      const rows = named.map(row => ({ text: label(row), value: mrd(row.gap_effect_eur), bucket: row.bucket }));
+      if (Math.abs(restSum) > 1e7) {
+        rows.push({ text: `Muut erät yhteensä (${DRIVERS.length - named.length} kpl)`, value: mrd(restSum), bucket: 'other' });
+      }
+      rows.sort((a, b) => b.value - a.value);
+
+      const rowHeight = 27;
+      const height = 96 + rows.length * rowHeight;
+      const node = svg('chart-drivers', height,
+        'Menojen ja tulojen eroon vaikuttaneet erat vuodesta 2023 vuoteen 2025.');
+      const x0 = 250, xMid = 520, x1 = 856, y0 = 44;
+      const bound = Math.max(...rows.map(row => Math.abs(row.value))) * 1.1;
+      const x = scale(-bound, bound, x0, x1);
+
+      el(node, 'text', { x: x0, y: y0 - 30, class: 'axis-title' }, 'Miljardia euroa');
+      for (const value of [-bound, -bound / 2, 0, bound / 2, bound]) {
+        el(node, 'line', { x1: x(value), x2: x(value), y1: y0 - 10, y2: y0 + rows.length * rowHeight, class: 'grid' });
+        el(node, 'text', { x: x(value), y: y0 - 8, 'text-anchor': 'middle', class: 'tick' }, signed(value, 0));
+      }
+      el(node, 'line', { x1: x(0), x2: x(0), y1: y0 - 10, y2: y0 + rows.length * rowHeight, class: 'axis' });
+
+      rows.forEach((row, index) => {
+        const cy = y0 + index * rowHeight;
+        const color = row.bucket === 'interest' ? palette.interest
+          : (row.value >= 0 ? palette.borrow : palette.good);
+        const from = Math.min(x(0), x(row.value));
+        el(node, 'rect', {
+          x: from, y: cy, width: Math.abs(x(row.value) - x(0)), height: rowHeight - 10,
+          fill: color, stroke: palette.ink, 'stroke-width': 1.1
+        });
+        el(node, 'text', { x: x0 - 12, y: cy + 13, 'text-anchor': 'end', class: 'tick' }, row.text);
+        /* Pitkan palkin lukema sijoitetaan palkin sisaan, muuten se tormaisi
+           vasemmalla olevaan rivinimikkeeseen. */
+        const long = Math.abs(x(row.value) - x(0)) > 60;
+        const inside = long && row.value < 0;
+        const labelX = inside ? x(row.value) + 8 : (row.value >= 0 ? x(row.value) + 8 : x(row.value) - 8);
+        el(node, 'text', {
+          x: labelX, y: cy + 13,
+          'text-anchor': inside ? 'start' : (row.value >= 0 ? 'start' : 'end'),
+          class: 'bar-label', fill: inside ? '#f5f1e8' : '#171713'
+        }, signed(row.value, 2));
+      });
+      el(node, 'text', { x: 40, y: height - 24, class: 'axis-title' },
+        'Oikealle levittää menojen ja tulojen eroa, vasemmalle kaventaa sitä.');
+    }
+
+    function texts() {
+      const meta = DATA.meta;
+      const byYear = Object.fromEntries(MECH.map(row => [row.year, row]));
+      const y2022 = byYear[2022], y2024 = byYear[2024], y2025 = byYear[2025], y2021 = byYear[2021];
+      const y2020 = byYear[2020], y2023 = byYear[2023];
+      const interestRatio = y2025.interest_eur / y2021.interest_eur;
+
+      document.getElementById('s1').textContent = signed(y2022.denominator_effect_pp, 1);
+      document.getElementById('s2').textContent = signed(y2024.denominator_effect_pp, 1);
+      document.getElementById('s3').textContent = fmt(mrd(y2025.interest_eur), 1);
+      document.getElementById('s4').textContent = fmt(interestRatio, 1) + '×';
+
+      document.getElementById('f1').textContent =
+        `Vuonna 2022 velanotto nosti velkasuhdetta ${signed(y2022.borrowing_effect_pp, 1)} ` +
+        `prosenttiyksikköä, mutta nimellinen BKT painoi sitä ${signed(y2022.denominator_effect_pp, 1)} ` +
+        `alas, joten suhde liikkui vain ${signed(y2022.debt_pct_gdp_change_pp, 1)}. Nimellinen BKT ` +
+        `kasvoi tuolloin ${fmt(y2022.gdp_nominal_change_pct, 1)} prosenttia, vaikka volyymikasvu oli ` +
+        `vain ${fmt(y2022.gdp_volume_change_pct, 1)} prosenttia — ero oli inflaatiota. Vuonna 2024 ` +
+        `nimellinen kasvu oli enää ${fmt(y2024.gdp_nominal_change_pct, 1)} prosenttia, jolloin apu ` +
+        `kutistui ${signed(y2024.denominator_effect_pp, 1)} prosenttiyksikköön. Velanotto pysyi ` +
+        `samalla tasolla (${signed(y2023.borrowing_effect_pp, 1)} → ${signed(y2024.borrowing_effect_pp, 1)} → ` +
+        `${signed(y2025.borrowing_effect_pp, 1)}), joten koko liike näkyi suhteessa. Vertailun vuoksi ` +
+        `${y2020.year} nimittäjä jopa nosti suhdetta ${signed(y2020.denominator_effect_pp, 1)}, koska ` +
+        `talous kutistui.`;
+
+      const gapChange = mrd(meta.budget_gap_to_eur - meta.budget_gap_from_eur);
+      const interest = DRIVERS.find(row => row.bucket === 'interest');
+      const top = DRIVERS.filter(row => row.bucket === 'expense').slice(0, 2);
+      document.getElementById('f2').textContent =
+        `Menojen ja tulojen ero kaventui ${fmt(mrd(meta.budget_gap_from_eur), 1)} miljardista ` +
+        `${fmt(mrd(meta.budget_gap_to_eur), 1)} miljardiin eli ${signed(gapChange, 1)} miljardia, ` +
+        `koska tulot kasvoivat menoja enemmän. Velkasuhde nousi silti, mikä kertoo että suhteen ` +
+        `nousu ei tällä jaksolla johtunut alijäämän kasvusta vaan siitä, että velkakanta jatkoi ` +
+        `kasvuaan samalla kun nimittäjän apu katosi. Menopuolella eniten kasvoivat ` +
+        `${top.map(row => `${row.label.replace('n hallinnonala', '')} ${signed(mrd(row.gap_effect_eur), 2)} mrd`).join(' ja ')}. ` +
+        `Valtionvelan korot kasvoivat ${signed(mrd(interest.gap_effect_eur), 2)} miljardia ja olivat ` +
+        `${fmt(mrd(y2025.interest_eur), 1)} miljardia vuonna 2025, ${fmt(interestRatio, 1)} kertaa ` +
+        `enemmän kuin ${y2021.year}. Se on velan oma hinta, joka ei riipu siitä mihin raha käytetään.`;
+
+      const common = 'Kuukausi kohdennettu kalenterivuodelle, meno- ja tuloerottelu repon jaetulla ' +
+        'fiscal_side-säännöllä.';
+      document.getElementById('src1').textContent =
+        `Lähde: Tilastokeskus, julkisyhteisöjen EDP-velka ja kansantalouden tilinpito. ` +
+        `Velkasuhteen muutos hajotettu velanoton ja nimellisen BKT:n vaikutukseen niin, että osat ` +
+        `summautuvat muutokseen tarkalleen. Vuodet ${meta.year_from}–${meta.year_to}.`;
+      document.getElementById('src2').textContent =
+        `Lähde: Valtiokonttori, valtion taloushallinnon kuukausidata. Vertailu ${meta.compare_from} ` +
+        `vastaan ${meta.compare_to}; rakennemuutos ${meta.structural_event} estää vertailun vuoteen 2022. ` +
+        `${common} Korkomenot eroteltu pääluokasta 36.`;
+    }
+
+    texts();
+    chartMechanism();
+    chartDrivers();
+  </script>
+</body>
+</html>

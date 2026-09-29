@@ -1,0 +1,21 @@
+region_code,region_name_fi,region_type,official_uri,source_id,valid_from
+FI,Koko maa,country,http://www.yso.fi/onto/kunnat/suomi,thl_sotkanet_regions,2026-01-01
+MK01,Uusimaa,region,http://www.yso.fi/onto/kunnat/mk01,thl_sotkanet_regions,2026-01-01
+MK02,Varsinais-Suomi,region,http://www.yso.fi/onto/kunnat/mk02,thl_sotkanet_regions,2026-01-01
+MK04,Satakunta,region,http://www.yso.fi/onto/kunnat/mk04,thl_sotkanet_regions,2026-01-01
+MK05,Kanta-Häme,region,http://www.yso.fi/onto/kunnat/mk05,thl_sotkanet_regions,2026-01-01
+MK06,Pirkanmaa,region,http://www.yso.fi/onto/kunnat/mk06,thl_sotkanet_regions,2026-01-01
+MK07,Päijät-Häme,region,http://www.yso.fi/onto/kunnat/mk07,thl_sotkanet_regions,2026-01-01
+MK08,Kymenlaakso,region,http://www.yso.fi/onto/kunnat/mk08,thl_sotkanet_regions,2026-01-01
+MK09,Etelä-Karjala,region,http://www.yso.fi/onto/kunnat/mk09,thl_sotkanet_regions,2026-01-01
+MK10,Etelä-Savo,region,http://www.yso.fi/onto/kunnat/mk10,thl_sotkanet_regions,2026-01-01
+MK11,Pohjois-Savo,region,http://www.yso.fi/onto/kunnat/mk11,thl_sotkanet_regions,2026-01-01
+MK12,Pohjois-Karjala,region,http://www.yso.fi/onto/kunnat/mk12,thl_sotkanet_regions,2026-01-01
+MK13,Keski-Suomi,region,http://www.yso.fi/onto/kunnat/mk13,thl_sotkanet_regions,2026-01-01
+MK14,Etelä-Pohjanmaa,region,http://www.yso.fi/onto/kunnat/mk14,thl_sotkanet_regions,2026-01-01
+MK15,Pohjanmaa,region,http://www.yso.fi/onto/kunnat/mk15,thl_sotkanet_regions,2026-01-01
+MK16,Keski-Pohjanmaa,region,http://www.yso.fi/onto/kunnat/mk16,thl_sotkanet_regions,2026-01-01
+MK17,Pohjois-Pohjanmaa,region,http://www.yso.fi/onto/kunnat/mk17,thl_sotkanet_regions,2026-01-01
+MK18,Kainuu,region,http://www.yso.fi/onto/kunnat/mk18,thl_sotkanet_regions,2026-01-01
+MK19,Lappi,region,http://www.yso.fi/onto/kunnat/mk19,thl_sotkanet_regions,2026-01-01
+MK21,Ahvenanmaa,region,http://www.yso.fi/onto/kunnat/mk21,thl_sotkanet_regions,2026-01-01

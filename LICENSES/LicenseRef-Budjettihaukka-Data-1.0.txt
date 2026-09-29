@@ -1,0 +1,99 @@
+LicenseRef-Budjettihaukka-Data-1.0
+Budjettihaukan datan käsittelyn lisenssi
+Versio 1.0, 2026-09-29
+
+Tätä lisenssiä koskevaa lähdekoodia ei jaeta Budjettihaukan julkisessa
+repositoriossa eikä sen versiossa 3.0.0. Tiedosto kertoo ehdot, jos
+aineisto on saatu muuta kautta. Julkinen repositorio ei ole lupa.
+
+Copyright (C) 2026 Harri Juntunen
+
+Tämä teksti koskee Budjettihaukan datan käsittelyn aineistoa, jonka
+rajaus on tiedostossa LICENSING.md. Jos tämä lisenssi ja LICENSING.md
+eroavat sen suhteen, mikä tiedosto kuuluu datan käsittelyyn,
+LICENSING.md ratkaisee rajauksen. Tämän lisenssin ehdot ratkaisevat
+sen, mitä datan käsittelyn aineistolla saa tehdä.
+
+Tätä lisenssiä ei ole tarkastuttanut asianajaja. Se ei ole oikeudellinen
+neuvo. Tunniste LicenseRef-Budjettihaukka-Data-1.0 ei ole OSI-hyväksytty
+eikä SPDX-luettelon lisenssi.
+
+
+1. Ei avoin lisenssi
+
+Datan käsittelyn aineisto on tekijän omistamaa ja lähdekoodina
+nähtävillä. Se ei ole avointa lähdekoodia eikä avointa dataa.
+Julkinen näkyminen GitHub-repositoriossa ei ole käyttölupa.
+
+
+2. Mitä lupa ei kata
+
+Ilman Harri Juntusen etukäteen antamaa erillistä kirjallista lupaa
+aineistoa ei saa:
+
+- kopioida muuhun kuin omaan tilapäiseen katseluun repositoriosta
+- muokata, jatkaa tai yhdistää muuhun teokseen
+- ajaa tai ottaa osaksi palvelua, tuotetta tai sisäistä työkalua
+- jaella, julkaista, alilisensoida tai tarjota palveluna
+- käyttää mallin opettamiseen tai aineiston johdannaisten tuottamiseen
+
+Katselu julkisessa repositoriossa on sallittu. Siitä ei seuraa muita
+oikeuksia.
+
+Tekijänoikeuden haltija saa käyttää aineistoa rajoituksetta.
+
+
+3. Viralliset lähdeaineistot
+
+Tämä lisenssi ei siirrä tekijänoikeutta tai käyttöoikeutta viranomaisten
+ja julkisten lähteiden omiin julkaisuihin. Valtion talousarvio,
+Valtiokonttorin, valtiovarainministeriön, THL:n, Kelan, Tilastokeskuksen
+ja muiden viranomaisten luvut, taulukot ja tekstit pysyvät alkuperäisten
+ehtojensa alla.
+
+Jos tiedosto on pelkkä sanatarkka ote tällaisesta julkaisusta, lähteen
+omat ehdot ratkaisevat sen tiedoston käytön. Tämä lisenssi koskee
+Budjettihaukan omaa käsittelyä: lataajia, muunnoksia, SQL:ää, ontologiaa,
+valintasääntöjä, testejä, koosteita ja niistä tehtyjä johdannaisia.
+
+
+4. Ei patentti- tai tavaramerkkilupaa
+
+Lisenssi ei anna patentti-, tavaramerkki- tai nimenkäyttölupaa.
+Budjettihaukka-nimeä ei saa käyttää niin, että erillinen teos vaikuttaisi
+tekijän julkaisemalta tai hyväksymältä.
+
+
+5. Ei takuuta
+
+Aineisto tarjotaan sellaisenaan, ilman minkäänlaista takuuta, mukaan
+lukien hiljainen takuu soveltuvuudesta tiettyyn tarkoitukseen tai
+oikeuksien loukkaamattomuudesta. Tekijä ei vastaa aineiston käytöstä
+seuraavista vahingoista, siltä osin kuin pakottava laki sen sallii.
+
+
+6. Lisenssin pyytäminen
+
+Muuta käyttöä koskevat luvat:
+
+Harri Juntunen
+harri@juntunen.ai
+Aihe: Budjettihaukka, datan käsittelyn lisenssi
+
+Lupa ei siirry edelleen, ellei kirjallisessa luvassa toisin sanota.
+Lupa päättyy, jos ehtoja rikotaan eikä rikkomusta korjata 30 päivän
+kuluessa kirjallisesta huomautuksesta, silloin kun korjaaminen on
+mahdollista.
+
+
+7. Sovellettava laki
+
+Lisenssiin sovelletaan Suomen lakia, lainvalintasääntöjä lukuun ottamatta.
+
+
+8. Kontribuutiot
+
+Datan käsittelyn polkuihin tarjottu muutos ei tee muutoksesta avointa
+eikä siirrä tekijänoikeutta tarjoajalle takaisin laajempana lupana.
+Muutos lisensoidaan tällä lisenssillä, ellei kirjallisesti toisin sovita.
+Tarjoaja vakuuttaa, että hänellä on oikeus tarjota muutos näillä ehdoilla.

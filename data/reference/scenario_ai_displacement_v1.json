@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "dataset_id": "scenario_ai_displacement_v1",
+    "kind": "mekaaninen skenaariolaskelma, ei ennuste",
+    "baseline_year": 2025,
+    "baseline": {
+      "year": 2025,
+      "employed_persons": 2732100,
+      "hours_worked": 4224000000.0,
+      "gdp_nominal_eur": 281674000000.0,
+      "wages_and_salaries_eur": 114600000000.0,
+      "unemployed_persons": 278000,
+      "state_revenue_eur": 75300000000.0,
+      "state_expense_eur": 89300000000.0,
+      "income_and_capital_tax_eur": 26090000000.0,
+      "vat_eur": 22610000000.0,
+      "corporate_tax_eur": 5390000000.0,
+      "unemployment_benefit_eur": 1910000000.0,
+      "recent_productivity_growth_pct": 0.29
+    },
+    "assumptions": {
+      "displaced_share": 0.15,
+      "corporate_tax_rate": 0.2,
+      "profit_realisation_low": 0.3,
+      "profit_realisation_high": 0.7,
+      "extra_means_tested_per_person_eur_low": 1500.0,
+      "extra_means_tested_per_person_eur_high": 3000.0,
+      "horizons_years": [
+        10,
+        15,
+        20
+      ]
+    }
+  },
+  "labour": {
+    "displaced_persons": 409815.0,
+    "remaining_hours_factor": 0.85
+  },
+  "productivity_requirement": {
+    "lift_to_hold_gdp_pct": 17.647058823529417,
+    "annual_rate_by_horizon_pct": {
+      "10": 1.6384673297434205,
+      "15": 1.0893502078990203,
+      "20": 0.8159051587314892
+    },
+    "recent_actual_growth_pct": 0.29,
+    "multiple_of_recent": {
+      "10": 5.649887343942829,
+      "15": 3.7563800272380012,
+      "20": 2.813466064591342
+    }
+  },
+  "fiscal": {
+    "wage_bill_loss_eur": 17190000000.0,
+    "effective_state_tax_rate_on_wages": 0.22766143106457243,
+    "income_tax_loss_eur": 3913500000.0,
+    "state_benefit_per_unemployed_eur": 6870.503597122302,
+    "unemployment_benefit_cost_eur": 2815635431.6546764,
+    "means_tested_cost_low_eur": 614722500.0,
+    "means_tested_cost_high_eur": 1229445000.0,
+    "corporate_tax_offset_low_eur": 1031400000.0,
+    "corporate_tax_offset_high_eur": 2406600000.0,
+    "net_worsening_low_eur": 4937257931.654676,
+    "net_worsening_high_eur": 6927180431.654676,
+    "baseline_state_gap_eur": 14000000000.0,
+    "net_worsening_share_of_gap_low": 0.3526612808324769,
+    "net_worsening_share_of_gap_high": 0.4947986022610483
+  }
+}

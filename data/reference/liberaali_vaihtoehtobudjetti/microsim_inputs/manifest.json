@@ -1,0 +1,60 @@
+{
+  "sources": [
+    {
+      "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__tjt/statfin_tjt_pxt_128c.px/",
+      "path": "statfin_income_deciles_2024.json",
+      "response_sha256": "fde3c25b96437a99da5131d9f845f3856249fc16b5b41c9f22d38052e3f4ba03",
+      "retrieved_at": "2026-08-23",
+      "source_id": "statfin_income_deciles_2024"
+    },
+    {
+      "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__tjt/statfin_tjt_pxt_12ew.px/",
+      "path": "statfin_life_stage_deciles_2024.json",
+      "response_sha256": "5841893476747bc7398d03031dbfae33165016093a02255aacbcb6a29794bc67",
+      "retrieved_at": "2026-08-23",
+      "source_id": "statfin_life_stage_deciles_2024"
+    },
+    {
+      "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__tjt/statfin_tjt_pxt_15ar.px/",
+      "path": "statfin_socioeconomic_deciles_2024.json",
+      "response_sha256": "0068bb896c1916190d6887fa988c4280ab2e07b0e495374865178cb2fed7e221",
+      "retrieved_at": "2026-08-23",
+      "source_id": "statfin_socioeconomic_deciles_2024"
+    },
+    {
+      "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__tjt/statfin_tjt_pxt_122s.px/",
+      "path": "statfin_transfer_recipients_2024.json",
+      "response_sha256": "79acb6afa7753dfbbe4f3f41be16598fe3e584350a0a02b102395628e8068c44",
+      "retrieved_at": "2026-08-23",
+      "source_id": "statfin_transfer_recipients_2024"
+    },
+    {
+      "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__ktutk/statfin_ktutk_pxt_14pg.px/",
+      "path": "statfin_consumption_quintiles_2022.json",
+      "response_sha256": "4f510a52216841aee2da8c1d089577877bcead63850617deca56cf92568204c6",
+      "retrieved_at": "2026-08-23",
+      "source_id": "statfin_consumption_quintiles_2022"
+    },
+    {
+      "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__ktutk/statfin_ktutk_pxt_14ph.px/",
+      "path": "statfin_consumption_household_types_2022.json",
+      "response_sha256": "10e3a4eb41718cc77483db5fb1cee827f083e5ac292005d9171927cc19c21d2b",
+      "retrieved_at": "2026-08-23",
+      "source_id": "statfin_consumption_household_types_2022"
+    },
+    {
+      "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__ktutk/statfin_ktutk_pxt_14lv.px/",
+      "path": "statfin_consumption_type_background_2022.json",
+      "response_sha256": "e03766ac2f3ab7f42d51a07025ed6d6acea97edc6af676ad1dd544729b65b18b",
+      "retrieved_at": "2026-08-23",
+      "source_id": "statfin_consumption_type_background_2022"
+    },
+    {
+      "landing_page": "https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/StatFin__ktutk/statfin_ktutk_pxt_14qa.px/",
+      "path": "statfin_consumption_background_2022.json",
+      "response_sha256": "d38cdc1cfd395b1b5c75abf1876981eb3faee91a552ea12b9ccd1bd8d779cae3",
+      "retrieved_at": "2026-08-23",
+      "source_id": "statfin_consumption_background_2022"
+    }
+  ]
+}

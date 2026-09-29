@@ -1,0 +1,28 @@
+Budjettihaukka 3.0.0 — julkinen repositorio
+
+Copyright (C) 2026 Harri Juntunen
+
+Tässä repositoriossa on vain kaksi julkista osaa. Rajaus on tiedostossa
+LICENSING.md. Jos tämä tiivistelmä ja LICENSING.md eroavat, LICENSING.md
+ratkaisee.
+
+Avoin koodi
+  Sovelluksen kuori (käyttöliittymä, HTTP-rajapinta, kirjautuminen,
+  julkaisu ja infra) on lisensoitu GNU General Public License v3.0
+  -only -lisenssillä.
+  Teksti: LICENSES/GPL-3.0.txt
+
+Julkinen data
+  Hakemiston data/ aineistot ovat julkisia. Viranomaisten omat
+  tilastot ja talousarviojulkaisut pysyvät lähteen ehdoissa. Tämä
+  repositorio ei ota niitä omaan tekijänoikeuteen.
+
+Datan käsittely ei ole tässä repositoriossa
+  Analyysimoottori, lataajat, ontologia, SQL ja muu käsittelykoodi
+  eivät kuulu tähän julkaisuun eivätkä sen historiaan. Niitä koskee
+  erillinen lisenssi LicenseRef-Budjettihaukka-Data-1.0.
+  Teksti: LICENSES/LicenseRef-Budjettihaukka-Data-1.0.txt
+  Julkinen näkyminen ei ole käyttölupa, eikä aineistoa jaeta tästä
+  repositoriosta. Yhteydenotot: harri@juntunen.ai
+
+Kolmannen osapuolen kirjastot pysyvät omilla lisensseillään.
