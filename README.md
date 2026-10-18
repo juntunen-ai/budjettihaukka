@@ -4,6 +4,19 @@
 
 Tuotantopalvelu: [valtion-budjetti-data.web.app](https://valtion-budjetti-data.web.app)
 
+Vuoden 2027 vaihtoehtobudjetin kirjanpidollinen vertailu on sivulla
+`liberaali-vaihtoehtobudjetti-2027.html`. Sen korjatuilla luvuilla varsinainen
+alijäämä on 1 644 645 000 € ja rahoitustarve miljoonan euron
+velanlyhennysvarauksen kanssa 1 645 645 000 €. Vuoden 2026 skenaarioarvio
+säilyy erillisenä. Vuoden 2027 näkymä ei sisällä uutta makrosimulaatiota.
+
+Julkinen momenttiaineisto on tiedostossa
+`data/reference/liberaali_vaihtoehtobudjetti/vaihtoehtobudjetti_2027_v1.json`.
+Sen voi muodostaa paikallisesta korjatusta lähteestä komennolla
+`python scripts/build_liberaali_2027.py --csv /polku/korjattu.csv`.
+Muodostus tarkistaa summat ja julkaisee vain erikseen valitut tunniste- ja
+euromääräkentät. Sisäinen työtaulukko ei kuulu tähän repositorioon.
+
 Budjettihaukka on talouspoliittisen tiedon selaussovellus. Tämä julkinen
 repositorio sisältää sovelluksen avoimen koodin ja julkisen datan.
 Datan käsittely ei kuulu tähän lähdekoodiin.
