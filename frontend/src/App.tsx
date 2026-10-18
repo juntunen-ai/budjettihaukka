@@ -77,6 +77,9 @@ function TopNav({ adminMode, user, onSignOut }: { adminMode: boolean; user: User
   return (
     <div className="topnav">
       <div className="topnav-links">
+        <a className="topnav-link" href="./liberaali-vaihtoehtobudjetti-2027.html">
+          Vaihtoehtobudjetti 2027
+        </a>
         <a className="topnav-link" href="./liberaali-historiallinen-vastelaskelma.html">
           Vaihtoehtolaskelma
         </a>

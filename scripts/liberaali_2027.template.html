@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Ratkaisut rahapulaan 2027: korjatut momenttiluvut, budjettitasapaino ja vertailu hallituksen esitykseen.">
+  <link rel="icon" href="data:,">
+  <title>Ratkaisut rahapulaan 2027 | Budjettihaukka</title>
+  <style>
+    :root { --paper:#f7f3e9; --white:#fffdf7; --ink:#151512; --muted:#615d52; --yellow:#f6d84f; --red:#a92c22; --green:#18733a; }
+    * { box-sizing:border-box; } body { margin:0; background:var(--paper); color:var(--ink); font:17px/1.5 system-ui,sans-serif; }
+    a { color:inherit; text-underline-offset:3px; } .wrap { width:min(1180px,calc(100% - 40px)); margin:auto; }
+    header { background:var(--yellow); border-bottom:3px solid var(--ink); padding:28px 0 42px; }
+    nav { display:flex; align-items:center; flex-wrap:wrap; gap:16px; justify-content:space-between; font-weight:700; }
+    nav a { padding:7px 12px; border:2px solid var(--ink); border-radius:24px; text-decoration:none; }
+    h1 { font:900 clamp(2.4rem,7vw,5.8rem)/.98 system-ui,sans-serif; letter-spacing:-.06em; max-width:950px; margin:38px 0 20px; }
+    h2 { font-size:clamp(1.6rem,3vw,2.5rem); line-height:1.1; letter-spacing:-.035em; margin:0 0 20px; }
+    .lede { max-width:830px; font-size:1.2rem; } .eyebrow { font-size:.82rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:30px; }
+    .metric { padding-top:16px; border-top:3px solid var(--ink); } .metric strong { display:block; font-size:clamp(1.5rem,3vw,2.5rem); letter-spacing:-.04em; }
+    .metric span { display:block; font-size:.9rem; } section { padding:42px 0; border-bottom:2px solid var(--ink); }
+    .panel { padding:22px; border:2px solid var(--ink); background:var(--white); } .grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .balance { width:100%; border-collapse:collapse; } th,td { text-align:left; padding:12px; border-bottom:1px solid #15151225; vertical-align:top; }
+    .amount { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; } .negative { color:var(--red); } .positive { color:var(--green); }
+    .total { font-weight:800; border-top:2px solid var(--ink); } .muted { color:var(--muted); font-size:.9rem; }
+    .controls { display:flex; flex-wrap:wrap; gap:14px; align-items:end; margin:22px 0; }
+    label { display:grid; gap:5px; font-weight:700; font-size:.85rem; } input,select,button { font:inherit; padding:10px 12px; background:var(--white); color:var(--ink); border:2px solid var(--ink); border-radius:0; }
+    input { width:min(420px,100%); } button { cursor:pointer; font-weight:700; } button:hover { background:var(--yellow); }
+    .search { flex:1 1 300px; } .table-scroll { overflow-x:auto; border:2px solid var(--ink); background:var(--white); }
+    #moments { border-collapse:collapse; width:100%; font-size:.9rem; } #moments th { background:var(--ink); color:white; white-space:nowrap; }
+    #moments td:nth-child(2) { min-width:260px; } #moments td:first-child { white-space:nowrap; } #moments tr:nth-child(even) { background:#ebe3d344; }
+    .bar-row { display:grid; grid-template-columns:minmax(180px,1fr) 2fr 120px; align-items:center; gap:12px; margin:16px 0; font-size:.9rem; }
+    .bar-track { background:#15151212; height:18px; } .bar { height:18px; min-width:2px; background:#a92c22; } .bar.cut { background:#18733a; }
+    .bar-row strong { text-align:right; white-space:nowrap; } .corrections { padding-left:22px; } li { margin:10px 0; }
+    .downloads { display:flex; flex-wrap:wrap; gap:18px; margin-top:18px; } footer { padding:32px 0; }
+    details { margin:20px 0; } summary { cursor:pointer; font-weight:700; } .status { min-height:1.5em; } .sr-only { position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%); }
+    @media(max-width:700px) { .grid,.metrics { grid-template-columns:1fr; } header { padding-bottom:28px; } .bar-row { grid-template-columns:1fr 100px; } .bar-track { grid-row:2;grid-column:1 / -1; } .wrap { width:calc(100% - 28px); } section { padding:30px 0; } }
+  </style>
+</head>
+<body>
+  <header><div class="wrap">
+    <nav aria-label="Sivunavigaatio"><a href="./">Budjettihaukka</a><a href="./liberaali-vaihtoehtobudjetti-2026.html">Vuoden 2026 arvio</a><span class="eyebrow">Vaihtoehtobudjetti 2027</span></nav>
+    <h1>Ratkaisut rahapulaan 2027</h1>
+    <p class="lede">Liberaalipuolueen vaihtoehtobudjetin korjattu momenttivertailu. Vahvistetut määrärahakorjaukset jättävät budjetin alijäämäiseksi. Muita veroja tai menoja ei ole muutettu tasapainottamiseksi.</p>
+    <div class="metrics" aria-label="Budjetin kokonaisluvut">
+      <div class="metric"><strong id="income">78,603 mrd. €</strong><span>Tulot ilman uutta lainanottoa</span></div>
+      <div class="metric"><strong id="expenses">80,247 mrd. €</strong><span>Menot ilman velanlyhennysvarausta</span></div>
+      <div class="metric"><strong id="deficit">1,645 mrd. €</strong><span>Varsinainen alijäämä</span></div>
+    </div>
+  </div></header>
+  <main class="wrap">
+    <section aria-labelledby="balance-title"><div class="grid">
+      <div class="panel"><h2 id="balance-title">Budjetin tasapaino</h2>
+        <table class="balance"><caption class="sr-only">Korjatun budjetin euromääräinen tasapaino</caption><tbody id="balance-body"></tbody></table>
+        <p class="muted">Velanlyhennysvaraus on erillinen rahoituserä. Tulopuolen uutta nettolainanottoa on lähteessä 0 €. Rahoitustarve näytetään kattamattomana; sitä ei ole kirjattu automaattisesti lainaksi.</p>
+      </div>
+      <div class="panel"><h2>Vahvistetut korjaukset</h2><ul class="corrections" id="corrections"></ul>
+        <p class="muted">Välisummat, kokonaismäärät ja vuosivertailut on laskettu uudelleen. Vuoden 2026 arvio säilyy omana versionaan.</p>
+      </div>
+    </div></section>
+    <section aria-labelledby="changes-title"><h2 id="changes-title">Menojen muutokset hallinnonaloittain</h2>
+      <p class="muted">Vertailu aineiston hallituksen esitykseen. Vihreä palkki tarkoittaa menojen vähennystä, punainen lisäystä. Euromäärä näyttää muutoksen etumerkkeineen.</p>
+      <div id="department-bars" role="img" aria-label="Hallinnonalojen määrärahamuutokset, euromäärät tekstinä"></div>
+    </section>
+    <section aria-labelledby="moments-title"><h2 id="moments-title">Momenttien vertailu</h2>
+      <p>Hae momentin tunnuksella tai nimellä. Taulukossa ovat tason 3 momentit; verojen tarkemmat alaerittelyt sisältyvät ladattavaan aineistoon.</p>
+      <div class="controls">
+        <label class="search">Haku<input id="search" type="search" placeholder="Esimerkiksi sairausvakuutus tai 33.30.60." autocomplete="off"></label>
+        <label>Budjettipuoli<select id="side"><option value="meno">Menot</option><option value="tulo">Tulot</option><option value="all">Kaikki</option></select></label>
+        <label>Hallinnonala tai osasto<select id="department"><option value="all">Kaikki</option></select></label>
+        <label>Järjestys<select id="sort"><option value="code">Momenttitunnus</option><option value="change">Suurin muutos ensin</option><option value="amount">Suurin määräraha ensin</option></select></label>
+        <button id="download" type="button">Lataa valitut CSV:nä</button>
+      </div>
+      <p class="status muted" id="count" role="status" aria-live="polite"></p>
+      <div class="table-scroll"><table id="moments"><caption class="sr-only">Suodatetut vuoden 2027 momentit</caption><thead><tr><th scope="col">Momentti</th><th scope="col">Nimi</th><th scope="col">Hallituksen esitys, €</th><th scope="col">Liberaalipuolue, €</th><th scope="col">Muutos, €</th></tr></thead><tbody id="moment-body"></tbody></table></div>
+      <p class="muted">Uusilla momenteilla lähteen tyhjä vertailumäärä näytetään sanalla ”Uusi”. Menojen säästöissä muutos on negatiivinen; tulojen vähenemisessä sama etumerkki tarkoittaa pienempää kertymää.</p>
+    </section>
+    <section aria-labelledby="open-title"><h2 id="open-title">Vielä täsmennettävät kohdat</h2><ul id="open-findings"></ul>
+      <p class="muted">Nämä havainnot ovat jäljellä olevia selvitystarpeita. Niiden mahdollisia euromuutoksia ei ole sisällytetty korjattuun laskelmaan.</p>
+      <details><summary>Lähde ja laskennan rajaus</summary><p>Käyttäjän toimittama vuoden 2027 budjettitaulukko. Kirjanpidollinen vertailu perustuu taulukon omiin vertailumääriin. Virallista vuoden 2027 vertailubudjettia ei ole tässä erikseen varmennettu BigQuerystä.</p><p>Nykyinen näkymä ei siirrä vuoden 2026 makroskenaarion, historiallisen vastelaskelman tai kotitaloussimulaation tuloksia vuodelle 2027. Ne tarvitsevat erillisen laskennan.</p><p class="muted" id="source-meta"></p></details>
+      <div class="downloads"><a href="./data/liberaali-vaihtoehtobudjetti-2027.json" download>Lataa vuoden 2027 momenttiaineisto JSON-muodossa</a><a href="./liberaali-vaihtoehtobudjetti-2026.html">Avaa vuoden 2026 skenaarioarvio</a></div>
+    </section>
+  </main>
+  <footer><div class="wrap">Budjettihaukka · Ratkaisut rahapulaan 2027 · Päivitetty 18.10.2026</div></footer>
+  <script id="budget-data" type="application/json">__BUDGET_DATA__</script>
+  <script>
+    'use strict';
+    const data = JSON.parse(document.getElementById('budget-data').textContent);
+    const euro = new Intl.NumberFormat('fi-FI', {maximumFractionDigits:0});
+    const billion = new Intl.NumberFormat('fi-FI', {minimumFractionDigits:3,maximumFractionDigits:3});
+    const node = (tag, text, className='') => { const el=document.createElement(tag); el.textContent=text; if(className)el.className=className; return el; };
+    const a=data.accounting;
+    document.getElementById('income').textContent=billion.format(a.nonborrowing_revenue_eur/1e9)+' mrd. €';
+    document.getElementById('expenses').textContent=billion.format(a.expenditure_excluding_amortization_eur/1e9)+' mrd. €';
+    document.getElementById('deficit').textContent=billion.format(a.deficit_excluding_amortization_eur/1e9)+' mrd. €';
+    const balanceRows=[['Tulot ilman lainanottoa',a.nonborrowing_revenue_eur],['Menot ilman velanlyhennystä',a.expenditure_excluding_amortization_eur],['Varsinainen alijäämä',a.deficit_excluding_amortization_eur],['Velanlyhennysvaraus',a.amortization_reserve_eur],['Rahoitustarve yhteensä',a.financing_need_including_amortization_eur]];
+    for(const [i,[label,value]] of balanceRows.entries()){const tr=node('tr','',i===4?'total':'');tr.append(node('td',label),node('td',euro.format(value)+' €','amount'));document.getElementById('balance-body').append(tr);}
+    for(const c of data.corrections){document.getElementById('corrections').append(node('li',`${c.code} ${c.label}: ${c.before_eur===null?'puuttuva määrä':euro.format(c.before_eur)+' €'} → ${euro.format(c.after_eur)} €.`));}
+    for(const finding of data.open_findings)document.getElementById('open-findings').append(node('li',finding));
+    document.getElementById('source-meta').textContent=`Lähdeversion SHA-256: ${data.meta.source_sha256}. Hintataso: vuoden 2027 nimelliset eurot.`;
+    const departments=data.rows.filter(r=>r.side==='meno'&&r.level===1).sort((x,y)=>Math.abs(y.change_eur)-Math.abs(x.change_eur));
+    const max=Math.max(...departments.map(r=>Math.abs(r.change_eur)));
+    for(const r of departments){const row=node('div','','bar-row');const track=node('div','','bar-track');const bar=node('div','',r.change_eur<0?'bar cut':'bar');bar.style.width=(Math.abs(r.change_eur)/max*100)+'%';track.append(bar);row.append(node('span',r.name),track,node('strong',(r.change_eur>0?'+':'')+euro.format(r.change_eur/1e6)+' M€'));document.getElementById('department-bars').append(row);}
+    const sourceRows=data.rows.filter(r=>r.level===3);
+    const search=document.getElementById('search'),side=document.getElementById('side'),department=document.getElementById('department'),sort=document.getElementById('sort');
+    for(const name of [...new Set(sourceRows.map(r=>r.department))].sort((x,y)=>x.localeCompare(y,'fi'))){const opt=node('option',name);opt.value=name;department.append(opt);}
+    let selected=[];
+    function update(){const query=search.value.trim().toLocaleLowerCase('fi');selected=sourceRows.filter(r=>(side.value==='all'||r.side===side.value)&&(department.value==='all'||r.department===department.value)&&(`${r.code} ${r.name} ${r.department}`.toLocaleLowerCase('fi').includes(query)));
+      selected.sort((x,y)=>sort.value==='change'?Math.abs(y.change_eur)-Math.abs(x.change_eur):sort.value==='amount'?y.alternative_eur-x.alternative_eur:x.code.localeCompare(y.code,'fi',{numeric:true}));
+      const body=document.getElementById('moment-body');body.replaceChildren();
+      for(const r of selected){const tr=node('tr','');tr.append(node('td',r.code),node('td',r.name),node('td',r.baseline_eur===null?'Uusi':euro.format(r.baseline_eur),'amount'),node('td',euro.format(r.alternative_eur),'amount'),node('td',(r.change_eur>0?'+':'')+euro.format(r.change_eur),'amount'));body.append(tr);}
+      if(!selected.length){const tr=node('tr','');const td=node('td','Haulla ei löytynyt momentteja.');td.colSpan=5;tr.append(td);body.append(tr);}
+      document.getElementById('count').textContent=`${selected.length} momenttia · valittujen momenttien summa ${euro.format(selected.reduce((s,r)=>s+r.alternative_eur,0))} €.`;
+    }
+    for(const el of [search,side,department,sort])el.addEventListener(el===search?'input':'change',update);
+    document.getElementById('download').addEventListener('click',()=>{const lines=[['Momentti','Budjettipuoli','Nimi','Hallituksen esitys EUR','Liberaalipuolue EUR','Muutos EUR'],...selected.map(r=>[r.code,r.side,r.name,r.baseline_eur??'',r.alternative_eur,r.change_eur])];const quote=x=>'"'+String(x).replaceAll('"','""')+'"';const blob=new Blob(['\uFEFF'+lines.map(r=>r.map(quote).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob),link=node('a','');link.href=url;link.download='ratkaisut-rahapulaan-2027-momentit.csv';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+    update();
+  </script>
+</body>
+</html>
