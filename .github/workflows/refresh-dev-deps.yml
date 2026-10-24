@@ -1,0 +1,47 @@
+# One-off, feature-branch-only audit fixer. Remove before opening a PR.
+name: Investigate and fix frontend dev dependencies
+
+on:
+  push:
+    branches: [fix/dev-tooling-advisories-2026-10]
+    paths:
+      - .github/workflows/refresh-dev-deps.yml
+
+permissions:
+  contents: write
+
+jobs:
+  audit-fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Log bounded pre-fix audit summary
+        run: |
+          npm --prefix frontend audit --json > audit-before.json || true
+          node -e "const a = require('./audit-before.json'); for (const [k,v] of Object.entries(a.vulnerabilities || {})) console.log(k, v.severity, 'range='+v.range, 'fix='+JSON.stringify(v.fixAvailable));"
+
+      - name: Fix within supported semver ranges without package scripts
+        run: |
+          npm --prefix frontend audit fix --package-lock-only --ignore-scripts --no-fund || true
+
+      - name: Log bounded post-fix audit summary
+        run: |
+          npm --prefix frontend audit --json > audit-after.json || true
+          node -e "const a = require('./audit-after.json');console.log('counts='+JSON.stringify(a.metadata?.vulnerabilities||{}));for(const [k,v] of Object.entries(a.vulnerabilities || {})) console.log(k,v.severity,'range='+v.range,'fix='+JSON.stringify(v.fixAvailable));"
+
+      - name: Commit lockfile changes to feature branch
+        run: |
+          if ! git diff --quiet -- frontend/package-lock.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add frontend/package-lock.json
+            git commit -m "fix(deps): refresh compatible dev-tooling security patches"
+            git push origin HEAD:refs/heads/fix/dev-tooling-advisories-2026-10
+          else
+            echo "No semver-compatible audit fix changed the lockfile"
+          fi
