@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
 
 jobs:
@@ -18,6 +18,9 @@ jobs:
 
       - name: Compile the public Python shell
         run: python -m compileall api config.py
+
+      - name: Validate public 2027 budget reference
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
 
       - uses: actions/setup-node@v4
         with:
