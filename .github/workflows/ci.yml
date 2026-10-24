@@ -39,6 +39,6 @@ jobs:
           VITE_API_BASE_URL: ""
         run: npm run build
 
-      - name: Audit production frontend dependencies
+      - name: Audit all frontend dependencies
         working-directory: frontend
-        run: npm audit --omit=dev --audit-level=high
+        run: npm audit --audit-level=high
