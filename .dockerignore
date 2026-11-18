@@ -8,6 +8,7 @@ __pycache__
 *.pyc
 *.log
 .env*
+gcp-creds.json
 agent_data
 backups
 docs
