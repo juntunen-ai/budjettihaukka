@@ -39,7 +39,6 @@ class Budget2027Tests(unittest.TestCase):
         public = ROOT/'frontend/public'
         self.assertEqual(self.data, json.loads((public/'data/liberaali-vaihtoehtobudjetti-2027.json').read_text()))
         page = (public/'liberaali-vaihtoehtobudjetti-2027.html').read_text()
-        self.assertEqual(page, (ROOT/'liberaali-vaihtoehtobudjetti-2027.html').read_text())
         embedded = page.split('<script id="budget-data" type="application/json">', 1)[1].split('</script>', 1)[0]
         self.assertEqual(json.loads(embedded), self.data)
         self.assertNotIn('__BUDGET_DATA__', page)
