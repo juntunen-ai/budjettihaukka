@@ -16,7 +16,7 @@ _ENGINE_DETAIL = "Analyysimoottori ei kuulu tähän julkiseen lähdekoodiin."
 
 app = FastAPI(
     title="Budjettihaukka Analytics API",
-    version="3.0.0",
+    version="4.0.0",
     description="Public application shell. The analysis engine is not part of this source tree.",
 )
 
