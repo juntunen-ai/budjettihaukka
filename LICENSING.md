@@ -1,7 +1,7 @@
 # Budjettihaukan julkinen lisenssijako
 
-Versio 3.0.0 on julkisen repositorion ainoa julkaisu. Aiemmat julkaisut
-ja niiden historia on poistettu tästä repositoriosta.
+Julkisen repositorion julkaisut alkavat versiosta 3.0.0. Sitä aiemmat
+julkaisut ja niiden historia on poistettu tästä repositoriosta.
 
 ## Avoin koodi
 

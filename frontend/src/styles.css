@@ -678,6 +678,13 @@ button {
   color: #111111;
 }
 
+.footer-version {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: #6b6b6b;
+  font-variant-numeric: tabular-nums;
+}
+
 .footer-logo {
   display: flex;
   align-items: center;

@@ -67,6 +67,9 @@ function Footer() {
           Discord
         </a>
       </div>
+      <div className="footer-version" aria-label="Sovelluksen versio">
+        Budjettihaukka v{__APP_VERSION__}
+      </div>
     </footer>
   );
 }
