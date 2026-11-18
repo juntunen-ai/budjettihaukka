@@ -24,8 +24,14 @@ settings in GitHub; this document does not itself configure protection.
 2. Confirm the change is compatible with GPL-3.0-only and the data provenance
    and licensing boundaries documented in `LICENSING.md`.
 3. Wait for `CI` to pass on `develop` and on the release PR to `main`:
-   Python compilation, the public budget-reference consistency tests, and
-   the frontend TypeScript/Vite build.
+   Python compilation, the public offline tests in `tests/` (budget
+   reference consistency, release boundary, npm audit gate), the frontend
+   TypeScript/Vite build, and the npm audit gate
+   `python scripts/check_npm_audit.py --prefix frontend --exceptions frontend/npm-audit-exceptions.json`.
+   The gate fails on any high or critical advisory that is not covered by an
+   unexpired, dev-only exception in `frontend/npm-audit-exceptions.json`.
+   Each exception names the GHSA id, the affected packages, a reason and an
+   expiry date; renew or remove it before it expires.
 4. For a release involving public budget figures, validate source year,
    budget hierarchy, sums, rounding, and source documentation explicitly.
    Tests validate internal consistency, not the authoritative public figures.
@@ -54,12 +60,15 @@ verify the actual deployed Cloud Run revision, Firebase Hosting version,
 authenticated API behavior, and dataset/semantic-layer versions with authorized
 access. Keep a rollback target and deployment evidence.
 
-## Current boundary (2026-10-24)
+## Current boundary (2026-11-18)
 
 - Public GitHub Release `v3.0.0` was published on 2026-09-29. Its annotated
   tag targets commit `fdf911992f4ff736961c5c6e916b11015adf11f1`.
-- `main` includes a later 2027 alternative-budget change at
-  `97d3f897693d7a94749a2a9de101070356b9891e`. It has passed
-  `main` CI but has **not** been incorporated into a newer public release.
-- A future public release needs its own version, review and release checks;
-  the production deployment state has not been established by GitHub CI.
+- `4.0.0` is the next public release (`docs/releases/v4.0.0.md`). It
+  includes the 2027 alternative-budget change first merged to `main` at
+  `97d3f897693d7a94749a2a9de101070356b9891e`. Record its tag commit here
+  once published.
+- The public MCP server is maintained and deployed separately; its code is
+  not part of this repository. `tests/test_public_release_safety.py`
+  fails if MCP server or other private-layer paths appear in this tree.
+- The production deployment state is not established by GitHub CI.
