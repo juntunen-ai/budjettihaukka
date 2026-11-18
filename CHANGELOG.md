@@ -40,8 +40,6 @@ Versiot noudattavat semanttista versionumerointia.
 
 ### Tunnetut rajoitteet
 
-- npm audit -poikkeus GHSA-fc5q-39xc-vjpf (31.12.2026 asti) ei vastaa
-  enää mitään löydöstä, koska GitHub veti tiedotteen pois 18.11.2026.
 - Julkista kuorta ei viedä tuotantoon; tuotanto otetaan käyttöön
   yksityisestä repositoriosta.
 
