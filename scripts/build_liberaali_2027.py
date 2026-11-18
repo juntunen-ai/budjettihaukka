@@ -100,7 +100,6 @@ if __name__ == '__main__':
     # Escape HTML-significant characters in script data, independently of labels.
     embedded = json.dumps(data, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
     page = template.replace('__BUDGET_DATA__', embedded)
-    for dest in [ROOT/'liberaali-vaihtoehtobudjetti-2027.html',
-                 ROOT/'frontend/public/liberaali-vaihtoehtobudjetti-2027.html']:
+    for dest in [ROOT/'frontend/public/liberaali-vaihtoehtobudjetti-2027.html']:
         dest.write_text(page, encoding='utf-8')
     print(json.dumps(data['accounting'], ensure_ascii=False, indent=2))
