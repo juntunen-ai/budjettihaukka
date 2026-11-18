@@ -39,6 +39,8 @@ jobs:
           VITE_API_BASE_URL: ""
         run: npm run build
 
+      # Same high/critical gate as `npm audit --audit-level=high`, except advisories
+      # listed in frontend/npm-audit-exceptions.json: dev-only and until their expiry date.
+      # The gate's own tests run in the unittest step above (tests/test_check_npm_audit.py).
       - name: Audit all frontend dependencies
-        working-directory: frontend
-        run: npm audit --audit-level=high
+        run: python scripts/check_npm_audit.py --prefix frontend --exceptions frontend/npm-audit-exceptions.json

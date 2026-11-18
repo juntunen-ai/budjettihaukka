@@ -1,0 +1,10 @@
+{
+  "exceptions": [
+    {
+      "id": "GHSA-fc5q-39xc-vjpf",
+      "packages": ["picomatch", "fdir", "tinyglobby", "vite"],
+      "expires": "2026-12-31",
+      "reason": "picomatch ReDoS (extglob). No patched release exists: the advisory covers <=4.0.7, the latest version. The chain is build-time only (vite devDependency) and matches repository-controlled globs, never user input. The production dependency audit stays clean."
+    }
+  ]
+}
