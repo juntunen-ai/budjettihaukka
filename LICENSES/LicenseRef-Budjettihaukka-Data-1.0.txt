@@ -3,7 +3,7 @@ Budjettihaukan datan käsittelyn lisenssi
 Versio 1.0, 2026-09-29
 
 Tätä lisenssiä koskevaa lähdekoodia ei jaeta Budjettihaukan julkisessa
-repositoriossa eikä sen versiossa 3.0.0. Tiedosto kertoo ehdot, jos
+repositoriossa versiosta 3.0.0 alkaen. Tiedosto kertoo ehdot, jos
 aineisto on saatu muuta kautta. Julkinen repositorio ei ole lupa.
 
 Copyright (C) 2026 Harri Juntunen
